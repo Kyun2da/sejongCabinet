@@ -20,7 +20,9 @@ jobs:
           cd cabinet
           npm install
       - name: Build page
-        run: npm run build
+        run: |
+          cd cabinet 
+          npm run build
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
