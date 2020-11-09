@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { TextField, Button } from '@material-ui/core';
@@ -14,13 +14,26 @@ const Container = styled.div`
 `;
 
 const Login = () => {
-  const w = window.outerWidth;
-  const h = window.outerHeight;
   const history = useHistory();
-  const click = () => {
+  const [_id, setId] = useState('');
+  const [_password, setPassword] = useState('');
+  const onIdHandler = (e) => {
+    console.log(e.currentTarget.value);
+    setId(e.currentTarget.value);
+  };
+  const onPasswordHanlder = (e) => {
+    console.log(e.currentTarget.value);
+    setPassword(e.currentTarget.value);
+  };
+
+  const LoginSubmit = (e) => {
+    console.log('login clicked!');
+    e.preventDefault();
+  };
+  const toMainPage = () => {
     history.push('/main');
   };
-  const click2 = () => {
+  const toSignUp = () => {
     history.push('/signup');
   };
 
@@ -30,84 +43,173 @@ const Login = () => {
         <img
           src={Logo}
           alt="logo"
-          width={(w + h) / 12}
-          style={{ margin: '8rem 0 0 ' }}
+          width="180vw"
+          style={{ margin: '12vh 0 0 ' }}
         />
+
+        <p
+          style={{
+            fontSize: '2vw',
+            fontWeight: 'bold',
+            letterSpacing: '1vw',
+            borderBottom: '0.1vw solid black',
+            margin: '1.5rem 0 0',
+          }}
+        >
+          SEJONG UNIV
+        </p>
+        <p
+          style={{
+            fontSize: '1.2vw',
+            fontWeight: 'bolder',
+            letterSpacing: '0.8vw',
+            margin: '0.3rem 0 2rem',
+          }}
+        >
+          소프트웨어학과 사물함
+        </p>
+        <form
+          onSubmit={LoginSubmit}
+          name="login"
+          noValidate
+          autoComplete="off"
+          style={{
+            justifyContent: 'center',
+            flexDirection: 'column',
+            display: 'flex',
+          }}
+        >
+          <TextField
+            id="id"
+            label="ID"
+            variant="outlined"
+            onChange={onIdHandler}
+            style={{ width: '30vw', margin: '1vh' }}
+          />
+          <TextField
+            id="password"
+            label="Password"
+            variant="outlined"
+            onChange={onPasswordHanlder}
+            style={{ width: '30vw', margin: '1vh' }}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            style={{
+              width: '30vw',
+              height: '5vh',
+              backgroundColor: 'rgb(195,0,47)',
+              color: 'white',
+              border: '1px solid rgb(195,0,47)',
+              margin: '1vh',
+            }}
+          >
+            로그인
+          </Button>
+        </form>
+        <div style={{ display: 'inline-block', margin: '2vh 0 0' }}>
+          계정이 없으신가요?
+          <Button
+            onClick={toSignUp}
+            style={{
+              color: '#0500FF',
+              backgroundColor: 'transparent',
+              fontSize: '1rem',
+            }}
+          >
+            가입하기
+          </Button>
+        </div>
       </Default>
-      <Mobile>
+
+      <Mobile style={{ textalign: 'center' }}>
         <img
           src={Logo}
           alt="logo"
-          width={(w + h) / 6}
-          style={{ margin: '6rem 0 0 ' }}
+          width="100vw"
+          style={{ margin: '12vh 0 0 ' }}
         />
-      </Mobile>
-
-      <p
-        style={{
-          fontSize: '2rem',
-          letterSpacing: '1rem',
-          borderBottom: '1px solid black',
-          margin: '0.8rem 0 0',
-        }}
-      >
-        SEJONG UNIV
-      </p>
-      <p
-        style={{
-          fontSize: '1.2rem',
-          letterSpacing: '0.8rem',
-          margin: '0.3rem 0 2rem',
-        }}
-      >
-        소프트웨어학과 사물함
-      </p>
-      <form
-        noValidate
-        autoComplete="off"
-        style={{
-          justifyContent: 'center',
-          flexDirection: 'column',
-          display: 'flex',
-        }}
-      >
-        <TextField
-          id="id"
-          label="ID"
-          variant="outlined"
-          style={{ width: '30rem', margin: '0.5rem' }}
-        />
-        <TextField
-          id="password"
-          label="Password"
-          variant="outlined"
-          style={{ width: '30rem', margin: '0.5rem' }}
-        />
-      </form>
-      <Button
-        variant="contained"
-        style={{
-          width: '30rem',
-          backgroundColor: 'rgb(195,0,47)',
-          color: 'white',
-          border: '1px solid rgb(195,0,47)',
-        }}
-      >
-        로그인
-      </Button>
-      <div style={{ display: 'inline-block', margin: '1rem 0 0' }}>
-        계정이 없으신가요?
-        <Button
-          onClick={click2}
+        <p
           style={{
-            color: '#0500FF',
-            backgroundColor: 'transparent',
-            fontSize: '1rem',
+            fontSize: '3vh',
+            fontWeight: 'bold',
+            letterSpacing: '3vw',
+            borderBottom: '2px solid black',
+            margin: '1.5rem 0 0',
           }}
         >
-          가입하기
-        </Button>
-      </div>
+          SEJONG UNIV
+        </p>
+        <p
+          style={{
+            fontSize: '2vh',
+            fontWeight: 'bolder',
+            letterSpacing: '2vw',
+            margin: '0.3rem 0 2rem',
+          }}
+        >
+          소프트웨어학과 사물함
+        </p>
+        <form
+          noValidate
+          autoComplete="off"
+          onSubmit={LoginSubmit}
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column',
+            display: 'flex',
+          }}
+        >
+          <TextField
+            id="id"
+            label="ID"
+            variant="outlined"
+            onChange={onIdHandler}
+            style={{ width: '80vw', margin: '1vh 0' }}
+          />
+          <TextField
+            id="password"
+            label="Password"
+            variant="outlined"
+            onChange={onPasswordHanlder}
+            style={{ width: '80vw', margin: '1vh 0' }}
+          />
+          <Button
+            variant="contained"
+            type="submit"
+            style={{
+              width: '80vw',
+              height: '5vh',
+              backgroundColor: 'rgb(195,0,47)',
+              color: 'white',
+              border: '1px solid rgb(195,0,47)',
+              margin: '1vh',
+            }}
+          >
+            로그인
+          </Button>
+        </form>
+        <div
+          style={{
+            display: 'inline-block',
+            margin: '1rem 0 0',
+          }}
+        >
+          계정이 없으신가요?
+          <Button
+            onClick={toSignUp}
+            style={{
+              color: '#0500FF',
+              backgroundColor: 'transparent',
+              fontSize: '1rem',
+            }}
+          >
+            가입하기
+          </Button>
+        </div>
+      </Mobile>
     </Container>
   );
 };
