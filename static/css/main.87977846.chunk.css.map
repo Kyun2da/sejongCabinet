@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/Pages/Fadeout.css"],"names":[],"mappings":"AAAA,uBACE,SACF,CAEA,oDACE,SAAU,CACV,8BACF","file":"main.87977846.chunk.css","sourcesContent":[".homeTransition-appear {\n  opacity: 0;\n}\n\n.homeTransition-appear.homeTransition-appear-active {\n  opacity: 1;\n  transition: all 0.5s ease-in-out;\n}\n"]}
