@@ -1,32 +1,38 @@
-name: Deployment
+name: github pages
+
 on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
+    runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.0
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install Packages
-        run: |
+          node-version: "12.x"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - run: |
           cd cabinet
-          npm install
-      - name: Build page
-        run: |
-          cd cabinet 
-          npm run build
-        env:
-          CI: ""
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3.7.3
+          npm ci
+      - run: |
+        cd cabinet 
+        npm run build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./build
+          publish_dir: ./public
