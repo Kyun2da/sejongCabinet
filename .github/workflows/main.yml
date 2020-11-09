@@ -24,9 +24,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: |
-          cd cabinet
-          npm ci
+      - run: npm ci
       - run: |
           cd cabinet 
           npm run build
