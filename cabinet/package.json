@@ -3,14 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@types/react-responsive": "^8.0.2",
+    "@types/react-router-dom": "^5.1.6",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^6.15.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-responsive": "^8.1.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
+    "styled-components": "^5.2.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
@@ -20,7 +26,9 @@
     "eject": "react-scripts eject",
     "react-start": "set BROWSER=none && yarn start",
     "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
-    "electron-pack": "yarn build && electron-builder build -c.extraMetadata.main=build/Main.js"
+    "electron-pack": "yarn build && electron-builder build -c.extraMetadata.main=build/Main.js",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -30,7 +38,8 @@
     "rules": {
       "react/prefer-stateless-function": 0,
       "react/jsx-filename-extension": 0,
-      "react/jsx-one-expression-per-line": 0
+      "react/jsx-one-expression-per-line": 0,
+      "no-unused-vars": 1
     },
     "env": {
       "browser": true
@@ -53,5 +62,5 @@
     "electron-builder": "^22.9.1"
   },
   "main": "public/Main.js",
-  "homepage": "./"
+  "homepage": "https://Kyun2da.github.io/sejongCabinet"
 }
