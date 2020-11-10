@@ -20,9 +20,12 @@
     "react-scripts": "4.0.0",
     "react-transition-group": "^1.2.1",
     "redux": "^4.0.5",
+    "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "styled-components": "^5.2.1",
+    "sweetalert2": "^10.9.1",
+    "sweetalert2-react-content": "^3.2.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

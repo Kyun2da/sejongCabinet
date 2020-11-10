@@ -1,10 +1,12 @@
 import authTypes from './auth.types';
 
-const setCurrentUser = (user) => {
+export const setCurrentUser = (user) => {
   return {
     type: authTypes.SET_CURRENT_USER,
     payload: user,
   };
 };
 
-export default setCurrentUser;
+export const clearCurrentUser = () => ({
+  type: authTypes.CLEAR_CURRENT_USER,
+});

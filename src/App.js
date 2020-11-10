@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Login from './Pages/Login';
 import MainPage from './Pages/MainPage';
 import SignUp from './Pages/SignUp';
+import { auth } from './configs/firebase.config';
+import { setCurrentUser, clearCurrentUser } from './redux/auth/auth.actions';
 
 const Container = styled.div`
   -ms-user-select: none;
@@ -14,7 +16,20 @@ const Container = styled.div`
   user-select: none;
 `;
 
-function App() {
+const App = () => {
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    let unsubscribeFromAuth = null;
+    unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(setCurrentUser(user));
+      } else {
+        dispatch(clearCurrentUser());
+      }
+    });
+    return () => unsubscribeFromAuth();
+  }, [currentUser, setCurrentUser, clearCurrentUser]);
   return (
     <Container>
       <Router basename={`${process.env.PUBLIC_URL}/`}>
@@ -26,10 +41,6 @@ function App() {
       </Router>
     </Container>
   );
-}
+};
 
-const mapStateToProps = (state) => ({
-  currentUser: state.auth.currentUser,
-});
-
-export default connect(mapStateToProps)(App);
+export default App;
