@@ -1,20 +1,21 @@
 {
   "files": {
     "main.css": "/sejongCabinet/static/css/main.87977846.chunk.css",
-    "main.js": "/sejongCabinet/static/js/main.27631759.chunk.js",
-    "main.js.map": "/sejongCabinet/static/js/main.27631759.chunk.js.map",
+    "main.js": "/sejongCabinet/static/js/main.9b241435.chunk.js",
+    "main.js.map": "/sejongCabinet/static/js/main.9b241435.chunk.js.map",
     "runtime-main.js": "/sejongCabinet/static/js/runtime-main.61e00fda.js",
     "runtime-main.js.map": "/sejongCabinet/static/js/runtime-main.61e00fda.js.map",
-    "static/js/2.851925cb.chunk.js": "/sejongCabinet/static/js/2.851925cb.chunk.js",
-    "static/js/2.851925cb.chunk.js.map": "/sejongCabinet/static/js/2.851925cb.chunk.js.map",
+    "static/js/2.f1aef846.chunk.js": "/sejongCabinet/static/js/2.f1aef846.chunk.js",
+    "static/js/2.f1aef846.chunk.js.map": "/sejongCabinet/static/js/2.f1aef846.chunk.js.map",
     "index.html": "/sejongCabinet/index.html",
     "static/css/main.87977846.chunk.css.map": "/sejongCabinet/static/css/main.87977846.chunk.css.map",
-    "static/js/2.851925cb.chunk.js.LICENSE.txt": "/sejongCabinet/static/js/2.851925cb.chunk.js.LICENSE.txt"
+    "static/js/2.f1aef846.chunk.js.LICENSE.txt": "/sejongCabinet/static/js/2.f1aef846.chunk.js.LICENSE.txt",
+    "static/media/Test.7b8fd57e.png": "/sejongCabinet/static/media/Test.7b8fd57e.png"
   },
   "entrypoints": [
     "static/js/runtime-main.61e00fda.js",
-    "static/js/2.851925cb.chunk.js",
+    "static/js/2.f1aef846.chunk.js",
     "static/css/main.87977846.chunk.css",
-    "static/js/main.27631759.chunk.js"
+    "static/js/main.9b241435.chunk.js"
   ]
 }
