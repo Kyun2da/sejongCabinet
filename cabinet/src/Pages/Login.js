@@ -29,6 +29,7 @@ const Login = () => {
   const LoginSubmit = (e) => {
     console.log('login clicked!');
     e.preventDefault();
+    history.push('/main');
   };
   const toMainPage = () => {
     history.push('/main');
