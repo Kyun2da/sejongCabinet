@@ -2,13 +2,8 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { TextField, Button } from '@material-ui/core';
-import Swal from 'sweetalert2';
-import { useDispatch } from 'react-redux';
 import Logo from '../image/Logo.png';
 import { Mobile, Default } from '../MediaQuery';
-import { auth, database } from '../configs/firebase.config';
-import getFirebaseErrorMessage from '../utils/error/auth/authError';
-import { setCurrentUserNameAndID } from '../redux/auth/auth.reducer';
 
 const Container = styled.div`
   display: flex;
@@ -20,7 +15,6 @@ const Container = styled.div`
 
 const Login = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
   const [_id, setId] = useState('');
   const [_password, setPassword] = useState('');
   const onIdHandler = (e) => {
@@ -31,44 +25,15 @@ const Login = () => {
     console.log(e.currentTarget.value);
     setPassword(e.currentTarget.value);
   };
-  const toMainPage = () => {
-    history.push('/main');
-  };
-  const getData = (userId) => {
-    database.ref(`users/${userId}`).on('value', function (snapshot) {
-      console.log(snapshot);
-      dispatch(
-        setCurrentUserNameAndID({
-          studentId: snapshot.val().studentID,
-          name: snapshot.val().name,
-        }),
-      );
-    });
-  };
+
   const LoginSubmit = (e) => {
     console.log('login clicked!');
     e.preventDefault();
-    auth
-      .signInWithEmailAndPassword(_id, _password)
-      .then((user) => {
-        // TODO : 디스패치로 user 값 넣고 추가정보 넣어야함
-        console.log(user);
-        getData(user.user.uid);
-        toMainPage();
-      })
-      .catch((err) => {
-        console.error(err);
-        Swal.fire({
-          icon: 'error',
-          title: '로그인 실패',
-          text: getFirebaseErrorMessage(err.code),
-          showConfirmButton: true,
-          width: '25rem',
-          timer: 2000,
-        });
-      });
+    history.push('/main');
   };
-
+  const toMainPage = () => {
+    history.push('/main');
+  };
   const toSignUp = () => {
     history.push('/signup');
   };
@@ -125,7 +90,6 @@ const Login = () => {
           <TextField
             id="password"
             label="Password"
-            type="password"
             variant="outlined"
             onChange={onPasswordHanlder}
             style={{ width: '30vw', margin: '1vh' }}
