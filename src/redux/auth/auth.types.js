@@ -1,0 +1,8 @@
+const authTypes = {
+  // consts here
+  SET_CURRENT_USER: 'SET_CURRENT_USER',
+  SET_CURRENT_USER_NAME_AND_ID: 'SET_CURRENT_USER_NAME_AND_ID',
+  CLEAR_CURRENT_USER: 'CLEAR_CURRENT_USER',
+};
+
+export default authTypes;
