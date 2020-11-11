@@ -93,13 +93,13 @@ const SignUp = () => {
           <img
             src={Logo}
             alt="logo"
-            width="90vw"
-            style={{ margin: '3vh 0 0 ' }}
+            width="70vw"
+            style={{ margin: '1vh 0 0 ' }}
           />
 
           <p
             style={{
-              fontSize: '1vw',
+              fontSize: '0.8vw',
               fontWeight: 'bold',
               letterSpacing: '0.5vw',
               borderBottom: '0.1vw solid black',
@@ -110,7 +110,7 @@ const SignUp = () => {
           </p>
           <p
             style={{
-              fontSize: '0.8vw',
+              fontSize: '0.6vw',
               fontWeight: 'bolder',
               letterSpacing: '0.4vw',
               margin: '0.15rem 0 3rem',
@@ -204,7 +204,7 @@ const SignUp = () => {
             src={Logo}
             alt="logo"
             width="60vw"
-            style={{ margin: '8vh 0 0 ' }}
+            style={{ margin: '3vh 0 0 ' }}
           />
           <p
             style={{
@@ -252,19 +252,19 @@ const SignUp = () => {
               id="id"
               label="ID"
               variant="outlined"
-              style={{ width: '80vw', margin: '1.5vh 0.1vw' }}
+              style={{ width: '80vw', margin: '1vh 0.1vw' }}
             />
             <TextField
               id="password"
               label="Password"
               variant="outlined"
-              style={{ width: '80vw', margin: '1.5vh 0.1vw' }}
+              style={{ width: '80vw', margin: '1vh 0.1vw' }}
             />
             <TextField
               id="studentID"
               label="학번"
               variant="outlined"
-              style={{ width: '80vw', margin: '1.5vh 0.1vw' }}
+              style={{ width: '80vw', margin: '1vh 0.1vw' }}
             />
             <Button
               variant="contained"

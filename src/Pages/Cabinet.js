@@ -15,22 +15,19 @@ import {
 import { Default } from '../MediaQuery';
 
 const Content = styled.div`
-  position: absolute;
-  flex: 10;
-  flex-direction: row;
-  height: 50vh;
-  width: 100%;
+  padding: 0 1vw;
 `;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    width: 'auto',
+    overflow: 'hidden',
   },
   button: {
-    padding: theme.spacing(1),
     border: '3px solid #00d145',
-    textAlign: 'center',
+    padding: theme.spacing(1),
     width: '6vw',
+    textAlign: 'center',
     color: 'gray',
     '&:hover': {
       backgroundColor: '#00d145',
@@ -38,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   button2: {
-    padding: theme.spacing(1),
     textAlign: 'center',
+    padding: theme.spacing(1),
     width: '6vw',
     color: 'white',
     backgroundColor: 'gray',
@@ -48,8 +45,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   button3: {
-    padding: theme.spacing(1),
     textAlign: 'center',
+    padding: theme.spacing(1),
     width: '6vw',
     color: 'white',
     backgroundColor: 'lightgray',
@@ -70,7 +67,7 @@ const Cabinet = ({ data }) => {
     return column.map((v, index) => {
       if (v === 0) {
         return (
-          <Grid item xs>
+          <Grid item xs={1}>
             <Button className={classes.button}>
               {index + num + i * height}
             </Button>
@@ -79,7 +76,7 @@ const Cabinet = ({ data }) => {
       }
       if (v === 1) {
         return (
-          <Grid item xs>
+          <Grid item xs={1}>
             <Button className={classes.button2}>
               {index + num + i * height}
             </Button>
@@ -87,7 +84,7 @@ const Cabinet = ({ data }) => {
         );
       }
       return (
-        <Grid item xs>
+        <Grid item xs={1}>
           <Button className={classes.button3} disabled>
             수리중
           </Button>
@@ -98,7 +95,7 @@ const Cabinet = ({ data }) => {
 
   const showGridColumn = () => {
     return row.map((v, i) => (
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
         {loadGridRow(i)}
       </Grid>
     ));
@@ -109,14 +106,8 @@ const Cabinet = ({ data }) => {
   };
 
   return (
-    <div
-      style={{
-        width: '100%',
-        height: '80vh',
-        overflow: 'hidden',
-      }}
-    >
-      <p style={{ fontSize: '4rem' }}>{title}</p>
+    <div>
+      <p style={{ fontSize: '3vw' }}>{title}</p>
       <Content>
         <div className={classes.root}>{showGridRow()}</div>
       </Content>
