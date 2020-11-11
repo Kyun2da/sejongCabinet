@@ -10,6 +10,7 @@ import {
   TabPanel,
 } from '@material-ui/core';
 import Cabinet from './Cabinet';
+import Logo from '../image/Logo.png';
 import { Default, Mobile } from '../MediaQuery';
 import test from '../image/Test.png';
 
@@ -18,6 +19,7 @@ const Container = styled.div`
   justify-contents: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 9vh;
   height: 80%;
   width: 100%;
 `;
@@ -27,12 +29,22 @@ const styles = {
     height: '9vh',
   },
 
-  tab: {
+  tab_pc: {
     opacity: '0.5',
     fontSize: '2vw',
     letterSpacing: '0.0001px',
     borderRadius: '10px',
     width: '15vw',
+  },
+
+  tab_mobile: {
+    opacity: '0.5',
+    fontSize: '5vw',
+    margin: '0',
+    letterSpacing: '0.0001px',
+    justifyContent: 'center',
+    borderRadius: '10px',
+    width: 'auto',
   },
 
   slide: {
@@ -91,16 +103,30 @@ const MainPage = () => {
     setIndex(newValue);
   };
 
-  const LoadTabs = () => {
+  const LoadTabsPc = () => {
     return data.map((i) => {
-      return <Tab label={i.title} style={styles.tab} />;
+      return <Tab label={i.title} style={styles.tab_pc} />;
     });
   };
 
-  const showTabs = () => {
+  const showTabsPc = () => {
     return (
       <Tabs value={index} fullWidth onChange={handleChange} style={styles.tabs}>
-        {LoadTabs()}
+        {LoadTabsPc()}
+      </Tabs>
+    );
+  };
+
+  const LoadTabsMobile = () => {
+    return data.map((i) => {
+      return <Tab label={i.title} style={styles.tab_mobile} />;
+    });
+  };
+
+  const showTabsMobile = () => {
+    return (
+      <Tabs value={index} fullWidth onChange={handleChange} style={styles.tabs}>
+        {LoadTabsMobile()}
       </Tabs>
     );
   };
@@ -121,10 +147,27 @@ const MainPage = () => {
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
+      <header>
+        <div
+          style={{
+            backgroundColor: 'black',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '8vh',
+          }}
+        >
+          <Button onClick={() => visibleMap(true)}>
+            <img
+              src={Logo}
+              alt="logo"
+              style={{ width: '2.5vw', backgroundColor: 'white' }}
+            />
+          </Button>
+        </div>
+      </header>
       <Container>
-        <header>
-          <Button onClick={() => visibleMap(true)}>MAP 버튼</Button>
-        </header>
         <SwipeableDrawer
           anchor="top"
           open={_map}
@@ -144,13 +187,13 @@ const MainPage = () => {
         </SwipeableDrawer>
         <Default>
           <div style={{ width: '80%' }}>
-            {showTabs()}
+            {showTabsPc()}
             {showContents()}
           </div>
         </Default>
         <Mobile>
           <div style={{ width: '100vw' }}>
-            {showTabs()}
+            {showTabsMobile()}
             {showContents()}
           </div>
         </Mobile>
