@@ -9,6 +9,8 @@ import {
   AppBar,
   TabPanel,
 } from '@material-ui/core';
+import EjectIcon from '@material-ui/icons/Eject';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import { useHistory } from 'react-router-dom';
 import Cabinet from './Cabinet';
 import Logo from '../image/Logo.png';
@@ -78,21 +80,21 @@ const MainPage = () => {
       width: 6,
       height: 6,
       row: [0, 0, 2, 0, 0, 1],
-      column: [1, 2, 0, 0, 1, 0],
+      column: [1, 1, 1, 1, 1, 1],
     },
     {
       title: '085',
       width: 10,
       height: 6,
       row: [0, 0, 2, 0, 0, 1],
-      column: [1, 0, 0, 2, 1, 0, 2, 1, 0, 1],
+      column: [1, 0, 2, 2, 1, 0, 2, 1, 0, 1],
     },
     {
       title: '145',
       width: 6,
       height: 6,
       row: [0, 0, 2, 0, 0, 1],
-      column: [1, 0, 0, 2, 1, 0],
+      column: [0, 0, 0, 0, 0, 0],
     },
   ];
   const cabinetSize = data.length;
@@ -164,87 +166,95 @@ const MainPage = () => {
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
-      <Default>
-        <header>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'black',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '10vh',
-              width: '100%',
-            }}
-          >
-            <div style={{ left: '2vw', position: 'fixed' }}>
-              <img
-                src={Logo}
-                alt="logo"
-                style={{
-                  width: '3vw',
-                  backgroundColor: 'white',
-                }}
-              />
-            </div>
-            <div style={{}}>
-              <Button
-                onClick={() => visibleMap(true)}
-                style={{ backgroundColor: 'white', width: '5vw' }}
-              >
-                MAP
-              </Button>
-            </div>
-            <div
+      <header>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'black',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '10vh',
+            width: '100%',
+          }}
+        >
+          <div style={{ left: '2vw', position: 'fixed' }}>
+            <img
+              src={Logo}
+              alt="logo"
               style={{
-                position: 'fixed',
-                right: '5vw',
+                width: '3vw',
                 backgroundColor: 'white',
               }}
-            >
-              USER NAME
-              <Button onClick={onClickLogout}>LOGOUT</Button>
-            </div>
+            />
           </div>
-        </header>
-        <Container style={{ marginTop: '15vh' }}>
-          <SwipeableDrawer
-            anchor="top"
-            open={_map}
-            onClick={() => visibleMap(false)}
-          >
-            <div
-              style={{
-                display: 'flex',
-                width: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '10vh 0',
-              }}
+          <div style={{}}>
+            <Button
+              onClick={() => visibleMap(true)}
+              style={{ backgroundColor: 'white', width: '5vw' }}
             >
-              <img src={test} alt="map" width="1000vw" />
-            </div>
-          </SwipeableDrawer>
+              <EjectIcon />
+            </Button>
+          </div>
+          <div
+            style={{
+              position: 'fixed',
+              right: '5vw',
+              backgroundColor: 'white',
+              borderRadius: '0.5rem',
+              padding: '0.5vh 1vw',
+            }}
+          >
+            USER NAME
+            <Button
+              onClick={onClickLogout}
+              style={{ backgroundColor: 'transparent', marginLeft: '2vw' }}
+            >
+              <PowerSettingsNewIcon />
+            </Button>
+          </div>
+        </div>
+      </header>
+      <Container style={{ marginTop: '15vh' }}>
+        <SwipeableDrawer
+          anchor="top"
+          open={_map}
+          onClick={() => visibleMap(false)}
+        >
           <div
             style={{
               display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+              width: '100%',
               justifyContent: 'center',
+              alignItems: 'center',
+              padding: '10vh 0',
+              backgroundColor: 'rgb(240,240,240)',
             }}
           >
-            {showTabsPc()}
-            {showContents()}
+            <img
+              src={test}
+              alt="map"
+              width="800vw"
+              style={{ backgroundColor: 'white' }}
+            />
           </div>
-        </Container>
-      </Default>
-      <Mobile>
-        <Container>hi</Container>
-      </Mobile>
+        </SwipeableDrawer>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {showTabsPc()}
+          {showContents()}
+        </div>
+      </Container>
     </div>
   );
 };
