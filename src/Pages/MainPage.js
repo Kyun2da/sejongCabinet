@@ -9,6 +9,7 @@ import {
   AppBar,
   TabPanel,
 } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import Cabinet from './Cabinet';
 import Logo from '../image/Logo.png';
 import { Default, Mobile } from '../MediaQuery';
@@ -34,12 +35,14 @@ const styles = {
     fontSize: '2vw',
     letterSpacing: '0.0001px',
     borderRadius: '10px',
+    fontFamily: 'Anton',
     width: '15vw',
   },
 
   tab_mobile: {
     opacity: '0.5',
     fontSize: '5vw',
+    fontFamily: 'Anton',
     margin: '0',
     letterSpacing: '0.0001px',
     justifyContent: 'center',
@@ -48,12 +51,13 @@ const styles = {
   },
 
   slide: {
-    padding: 15,
+    padding: 1,
     minHeight: 100,
   },
 };
 
 const MainPage = () => {
+  const history = useHistory();
   const data = [
     {
       title: '001',
@@ -94,6 +98,10 @@ const MainPage = () => {
   const cabinetSize = data.length;
   const [_map, visibleMap] = useState(false);
   const [index, setIndex] = useState(0);
+
+  const onClickLogout = () => {
+    history.push('/');
+  };
 
   const handleChangeIndex = (value) => {
     setIndex(value);
@@ -139,7 +147,16 @@ const MainPage = () => {
 
   const showContents = () => {
     return (
-      <SwipeableViews index={index} onChangeIndex={handleChangeIndex}>
+      <SwipeableViews
+        index={index}
+        onChangeIndex={handleChangeIndex}
+        style={{
+          margin: '5vh 5vw',
+          padding: '3vh 0 3vh 3vw',
+          border: '0.5vh solid lightgray',
+          borderRadius: '2vw',
+        }}
+      >
         {LoadContents()}
       </SwipeableViews>
     );
@@ -147,57 +164,87 @@ const MainPage = () => {
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
-      <header>
-        <div
-          style={{
-            backgroundColor: 'black',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '8vh',
-          }}
-        >
-          <Button onClick={() => visibleMap(true)}>
-            <img
-              src={Logo}
-              alt="logo"
-              style={{ width: '2.5vw', backgroundColor: 'white' }}
-            />
-          </Button>
-        </div>
-      </header>
-      <Container>
-        <SwipeableDrawer
-          anchor="top"
-          open={_map}
-          onClick={() => visibleMap(false)}
-        >
+      <Default>
+        <header>
           <div
             style={{
               display: 'flex',
-              width: '100%',
-              justifyContent: 'center',
+              flexDirection: 'column',
               alignItems: 'center',
-              padding: '10vh 0',
+              justifyContent: 'center',
+              backgroundColor: 'black',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '10vh',
+              width: '100%',
             }}
           >
-            <img src={test} alt="map" width="1000vw" />
+            <div style={{ left: '2vw', position: 'fixed' }}>
+              <img
+                src={Logo}
+                alt="logo"
+                style={{
+                  width: '3vw',
+                  backgroundColor: 'white',
+                }}
+              />
+            </div>
+            <div style={{}}>
+              <Button
+                onClick={() => visibleMap(true)}
+                style={{ backgroundColor: 'white', width: '5vw' }}
+              >
+                MAP
+              </Button>
+            </div>
+            <div
+              style={{
+                position: 'fixed',
+                right: '5vw',
+                backgroundColor: 'white',
+              }}
+            >
+              USER NAME
+              <Button onClick={onClickLogout}>LOGOUT</Button>
+            </div>
           </div>
-        </SwipeableDrawer>
-        <Default>
-          <div style={{ width: '80%' }}>
+        </header>
+        <Container style={{ marginTop: '15vh' }}>
+          <SwipeableDrawer
+            anchor="top"
+            open={_map}
+            onClick={() => visibleMap(false)}
+          >
+            <div
+              style={{
+                display: 'flex',
+                width: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '10vh 0',
+              }}
+            >
+              <img src={test} alt="map" width="1000vw" />
+            </div>
+          </SwipeableDrawer>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             {showTabsPc()}
             {showContents()}
           </div>
-        </Default>
-        <Mobile>
-          <div style={{ width: '100vw' }}>
-            {showTabsMobile()}
-            {showContents()}
-          </div>
-        </Mobile>
-      </Container>
+        </Container>
+      </Default>
+      <Mobile>
+        <Container>hi</Container>
+      </Mobile>
     </div>
   );
 };

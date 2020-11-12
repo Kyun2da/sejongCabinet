@@ -15,7 +15,7 @@ import {
 import { Default } from '../MediaQuery';
 
 const Content = styled.div`
-  padding: 0 1vw;
+  font-family: 'Anton';
 `;
 
 const useStyles = makeStyles((theme) => ({
@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     border: '3px solid #00d145',
     padding: theme.spacing(1),
+    fontFamily: 'Anton',
     width: '6vw',
     textAlign: 'center',
     color: 'gray',
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   button2: {
     textAlign: 'center',
     padding: theme.spacing(1),
+    fontFamily: 'Anton',
     width: '6vw',
     color: 'white',
     backgroundColor: 'gray',
@@ -46,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button3: {
     textAlign: 'center',
+    fontFamily: 'Anton',
     padding: theme.spacing(1),
     width: '6vw',
     color: 'white',
@@ -107,7 +110,9 @@ const Cabinet = ({ data }) => {
 
   return (
     <div>
-      <p style={{ fontSize: '3vw' }}>{title}</p>
+      <p style={{ fontSize: '3vw', marginTop: '0', fontFamily: 'Anton' }}>
+        {title}
+      </p>
       <Content>
         <div className={classes.root}>{showGridRow()}</div>
       </Content>
