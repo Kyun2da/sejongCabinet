@@ -1623,6 +1623,13 @@
     react-is "^16.8.0"
     react-transition-group "^4.4.0"
 
+"@material-ui/icons@^4.9.1":
+  version "4.9.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.9.1.tgz#fdeadf8cb3d89208945b33dbc50c7c616d0bd665"
+  integrity sha512-GBitL3oBWO0hzBhvA9KxqcowRUsA0qzwKkURyC8nppnC3fw54KPKZ+d4V1Eeg/UnDRSzDaI9nGCdel/eh9AQMg==
+  dependencies:
+    "@babel/runtime" "^7.4.4"
+
 "@material-ui/styles@^4.10.0":
   version "4.10.0"
   resolved "https://registry.yarnpkg.com/@material-ui/styles/-/styles-4.10.0.tgz#2406dc23aa358217aa8cc772e6237bd7f0544071"
@@ -12106,10 +12113,10 @@ sweetalert2-react-content@^3.2.1:
   resolved "https://registry.yarnpkg.com/sweetalert2-react-content/-/sweetalert2-react-content-3.2.1.tgz#e3c8b80ee8c8f5a85b8d777f50814e2c58e4e7d3"
   integrity sha512-0BsmZwiP8tf05ZrMTGKoI0JQ14dhghxCXL02U5992+DEWt7a0vLEi2T8F3juX9gz5hjePcL2S6ue3DlXFD32+Q==
 
-sweetalert2@^10.9.1:
-  version "10.9.1"
-  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-10.9.1.tgz#e3df396230d829925dbb30aadea5430b5e17dec1"
-  integrity sha512-StLC1DI646iYUWH4I35HDytfLaz5lBAyvc0rGZ1yx+U8y4NJIcOKbgAFocgM+J4PElGCB6/EZMfTt4JhUAtF5g==
+sweetalert2@^10.10.0:
+  version "10.10.0"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-10.10.0.tgz#84e8fe1c1c756059196fd89c49790d4bfb954b93"
+  integrity sha512-TnYWt1hnPw/jkK1IqPpFT4yMZGE9VsKJApzd0dcjsrE8biykeoECpIgV8DzRVvWufit/1Z2m5Zdyo2hjBfGzoQ==
 
 symbol-observable@^1.2.0:
   version "1.2.0"

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { CSSTransitionGroup } from 'react-transition-group';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, makeStyles, Img } from '@material-ui/core';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import Logo from '../image/Logo.png';
@@ -11,6 +11,7 @@ import './Fadeout.css';
 import { auth, database } from '../configs/firebase.config';
 import getFirebaseErrorMessage from '../utils/error/auth/authError';
 import { setCurrentUserNameAndID } from '../redux/auth/auth.reducer';
+import backwards from '../image/Backward.png';
 
 const Container = styled.div`
   display: flex;
@@ -27,7 +28,19 @@ const MobileDivider = styled.div`
   margin: 5vh 1vw;
 `;
 
+const useStyles = makeStyles((theme) => ({
+  backwards: {
+    opacity: 0.6,
+
+    '&:hover': {
+      backgroundColor: 'transparent',
+      opacity: 1,
+    },
+  },
+}));
+
 const SignUp = () => {
+  const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
   const [_id, setId] = useState('');
@@ -50,6 +63,11 @@ const SignUp = () => {
     console.log(e.currentTarget.value);
     setName(e.currentTarget.value);
   };
+
+  const linktoLogin = () => {
+    history.push('/');
+  };
+
   const writeUserData = (userId, studentID, _name) => {
     database.ref(`users/${userId}`).set({
       studentID,
@@ -93,7 +111,7 @@ const SignUp = () => {
           <img
             src={Logo}
             alt="logo"
-            width="70vw"
+            width="80vw"
             style={{ margin: '1vh 0 0 ' }}
           />
 
@@ -113,7 +131,7 @@ const SignUp = () => {
               fontSize: '0.6vw',
               fontWeight: 'bolder',
               letterSpacing: '0.4vw',
-              margin: '0.15rem 0 3rem',
+              margin: '0.15rem 0 2rem',
             }}
           >
             소프트웨어학과 사물함
@@ -130,21 +148,46 @@ const SignUp = () => {
               display: 'flex',
               borderTop: '3px solid lightgray',
               borderBottom: '3px solid lightgray',
-              padding: '3vh 5vw 10vh',
+              padding: '2vh 5vw 6vh',
               borderRadius: '2rem',
             }}
           >
-            <div style={{ display: 'flex' }}>
-              <p
+            <div
+              style={{
+                display: 'inline-flex',
+                flexDirection: 'row',
+                width: '100%',
+              }}
+            >
+              <Button
                 style={{
-                  fontSize: '2.5rem',
-                  fontWeight: 'bold',
-                  letterSpacing: '1vw',
-                  marginTop: '1vh',
+                  position: 'absolute',
+                  backgroundColor: 'transparent',
+                  width: 'auto',
                 }}
+                onClick={linktoLogin}
+                className={classes.backwards}
               >
-                회원가입
-              </p>
+                <img
+                  src={backwards}
+                  alt="toLogin"
+                  width="20rem"
+                  style={{ margin: '2vh 1vw auto 0' }}
+                />
+              </Button>
+              <div style={{ width: '100%' }}>
+                <p
+                  style={{
+                    fontSize: '2.5rem',
+                    fontWeight: 'bold',
+                    letterSpacing: '0.1vw',
+                    marginTop: '1vh',
+                    textAlign: 'center',
+                  }}
+                >
+                  회원가입
+                </p>
+              </div>
             </div>
             <TextField
               id="id"
@@ -188,9 +231,9 @@ const SignUp = () => {
               style={{
                 width: '30vw',
                 height: '5vh',
-                backgroundColor: 'rgb(195,0,47)',
+                backgroundColor: 'rgb(63,81,181)',
                 color: 'white',
-                border: '1px solid rgb(195,0,47)',
+                border: '1px solid rgb(63,81,181)',
                 marginTop: '1vh',
               }}
             >
@@ -204,29 +247,30 @@ const SignUp = () => {
             src={Logo}
             alt="logo"
             width="60vw"
-            style={{ margin: '3vh 0 0 ' }}
+            style={{ margin: '3vh 0 0' }}
           />
           <p
             style={{
-              fontSize: '2vh',
+              fontSize: '0.8vw',
               fontWeight: 'bold',
-              letterSpacing: '2vw',
-              borderBottom: '1px solid black',
-              margin: '0.8rem 0 0',
+              letterSpacing: '0.5vw',
+              borderBottom: '0.1vw solid black',
+              margin: '0.7rem 0 0',
             }}
           >
             SEJONG UNIV
           </p>
           <p
             style={{
-              fontSize: '1.8vh',
+              fontSize: '0.6vw',
               fontWeight: 'bolder',
-              letterSpacing: '0.7vw',
-              margin: '0.3rem 0 1rem',
+              letterSpacing: '0.4vw',
+              margin: '0.15rem 0 0',
             }}
           >
             소프트웨어학과 사물함
           </p>
+
           <form
             noValidate
             autoComplete="off"
@@ -234,20 +278,47 @@ const SignUp = () => {
               justifyContent: 'center',
               flexDirection: 'column',
               display: 'flex',
+              margin: '0.5vh 0',
             }}
           >
-            <p
+            <div
               style={{
-                fontSize: '4vh',
-                fontWeight: 'bold',
-                display: 'flex',
-                justifyContent: 'center',
-                paddingBottom: '1rem',
-                borderBottom: '2px solid lightgray',
+                display: 'inline-flex',
+                flexDirection: 'row',
+                width: '100%',
+                marginTop: '1rem',
+                borderTop: '2px solid lightgray',
               }}
             >
-              회원가입
-            </p>
+              <Button
+                style={{
+                  position: 'absolute',
+                  height: 'auto',
+                }}
+                onClick={linktoLogin}
+                className={classes.backwards}
+              >
+                <img
+                  src={backwards}
+                  alt="toLogin"
+                  width="9vw"
+                  style={{ margin: '5vh 8vw auto 0' }}
+                />
+              </Button>
+
+              <div style={{ width: '100%' }}>
+                <p
+                  style={{
+                    fontSize: '4vh',
+                    fontWeight: 'bold',
+                    width: '100%',
+                    textAlign: 'center',
+                  }}
+                >
+                  회원가입
+                </p>
+              </div>
+            </div>
             <TextField
               id="id"
               label="ID"
@@ -266,14 +337,23 @@ const SignUp = () => {
               variant="outlined"
               style={{ width: '80vw', margin: '1vh 0.1vw' }}
             />
+            <TextField
+              id="name"
+              label="이름"
+              placeholder="이름을 입력해주세요."
+              type="text"
+              variant="outlined"
+              onChange={onNameHanlder}
+              style={{ width: '80vw', margin: '1vh 0.1vw' }}
+            />
             <Button
               variant="contained"
               style={{
                 width: '80vw',
-                height: '5vh',
-                backgroundColor: 'rgb(195,0,47)',
+                height: '6vh',
+                backgroundColor: 'rgb(63,81,181)',
                 color: 'white',
-                border: '1px solid rgb(195,0,47)',
+                border: '1px solid rgb(63,81,181)',
                 marginTop: '1vh',
               }}
             >

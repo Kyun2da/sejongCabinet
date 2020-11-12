@@ -9,6 +9,9 @@ import {
   AppBar,
   TabPanel,
 } from '@material-ui/core';
+import EjectIcon from '@material-ui/icons/Eject';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import { useHistory } from 'react-router-dom';
 import Cabinet from './Cabinet';
 import Logo from '../image/Logo.png';
 import { Default, Mobile } from '../MediaQuery';
@@ -34,12 +37,14 @@ const styles = {
     fontSize: '2vw',
     letterSpacing: '0.0001px',
     borderRadius: '10px',
+    fontFamily: 'Anton',
     width: '15vw',
   },
 
   tab_mobile: {
     opacity: '0.5',
     fontSize: '5vw',
+    fontFamily: 'Anton',
     margin: '0',
     letterSpacing: '0.0001px',
     justifyContent: 'center',
@@ -48,12 +53,13 @@ const styles = {
   },
 
   slide: {
-    padding: 15,
+    padding: 1,
     minHeight: 100,
   },
 };
 
 const MainPage = () => {
+  const history = useHistory();
   const data = [
     {
       title: '001',
@@ -74,26 +80,30 @@ const MainPage = () => {
       width: 6,
       height: 6,
       row: [0, 0, 2, 0, 0, 1],
-      column: [1, 2, 0, 0, 1, 0],
+      column: [1, 1, 1, 1, 1, 1],
     },
     {
       title: '085',
       width: 10,
       height: 6,
       row: [0, 0, 2, 0, 0, 1],
-      column: [1, 0, 0, 2, 1, 0, 2, 1, 0, 1],
+      column: [1, 0, 2, 2, 1, 0, 2, 1, 0, 1],
     },
     {
       title: '145',
       width: 6,
       height: 6,
       row: [0, 0, 2, 0, 0, 1],
-      column: [1, 0, 0, 2, 1, 0],
+      column: [0, 0, 0, 0, 0, 0],
     },
   ];
   const cabinetSize = data.length;
   const [_map, visibleMap] = useState(false);
   const [index, setIndex] = useState(0);
+
+  const onClickLogout = () => {
+    history.push('/');
+  };
 
   const handleChangeIndex = (value) => {
     setIndex(value);
@@ -139,7 +149,16 @@ const MainPage = () => {
 
   const showContents = () => {
     return (
-      <SwipeableViews index={index} onChangeIndex={handleChangeIndex}>
+      <SwipeableViews
+        index={index}
+        onChangeIndex={handleChangeIndex}
+        style={{
+          margin: '5vh 5vw',
+          padding: '3vh 0 3vh 3vw',
+          border: '0.5vh solid lightgray',
+          borderRadius: '2vw',
+        }}
+      >
         {LoadContents()}
       </SwipeableViews>
     );
@@ -150,24 +169,57 @@ const MainPage = () => {
       <header>
         <div
           style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
             backgroundColor: 'black',
             position: 'absolute',
             top: 0,
             left: 0,
             right: 0,
-            height: '8vh',
+            height: '10vh',
+            width: '100%',
           }}
         >
-          <Button onClick={() => visibleMap(true)}>
+          <div style={{ left: '2vw', position: 'fixed' }}>
             <img
               src={Logo}
               alt="logo"
-              style={{ width: '2.5vw', backgroundColor: 'white' }}
+              style={{
+                width: '3vw',
+                backgroundColor: 'white',
+              }}
             />
-          </Button>
+          </div>
+          <div style={{}}>
+            <Button
+              onClick={() => visibleMap(true)}
+              style={{ backgroundColor: 'white', width: '5vw' }}
+            >
+              <EjectIcon />
+            </Button>
+          </div>
+          <div
+            style={{
+              position: 'fixed',
+              right: '5vw',
+              backgroundColor: 'white',
+              borderRadius: '0.5rem',
+              padding: '0.5vh 1vw',
+            }}
+          >
+            USER NAME
+            <Button
+              onClick={onClickLogout}
+              style={{ backgroundColor: 'transparent', marginLeft: '2vw' }}
+            >
+              <PowerSettingsNewIcon />
+            </Button>
+          </div>
         </div>
       </header>
-      <Container>
+      <Container style={{ marginTop: '15vh' }}>
         <SwipeableDrawer
           anchor="top"
           open={_map}
@@ -180,23 +232,28 @@ const MainPage = () => {
               justifyContent: 'center',
               alignItems: 'center',
               padding: '10vh 0',
+              backgroundColor: 'rgb(240,240,240)',
             }}
           >
-            <img src={test} alt="map" width="1000vw" />
+            <img
+              src={test}
+              alt="map"
+              width="800vw"
+              style={{ backgroundColor: 'white' }}
+            />
           </div>
         </SwipeableDrawer>
-        <Default>
-          <div style={{ width: '80%' }}>
-            {showTabsPc()}
-            {showContents()}
-          </div>
-        </Default>
-        <Mobile>
-          <div style={{ width: '100vw' }}>
-            {showTabsMobile()}
-            {showContents()}
-          </div>
-        </Mobile>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {showTabsPc()}
+          {showContents()}
+        </div>
       </Container>
     </div>
   );
