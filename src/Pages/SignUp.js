@@ -251,7 +251,7 @@ const SignUp = () => {
           />
           <p
             style={{
-              fontSize: '0.8vw',
+              fontSize: '1rem',
               fontWeight: 'bold',
               letterSpacing: '0.5vw',
               borderBottom: '0.1vw solid black',
@@ -262,7 +262,7 @@ const SignUp = () => {
           </p>
           <p
             style={{
-              fontSize: '0.6vw',
+              fontSize: '0.8rem',
               fontWeight: 'bolder',
               letterSpacing: '0.4vw',
               margin: '0.15rem 0 0',
