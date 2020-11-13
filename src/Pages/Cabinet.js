@@ -93,8 +93,10 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #00d145',
     fontFamily: 'Anton',
     textAlign: 'center',
+    borderRadius: '5px',
     backgroundColor: 'white',
     width: '8vw',
+    height: '4vh',
     fontSize: '3px',
     color: 'rgb(30,30,30)',
 
@@ -109,21 +111,26 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     fontFamily: 'Anton',
     width: '8vw',
+    height: '4vh',
     color: 'white',
     fontSize: '3px',
+    borderRadius: '5px',
     backgroundColor: 'gray',
     '&:hover': {
       backgroundColor: 'rgb(255,20,20)',
       border: '2px solid rgb(255,20,20)',
+      borderRadius: '3px',
     },
   },
   Mbutton3: {
     fontFamily: 'Anton',
     textAlign: 'center',
+    borderRadius: '3px',
     border: '2px solid lightgray',
     color: 'white',
+    height: '4vh',
     width: '8vw',
-    fontSize: '3px',
+    fontSize: '5px',
     backgroundColor: 'lightgray',
   },
 }));
@@ -344,53 +351,56 @@ const Cabinet = ({ data, select, setSelect }) => {
         </div>
       </Default>
       <Mobile>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            paddingLeft: 'auto',
-          }}
-        >
-          <div style={{ flexGrow: 1 }}>✅ : {_status[0]}</div>
-          <div style={{ flexGrow: 1 }}>❌ : {_status[1]}</div>
-          <div style={{ flexGrow: 1 }}>🚧 : {_status[2]}</div>
-        </div>
-        <div style={{ backgroudColor: 'black', overflow: 'hidden' }}>
-          <MContent>
-            <div className={classes.mroot}>{MshowGridRow()}</div>
-          </MContent>
-        </div>
-        <center>
+        <div>
           <div
             style={{
-              fontFamily: 'Anton',
-              fontSize: '1.5rem',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              MarginLeft: '2rem',
             }}
           >
-            {select}
+            <div style={{ flexGrow: 1 }}>✅ : {_status[0]}</div>
+            <div style={{ flexGrow: 1 }}>❌ : {_status[1]}</div>
+            <div style={{ flexGrow: 1 }}>🚧 : {_status[2]}</div>
           </div>
-          <Button
-            style={{
-              backgroundColor: 'black',
-              color: 'white',
-              width: '3vw',
-              height: '2vh',
-              marginRight: '1vw',
-              fontSize: '5px',
-            }}
-            onClick={() => {
-              alert(
-                title +
-                  String('의 ') +
-                  select +
-                  String('번 사물함으로 신청되었습니다'),
-              );
-            }}
-          >
-            신청
-          </Button>
-        </center>
+          <div style={{ backgroudColor: 'black', overflow: 'hidden' }}>
+            <MContent>
+              <div className={classes.mroot}>{MshowGridRow()}</div>
+            </MContent>
+          </div>
+          <center>
+            <div
+              style={{
+                fontFamily: 'Anton',
+                fontSize: '1.5rem',
+              }}
+            >
+              {select}
+            </div>
+            <Button
+              style={{
+                backgroundColor: 'black',
+                color: 'white',
+                width: '3vw',
+                height: '2vh',
+                marginRight: '1vw',
+                fontSize: '5px',
+              }}
+              onClick={() => {
+                alert(
+                  title +
+                    String('의 ') +
+                    select +
+                    String('번 사물함으로 신청되었습니다'),
+                );
+              }}
+            >
+              신청
+            </Button>
+          </center>
+        </div>
       </Mobile>
     </div>
   );
