@@ -22,8 +22,10 @@ const Content = styled.div`
 
 const MContent = styled.div`
   font-family: 'Anton';
-  width: 100%;
-  padding: 3vh 1vw 1vh 3vw;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  padding: 3vh 3vw;
 `;
 
 const StatusValue = styled.div`
@@ -94,16 +96,28 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Anton',
     textAlign: 'center',
     borderRadius: '5px',
+    margin: '0 3.5vw',
     backgroundColor: 'white',
     width: '8vw',
     height: '4vh',
-    fontSize: '3px',
+    fontSize: '12px',
     color: 'rgb(30,30,30)',
 
+    '&:hover': {
+      backgroundColor: '#00d145',
+      color: 'white',
+    },
+    '&:active': {
+      backgroundColor: '#00d145',
+      color: 'white',
+    },
+    '&:target': {
+      backgroundColor: '#00d145',
+      color: 'white',
+    },
     '&:focus': {
       backgroundColor: '#00d145',
       color: 'white',
-      border: '2px solid #00d145',
     },
   },
   Mbutton2: {
@@ -111,9 +125,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     fontFamily: 'Anton',
     width: '8vw',
+    margin: '0 3.5vw',
     height: '4vh',
     color: 'white',
-    fontSize: '3px',
+    fontSize: '12px',
     borderRadius: '5px',
     backgroundColor: 'gray',
     '&:hover': {
@@ -128,9 +143,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '3px',
     border: '2px solid lightgray',
     color: 'white',
+    margin: '0 3.5vw',
     height: '4vh',
     width: '8vw',
-    fontSize: '5px',
+    fontSize: '12px',
     backgroundColor: 'lightgray',
   },
 }));
@@ -335,6 +351,7 @@ const Cabinet = ({ data, select, setSelect }) => {
               backgroundColor: 'black',
               color: 'white',
               width: '6vw',
+              padding: '2vh 2vw',
               marginRight: '1vw',
             }}
             onClick={() => {
@@ -352,20 +369,39 @@ const Cabinet = ({ data, select, setSelect }) => {
       </Default>
       <Mobile>
         <div>
+          <center>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                MarginLeft: '2rem',
+                justifyContent: 'center',
+              }}
+            >
+              <div
+                style={{
+                  flexGrow: 1,
+                  fontFamily: 'Anton',
+                  color: 'green',
+                }}
+              >
+                ⭕ : {_status[0]}
+              </div>
+              <div style={{ flexGrow: 1, fontFamily: 'Anton' }}>
+                ❌ : {_status[1]}
+              </div>
+              <div style={{ flexGrow: 1, fontFamily: 'Anton' }}>
+                🚧 : {_status[2]}
+              </div>
+            </div>
+          </center>
           <div
             style={{
-              display: 'flex',
-              flexDirection: 'row',
+              backgroudColor: 'black',
               justifyContent: 'center',
               alignItems: 'center',
-              MarginLeft: '2rem',
             }}
           >
-            <div style={{ flexGrow: 1 }}>✅ : {_status[0]}</div>
-            <div style={{ flexGrow: 1 }}>❌ : {_status[1]}</div>
-            <div style={{ flexGrow: 1 }}>🚧 : {_status[2]}</div>
-          </div>
-          <div style={{ backgroudColor: 'black', overflow: 'hidden' }}>
             <MContent>
               <div className={classes.mroot}>{MshowGridRow()}</div>
             </MContent>
