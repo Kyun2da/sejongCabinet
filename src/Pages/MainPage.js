@@ -1,18 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import SwipeableViews from 'react-swipeable-views';
-import {
-  SwipeableDrawer,
-  Button,
-  Tabs,
-  Tab,
-  AppBar,
-  TabPanel,
-  withStyles,
-} from '@material-ui/core';
+import { SwipeableDrawer, Button, Tabs, Tab } from '@material-ui/core';
 import EjectIcon from '@material-ui/icons/Eject';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Cabinet from './Cabinet';
 import Logo from '../image/Logo.png';
 import { Default, Mobile } from '../MediaQuery';
@@ -61,61 +53,18 @@ const styles = {
   },
 };
 
-const MainPage = () => {
-  const history = useHistory();
-  const data = [
-    {
-      title: '001',
-      width: 10,
-      height: 6,
-      row: [0, 0, 2, 1, 0, 1],
-      column: [1, 1, 0, 0, 1, 0],
-    },
-    {
-      title: '049',
-      width: 10,
-      height: 6,
-      row: [0, 0, 2, 0, 0, 1],
-      column: [1, 0, 0, 2, 1, 0, 0, 0, 2, 0],
-    },
-    {
-      title: '061',
-      width: 6,
-      height: 6,
-      row: [0, 0, 2, 0, 0, 1],
-      column: [1, 1, 1, 1, 1, 1],
-    },
-    {
-      title: '085',
-      width: 10,
-      height: 6,
-      row: [0, 0, 2, 0, 0, 1],
-      column: [1, 0, 2, 2, 1, 0, 2, 1, 0, 1],
-    },
-    {
-      title: '145',
-      width: 6,
-      height: 6,
-      row: [0, 0, 2, 0, 0, 1],
-      column: [0, 0, 0, 0, 0, 0],
-    },
-  ];
-  const cabinetSize = data.length;
-  const [_map, visibleMap] = useState(false);
-  const [index, setIndex] = useState(0);
-  const [select, setSelect] = useState('-');
-
-  const onClickLogout = () => {
-    history.push('/');
-  };
-
-  const handleChangeIndex = (value) => {
-    setIndex(value);
-  };
-
-  const handleChange = (event, newValue) => {
-    setIndex(newValue);
-  };
+const MainPage = (props) => {
+  const {
+    data,
+    _map,
+    visibleMap,
+    index,
+    handleChange,
+    handleChangeIndex,
+    select,
+    setSelect,
+    onClickLogout,
+  } = props;
 
   const LoadTabs = () => {
     return data.map((i) => {
@@ -389,6 +338,18 @@ const MainPage = () => {
       </Mobile>
     </div>
   );
+};
+
+MainPage.propTypes = {
+  data: PropTypes.arrayOf.isRequired,
+  index: PropTypes.number.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleChangeIndex: PropTypes.func.isRequired,
+  select: PropTypes.string.isRequired,
+  setSelect: PropTypes.func.isRequired,
+  _map: PropTypes.func.isRequired,
+  visibleMap: PropTypes.func.isRequired,
+  onClickLogout: PropTypes.func.isRequired,
 };
 
 export default MainPage;

@@ -1,18 +1,7 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {
-  SwipeableDrawer,
-  Button,
-  Tabs,
-  Tab,
-  AppBar,
-  TabPanel,
-  Grid,
-  Paper,
-  makeStyles,
-} from '@material-ui/core';
-import { ToggleButton } from '@material-ui/lab';
+import { Button, Grid, makeStyles } from '@material-ui/core';
 import { Default, Mobile } from '../MediaQuery';
 
 const Content = styled.div`
@@ -158,15 +147,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// eslint-disable-next-line react/prop-types
-const Cabinet = ({ data, select, setSelect, props }) => {
+const Cabinet = (props) => {
   const classes = useStyles();
-  const { title } = data;
-  const { width } = data;
-  const { height } = data;
-  const { row } = data;
-  const { column } = data;
-  const num = Number(title);
+  const {
+    data: { column, title, width, height, row },
+    select,
+    setSelect,
+  } = props;
 
   const countStatus = () => {
     const count = [0, 0, 0];
@@ -467,6 +454,18 @@ const Cabinet = ({ data, select, setSelect, props }) => {
       </Mobile>
     </div>
   );
+};
+
+Cabinet.propTypes = {
+  data: PropTypes.objectOf({
+    title: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    row: PropTypes.arrayOf.isRequired,
+    column: PropTypes.arrayOf.isRequired,
+  }).isRequired,
+  select: PropTypes.string.isRequired,
+  setSelect: PropTypes.func.isRequired,
 };
 
 export default Cabinet;
