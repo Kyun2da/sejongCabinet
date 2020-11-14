@@ -22,10 +22,10 @@ const Content = styled.div`
 
 const MContent = styled.div`
   font-family: 'Anton';
-  width: auto;
+  width: 100%;
   display: flex;
   justify-content: center;
-  padding: 3vh 3vw;
+  padding: 3vh 0 3vh 3vw;
 `;
 
 const StatusValue = styled.div`
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   mroot: {
-    width: 'auto',
+    paddingLeft: '5vw',
     overflow: 'scroll',
   },
   button: {
@@ -95,10 +95,10 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #00d145',
     fontFamily: 'Anton',
     borderRadius: '5px',
-    margin: '0 3.5vw',
+    margin: '0 1rem',
     backgroundColor: 'white',
-    width: '8vw',
-    height: '4vh',
+    width: '2rem',
+    height: '2rem',
     fontSize: '12px',
     color: 'rgb(30,30,30)',
 
@@ -122,9 +122,9 @@ const useStyles = makeStyles((theme) => ({
   Mbutton2: {
     border: '1px solid gray',
     fontFamily: 'Anton',
-    width: '8vw',
-    margin: '0 3.5vw',
-    height: '4vh',
+    width: '2rem',
+    margin: '0 1rem',
+    height: '2rem',
     color: 'white',
     fontSize: '12px',
     borderRadius: '5px',
@@ -140,9 +140,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '3px',
     border: '2px solid lightgray',
     color: 'white',
-    margin: '0 3.5vw',
-    height: '4vh',
-    width: '8vw',
+    margin: '0 1rem',
+    height: '2rem',
+    width: '2rem',
     fontSize: '10px',
     backgroundColor: 'lightgray',
   },
@@ -409,8 +409,6 @@ const Cabinet = ({ data, select, setSelect }) => {
             style={{
               width: '100%',
               backgroudColor: 'black',
-              justifyContent: 'center',
-              alignItems: 'center',
             }}
           >
             <MContent>
