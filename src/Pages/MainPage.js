@@ -328,7 +328,7 @@ const MainPage = () => {
             <div style={{ left: '4vw', position: 'absolute' }}>
               <Button
                 onClick={() => visibleMap(true)}
-                style={{ backgroundColor: 'white', width: '3vw' }}
+                style={{ backgroundColor: 'white', width: '2.5vw' }}
               >
                 <EjectIcon />
               </Button>
@@ -344,7 +344,7 @@ const MainPage = () => {
             >
               <Button
                 onClick={onClickLogout}
-                style={{ backgroundColor: 'transparent', width: '3vw' }}
+                style={{ backgroundColor: 'transparent', width: '2.5vw' }}
                 disableRipple
               >
                 <PowerSettingsNewIcon />

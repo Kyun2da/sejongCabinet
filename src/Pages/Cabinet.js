@@ -94,7 +94,6 @@ const useStyles = makeStyles((theme) => ({
   Mbutton: {
     border: '2px solid #00d145',
     fontFamily: 'Anton',
-    textAlign: 'center',
     borderRadius: '5px',
     margin: '0 3.5vw',
     backgroundColor: 'white',
@@ -122,7 +121,6 @@ const useStyles = makeStyles((theme) => ({
   },
   Mbutton2: {
     border: '1px solid gray',
-    textAlign: 'center',
     fontFamily: 'Anton',
     width: '8vw',
     margin: '0 3.5vw',
@@ -139,14 +137,13 @@ const useStyles = makeStyles((theme) => ({
   },
   Mbutton3: {
     fontFamily: 'Anton',
-    textAlign: 'center',
     borderRadius: '3px',
     border: '2px solid lightgray',
     color: 'white',
     margin: '0 3.5vw',
     height: '4vh',
     width: '8vw',
-    fontSize: '12px',
+    fontSize: '10px',
     backgroundColor: 'lightgray',
   },
 }));
@@ -224,6 +221,7 @@ const Cabinet = ({ data, select, setSelect }) => {
                 e.stopPropagation();
                 setSelect(index + 1 + i * width);
               }}
+              style={{ padding: '0' }}
             >
               {index + 1 + i * width}
             </button>
@@ -233,7 +231,11 @@ const Cabinet = ({ data, select, setSelect }) => {
       if (v === 1) {
         return (
           <Grid item xs={1}>
-            <button type="button" className={classes.Mbutton2}>
+            <button
+              type="button"
+              className={classes.Mbutton2}
+              style={{ padding: '0' }}
+            >
               {index + 1 + i * width}
             </button>
           </Grid>
@@ -241,7 +243,11 @@ const Cabinet = ({ data, select, setSelect }) => {
       }
       return (
         <Grid item xs={1}>
-          <button type="button" className={classes.Mbutton3}>
+          <button
+            type="button"
+            className={classes.Mbutton3}
+            style={{ padding: '0' }}
+          >
             🚧
           </button>
         </Grid>
@@ -373,16 +379,20 @@ const Cabinet = ({ data, select, setSelect }) => {
             <div
               style={{
                 display: 'flex',
+                width: '60%',
                 flexDirection: 'row',
                 MarginLeft: '2rem',
                 justifyContent: 'center',
+                padding: '1.5vh 2vw',
+                border: '2vw solid RGB(240,240,240)',
+                backgroundColor: 'white',
+                borderRadius: '10px',
               }}
             >
               <div
                 style={{
                   flexGrow: 1,
                   fontFamily: 'Anton',
-                  color: 'green',
                 }}
               >
                 ⭕ : {_status[0]}
@@ -397,6 +407,7 @@ const Cabinet = ({ data, select, setSelect }) => {
           </center>
           <div
             style={{
+              width: '100%',
               backgroudColor: 'black',
               justifyContent: 'center',
               alignItems: 'center',
