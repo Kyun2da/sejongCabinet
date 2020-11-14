@@ -318,7 +318,6 @@ const MainPage = () => {
               position: 'absolute',
               top: 0,
               left: 0,
-              right: 0,
               height: '8vh',
               width: '100%',
               margin: 0,
@@ -363,7 +362,7 @@ const MainPage = () => {
                 position: 'static',
                 width: '100%',
                 height: 'auto',
-                padding: '10vh 1rem',
+                padding: '10vh 5%',
                 backgroundColor: 'RGB(245,245,245)',
               }}
             >

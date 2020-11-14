@@ -25,7 +25,7 @@ const MContent = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 3vh 0 3vh 3vw;
+  padding: 4vh 0 4vh 3vw;
 `;
 
 const StatusValue = styled.div`
@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   mroot: {
+    width: '90%',
     paddingLeft: '5vw',
     overflow: 'scroll',
   },
@@ -88,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     width: '5.5vw',
     color: 'white',
     fontWeight: 'bold',
-    fontSize: '1',
+    fontSize: '1vw',
     backgroundColor: 'lightgray',
   },
   Mbutton: {
@@ -100,6 +101,7 @@ const useStyles = makeStyles((theme) => ({
     width: '2rem',
     height: '2rem',
     fontSize: '12px',
+    outline: 'none',
     color: 'rgb(30,30,30)',
 
     '&:hover': {
@@ -117,6 +119,7 @@ const useStyles = makeStyles((theme) => ({
     '&:focus': {
       backgroundColor: '#00d145',
       color: 'white',
+      outline: 'none',
     },
   },
   Mbutton2: {
@@ -127,12 +130,16 @@ const useStyles = makeStyles((theme) => ({
     height: '2rem',
     color: 'white',
     fontSize: '12px',
+    outline: 'none',
     borderRadius: '5px',
     backgroundColor: 'gray',
     '&:hover': {
       backgroundColor: 'rgb(255,20,20)',
       border: '2px solid rgb(255,20,20)',
       borderRadius: '3px',
+    },
+    '&:focus': {
+      outline: 'none',
     },
   },
   Mbutton3: {
@@ -145,11 +152,14 @@ const useStyles = makeStyles((theme) => ({
     width: '2rem',
     fontSize: '10px',
     backgroundColor: 'lightgray',
+    '&:focus': {
+      outline: 'none',
+    },
   },
 }));
 
 // eslint-disable-next-line react/prop-types
-const Cabinet = ({ data, select, setSelect }) => {
+const Cabinet = ({ data, select, setSelect, props }) => {
   const classes = useStyles();
   const { title } = data;
   const { width } = data;
@@ -415,36 +425,44 @@ const Cabinet = ({ data, select, setSelect }) => {
               <div className={classes.mroot}>{MshowGridRow()}</div>
             </MContent>
           </div>
-          <center>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+            }}
+          >
             <div
               style={{
+                width: '5vw',
                 fontFamily: 'Anton',
-                fontSize: '1.5rem',
+                fontSize: '2rem',
               }}
             >
               {select}
             </div>
-            <Button
-              style={{
-                backgroundColor: 'black',
-                color: 'white',
-                width: '3vw',
-                height: '2vh',
-                marginRight: '1vw',
-                fontSize: '5px',
-              }}
-              onClick={() => {
-                alert(
-                  title +
-                    String('의 ') +
-                    select +
-                    String('번 사물함으로 신청되었습니다'),
-                );
-              }}
-            >
-              신청
-            </Button>
-          </center>
+            <div style={{ marginLeft: 0 }}>
+              <Button
+                style={{
+                  backgroundColor: 'black',
+                  color: 'white',
+                  width: '6vw',
+                  fontSize: '12px',
+                }}
+                onClick={() => {
+                  alert(
+                    title +
+                      String('의 ') +
+                      select +
+                      String('번 사물함으로 신청되었습니다'),
+                  );
+                }}
+              >
+                신청
+              </Button>
+            </div>
+          </div>
         </div>
       </Mobile>
     </div>
