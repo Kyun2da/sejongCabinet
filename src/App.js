@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import Login from './Pages/Login';
-import MainPage from './Pages/MainPage';
-import SignUp from './Pages/SignUp';
 import { auth } from './configs/firebase.config';
 import { setCurrentUser, clearCurrentUser } from './redux/auth/auth.actions';
+import LoginContainer from './Container/LoginContainer';
+import SIgnUpContainer from './Container/SIgnUpContainer';
+import MainPageContainer from './Container/MainPageContainer';
+import getUserData from './utils/firebase/getUserData';
+import getCabinetData from './utils/firebase/getCabinetData';
 
 const Container = styled.div`
   -ms-user-select: none;
@@ -19,11 +21,14 @@ const Container = styled.div`
 const App = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
+
   useEffect(() => {
     let unsubscribeFromAuth = null;
     unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
       if (user) {
         dispatch(setCurrentUser(user));
+        getUserData(user.uid, dispatch);
+        getCabinetData(dispatch);
       } else {
         dispatch(clearCurrentUser());
       }
@@ -34,9 +39,9 @@ const App = () => {
     <Container>
       <Router basename={`${process.env.PUBLIC_URL}/`}>
         <Switch>
-          <Route path="/" component={Login} exact />
-          <Route path="/signup" component={SignUp} exact />
-          <Route path="/main" component={MainPage} exact />
+          <Route path="/" component={LoginContainer} exact />
+          <Route path="/signup" component={SIgnUpContainer} exact />
+          <Route path="/main" component={MainPageContainer} exact />
         </Switch>
       </Router>
     </Container>

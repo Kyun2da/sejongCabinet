@@ -24,7 +24,12 @@ const authReducer = handleActions(
       currentUserName: action.payload.name,
       currentUserID: action.payload.studentId,
     }),
-    [clearCurrentUser]: (state) => ({ ...state, currentUser: null }),
+    [clearCurrentUser]: (state) => ({
+      ...state,
+      currentUser: null,
+      currentUserName: null,
+      currentUserID: null,
+    }),
   },
   initialState,
 );

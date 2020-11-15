@@ -1,16 +1,11 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react';
 import styled from 'styled-components';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { TextField, Button, makeStyles, Img } from '@material-ui/core';
-import Swal from 'sweetalert2';
-import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import Logo from '../image/Logo.png';
 import { Mobile, Default } from '../MediaQuery';
 import './Fadeout.css';
-import { auth, database } from '../configs/firebase.config';
-import getFirebaseErrorMessage from '../utils/error/auth/authError';
-import { setCurrentUserNameAndID } from '../redux/auth/auth.reducer';
 import backwards from '../image/Backward.png';
 
 const Container = styled.div`
@@ -39,69 +34,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUp = () => {
+const SignUp = (props) => {
+  const {
+    SignUpSubmit,
+    linktoLogin,
+    onIdHandler,
+    onPasswordHandler,
+    onStudentIdHandler,
+    onNameHandler,
+  } = props;
   const classes = useStyles();
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const [_id, setId] = useState('');
-  const [_password, setPassword] = useState('');
-  const [studentId, setStudentId] = useState('');
-  const [name, setName] = useState('');
-  const onIdHandler = (e) => {
-    console.log(e.currentTarget.value);
-    setId(e.currentTarget.value);
-  };
-  const onPasswordHanlder = (e) => {
-    console.log(e.currentTarget.value);
-    setPassword(e.currentTarget.value);
-  };
-  const onStudentIdHanlder = (e) => {
-    console.log(e.currentTarget.value);
-    setStudentId(e.currentTarget.value);
-  };
-  const onNameHanlder = (e) => {
-    console.log(e.currentTarget.value);
-    setName(e.currentTarget.value);
-  };
-
-  const linktoLogin = () => {
-    history.push('/');
-  };
-
-  const writeUserData = (userId, studentID, _name) => {
-    database.ref(`users/${userId}`).set({
-      studentID,
-      name: _name,
-    });
-  };
-
-  const SignUpSubmit = (e) => {
-    console.log('회원가입 버튼 클릭');
-    e.preventDefault();
-    auth
-      .createUserWithEmailAndPassword(_id, _password)
-      .then((user) => {
-        console.log(user);
-        history.push('/main');
-        writeUserData(user.user.uid, studentId, name);
-        dispatch(setCurrentUserNameAndID({ studentId, name }));
-      })
-      .catch((err) => {
-        console.log(err);
-        Swal.fire({
-          icon: 'error',
-          title: '회원가입 실패',
-          text: getFirebaseErrorMessage(err.code),
-          showConfirmButton: true,
-          width: '25rem',
-          timer: 2000,
-        });
-      });
-  };
   return (
     <CSSTransitionGroup
       transitionName="homeTransition"
-      transitionAppear="true"
+      transitionAppear
       transitionAppearTimeout={500}
       transitionEnter={false}
       transitionLeave={false}
@@ -204,7 +150,7 @@ const SignUp = () => {
               placeholder="6글자 이상의 패스워드를 입력해주세요."
               type="password"
               variant="outlined"
-              onChange={onPasswordHanlder}
+              onChange={onPasswordHandler}
               style={{ width: '30vw', margin: '1.5vh' }}
             />
             <TextField
@@ -213,7 +159,7 @@ const SignUp = () => {
               placeholder="학번을 입력해주세요."
               type="text"
               variant="outlined"
-              onChange={onStudentIdHanlder}
+              onChange={onStudentIdHandler}
               style={{ width: '30vw', margin: '1.5vh' }}
             />
             <TextField
@@ -222,7 +168,7 @@ const SignUp = () => {
               placeholder="이름을 입력해주세요."
               type="text"
               variant="outlined"
-              onChange={onNameHanlder}
+              onChange={onNameHandler}
               style={{ width: '30vw', margin: '1.5vh' }}
             />
             <Button
@@ -343,7 +289,7 @@ const SignUp = () => {
               placeholder="이름을 입력해주세요."
               type="text"
               variant="outlined"
-              onChange={onNameHanlder}
+              onChange={onNameHandler}
               style={{ width: '80vw', margin: '1vh 0.1vw' }}
             />
             <Button
@@ -365,6 +311,15 @@ const SignUp = () => {
       </Container>
     </CSSTransitionGroup>
   );
+};
+
+SignUp.propTypes = {
+  SignUpSubmit: PropTypes.func.isRequired,
+  linktoLogin: PropTypes.func.isRequired,
+  onIdHandler: PropTypes.func.isRequired,
+  onPasswordHandler: PropTypes.func.isRequired,
+  onStudentIdHandler: PropTypes.func.isRequired,
+  onNameHandler: PropTypes.func.isRequired,
 };
 
 export default SignUp;
