@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch, HashRouter as Router } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { auth } from './configs/firebase.config';
 import { setCurrentUser, clearCurrentUser } from './redux/auth/auth.actions';
