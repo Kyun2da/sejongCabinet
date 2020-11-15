@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button, Grid, makeStyles } from '@material-ui/core';
+import Swal from 'sweetalert2';
 import { Default, Mobile } from '../MediaQuery';
 
 const Content = styled.div`
@@ -150,7 +151,7 @@ const useStyles = makeStyles((theme) => ({
 const Cabinet = (props) => {
   const classes = useStyles();
   const {
-    data: { column, title, width, height, row },
+    data: { title, width, height, item },
     select,
     setSelect,
   } = props;
@@ -158,46 +159,47 @@ const Cabinet = (props) => {
   const countStatus = () => {
     const count = [0, 0, 0];
 
-    for (let i = 0; i < column.length; i += 1) {
-      if (column[i] === 0) {
-        count[0] += row.length;
-      } else if (column[i] === 1) {
-        count[1] += row.length;
+    for (let i = 1; i < item.length; i += 1) {
+      if (item[i] === 0) {
+        count[0] += 1;
+      } else if (item[i] === 1) {
+        count[1] += 1;
       } else {
-        count[2] += row.length;
+        count[2] += 1;
       }
     }
 
     return count;
   };
-  const [_status, setStatus] = useState(countStatus());
+  const [_status] = useState(countStatus());
 
   const loadGridRow = (i) => {
-    return column.map((v, index) => {
-      if (v === 0) {
+    return [...Array(width)].map((v, index) => {
+      const arrIdx = i * width + index + 1;
+      if (item[arrIdx] === 0) {
         return (
-          <Grid item xs={1}>
+          <Grid item xs={1} key={arrIdx}>
             <Button
               className={classes.button}
               onClick={(e) => {
                 e.stopPropagation();
-                setSelect(index + 1 + i * width);
+                setSelect(arrIdx);
               }}
             >
-              {index + 1 + i * width}
+              {arrIdx}
             </Button>
           </Grid>
         );
       }
-      if (v === 1) {
+      if (item[arrIdx] === 1) {
         return (
-          <Grid item xs={1}>
-            <Button className={classes.button2}>{index + 1 + i * width}</Button>
+          <Grid item xs={1} key={arrIdx}>
+            <Button className={classes.button2}>{arrIdx}</Button>
           </Grid>
         );
       }
       return (
-        <Grid item xs={1}>
+        <Grid item xs={1} key={arrIdx}>
           <Button className={classes.button3} disabled>
             🚧
           </Button>
@@ -207,39 +209,40 @@ const Cabinet = (props) => {
   };
 
   const MloadGridRow = (i) => {
-    return column.map((v, index) => {
-      if (v === 0) {
+    return [...Array(width)].map((v, index) => {
+      const arrIdx = i * height + index + 1;
+      if (item[arrIdx] === 0) {
         return (
-          <Grid item xs={1}>
+          <Grid item xs={1} key={arrIdx}>
             <button
               type="button"
               className={classes.Mbutton}
               onClick={(e) => {
                 e.stopPropagation();
-                setSelect(index + 1 + i * width);
+                setSelect(arrIdx);
               }}
               style={{ padding: '0' }}
             >
-              {index + 1 + i * width}
+              {arrIdx}
             </button>
           </Grid>
         );
       }
-      if (v === 1) {
+      if (item[arrIdx] === 1) {
         return (
-          <Grid item xs={1}>
+          <Grid item xs={1} key={arrIdx}>
             <button
               type="button"
               className={classes.Mbutton2}
               style={{ padding: '0' }}
             >
-              {index + 1 + i * width}
+              {arrIdx}
             </button>
           </Grid>
         );
       }
       return (
-        <Grid item xs={1}>
+        <Grid item xs={1} key={arrIdx}>
           <button
             type="button"
             className={classes.Mbutton3}
@@ -253,16 +256,16 @@ const Cabinet = (props) => {
   };
 
   const showGridColumn = () => {
-    return row.map((v, i) => (
-      <Grid container spacing={1}>
+    return [...Array(height)].map((v, i) => (
+      <Grid container spacing={1} key={i}>
         {loadGridRow(i)}
       </Grid>
     ));
   };
 
   const MshowGridColumn = () => {
-    return row.map((v, i) => (
-      <Grid container spacing={1}>
+    return [...Array(height)].map((v, i) => (
+      <Grid container spacing={1} key={i}>
         {MloadGridRow(i)}
       </Grid>
     ));
@@ -336,7 +339,7 @@ const Cabinet = (props) => {
                   textAlign: 'left',
                 }}
               >
-                {select}
+                {select === -1 ? '-' : select}
               </div>
             </div>
           </div>
@@ -358,12 +361,14 @@ const Cabinet = (props) => {
               marginRight: '1vw',
             }}
             onClick={() => {
-              alert(
-                title +
-                  String('의 ') +
-                  select +
-                  String('번 사물함으로 신청되었습니다'),
-              );
+              Swal.fire({
+                icon: 'success',
+                title: '사물함 신청 성공',
+                text: `${title}의 ${select}번 사물함으로 신청되었습니다`,
+                showConfirmButton: true,
+                width: '25rem',
+                timer: 2000,
+              });
             }}
           >
             신청
@@ -427,7 +432,7 @@ const Cabinet = (props) => {
                 fontSize: '2rem',
               }}
             >
-              {select}
+              {select === -1 ? '-' : select}
             </div>
             <div style={{ marginLeft: 0 }}>
               <Button
@@ -438,12 +443,14 @@ const Cabinet = (props) => {
                   fontSize: '12px',
                 }}
                 onClick={() => {
-                  alert(
-                    title +
-                      String('의 ') +
-                      select +
-                      String('번 사물함으로 신청되었습니다'),
-                  );
+                  Swal.fire({
+                    icon: 'success',
+                    title: '사물함 신청 성공',
+                    text: `${title}의 ${select}번 사물함으로 신청되었습니다`,
+                    showConfirmButton: true,
+                    width: '25rem',
+                    timer: 2000,
+                  });
                 }}
               >
                 신청
@@ -457,14 +464,13 @@ const Cabinet = (props) => {
 };
 
 Cabinet.propTypes = {
-  data: PropTypes.objectOf({
-    title: PropTypes.number.isRequired,
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
-    row: PropTypes.arrayOf.isRequired,
-    column: PropTypes.arrayOf.isRequired,
+    item: PropTypes.arrayOf.isRequired,
   }).isRequired,
-  select: PropTypes.string.isRequired,
+  select: PropTypes.number.isRequired,
   setSelect: PropTypes.func.isRequired,
 };
 

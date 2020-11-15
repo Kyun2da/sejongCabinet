@@ -47,7 +47,7 @@ const SignUp = (props) => {
   return (
     <CSSTransitionGroup
       transitionName="homeTransition"
-      transitionAppear="true"
+      transitionAppear
       transitionAppearTimeout={500}
       transitionEnter={false}
       transitionLeave={false}

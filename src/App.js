@@ -7,6 +7,8 @@ import { setCurrentUser, clearCurrentUser } from './redux/auth/auth.actions';
 import LoginContainer from './Container/LoginContainer';
 import SIgnUpContainer from './Container/SIgnUpContainer';
 import MainPageContainer from './Container/MainPageContainer';
+import getUserData from './utils/firebase/getUserData';
+import getCabinetData from './utils/firebase/getCabinetData';
 
 const Container = styled.div`
   -ms-user-select: none;
@@ -19,11 +21,14 @@ const Container = styled.div`
 const App = () => {
   const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
+
   useEffect(() => {
     let unsubscribeFromAuth = null;
     unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
       if (user) {
         dispatch(setCurrentUser(user));
+        getUserData(user.uid, dispatch);
+        getCabinetData(dispatch);
       } else {
         dispatch(clearCurrentUser());
       }

@@ -64,17 +64,30 @@ const MainPage = (props) => {
     select,
     setSelect,
     onClickLogout,
+    currentUserName,
+    cabinetNames,
   } = props;
-
   const LoadTabs = () => {
-    return data.map((i) => {
-      return <Tab label={i.title} style={styles.tab_pc} />;
+    return cabinetNames.map((i) => {
+      return (
+        <Tab
+          key={data.currentCabinets[i].title}
+          label={data.currentCabinets[i].title}
+          style={styles.tab_pc}
+        />
+      );
     });
   };
 
   const MLoadTabs = () => {
-    return data.map((i) => {
-      return <Tab label={i.title} style={styles.tab_mobile} />;
+    return cabinetNames.map((i) => {
+      return (
+        <Tab
+          key={data.currentCabinets[i].title}
+          label={data.currentCabinets[i].title}
+          style={styles.tab_mobile}
+        />
+      );
     });
   };
 
@@ -82,7 +95,7 @@ const MainPage = (props) => {
     return (
       <Tabs
         value={index}
-        fullWidth
+        fullwidth="true"
         onChange={handleChange}
         style={styles.tabs}
         textColor="inherit"
@@ -98,7 +111,7 @@ const MainPage = (props) => {
     return (
       <Tabs
         value={index}
-        fullWidth
+        fullwidth="true"
         onChange={handleChange}
         style={styles.Mtabs}
         textColor="inherit"
@@ -111,14 +124,28 @@ const MainPage = (props) => {
   };
 
   const LoadContents = () => {
-    return data.map((i) => {
-      return <Cabinet data={i} select={select} setSelect={setSelect} />;
+    return cabinetNames.map((i) => {
+      return (
+        <Cabinet
+          key={i}
+          data={data.currentCabinets[i]}
+          select={select}
+          setSelect={setSelect}
+        />
+      );
     });
   };
 
   const MLoadContents = () => {
-    return data.map((i) => {
-      return <Cabinet data={i} select={select} setSelect={setSelect} />;
+    return cabinetNames.map((i) => {
+      return (
+        <Cabinet
+          key={i}
+          data={data.currentCabinets[i]}
+          select={select}
+          setSelect={setSelect}
+        />
+      );
     });
   };
 
@@ -127,7 +154,7 @@ const MainPage = (props) => {
       <SwipeableViews
         index={index}
         onChangeIndex={handleChangeIndex}
-        animateHeight="true"
+        animateHeight
         style={{
           margin: '5vh 5vw',
           padding: '3vh 0 3vh 3vw',
@@ -145,7 +172,7 @@ const MainPage = (props) => {
       <SwipeableViews
         index={index}
         onChangeIndex={handleChangeIndex}
-        animateHeight="true"
+        animateHeight
         style={{
           margin: '3vh 0',
           padding: '1vh 0',
@@ -161,7 +188,7 @@ const MainPage = (props) => {
     <div
       style={{ width: '100%', height: '100%' }}
       aria-hidden="true"
-      onClick={() => setSelect('-')}
+      onClick={() => setSelect(-1)}
     >
       <Default>
         <header>
@@ -207,7 +234,7 @@ const MainPage = (props) => {
                 padding: '0.5vh 1vw',
               }}
             >
-              USER NAME
+              {currentUserName}님 환영합니다!
               <Button
                 onClick={onClickLogout}
                 style={{ backgroundColor: 'transparent', margin: '0 0 0 2vw' }}
@@ -223,6 +250,8 @@ const MainPage = (props) => {
             anchor="top"
             open={_map}
             onClick={() => visibleMap(false)}
+            onClose={() => {}}
+            onOpen={() => {}}
           >
             <div
               style={{
@@ -305,6 +334,8 @@ const MainPage = (props) => {
             anchor="top"
             open={_map}
             onClick={() => visibleMap(false)}
+            onClose={() => {}}
+            onOpen={() => {}}
           >
             <div
               style={{
@@ -341,15 +372,17 @@ const MainPage = (props) => {
 };
 
 MainPage.propTypes = {
-  data: PropTypes.arrayOf.isRequired,
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
   index: PropTypes.number.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleChangeIndex: PropTypes.func.isRequired,
-  select: PropTypes.string.isRequired,
+  select: PropTypes.number.isRequired,
   setSelect: PropTypes.func.isRequired,
-  _map: PropTypes.func.isRequired,
+  _map: PropTypes.bool.isRequired,
   visibleMap: PropTypes.func.isRequired,
   onClickLogout: PropTypes.func.isRequired,
+  currentUserName: PropTypes.string.isRequired,
+  cabinetNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default MainPage;
