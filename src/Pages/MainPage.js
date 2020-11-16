@@ -6,7 +6,7 @@ import EjectIcon from '@material-ui/icons/Eject';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PropTypes from 'prop-types';
 import Cabinet from './Cabinet';
-import Logo from '../image/Logo.png';
+import Logo from '../image/softwareLogo.png';
 import { Default, Mobile } from '../MediaQuery';
 import test from '../image/Test.png';
 
@@ -66,6 +66,9 @@ const MainPage = (props) => {
     onClickLogout,
     currentUserName,
     cabinetNames,
+    cabinetEnroll,
+    currentUserID,
+    cabinetCancel,
   } = props;
   const LoadTabs = () => {
     return cabinetNames.map((i) => {
@@ -128,9 +131,13 @@ const MainPage = (props) => {
       return (
         <Cabinet
           key={i}
+          cabinetNum={i}
           data={data.currentCabinets[i]}
           select={select}
           setSelect={setSelect}
+          cabinetEnroll={cabinetEnroll}
+          currentUserID={currentUserID}
+          cabinetCancel={cabinetCancel}
         />
       );
     });
@@ -141,9 +148,13 @@ const MainPage = (props) => {
       return (
         <Cabinet
           key={i}
+          cabinetNum={i}
           data={data.currentCabinets[i]}
           select={select}
           setSelect={setSelect}
+          cabinetEnroll={cabinetEnroll}
+          currentUserID={currentUserID}
+          cabinetCancel={cabinetCancel}
         />
       );
     });
@@ -383,6 +394,9 @@ MainPage.propTypes = {
   onClickLogout: PropTypes.func.isRequired,
   currentUserName: PropTypes.string.isRequired,
   cabinetNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cabinetEnroll: PropTypes.func.isRequired,
+  currentUserID: PropTypes.string.isRequired,
+  cabinetCancel: PropTypes.func.isRequired,
 };
 
 export default MainPage;

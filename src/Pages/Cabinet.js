@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button, Grid, makeStyles } from '@material-ui/core';
-import Swal from 'sweetalert2';
 import { Default, Mobile } from '../MediaQuery';
 
 const Content = styled.div`
@@ -59,18 +58,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   button2: {
-    border: '3px solid gray',
+    border: '3px solid rgb(255,20,20)',
     textAlign: 'center',
     padding: theme.spacing(1),
     fontFamily: 'Anton',
     width: '5.5vw',
     color: 'white',
     fontSize: '1vw',
-    backgroundColor: 'gray',
-    '&:hover': {
-      backgroundColor: 'rgb(255,20,20)',
-      border: '3px solid rgb(255,20,20)',
-    },
+    backgroundColor: 'rgb(255,20,20)',
   },
   button3: {
     fontFamily: 'Anton',
@@ -81,6 +76,16 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     fontSize: '1vw',
     backgroundColor: 'lightgray',
+  },
+  button4: {
+    fontFamily: 'Anton',
+    border: '3px solid lightgray',
+    padding: theme.spacing(1),
+    width: '5.5vw',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '1vw',
+    backgroundColor: 'blue',
   },
   Mbutton: {
     border: '2px solid #00d145',
@@ -113,7 +118,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   Mbutton2: {
-    border: '1px solid gray',
+    border: '2px solid rgb(255,20,20)',
     fontFamily: 'Anton',
     width: '2rem',
     margin: '0 1rem',
@@ -121,16 +126,8 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     fontSize: '12px',
     outline: 'none',
-    borderRadius: '5px',
-    backgroundColor: 'gray',
-    '&:hover': {
-      backgroundColor: 'rgb(255,20,20)',
-      border: '2px solid rgb(255,20,20)',
-      borderRadius: '3px',
-    },
-    '&:focus': {
-      outline: 'none',
-    },
+    backgroundColor: 'rgb(255,20,20)',
+    borderRadius: '3px',
   },
   Mbutton3: {
     fontFamily: 'Anton',
@@ -146,6 +143,20 @@ const useStyles = makeStyles((theme) => ({
       outline: 'none',
     },
   },
+  Mbutton4: {
+    fontFamily: 'Anton',
+    borderRadius: '3px',
+    border: '2px solid lightgray',
+    color: 'white',
+    margin: '0 1rem',
+    height: '2rem',
+    width: '2rem',
+    fontSize: '10px',
+    backgroundColor: 'gray',
+    '&:focus': {
+      outline: 'none',
+    },
+  },
 }));
 
 const Cabinet = (props) => {
@@ -154,8 +165,20 @@ const Cabinet = (props) => {
     data: { title, width, height, item },
     select,
     setSelect,
+    cabinetNum,
+    cabinetEnroll,
+    currentUserID,
+    cabinetCancel,
   } = props;
-
+  const onClickFunc = () => {
+    if (select !== currentUserID) {
+      console.log(`캐비넷 등록${cabinetNum}`);
+      cabinetEnroll(cabinetNum);
+    } else {
+      console.log(`캐비넷 취소${cabinetNum}`);
+      cabinetCancel(cabinetNum);
+    }
+  };
   const countStatus = () => {
     const count = [0, 0, 0];
 
@@ -191,17 +214,34 @@ const Cabinet = (props) => {
           </Grid>
         );
       }
-      if (item[arrIdx] === 1) {
+      if (item[arrIdx] === 2) {
         return (
           <Grid item xs={1} key={arrIdx}>
-            <Button className={classes.button2}>{arrIdx}</Button>
+            <Button className={classes.button3} disabled>
+              🚧
+            </Button>
+          </Grid>
+        );
+      }
+      if (item[arrIdx] === currentUserID) {
+        return (
+          <Grid item xs={1} key={arrIdx}>
+            <Button
+              className={classes.button4}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelect(arrIdx);
+              }}
+            >
+              {item[arrIdx]}
+            </Button>
           </Grid>
         );
       }
       return (
         <Grid item xs={1} key={arrIdx}>
-          <Button className={classes.button3} disabled>
-            🚧
+          <Button className={classes.button2} disabled>
+            {item[arrIdx]}
           </Button>
         </Grid>
       );
@@ -228,13 +268,31 @@ const Cabinet = (props) => {
           </Grid>
         );
       }
-      if (item[arrIdx] === 1) {
+      if (item[arrIdx] === 2) {
         return (
           <Grid item xs={1} key={arrIdx}>
             <button
               type="button"
-              className={classes.Mbutton2}
+              className={classes.Mbutton3}
               style={{ padding: '0' }}
+              disabled
+            >
+              🚧
+            </button>
+          </Grid>
+        );
+      }
+      if (item[arrIdx] === currentUserID) {
+        return (
+          <Grid item xs={1} key={arrIdx}>
+            <button
+              type="button"
+              className={classes.Mbutton4}
+              style={{ padding: '0' }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelect(arrIdx);
+              }}
             >
               {arrIdx}
             </button>
@@ -245,10 +303,11 @@ const Cabinet = (props) => {
         <Grid item xs={1} key={arrIdx}>
           <button
             type="button"
-            className={classes.Mbutton3}
+            className={classes.Mbutton2}
             style={{ padding: '0' }}
+            disabled
           >
-            🚧
+            {arrIdx}
           </button>
         </Grid>
       );
@@ -360,18 +419,9 @@ const Cabinet = (props) => {
               padding: '2vh 2vw',
               marginRight: '1vw',
             }}
-            onClick={() => {
-              Swal.fire({
-                icon: 'success',
-                title: '사물함 신청 성공',
-                text: `${title}의 ${select}번 사물함으로 신청되었습니다`,
-                showConfirmButton: true,
-                width: '25rem',
-                timer: 2000,
-              });
-            }}
+            onClick={onClickFunc}
           >
-            신청
+            {select !== currentUserID ? '신청' : '취소'}
           </Button>
         </div>
       </Default>
@@ -442,18 +492,9 @@ const Cabinet = (props) => {
                   width: '6vw',
                   fontSize: '12px',
                 }}
-                onClick={() => {
-                  Swal.fire({
-                    icon: 'success',
-                    title: '사물함 신청 성공',
-                    text: `${title}의 ${select}번 사물함으로 신청되었습니다`,
-                    showConfirmButton: true,
-                    width: '25rem',
-                    timer: 2000,
-                  });
-                }}
+                onClick={onClickFunc}
               >
-                신청
+                {select !== currentUserID ? '신청' : '취소'}
               </Button>
             </div>
           </div>
@@ -472,6 +513,10 @@ Cabinet.propTypes = {
   }).isRequired,
   select: PropTypes.number.isRequired,
   setSelect: PropTypes.func.isRequired,
+  cabinetEnroll: PropTypes.func.isRequired,
+  cabinetNum: PropTypes.string.isRequired,
+  currentUserID: PropTypes.string.isRequired,
+  cabinetCancel: PropTypes.func.isRequired,
 };
 
 export default Cabinet;

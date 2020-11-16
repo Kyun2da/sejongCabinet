@@ -53,7 +53,8 @@
       "react/jsx-filename-extension": 0,
       "react/jsx-one-expression-per-line": 0,
       "no-unused-vars": 1,
-      "react/no-array-index-key": "off"
+      "react/no-array-index-key": "off",
+      "no-param-reassign": 0
     },
     "env": {
       "browser": true
