@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { TextField, Button, makeStyles, Img } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import Logo from '../image/Logo.png';
+import Logo from '../image/softwareLogo.png';
 import { Mobile, Default } from '../MediaQuery';
 import './Fadeout.css';
 import backwards from '../image/Backward.png';
