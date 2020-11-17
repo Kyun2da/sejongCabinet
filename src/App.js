@@ -9,6 +9,7 @@ import SIgnUpContainer from './Container/SIgnUpContainer';
 import MainPageContainer from './Container/MainPageContainer';
 import getUserData from './utils/firebase/getUserData';
 import getCabinetData from './utils/firebase/getCabinetData';
+import UserPageContainer from './Pages/Userpage';
 
 const Container = styled.div`
   -ms-user-select: none;
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/" component={LoginContainer} exact />
           <Route path="/signup" component={SIgnUpContainer} exact />
           <Route path="/main" component={MainPageContainer} exact />
+          <Route path="/userpage" component={UserPageContainer} exact />
         </Switch>
       </Router>
     </Container>
