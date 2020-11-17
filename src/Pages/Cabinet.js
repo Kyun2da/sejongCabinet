@@ -171,11 +171,11 @@ const Cabinet = (props) => {
     cabinetCancel,
   } = props;
   const onClickFunc = () => {
-    if (select !== currentUserID) {
-      console.log(`캐비넷 등록${cabinetNum}`);
+    if (item[select] !== currentUserID) {
+      console.log(`캐비넷 등록${item[select]}`);
       cabinetEnroll(cabinetNum);
     } else {
-      console.log(`캐비넷 취소${cabinetNum}`);
+      console.log(`캐비넷 취소${item[select]}`);
       cabinetCancel(cabinetNum);
     }
   };
@@ -185,10 +185,10 @@ const Cabinet = (props) => {
     for (let i = 1; i < item.length; i += 1) {
       if (item[i] === 0) {
         count[0] += 1;
-      } else if (item[i] === 1) {
-        count[1] += 1;
-      } else {
+      } else if (item[i] === 2) {
         count[2] += 1;
+      } else {
+        count[1] += 1;
       }
     }
 
@@ -233,7 +233,7 @@ const Cabinet = (props) => {
                 setSelect(arrIdx);
               }}
             >
-              {item[arrIdx]}
+              {arrIdx}
             </Button>
           </Grid>
         );
@@ -241,7 +241,7 @@ const Cabinet = (props) => {
       return (
         <Grid item xs={1} key={arrIdx}>
           <Button className={classes.button2} disabled>
-            {item[arrIdx]}
+            {arrIdx}
           </Button>
         </Grid>
       );
@@ -421,7 +421,7 @@ const Cabinet = (props) => {
             }}
             onClick={onClickFunc}
           >
-            {select !== currentUserID ? '신청' : '취소'}
+            {item[select] !== currentUserID ? '신청' : '취소'}
           </Button>
         </div>
       </Default>
@@ -494,7 +494,7 @@ const Cabinet = (props) => {
                 }}
                 onClick={onClickFunc}
               >
-                {select !== currentUserID ? '신청' : '취소'}
+                {item[select] !== currentUserID ? '신청' : '취소'}
               </Button>
             </div>
           </div>
