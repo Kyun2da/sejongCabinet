@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button, Grid, makeStyles } from '@material-ui/core';
@@ -171,31 +171,26 @@ const Cabinet = (props) => {
     cabinetCancel,
   } = props;
   const onClickFunc = () => {
-    if (select !== currentUserID) {
-      console.log(`캐비넷 등록${cabinetNum}`);
+    if (item[select] !== currentUserID) {
       cabinetEnroll(cabinetNum);
     } else {
-      console.log(`캐비넷 취소${cabinetNum}`);
       cabinetCancel(cabinetNum);
     }
   };
-  const countStatus = () => {
-    const count = [0, 0, 0];
-
+  const [count, setCount] = useState([0, 0, 0]);
+  useEffect(() => {
+    const newCount = [0, 0, 0];
     for (let i = 1; i < item.length; i += 1) {
       if (item[i] === 0) {
-        count[0] += 1;
-      } else if (item[i] === 1) {
-        count[1] += 1;
+        newCount[0] += 1;
+      } else if (item[i] === 2) {
+        newCount[2] += 1;
       } else {
-        count[2] += 1;
+        newCount[1] += 1;
       }
     }
-
-    return count;
-  };
-  const [_status] = useState(countStatus());
-
+    setCount(newCount);
+  }, [item]);
   const loadGridRow = (i) => {
     return [...Array(width)].map((v, index) => {
       const arrIdx = i * width + index + 1;
@@ -233,7 +228,7 @@ const Cabinet = (props) => {
                 setSelect(arrIdx);
               }}
             >
-              {item[arrIdx]}
+              {arrIdx}
             </Button>
           </Grid>
         );
@@ -241,7 +236,7 @@ const Cabinet = (props) => {
       return (
         <Grid item xs={1} key={arrIdx}>
           <Button className={classes.button2} disabled>
-            {item[arrIdx]}
+            {arrIdx}
           </Button>
         </Grid>
       );
@@ -360,9 +355,9 @@ const Cabinet = (props) => {
               alignItems: 'flex-start',
             }}
           >
-            <StatusValue>✅ : {_status[0]} </StatusValue>
-            <StatusValue>❌ : {_status[1]}</StatusValue>
-            <StatusValue>🚧 : {_status[2]}</StatusValue>
+            <StatusValue>✅ : {count[0]} </StatusValue>
+            <StatusValue>❌ : {count[1]}</StatusValue>
+            <StatusValue>🚧 : {count[2]}</StatusValue>
           </div>
         </div>
         <div
@@ -413,15 +408,16 @@ const Cabinet = (props) => {
         >
           <Button
             style={{
-              backgroundColor: 'black',
+              backgroundColor: select === -1 ? 'gray' : 'black',
               color: 'white',
               width: '6vw',
               padding: '2vh 2vw',
               marginRight: '1vw',
             }}
             onClick={onClickFunc}
+            disabled={select === -1}
           >
-            {select !== currentUserID ? '신청' : '취소'}
+            {item[select] !== currentUserID ? '신청' : '취소'}
           </Button>
         </div>
       </Default>
@@ -447,13 +443,13 @@ const Cabinet = (props) => {
                   fontFamily: 'Anton',
                 }}
               >
-                ⭕ : {_status[0]}
+                ⭕ : {count[0]}
               </div>
               <div style={{ flexGrow: 1, fontFamily: 'Anton' }}>
-                ❌ : {_status[1]}
+                ❌ : {count[1]}
               </div>
               <div style={{ flexGrow: 1, fontFamily: 'Anton' }}>
-                🚧 : {_status[2]}
+                🚧 : {count[2]}
               </div>
             </div>
           </center>
@@ -487,14 +483,15 @@ const Cabinet = (props) => {
             <div style={{ marginLeft: 0 }}>
               <Button
                 style={{
-                  backgroundColor: 'black',
+                  backgroundColor: select === -1 ? 'gray' : 'black',
                   color: 'white',
                   width: '6vw',
                   fontSize: '12px',
                 }}
                 onClick={onClickFunc}
+                disabled={select === -1}
               >
-                {select !== currentUserID ? '신청' : '취소'}
+                {item[select] !== currentUserID ? '신청' : '취소'}
               </Button>
             </div>
           </div>
