@@ -8,6 +8,8 @@ const getUserData = (userId, dispatch) => {
       setCurrentUserNameAndID({
         studentId: snapshot.val().studentID,
         name: snapshot.val().name,
+        cabinetTitle: snapshot.val().cabinetTitle,
+        cabinetIdx: snapshot.val().cabinetIdx,
       }),
     );
   });
