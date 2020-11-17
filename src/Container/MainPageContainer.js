@@ -36,26 +36,64 @@ const MainPageContainer = () => {
     const updates = {};
     updates[`cabinet/${cabinetTitle}/item/${select}`] = currentUserID;
     database.ref(`cabinet/${cabinetTitle}`).transaction((cabinet) => {
-      database.ref().update(updates);
+      if (cabinet.item[select] === 0) {
+        database
+          .ref()
+          .update(updates)
+          .then(() => {
+            Swal.fire({
+              icon: 'success',
+              title: '사물함 신청 성공',
+              text: `${select}번 사물함이 신청되었습니다`,
+              showConfirmButton: true,
+              width: '25rem',
+              timer: 2000,
+            });
+          });
+      } else {
+        Swal.fire({
+          icon: 'success',
+          title: '사물함 신청 실패',
+          text: `이미 신청한 사람이 있거나 신청이 불가능합니다.`,
+          showConfirmButton: true,
+          width: '25rem',
+          timer: 2000,
+        });
+      }
     });
   };
   const cancelCabinet = (cabinetTitle) => {
     const updates = {};
     updates[`cabinet/${cabinetTitle}/item/${select}`] = 0;
     database.ref(`cabinet/${cabinetTitle}`).transaction((cabinet) => {
-      database.ref().update(updates);
+      if (cabinet.item[select] === currentUserID) {
+        database
+          .ref()
+          .update(updates)
+          .then(() => {
+            Swal.fire({
+              icon: 'success',
+              title: '사물함 취소 성공',
+              text: `${select}번 사물함이 취소되었습니다`,
+              showConfirmButton: true,
+              width: '25rem',
+              timer: 2000,
+            });
+          });
+      } else {
+        Swal.fire({
+          icon: 'success',
+          title: '사물함 취소 실패',
+          text: `알수 없는 오류로 사물함 취소에 실패하였습니다. 관리자에게 문의해주세요.`,
+          showConfirmButton: true,
+          width: '25rem',
+          timer: 2000,
+        });
+      }
     });
   };
   const cabinetEnroll = (title) => {
     enrollCabinet(title);
-    Swal.fire({
-      icon: 'success',
-      title: '사물함 신청 성공',
-      text: `${title}의 ${select}번 사물함으로 신청되었습니다`,
-      showConfirmButton: true,
-      width: '25rem',
-      timer: 2000,
-    });
   };
 
   const cabinetCancel = (title) => {
