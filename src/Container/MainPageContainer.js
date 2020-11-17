@@ -40,7 +40,6 @@ const MainPageContainer = () => {
         if (cabinet === 0) {
           return currentUserID;
         }
-        return cabinet;
         // Abort the transaction.
       },
       (error, committed, snapshot) => {
@@ -83,7 +82,6 @@ const MainPageContainer = () => {
         if (cabinet === currentUserID) {
           return 0;
         }
-        return cabinet;
         // Abort the transaction.
       },
       (error, committed, snapshot) => {
