@@ -2,7 +2,9 @@ import { createAction, handleActions } from 'redux-actions';
 import authTypes from './auth.types';
 
 const initialState = {
-  currentUser: null,
+  currentUser: {
+    uid: null,
+  },
   currentUserName: null,
   currentUserID: null,
   cabinetTitle: null,
@@ -30,7 +32,9 @@ const authReducer = handleActions(
     }),
     [clearCurrentUser]: (state) => ({
       ...state,
-      currentUser: null,
+      currentUser: {
+        uid: null,
+      },
       currentUserName: null,
       currentUserID: null,
       cabinetTitle: null,
