@@ -57,7 +57,7 @@ const MainPageContainer = () => {
               text: `관리자에게 문의해 주세요.`,
               showConfirmButton: true,
               width: '25rem',
-              timer: 2000,
+              timer: 5000,
             });
           } else if (!committed) {
             Swal.fire({
@@ -66,17 +66,17 @@ const MainPageContainer = () => {
               text: `취소가 불가능합니다.`,
               showConfirmButton: true,
               width: '25rem',
-              timer: 2000,
+              timer: 5000,
             });
           } else {
             writeUserData(userId, currentUserName, currentUserID, 0, 0);
             Swal.fire({
               icon: 'success',
               title: '사물함 취소 성공',
-              text: `${select}번 사물함이 ${currentUserID}학번으로 취소되었습니다`,
+              text: `${currentUserName}님이 신청했던 ${select}번 사물함이 취소되었습니다`,
               showConfirmButton: true,
               width: '25rem',
-              timer: 2000,
+              timer: 5000,
             });
           }
         },
@@ -101,7 +101,7 @@ const MainPageContainer = () => {
               text: `관리자에게 문의해 주세요.`,
               showConfirmButton: true,
               width: '25rem',
-              timer: 2000,
+              timer: 5000,
             });
           } else if (!committed) {
             Swal.fire({
@@ -110,7 +110,7 @@ const MainPageContainer = () => {
               text: `이미 신청한 사람이 있거나 신청이 불가능합니다.`,
               showConfirmButton: true,
               width: '25rem',
-              timer: 2000,
+              timer: 5000,
             });
           } else {
             writeUserData(
@@ -126,7 +126,7 @@ const MainPageContainer = () => {
               text: `${select}번 사물함이 ${snapshot.val()}학번으로 신청되었습니다`,
               showConfirmButton: true,
               width: '25rem',
-              timer: 2000,
+              timer: 5000,
             });
           }
         },
@@ -135,12 +135,14 @@ const MainPageContainer = () => {
       Swal.fire({
         icon: 'question',
         title: '사물함 신청을 취소하시겠습니까?',
-        text: `현재 사물함이 신청되어 있는 상태입니다.\n다음 사물함을 신청하기 위해선 등록된 사물함을 취소해야합니다.\n정말 사물함을 취소하시겠습니까?`,
+        html:
+          '사물함을 신청하기 위해선 현재 등록된 사물함을 취소해야합니다.<br/>' +
+          '정말 사물함을 취소하시겠습니까?',
         showConfirmButton: true,
         showCancelButton: true,
         confirmButtonText: '예',
         cancelButtonText: '아니오',
-        width: '25rem',
+        width: '50rem',
       }).then((result) => {
         if (result.isConfirmed) {
           cancelCabinet();

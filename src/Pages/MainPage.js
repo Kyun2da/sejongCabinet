@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import SwipeableViews from 'react-swipeable-views';
 import { SwipeableDrawer, Button, Tabs, Tab } from '@material-ui/core';
-import EjectIcon from '@material-ui/icons/Eject';
+import ImageIcon from '@material-ui/icons/Image';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PropTypes from 'prop-types';
 import Cabinet from './Cabinet';
@@ -233,7 +233,8 @@ const MainPage = (props) => {
                 onClick={() => visibleMap(true)}
                 style={{ backgroundColor: 'white', width: '5vw' }}
               >
-                <EjectIcon />
+                photo
+                <ImageIcon />
               </Button>
             </div>
             <div
@@ -318,7 +319,8 @@ const MainPage = (props) => {
                 onClick={() => visibleMap(true)}
                 style={{ backgroundColor: 'white', width: '2.5vw' }}
               >
-                <EjectIcon />
+                photo
+                <ImageIcon />
               </Button>
             </div>
 

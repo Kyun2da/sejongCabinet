@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 import { Button, Grid, makeStyles } from '@material-ui/core';
 import { Default, Mobile } from '../MediaQuery';
 
@@ -58,14 +59,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   button2: {
-    border: '3px solid rgb(255,20,20)',
-    textAlign: 'center',
-    padding: theme.spacing(1),
     fontFamily: 'Anton',
+    border: '3px solid lightgray',
+    padding: theme.spacing(1),
     width: '5.5vw',
     color: 'white',
+    fontWeight: 'bold',
     fontSize: '1vw',
-    backgroundColor: 'rgb(255,20,20)',
+    backgroundColor: 'lightgray',
   },
   button3: {
     fontFamily: 'Anton',
@@ -79,13 +80,22 @@ const useStyles = makeStyles((theme) => ({
   },
   button4: {
     fontFamily: 'Anton',
-    border: '3px solid lightgray',
+    border: '3px solid #008000',
     padding: theme.spacing(1),
     width: '5.5vw',
-    color: 'white',
     fontWeight: 'bold',
     fontSize: '1vw',
-    backgroundColor: 'blue',
+    backgroundColor: '#008000',
+    '&:hover': {
+      backgroundColor: '#DF1840',
+      color: 'white',
+      border: '3px solid #DF1840',
+    },
+    '&:focus': {
+      backgroundColor: '#DF1840',
+      color: 'white',
+      border: '3px solid #DF1840',
+    },
   },
   Mbutton: {
     border: '2px solid #00d145',
@@ -228,7 +238,7 @@ const Cabinet = (props) => {
                 setSelect(arrIdx);
               }}
             >
-              {arrIdx}
+              <CheckOutlinedIcon style={{ fontSize: '1.7vw' }} />
             </Button>
           </Grid>
         );
