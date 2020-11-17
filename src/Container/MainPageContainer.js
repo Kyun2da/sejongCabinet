@@ -13,6 +13,8 @@ const MainPageContainer = () => {
   const currentUserID = useSelector((state) => state.auth.currentUserID);
   const currentUserName = useSelector((state) => state.auth.currentUserName);
   const userId = useSelector((state) => state.auth.currentUser.uid);
+  const userCabinetIdx = useSelector((state) => state.auth.cabinetIdx);
+  const userCabinetTitle = useSelector((state) => state.auth.cabinetTitle);
   const cabinetNames = [
     'cabinet1',
     'cabinet2',
@@ -35,99 +37,117 @@ const MainPageContainer = () => {
   const handleChange = (event, newValue) => {
     setIndex(newValue);
   };
-  const enrollCabinet = (cabinetTitle) => {
-    database.ref(`cabinet/${cabinetTitle}/item/${select}`).transaction(
-      (cabinet) => {
-        if (cabinet === 0) {
-          return currentUserID;
-        }
-        // eslint-disable-next-line no-useless-return
-        return;
-      },
-      (error, committed, snapshot) => {
-        if (error) {
-          Swal.fire({
-            icon: 'error',
-            title: '사물함 신청 에러',
-            text: `관리자에게 문의해 주세요.`,
-            showConfirmButton: true,
-            width: '25rem',
-            timer: 2000,
-          });
-        } else if (!committed) {
-          Swal.fire({
-            icon: 'error',
-            title: '사물함 신청 실패',
-            text: `이미 신청한 사람이 있거나 신청이 불가능합니다.`,
-            showConfirmButton: true,
-            width: '25rem',
-            timer: 2000,
-          });
-        } else {
-          writeUserData(
-            userId,
-            currentUserName,
-            currentUserID,
-            cabinetTitle,
-            select,
-          );
-          Swal.fire({
-            icon: 'success',
-            title: '사물함 신청 성공',
-            text: `${select}번 사물함이 ${snapshot.val()}학번으로 신청되었습니다`,
-            showConfirmButton: true,
-            width: '25rem',
-            timer: 2000,
-          });
-        }
-      },
-    );
-  };
-  const cancelCabinet = (cabinetTitle) => {
-    const updates = {};
-    updates[`cabinet/${cabinetTitle}/item/${select}`] = 0;
-    database.ref(`cabinet/${cabinetTitle}/item/${select}`).transaction(
-      (cabinet) => {
-        if (cabinet === currentUserID) {
-          return 0;
-        }
-        // eslint-disable-next-line no-useless-return
-        return;
-      },
-      (error, committed) => {
-        if (error) {
-          Swal.fire({
-            icon: 'error',
-            title: '사물함 취소 에러',
-            text: `관리자에게 문의해 주세요.`,
-            showConfirmButton: true,
-            width: '25rem',
-            timer: 2000,
-          });
-        } else if (!committed) {
-          Swal.fire({
-            icon: 'error',
-            title: '사물함 취소 실패',
-            text: `취소가 불가능합니다.`,
-            showConfirmButton: true,
-            width: '25rem',
-            timer: 2000,
-          });
-        } else {
-          writeUserData(userId, currentUserName, currentUserID, 0, 0);
-          Swal.fire({
-            icon: 'success',
-            title: '사물함 취소 성공',
-            text: `${select}번 사물함이 ${currentUserID}학번으로 취소되었습니다`,
-            showConfirmButton: true,
-            width: '25rem',
-            timer: 2000,
-          });
-        }
-      },
-    );
+
+  const cancelCabinet = () => {
+    database
+      .ref(`cabinet/${userCabinetTitle}/item/${userCabinetIdx}`)
+      .transaction(
+        (cabinet) => {
+          if (cabinet === currentUserID) {
+            return 0;
+          }
+          // eslint-disable-next-line no-useless-return
+          return;
+        },
+        (error, committed) => {
+          if (error) {
+            Swal.fire({
+              icon: 'error',
+              title: '사물함 취소 에러',
+              text: `관리자에게 문의해 주세요.`,
+              showConfirmButton: true,
+              width: '25rem',
+              timer: 2000,
+            });
+          } else if (!committed) {
+            Swal.fire({
+              icon: 'error',
+              title: '사물함 취소 실패',
+              text: `취소가 불가능합니다.`,
+              showConfirmButton: true,
+              width: '25rem',
+              timer: 2000,
+            });
+          } else {
+            writeUserData(userId, currentUserName, currentUserID, 0, 0);
+            Swal.fire({
+              icon: 'success',
+              title: '사물함 취소 성공',
+              text: `${select}번 사물함이 ${currentUserID}학번으로 취소되었습니다`,
+              showConfirmButton: true,
+              width: '25rem',
+              timer: 2000,
+            });
+          }
+        },
+      );
   };
 
+  const enrollCabinet = (cabinetTitle) => {
+    if (userCabinetTitle === 0 && userCabinetIdx === 0) {
+      database.ref(`cabinet/${cabinetTitle}/item/${select}`).transaction(
+        (cabinet) => {
+          if (cabinet === 0) {
+            return currentUserID;
+          }
+          // eslint-disable-next-line no-useless-return
+          return;
+        },
+        (error, committed, snapshot) => {
+          if (error) {
+            Swal.fire({
+              icon: 'error',
+              title: '사물함 신청 에러',
+              text: `관리자에게 문의해 주세요.`,
+              showConfirmButton: true,
+              width: '25rem',
+              timer: 2000,
+            });
+          } else if (!committed) {
+            Swal.fire({
+              icon: 'error',
+              title: '사물함 신청 실패',
+              text: `이미 신청한 사람이 있거나 신청이 불가능합니다.`,
+              showConfirmButton: true,
+              width: '25rem',
+              timer: 2000,
+            });
+          } else {
+            writeUserData(
+              userId,
+              currentUserName,
+              currentUserID,
+              cabinetTitle,
+              select,
+            );
+            Swal.fire({
+              icon: 'success',
+              title: '사물함 신청 성공',
+              text: `${select}번 사물함이 ${snapshot.val()}학번으로 신청되었습니다`,
+              showConfirmButton: true,
+              width: '25rem',
+              timer: 2000,
+            });
+          }
+        },
+      );
+    } else {
+      Swal.fire({
+        icon: 'question',
+        title: '사물함 신청을 취소하시겠습니까?',
+        text: `현재 사물함이 신청되어 있는 상태입니다.\n다음 사물함을 신청하기 위해선 등록된 사물함을 취소해야합니다.\n정말 사물함을 취소하시겠습니까?`,
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: '예',
+        cancelButtonText: '아니오',
+        width: '25rem',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          cancelCabinet();
+        }
+      });
+    }
+  };
   const cabinetEnroll = (title) => {
     enrollCabinet(title);
   };
