@@ -1,10 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import SwipeableViews from 'react-swipeable-views';
-import { SwipeableDrawer, Button, Tabs, Tab } from '@material-ui/core';
+import {
+  SwipeableDrawer,
+  Button,
+  Tabs,
+  Tab,
+  FormControl,
+  TextField,
+  makeStyles,
+} from '@material-ui/core';
 import EjectIcon from '@material-ui/icons/Eject';
+import { Link } from 'react-router-dom';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PropTypes from 'prop-types';
+import Swal from 'sweetalert2';
 import Cabinet from './Cabinet';
 import Logo from '../image/Logo.png';
 import { Default, Mobile } from '../MediaQuery';
@@ -19,6 +29,25 @@ const Container = styled.div`
   margin-top: 9vh;
   height: 80%;
   width: 100%;
+`;
+
+const UserpageTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5vw;
+  font-weight: bold;
+  padding: 1vh 0 2vh;
+  border-bottom: 1px solid RGB(200, 200, 200);
+`;
+
+const MUserpageTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6vw;
+  font-weight: bold;
+  padding: 1vh 0 0.5vh;
 `;
 
 const styles = {
@@ -52,145 +81,184 @@ const styles = {
     padding: '100rem',
     minHeight: 100,
   },
+
+  input1: {
+    height: '1vh',
+  },
 };
 
-const MainPage = (props) => {
+const useStyles = makeStyles((theme) => ({
+  cancleButton: {
+    fontFamily: 'Noto Sans KR',
+    fontWeight: 'bold',
+    backgroundColor: 'red',
+    color: 'white',
+    opacity: 0.6,
+    padding: '0.5vh 1vw',
+    borderRadius: '0.5vw',
+    '&:hover': {
+      backgroundColor: 'red',
+      opacity: 1,
+    },
+  },
+
+  McancleButton: {
+    fontFamily: 'Noto Sans KR',
+    fontWeight: 'bold',
+    backgroundColor: 'red',
+    opacity: 0.6,
+    color: 'white',
+    borderRadius: '2vw',
+    '&:hover': {
+      backgroundColor: 'red',
+      opacity: 1,
+    },
+  },
+
+  changeButton: {
+    fontFamily: 'Noto Sans KR',
+    fontWeight: 'bold',
+    backgroundColor: 'rgb(180,180,180)',
+    color: 'white',
+    width: '25vw',
+    height: '6vh',
+    borderRadius: '0.5vw',
+    margin: '1vh 0',
+    '&:hover': {
+      backgroundColor: 'rgb(150,150,150)',
+    },
+  },
+
+  MchangeButton: {
+    fontFamily: 'Noto Sans KR',
+    fontWeight: 'bold',
+    backgroundColor: 'rgb(180,180,180)',
+    color: 'white',
+    width: '60vw',
+    height: '5vh',
+    borderRadius: '3vw',
+    margin: '1vh 0',
+    '&:hover': {
+      backgroundColor: 'rgb(150,150,150)',
+    },
+  },
+}));
+
+const UserPage = (props) => {
   const {
     data,
     _map,
     visibleMap,
-    index,
-    handleChange,
-    handleChangeIndex,
-    select,
-    setSelect,
     onClickLogout,
+    index,
     currentUserName,
     cabinetNames,
   } = props;
-  const LoadTabs = () => {
-    return cabinetNames.map((i) => {
-      return (
-        <Tab
-          key={data.currentCabinets[i].title}
-          label={data.currentCabinets[i].title}
-          style={styles.tab_pc}
-        />
-      );
+  const passwordsample = '123456';
+  const classes = useStyles();
+  const [currentPassword, setCurrent] = React.useState('');
+  const [changePassword, setChange] = React.useState('');
+  const [confirmPassword, setConfirm] = React.useState('');
+  const [passwordCheck, setCheck] = React.useState(false);
+
+  const onFinishFunc = () => {
+    Swal.fire({
+      icon: 'success',
+      title: '취소 되었습니다.',
+      showConfirmButton: false,
+      width: '20rem',
+      fontSize: '1rem',
+      timer: 1500,
     });
   };
 
-  const MLoadTabs = () => {
-    return cabinetNames.map((i) => {
-      return (
-        <Tab
-          key={data.currentCabinets[i].title}
-          label={data.currentCabinets[i].title}
-          style={styles.tab_mobile}
-        />
-      );
+  const cancleCabinet = () => {
+    Swal.fire({
+      text: '자리를 취소 하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '네',
+      cancelButtonText: '아니요',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        onFinishFunc();
+      }
     });
   };
 
-  const showTabs = () => {
-    return (
-      <Tabs
-        value={index}
-        fullwidth="true"
-        onChange={handleChange}
-        style={styles.tabs}
-        textColor="inherit"
-        indicatorColor="primary"
-        centered
-      >
-        {LoadTabs()}
-      </Tabs>
-    );
+  const currnetPasswordHandler = (e) => {
+    setCurrent(e.target.value);
   };
 
-  const MshowTabs = () => {
-    return (
-      <Tabs
-        value={index}
-        fullwidth="true"
-        onChange={handleChange}
-        style={styles.Mtabs}
-        textColor="inherit"
-        indicatorColor="primary"
-        centered
-      >
-        {MLoadTabs()}
-      </Tabs>
-    );
+  const changePasswordHandler = (e) => {
+    setChange(e.target.value);
   };
 
-  const LoadContents = () => {
-    return cabinetNames.map((i) => {
-      return (
-        <Cabinet
-          key={i}
-          data={data.currentCabinets[i]}
-          select={select}
-          setSelect={setSelect}
-        />
-      );
-    });
+  const confirmPasswordHandler = (e) => {
+    setConfirm(e.target.value);
   };
 
-  const MLoadContents = () => {
-    return cabinetNames.map((i) => {
-      return (
-        <Cabinet
-          key={i}
-          data={data.currentCabinets[i]}
-          select={select}
-          setSelect={setSelect}
-        />
-      );
-    });
+  const comparePassword = () => {
+    if (changePassword === confirmPassword) {
+      return true;
+    }
+    return false;
   };
 
-  const showContents = () => {
-    return (
-      <SwipeableViews
-        index={index}
-        onChangeIndex={handleChangeIndex}
-        animateHeight
-        style={{
-          margin: '5vh 5vw',
-          padding: '3vh 0 3vh 3vw',
-          border: '0.5vh solid lightgray',
-          borderRadius: '2vw',
-        }}
-      >
-        {LoadContents()}
-      </SwipeableViews>
-    );
-  };
-
-  const MshowContents = () => {
-    return (
-      <SwipeableViews
-        index={index}
-        onChangeIndex={handleChangeIndex}
-        animateHeight
-        style={{
-          margin: '3vh 0',
-          padding: '1vh 0',
-          borderRadius: '2vw',
-        }}
-      >
-        {MLoadContents()}
-      </SwipeableViews>
-    );
+  const passwordChangeFunc = () => {
+    console.log(currentPassword, changePassword, confirmPassword);
+    if (currentPassword !== passwordsample) {
+      Swal.fire({
+        icon: 'error',
+        text: '현재 비밀번호가 일치하지 않습니다.',
+        showConfirmButton: false,
+        width: 'auto',
+        fontSize: '2rem',
+        timer: 1500,
+      });
+    } else if (comparePassword() === false) {
+      Swal.fire({
+        icon: 'error',
+        text: '비밀번호 확인이 일치하지 않습니다.',
+        showConfirmButton: false,
+        width: 'auto',
+        fontSize: '2rem',
+        timer: 1500,
+      });
+    } else if (passwordsample === changePassword) {
+      Swal.fire({
+        icon: 'error',
+        text: '변경 패스워드가 옳지 않습니다.',
+        showConfirmButton: false,
+        width: 'auto',
+        fontSize: '2rem',
+        timer: 1500,
+      });
+    } else if (changePassword.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        text: '변경 패스워드를 입력해주세요.',
+        showConfirmButton: false,
+        width: 'auto',
+        fontSize: '2rem',
+        timer: 1500,
+      });
+    } else {
+      Swal.fire({
+        icon: 'success',
+        text: '비밀번호가 변경되었습니다.',
+        showConfirmButton: false,
+        width: 'auto',
+        fontSize: '2rem',
+        timer: 1500,
+      });
+    }
   };
 
   return (
-    <div
-      style={{ width: '100%', height: '100%' }}
-      aria-hidden="true"
-      onClick={() => setSelect(-1)}
-    >
+    <div style={{ width: '100%', height: '100%' }}>
       <Default>
         <header>
           <div
@@ -209,14 +277,16 @@ const MainPage = (props) => {
             }}
           >
             <div style={{ left: '2vw', position: 'absolute' }}>
-              <img
-                src={Logo}
-                alt="logo"
-                style={{
-                  width: '3rem',
-                  backgroundColor: 'white',
-                }}
-              />
+              <Link to="/main">
+                <img
+                  src={Logo}
+                  alt="logo"
+                  style={{
+                    width: '3rem',
+                    backgroundColor: 'white',
+                  }}
+                />
+              </Link>
             </div>
             <div>
               <Button
@@ -272,7 +342,12 @@ const MainPage = (props) => {
                 width="700vw"
                 style={{ backgroundColor: 'white' }}
               />
-              <img src={cabinetpicture} alt="cabinetpicture" width="500vw" />
+              <img
+                src={cabinetpicture}
+                alt="cabinetpicture"
+                width="500vw"
+                style={{ padding: '1rem', backgroundColor: 'white' }}
+              />
             </div>
           </SwipeableDrawer>
           <div
@@ -280,60 +355,95 @@ const MainPage = (props) => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              border: '5px solid lightgray',
+              border: '3px solid lightgray',
               borderRadius: '2vw',
               width: '40vw',
-              height: '80vh',
+              height: '75vh',
               padding: '2vh 0',
               columnGap: '2vh',
             }}
           >
             <div
               style={{
-                backgroundColor: 'red',
                 flexGrow: 1,
                 width: '80%',
               }}
             >
+              <UserpageTitle>나의 사물함</UserpageTitle>
               <div
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: 'white',
-                }}
-              >
-                나의 사물함
-              </div>
-              <div
-                style={{
-                  backgroundColor: 'green',
                   height: 'auto',
                   overflow: 'hidden',
                 }}
               >
-                Content
+                <div
+                  style={{
+                    justifyContent: 'space-evenly',
+                    alignItems: 'center',
+                    display: 'flex',
+                    margin: '4vh 0 5vh',
+                    fontSize: '2vw',
+                    flexDirection: 'row',
+                  }}
+                >
+                  <div>사물함위치</div>
+                  <Button
+                    className={classes.cancleButton}
+                    onClick={cancleCabinet}
+                  >
+                    취소
+                  </Button>
+                </div>
               </div>
             </div>
-            <div style={{ backgroundColor: 'blue', flexGrow: 2, width: '80%' }}>
+            <div style={{ flexGrow: 2, width: '80%' }}>
+              <UserpageTitle>비밀번호 변경</UserpageTitle>
               <div
                 style={{
-                  backgroundColor: 'pink',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                비밀번호 변경
-              </div>
-              <div
-                style={{
-                  backgroundColor: 'purple',
                   height: 'auto',
                   overflow: 'hidden',
+                  margin: '2vh 0',
                 }}
               >
-                FORM
+                <FormControl>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                      marginTop: '1vh',
+                      width: '100%',
+                    }}
+                  >
+                    <center>
+                      <TextField
+                        label="현재 비밀번호"
+                        variant="outlined"
+                        onChange={currnetPasswordHandler}
+                        style={{ width: '25vw', margin: '1.5vh 0' }}
+                      />
+                      <TextField
+                        label="변경 비밀번호"
+                        variant="outlined"
+                        onChange={changePasswordHandler}
+                        style={{ width: '25vw', margin: '1.5vh 0' }}
+                      />
+                      <TextField
+                        label="비밀번호 확인"
+                        variant="outlined"
+                        onChange={confirmPasswordHandler}
+                        style={{ width: '25vw', margin: '1.5vh 0' }}
+                      />
+                    </center>
+                    <Button
+                      className={classes.changeButton}
+                      onClick={passwordChangeFunc}
+                    >
+                      변경하기
+                    </Button>
+                  </div>
+                </FormControl>
               </div>
             </div>
           </div>
@@ -397,15 +507,25 @@ const MainPage = (props) => {
                 position: 'static',
                 width: '100%',
                 height: 'auto',
-                padding: '10vh 5%',
+                padding: '5vh 5%',
                 backgroundColor: 'RGB(245,245,245)',
               }}
             >
               <img
                 src={test}
                 alt="map"
-                width="80%"
+                width="90%"
                 style={{ backgroundColor: 'white' }}
+              />
+              <img
+                src={cabinetpicture}
+                alt="cabinetpicture"
+                width="90%"
+                style={{
+                  margin: '5vh 0',
+                  padding: '0.1rem',
+                  backgroundColor: 'white',
+                }}
               />
             </div>
           </SwipeableDrawer>
@@ -414,10 +534,115 @@ const MainPage = (props) => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'center',
+              border: '5px solid lightgray',
+              borderRadius: '6vw',
+              width: '80%',
+              height: '75vh',
+              margin: '2vh 0',
+              padding: '3vh 0 5vh',
             }}
           >
-            gd
+            <div
+              style={{
+                flexGrow: 1,
+                width: '80%',
+              }}
+            >
+              <MUserpageTitle>사물함위치</MUserpageTitle>
+              <div
+                style={{
+                  height: 'auto',
+                  overflow: 'hidden',
+                }}
+              >
+                <div
+                  style={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    margin: '4vh 0 1vh',
+                    paddingBottom: '5vh',
+                    fontSize: '1.5rem',
+                    flexDirection: 'column',
+                    borderBottom: '1px solid gray',
+                  }}
+                >
+                  <div style={{ marginBottom: '3vh' }}>
+                    Title의 Number 사물함
+                  </div>
+                  <Button
+                    className={classes.McancleButton}
+                    onClick={cancleCabinet}
+                  >
+                    취소
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <div style={{ flexGrow: 2, width: '80%' }}>
+              <MUserpageTitle>비밀번호 변경</MUserpageTitle>
+              <div
+                style={{
+                  height: 'auto',
+                  overflow: 'hidden',
+                  margin: '2vh 0',
+                }}
+              >
+                <FormControl>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                      marginTop: '1vh',
+                      width: '100%',
+                    }}
+                  >
+                    <center>
+                      <TextField
+                        id="currentpassword"
+                        label="현재 비밀번호"
+                        variant="outlined"
+                        onChange={currnetPasswordHandler}
+                        margin="dense"
+                        style={{
+                          width: '95%',
+                          margin: '1.5vh 0',
+                        }}
+                      />
+                      <TextField
+                        id="changepassword"
+                        label="변경 비밀번호"
+                        variant="outlined"
+                        margin="dense"
+                        onChange={changePasswordHandler}
+                        style={{
+                          width: '95%',
+                          margin: '1.5vh 0',
+                        }}
+                      />
+                      <TextField
+                        id="confirmpassword"
+                        label="비밀번호 확인"
+                        variant="outlined"
+                        margin="dense"
+                        onChange={confirmPasswordHandler}
+                        style={{
+                          width: '95%',
+                          margin: '1.5vh 0',
+                        }}
+                      />
+                    </center>
+                    <Button
+                      className={classes.MchangeButton}
+                      onClick={passwordChangeFunc}
+                    >
+                      변경하기
+                    </Button>
+                  </div>
+                </FormControl>
+              </div>
+            </div>
           </div>
         </Container>
       </Mobile>
@@ -425,18 +650,14 @@ const MainPage = (props) => {
   );
 };
 
-MainPage.propTypes = {
+UserPage.propTypes = {
   data: PropTypes.objectOf(PropTypes.object).isRequired,
-  index: PropTypes.number.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleChangeIndex: PropTypes.func.isRequired,
-  select: PropTypes.number.isRequired,
-  setSelect: PropTypes.func.isRequired,
   _map: PropTypes.bool.isRequired,
   visibleMap: PropTypes.func.isRequired,
   onClickLogout: PropTypes.func.isRequired,
   currentUserName: PropTypes.string.isRequired,
   cabinetNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  index: PropTypes.number.isRequired,
 };
 
-export default MainPage;
+export default UserPage;

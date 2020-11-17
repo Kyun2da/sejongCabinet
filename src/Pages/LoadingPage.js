@@ -1,5 +1,5 @@
 import React from 'react';
-import { CircularProgress } from '@material-ui/core/';
+import { CircularProgress, Backdrop } from '@material-ui/core/';
 import { Mobile, Default } from '../MediaQuery';
 
 const LoadingPage = () => {
