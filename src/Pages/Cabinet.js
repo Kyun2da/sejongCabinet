@@ -255,7 +255,7 @@ const Cabinet = (props) => {
 
   const MloadGridRow = (i) => {
     return [...Array(width)].map((v, index) => {
-      const arrIdx = i * height + index + 1;
+      const arrIdx = i * width + index + 1;
       if (item[arrIdx] === 0) {
         return (
           <Grid item xs={1} key={arrIdx}>
