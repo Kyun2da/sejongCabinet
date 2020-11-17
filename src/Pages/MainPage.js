@@ -1,25 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import SwipeableViews from 'react-swipeable-views';
-import {
-  SwipeableDrawer,
-  Button,
-  Tabs,
-  Tab,
-  Menu,
-  MenuItem,
-  Popover,
-} from '@material-ui/core';
-import EjectIcon from '@material-ui/icons/Eject';
-import MenuIcon from '@material-ui/icons/Menu';
+import { SwipeableDrawer, Button, Tabs, Tab } from '@material-ui/core';
+import ImageIcon from '@material-ui/icons/Image';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Cabinet from './Cabinet';
 import Logo from '../image/softwareLogo.png';
 import { Default, Mobile } from '../MediaQuery';
 import test from '../image/Test.png';
-import cabinetpicture from '../image/Cabinet.jpg';
 
 const Container = styled.div`
   display: flex;
@@ -81,16 +70,6 @@ const MainPage = (props) => {
     currentUserID,
     cabinetCancel,
   } = props;
-  const [menuCheck, setMenu] = React.useState(null);
-
-  const menuHandler = (event) => {
-    setMenu(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setMenu(null);
-  };
-
   const LoadTabs = () => {
     return cabinetNames.map((i) => {
       return (
@@ -254,7 +233,8 @@ const MainPage = (props) => {
                 onClick={() => visibleMap(true)}
                 style={{ backgroundColor: 'white', width: '5vw' }}
               >
-                <EjectIcon />
+                photo
+                <ImageIcon />
               </Button>
             </div>
             <div
@@ -268,34 +248,15 @@ const MainPage = (props) => {
             >
               {currentUserName}님 환영합니다!
               <Button
-                onClick={menuHandler}
+                onClick={onClickLogout}
                 style={{ backgroundColor: 'transparent', margin: '0 0 0 2vw' }}
                 disableRipple
               >
-                <MenuIcon />
+                <PowerSettingsNewIcon />
               </Button>
-              <Menu
-                open={Boolean(menuCheck)}
-                onClose={handleClose}
-                anchorEl={menuCheck}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'bottom',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'top',
-                }}
-                style={{ position: 'fixed' }}
-              >
-                <MenuItem onClick={menuHandler}>Profile</MenuItem>
-                <MenuItem onClick={menuHandler}>My account</MenuItem>
-                <MenuItem onClick={menuHandler}>Logout</MenuItem>
-              </Menu>
             </div>
           </div>
         </header>
-
         <Container style={{ marginTop: '14vh' }}>
           <SwipeableDrawer
             anchor="top"
@@ -358,7 +319,8 @@ const MainPage = (props) => {
                 onClick={() => visibleMap(true)}
                 style={{ backgroundColor: 'white', width: '2.5vw' }}
               >
-                <EjectIcon />
+                photo
+                <ImageIcon />
               </Button>
             </div>
 
@@ -371,30 +333,12 @@ const MainPage = (props) => {
               }}
             >
               <Button
-                onClick={menuHandler}
+                onClick={onClickLogout}
                 style={{ backgroundColor: 'transparent', width: '2.5vw' }}
                 disableRipple
               >
-                <MenuIcon />
+                <PowerSettingsNewIcon />
               </Button>
-              <Menu
-                open={Boolean(menuCheck)}
-                onClose={handleClose}
-                anchorEl={menuCheck}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'bottom',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'top',
-                }}
-                style={{ position: 'fixed' }}
-              >
-                <MenuItem onClick={menuHandler}>Profile</MenuItem>
-                <MenuItem onClick={menuHandler}>My account</MenuItem>
-                <MenuItem onClick={menuHandler}>Logout</MenuItem>
-              </Menu>
             </div>
           </div>
         </header>
@@ -411,7 +355,7 @@ const MainPage = (props) => {
                 position: 'static',
                 width: '100%',
                 height: 'auto',
-                padding: '5vh 4%',
+                padding: '10vh 5%',
                 backgroundColor: 'RGB(245,245,245)',
               }}
             >
@@ -420,16 +364,6 @@ const MainPage = (props) => {
                 alt="map"
                 width="80%"
                 style={{ backgroundColor: 'white' }}
-              />
-              <img
-                src={cabinetpicture}
-                alt="cabinetpicture"
-                width="80%"
-                style={{
-                  margin: '5vh 0',
-                  padding: '0.1rem',
-                  backgroundColor: 'white',
-                }}
               />
             </div>
           </SwipeableDrawer>

@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { Route, Switch, HashRouter as Router } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { auth } from './configs/firebase.config';
-import { setCurrentUser, clearCurrentUser } from './redux/auth/auth.actions';
 import LoginContainer from './Container/LoginContainer';
 import SIgnUpContainer from './Container/SIgnUpContainer';
 import MainPageContainer from './Container/MainPageContainer';
 import UserPageContainer from './Container/UserPageContainer';
 import getUserData from './utils/firebase/getUserData';
 import getCabinetData from './utils/firebase/getCabinetData';
+import { clearCurrentUser, setCurrentUser } from './redux/auth/auth.reducer';
 
 const Container = styled.div`
   -ms-user-select: none;
