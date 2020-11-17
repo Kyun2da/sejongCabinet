@@ -5,11 +5,14 @@ import Swal from 'sweetalert2';
 import { database } from '../configs/firebase.config';
 import LoadingPage from '../Pages/LoadingPage';
 import MainPage from '../Pages/MainPage';
+import writeUserData from '../utils/firebase/writeUserData';
 
 const MainPageContainer = () => {
   const history = useHistory();
   const data = useSelector((state) => state.cabinet.currentCabinets);
   const currentUserID = useSelector((state) => state.auth.currentUserID);
+  const currentUserName = useSelector((state) => state.auth.currentUserName);
+  const userId = useSelector((state) => state.auth.currentUser.uid);
   const cabinetNames = [
     'cabinet1',
     'cabinet2',
@@ -20,7 +23,7 @@ const MainPageContainer = () => {
   const [_map, visibleMap] = useState(false);
   const [index, setIndex] = useState(0);
   const [select, setSelect] = useState(-1);
-  const currentUserName = useSelector((state) => state.auth.currentUserName);
+
   const onClickLogout = () => {
     history.push('/');
   };
@@ -33,8 +36,6 @@ const MainPageContainer = () => {
     setIndex(newValue);
   };
   const enrollCabinet = (cabinetTitle) => {
-    const updates = {};
-    updates[`cabinet/${cabinetTitle}/item/${select}`] = currentUserID;
     database.ref(`cabinet/${cabinetTitle}/item/${select}`).transaction(
       (cabinet) => {
         if (cabinet === 0) {
@@ -42,7 +43,6 @@ const MainPageContainer = () => {
         }
         // eslint-disable-next-line no-useless-return
         return;
-        // Abort the transaction.
       },
       (error, committed, snapshot) => {
         if (error) {
@@ -64,6 +64,13 @@ const MainPageContainer = () => {
             timer: 2000,
           });
         } else {
+          writeUserData(
+            userId,
+            currentUserName,
+            currentUserID,
+            cabinetTitle,
+            select,
+          );
           Swal.fire({
             icon: 'success',
             title: '사물함 신청 성공',
@@ -86,9 +93,8 @@ const MainPageContainer = () => {
         }
         // eslint-disable-next-line no-useless-return
         return;
-        // Abort the transaction.
       },
-      (error, committed, snapshot) => {
+      (error, committed) => {
         if (error) {
           Swal.fire({
             icon: 'error',
@@ -108,6 +114,7 @@ const MainPageContainer = () => {
             timer: 2000,
           });
         } else {
+          writeUserData(userId, currentUserName, currentUserID, 0, 0);
           Swal.fire({
             icon: 'success',
             title: '사물함 취소 성공',

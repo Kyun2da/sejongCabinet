@@ -5,6 +5,8 @@ const initialState = {
   currentUser: null,
   currentUserName: null,
   currentUserID: null,
+  cabinetTitle: null,
+  cabinetIdx: null,
 };
 
 export const setCurrentUser = createAction(authTypes.SET_CURRENT_USER);
@@ -23,12 +25,16 @@ const authReducer = handleActions(
       ...state,
       currentUserName: action.payload.name,
       currentUserID: action.payload.studentId,
+      cabinetTitle: action.payload.cabinetTitle,
+      cabinetIdx: action.payload.cabinetIdx,
     }),
     [clearCurrentUser]: (state) => ({
       ...state,
       currentUser: null,
       currentUserName: null,
       currentUserID: null,
+      cabinetTitle: null,
+      cabinetIdx: null,
     }),
   },
   initialState,

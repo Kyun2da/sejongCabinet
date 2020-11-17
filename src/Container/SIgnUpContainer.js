@@ -35,6 +35,8 @@ const SIgnUpContainer = () => {
     database.ref(`users/${userId}`).set({
       studentID,
       name: _name,
+      cabinetIdx: 0,
+      cabinetTitle: 0,
     });
   };
 
