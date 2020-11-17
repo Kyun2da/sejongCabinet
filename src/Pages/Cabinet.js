@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button, Grid, makeStyles } from '@material-ui/core';
@@ -172,30 +172,25 @@ const Cabinet = (props) => {
   } = props;
   const onClickFunc = () => {
     if (item[select] !== currentUserID) {
-      console.log(`캐비넷 등록${item[select]}`);
       cabinetEnroll(cabinetNum);
     } else {
-      console.log(`캐비넷 취소${item[select]}`);
       cabinetCancel(cabinetNum);
     }
   };
-  const countStatus = () => {
-    const count = [0, 0, 0];
-
+  const [count, setCount] = useState([0, 0, 0]);
+  useEffect(() => {
+    const newCount = [0, 0, 0];
     for (let i = 1; i < item.length; i += 1) {
       if (item[i] === 0) {
-        count[0] += 1;
+        newCount[0] += 1;
       } else if (item[i] === 2) {
-        count[2] += 1;
+        newCount[2] += 1;
       } else {
-        count[1] += 1;
+        newCount[1] += 1;
       }
     }
-
-    return count;
-  };
-  const [_status] = useState(countStatus());
-
+    setCount(newCount);
+  }, [item]);
   const loadGridRow = (i) => {
     return [...Array(width)].map((v, index) => {
       const arrIdx = i * width + index + 1;
@@ -360,9 +355,9 @@ const Cabinet = (props) => {
               alignItems: 'flex-start',
             }}
           >
-            <StatusValue>✅ : {_status[0]} </StatusValue>
-            <StatusValue>❌ : {_status[1]}</StatusValue>
-            <StatusValue>🚧 : {_status[2]}</StatusValue>
+            <StatusValue>✅ : {count[0]} </StatusValue>
+            <StatusValue>❌ : {count[1]}</StatusValue>
+            <StatusValue>🚧 : {count[2]}</StatusValue>
           </div>
         </div>
         <div
@@ -447,13 +442,13 @@ const Cabinet = (props) => {
                   fontFamily: 'Anton',
                 }}
               >
-                ⭕ : {_status[0]}
+                ⭕ : {count[0]}
               </div>
               <div style={{ flexGrow: 1, fontFamily: 'Anton' }}>
-                ❌ : {_status[1]}
+                ❌ : {count[1]}
               </div>
               <div style={{ flexGrow: 1, fontFamily: 'Anton' }}>
-                🚧 : {_status[2]}
+                🚧 : {count[2]}
               </div>
             </div>
           </center>
