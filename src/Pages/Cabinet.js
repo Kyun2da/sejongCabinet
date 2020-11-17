@@ -174,7 +174,7 @@ const Cabinet = (props) => {
     if (item[select] !== currentUserID) {
       cabinetEnroll(cabinetNum);
     } else {
-      cabinetCancel(cabinetNum);
+      cabinetCancel();
     }
   };
   const [count, setCount] = useState([0, 0, 0]);
