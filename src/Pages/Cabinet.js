@@ -408,13 +408,14 @@ const Cabinet = (props) => {
         >
           <Button
             style={{
-              backgroundColor: 'black',
+              backgroundColor: select === -1 ? 'gray' : 'black',
               color: 'white',
               width: '6vw',
               padding: '2vh 2vw',
               marginRight: '1vw',
             }}
             onClick={onClickFunc}
+            disabled={select === -1}
           >
             {item[select] !== currentUserID ? '신청' : '취소'}
           </Button>
@@ -482,12 +483,13 @@ const Cabinet = (props) => {
             <div style={{ marginLeft: 0 }}>
               <Button
                 style={{
-                  backgroundColor: 'black',
+                  backgroundColor: select === -1 ? 'gray' : 'black',
                   color: 'white',
                   width: '6vw',
                   fontSize: '12px',
                 }}
                 onClick={onClickFunc}
+                disabled={select === -1}
               >
                 {item[select] !== currentUserID ? '신청' : '취소'}
               </Button>
