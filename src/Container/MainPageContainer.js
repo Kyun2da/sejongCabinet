@@ -40,6 +40,8 @@ const MainPageContainer = () => {
         if (cabinet === 0) {
           return currentUserID;
         }
+        // eslint-disable-next-line no-useless-return
+        return;
         // Abort the transaction.
       },
       (error, committed, snapshot) => {
@@ -82,6 +84,8 @@ const MainPageContainer = () => {
         if (cabinet === currentUserID) {
           return 0;
         }
+        // eslint-disable-next-line no-useless-return
+        return;
         // Abort the transaction.
       },
       (error, committed, snapshot) => {
