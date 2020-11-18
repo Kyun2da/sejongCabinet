@@ -6,6 +6,7 @@ const writeUserData = (userId, name, studentID, cabinetTitle, cabinetIdx) => {
     studentID,
     cabinetTitle,
     cabinetIdx,
+    adminType: false,
   });
 };
 

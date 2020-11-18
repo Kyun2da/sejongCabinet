@@ -79,6 +79,9 @@ const MainPage = (props) => {
     cabinetEnroll,
     currentUserID,
     cabinetCancel,
+    adminType,
+    cabinetBreakDown,
+    cabinetFix,
   } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
@@ -157,6 +160,9 @@ const MainPage = (props) => {
           cabinetEnroll={cabinetEnroll}
           currentUserID={currentUserID}
           cabinetCancel={cabinetCancel}
+          adminType={adminType}
+          cabinetBreakDown={cabinetBreakDown}
+          cabinetFix={cabinetFix}
         />
       );
     });
@@ -174,6 +180,9 @@ const MainPage = (props) => {
           cabinetEnroll={cabinetEnroll}
           currentUserID={currentUserID}
           cabinetCancel={cabinetCancel}
+          adminType={adminType}
+          cabinetBreakDown={cabinetBreakDown}
+          cabinetFix={cabinetFix}
         />
       );
     });
@@ -473,6 +482,9 @@ MainPage.propTypes = {
   cabinetEnroll: PropTypes.func.isRequired,
   currentUserID: PropTypes.string.isRequired,
   cabinetCancel: PropTypes.func.isRequired,
+  adminType: PropTypes.bool.isRequired,
+  cabinetBreakDown: PropTypes.func.isRequired,
+  cabinetFix: PropTypes.func.isRequired,
 };
 
 export default MainPage;
