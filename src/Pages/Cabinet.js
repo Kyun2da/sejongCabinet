@@ -344,7 +344,7 @@ const Cabinet = (props) => {
   };
 
   return (
-    <div>
+    <div style={{ height: 'auto' }}>
       <Default>
         <div
           style={{
@@ -421,7 +421,7 @@ const Cabinet = (props) => {
               backgroundColor: select === -1 ? 'gray' : 'black',
               color: 'white',
               width: '6vw',
-              padding: '2vh 2vw',
+              padding: '1vh 2vw',
               marginRight: '1vw',
             }}
             onClick={onClickFunc}

@@ -25,6 +25,9 @@ const MainPageContainer = () => {
   const [index, setIndex] = useState(0);
   const [select, setSelect] = useState(-1);
 
+  const onClickUserPage = () => {
+    history.push('/userpage');
+  };
   const onClickLogout = () => {
     history.push('/');
   };
@@ -76,6 +79,7 @@ const MainPageContainer = () => {
           cabinetEnroll={cabinetEnroll}
           currentUserID={currentUserID}
           cabinetCancel={cabinetCancel}
+          onClickUserPage={onClickUserPage}
         />
       ) : (
         <LoadingPage />
