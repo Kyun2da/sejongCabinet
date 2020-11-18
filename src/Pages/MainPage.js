@@ -17,7 +17,13 @@ import Cabinet from './Cabinet';
 import Logo from '../image/softwareLogo.png';
 import { Default, Mobile } from '../MediaQuery';
 import test from '../image/Test.png';
-import cabinetpicture from '../image/Cabinet.jpg';
+import Cabinet001 from '../image/Cabinet001.png';
+import Cabinet049 from '../image/Cabinet049.png';
+import Cabinet061 from '../image/Cabinet061.png';
+import Cabinet085 from '../image/Cabinet085.png';
+import Cabinet145 from '../image/Cabinet145.png';
+import Cabinet6x6 from '../image/Cabinet6x6.jpg';
+import Cabinet6x10 from '../image/Cabinet6x10.jpg';
 
 const Container = styled.div`
   display: flex;
@@ -80,9 +86,108 @@ const MainPage = (props) => {
     currentUserID,
     cabinetCancel,
   } = props;
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const drawlerHandler = () => {
+    let mapImage = Cabinet001;
+    let cabinetImage = Cabinet6x6;
+
+    if (index === 0) {
+      mapImage = Cabinet001;
+      cabinetImage = Cabinet6x6;
+    } else if (index === 1) {
+      mapImage = Cabinet049;
+      cabinetImage = Cabinet6x10;
+    } else if (index === 2) {
+      mapImage = Cabinet061;
+      cabinetImage = Cabinet6x6;
+    } else if (index === 3) {
+      mapImage = Cabinet085;
+      cabinetImage = Cabinet6x10;
+    } else if (index === 4) {
+      mapImage = Cabinet145;
+      cabinetImage = Cabinet6x6;
+    }
+
+    return (
+      <div>
+        <Default>
+          <SwipeableDrawer
+            anchor="top"
+            open={_map}
+            onClick={() => visibleMap(false)}
+            onClose={() => {}}
+            onOpen={() => {}}
+          >
+            <div
+              style={{
+                display: 'flex',
+                width: '100%',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                padding: '10vh 0',
+                backgroundColor: 'rgb(240,240,240)',
+                rowGpa: '10vw',
+              }}
+            >
+              <img
+                src={mapImage}
+                alt="map"
+                width="700vw"
+                style={{ backgroundColor: 'white' }}
+              />
+              <img
+                src={cabinetImage}
+                alt="cabinetpicture"
+                width="500vw"
+                style={{ padding: '1rem', backgroundColor: 'white' }}
+              />
+            </div>
+          </SwipeableDrawer>
+        </Default>
+        <Mobile>
+          <SwipeableDrawer
+            anchor="top"
+            open={_map}
+            onClick={() => visibleMap(false)}
+            onClose={() => {}}
+            onOpen={() => {}}
+          >
+            <div
+              style={{
+                position: 'static',
+                width: '100%',
+                height: 'auto',
+                padding: '5vh 5%',
+                backgroundColor: 'RGB(245,245,245)',
+              }}
+            >
+              <img
+                src={mapImage}
+                alt="map"
+                width="80%"
+                style={{ backgroundColor: 'white' }}
+              />
+              <img
+                src={cabinetImage}
+                alt="cabinetpicture"
+                width="80%"
+                style={{
+                  margin: '5vh 0',
+                  padding: '0.1rem',
+                  backgroundColor: 'white',
+                }}
+              />
+            </div>
+          </SwipeableDrawer>
+        </Mobile>
+      </div>
+    );
   };
 
   const handleClose = () => {
@@ -294,39 +399,7 @@ const MainPage = (props) => {
           </div>
         </header>
         <Container>
-          <SwipeableDrawer
-            anchor="top"
-            open={_map}
-            onClick={() => visibleMap(false)}
-            onClose={() => {}}
-            onOpen={() => {}}
-          >
-            <div
-              style={{
-                display: 'flex',
-                width: '100%',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                padding: '10vh 0',
-                backgroundColor: 'rgb(240,240,240)',
-                rowGpa: '10vw',
-              }}
-            >
-              <img
-                src={test}
-                alt="map"
-                width="700vw"
-                style={{ backgroundColor: 'white' }}
-              />
-              <img
-                src={cabinetpicture}
-                alt="cabinetpicture"
-                width="500vw"
-                style={{ padding: '1rem', backgroundColor: 'white' }}
-              />
-            </div>
-          </SwipeableDrawer>
+          {drawlerHandler()}
           <div
             style={{
               display: 'flex',
@@ -404,42 +477,9 @@ const MainPage = (props) => {
               </Menu>
             </div>
           </div>
+          {drawlerHandler()}
         </header>
         <Container style={{ marginTop: '10vh' }}>
-          <SwipeableDrawer
-            anchor="top"
-            open={_map}
-            onClick={() => visibleMap(false)}
-            onClose={() => {}}
-            onOpen={() => {}}
-          >
-            <div
-              style={{
-                position: 'static',
-                width: '100%',
-                height: 'auto',
-                padding: '5vh 5%',
-                backgroundColor: 'RGB(245,245,245)',
-              }}
-            >
-              <img
-                src={test}
-                alt="map"
-                width="90%"
-                style={{ backgroundColor: 'white' }}
-              />
-              <img
-                src={cabinetpicture}
-                alt="cabinetpicture"
-                width="90%"
-                style={{
-                  margin: '5vh 0',
-                  padding: '0.1rem',
-                  backgroundColor: 'white',
-                }}
-              />
-            </div>
-          </SwipeableDrawer>
           <div
             style={{
               display: 'flex',
