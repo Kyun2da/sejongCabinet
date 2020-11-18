@@ -73,7 +73,7 @@ const MainPageContainer = () => {
         <>
           {userId ? (
             <>
-              {serverStatus && serverStatus.status.status ? (
+              {serverStatus?.status?.status ? (
                 <MainPage
                   data={data}
                   _map={_map}
