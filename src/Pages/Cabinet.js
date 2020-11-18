@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
-import { Button, Grid, makeStyles } from '@material-ui/core';
+import { Button, Grid, makeStyles, Tooltip } from '@material-ui/core';
 import { Default, Mobile } from '../MediaQuery';
 
 const Content = styled.div`
@@ -63,10 +63,14 @@ const useStyles = makeStyles((theme) => ({
     border: '3px solid lightgray',
     padding: theme.spacing(1),
     width: '5.5vw',
-    color: 'white',
+    color: 'gray',
     fontWeight: 'bold',
     fontSize: '1vw',
     backgroundColor: 'lightgray',
+    cursor: 'default',
+    '&:hover': {
+      backgroundColor: 'lightgray',
+    },
   },
   button3: {
     fontFamily: 'Anton',
@@ -128,7 +132,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   Mbutton2: {
-    border: '2px solid rgb(255,20,20)',
+    border: '2px solid lightgray',
     fontFamily: 'Anton',
     width: '2rem',
     margin: '0 1rem',
@@ -136,7 +140,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     fontSize: '12px',
     outline: 'none',
-    backgroundColor: 'rgb(255,20,20)',
+    backgroundColor: 'lightgray',
     borderRadius: '3px',
   },
   Mbutton3: {
@@ -156,15 +160,18 @@ const useStyles = makeStyles((theme) => ({
   Mbutton4: {
     fontFamily: 'Anton',
     borderRadius: '3px',
-    border: '2px solid lightgray',
+    border: '2px solid #008000',
     color: 'white',
     margin: '0 1rem',
     height: '2rem',
     width: '2rem',
     fontSize: '10px',
-    backgroundColor: 'gray',
+    backgroundColor: '#008000',
     '&:focus': {
       outline: 'none',
+      border: '2px solid #DF1840',
+      backgroundColor: '#DF1840',
+      color: 'white',
     },
   },
 }));
@@ -245,9 +252,15 @@ const Cabinet = (props) => {
       }
       return (
         <Grid item xs={1} key={arrIdx}>
-          <Button className={classes.button2} disabled>
-            {arrIdx}
-          </Button>
+          <Tooltip
+            title={<div style={{ fontSize: '0.8rem' }}>{item[arrIdx]}</div>}
+            fontSize="5vw"
+            arrow
+          >
+            <Button className={classes.button2} disableRipple>
+              {arrIdx}
+            </Button>
+          </Tooltip>
         </Grid>
       );
     });
