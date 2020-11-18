@@ -28,6 +28,9 @@ const MainPageContainer = () => {
   const [index, setIndex] = useState(0);
   const [select, setSelect] = useState(-1);
 
+  const onClickUserPage = () => {
+    history.push('/userpage');
+  };
   const onClickLogout = () => {
     logOutUser(history);
   };
@@ -87,6 +90,7 @@ const MainPageContainer = () => {
                   cabinetEnroll={cabinetEnroll}
                   currentUserID={currentUserID}
                   cabinetCancel={cabinetCancel}
+                  onClickUserPage={onClickUserPage}
                 />
               ) : (
                 <div>관리자가 서버를 열어야합니다.</div>
