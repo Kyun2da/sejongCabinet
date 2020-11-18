@@ -24,7 +24,7 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const UserpageTitle = styled.div`
+const AdminpageTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,7 +34,7 @@ const UserpageTitle = styled.div`
   border-bottom: 1px solid RGB(200, 200, 200);
 `;
 
-const MUserpageTitle = styled.div`
+const MAdminpageTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,15 +100,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const UserPage = (props) => {
-  const {
-    onClickLogout,
-    currentUserName,
-    currentUserCabinetIdx,
-    currentUserCabinetTitle,
-    cabinetCancel,
-    updatePW,
-  } = props;
+const AdminPage = (props) => {
+  const { onClickLogout, currentUserName, updatePW } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -121,7 +114,6 @@ const UserPage = (props) => {
   const [currentPassword, setCurrent] = React.useState('');
   const [changePassword, setChange] = React.useState('');
   const [confirmPassword, setConfirm] = React.useState('');
-  const cabinetTitle = ['001', '049', '061', '085', '145'];
 
   const currnetPasswordHandler = (e) => {
     setCurrent(e.target.value);
@@ -197,6 +189,14 @@ const UserPage = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
+                <MenuItem>
+                  <Link
+                    to="/adminpage"
+                    style={{ textDecoration: 'none', color: 'black' }}
+                  >
+                    관리자페이지
+                  </Link>
+                </MenuItem>
                 <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
               </Menu>
             </div>
@@ -222,7 +222,7 @@ const UserPage = (props) => {
                 width: '80%',
               }}
             >
-              <UserpageTitle>나의 사물함</UserpageTitle>
+              <AdminpageTitle>관리자 페이지</AdminpageTitle>
               <div
                 style={{
                   height: 'auto',
@@ -239,33 +239,16 @@ const UserPage = (props) => {
                     flexDirection: 'row',
                   }}
                 >
-                  <div>
-                    {currentUserCabinetTitle !== 0
-                      ? `사물함위치 : ${
-                          cabinetTitle[
-                            // eslint-disable-next-line radix
-                            parseInt(
-                              currentUserCabinetTitle.substr(
-                                currentUserCabinetTitle.length - 1,
-                              ),
-                            ) - 1
-                          ]
-                        } -
-                    ${currentUserCabinetIdx}번 사물함`
-                      : `예약된 사물함이 없습니다.`}
-                  </div>
-                  <Button
-                    className={classes.cancleButton}
-                    onClick={cabinetCancel}
-                    disabled={currentUserCabinetTitle === 0}
-                  >
-                    취소
-                  </Button>
+                  <div>현재 예약된 사물함 수 :</div>
+                </div>
+                <div>
+                  <Button>엑셀 추출하기</Button>
+                  <Button>서버 열기</Button>
                 </div>
               </div>
             </div>
             <div style={{ flexGrow: 2, width: '80%' }}>
-              <UserpageTitle>비밀번호 변경</UserpageTitle>
+              <AdminpageTitle>비밀번호 변경</AdminpageTitle>
               <div
                 style={{
                   height: 'auto',
@@ -372,6 +355,11 @@ const UserPage = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
+                <MenuItem>
+                  <Link to="/adminpage" style={{ textDecoration: 'none' }}>
+                    관리자페이지
+                  </Link>
+                </MenuItem>
                 <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
               </Menu>
             </div>
@@ -397,7 +385,7 @@ const UserPage = (props) => {
                 width: '80%',
               }}
             >
-              <MUserpageTitle>사물함위치</MUserpageTitle>
+              <MAdminpageTitle>관리자 페이지</MAdminpageTitle>
               <div
                 style={{
                   height: 'auto',
@@ -416,32 +404,17 @@ const UserPage = (props) => {
                   }}
                 >
                   <div style={{ marginBottom: '3vh' }}>
-                    {currentUserCabinetTitle !== 0
-                      ? `사물함위치 : ${
-                          cabinetTitle[
-                            // eslint-disable-next-line radix
-                            parseInt(
-                              currentUserCabinetTitle.substr(
-                                currentUserCabinetTitle.length - 1,
-                              ),
-                            ) - 1
-                          ]
-                        } -
-                    ${currentUserCabinetIdx}번 사물함`
-                      : `예약된 사물함이 없습니다.`}
+                    현재 예약된 사물함 수 :
                   </div>
-                  <Button
-                    className={classes.McancleButton}
-                    onClick={cabinetCancel}
-                    disabled={currentUserCabinetTitle === 0}
-                  >
-                    취소
-                  </Button>
+                </div>
+                <div>
+                  <Button>엑셀 추출하기</Button>
+                  <Button>서버 열기</Button>
                 </div>
               </div>
             </div>
             <div style={{ flexGrow: 2, width: '80%' }}>
-              <MUserpageTitle>비밀번호 변경</MUserpageTitle>
+              <MAdminpageTitle>비밀번호 변경</MAdminpageTitle>
               <div
                 style={{
                   height: 'auto',
@@ -512,13 +485,10 @@ const UserPage = (props) => {
   );
 };
 
-UserPage.propTypes = {
+AdminPage.propTypes = {
   onClickLogout: PropTypes.func.isRequired,
   currentUserName: PropTypes.string.isRequired,
-  currentUserCabinetIdx: PropTypes.number.isRequired,
-  currentUserCabinetTitle: PropTypes.string.isRequired,
-  cabinetCancel: PropTypes.func.isRequired,
   updatePW: PropTypes.func.isRequired,
 };
 
-export default UserPage;
+export default AdminPage;

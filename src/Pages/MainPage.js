@@ -73,6 +73,7 @@ const MainPage = (props) => {
     setSelect,
     onClickLogout,
     onClickUserPage,
+    onClickAdminPage,
     currentUserName,
     cabinetNames,
     cabinetEnroll,
@@ -377,7 +378,11 @@ const MainPage = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={onClickUserPage}>마이페이지</MenuItem>
+                {adminType ? (
+                  <MenuItem onClick={onClickAdminPage}>관리자페이지</MenuItem>
+                ) : (
+                  <MenuItem onClick={onClickUserPage}>마이페이지</MenuItem>
+                )}
                 <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
               </Menu>
             </div>
@@ -457,7 +462,11 @@ const MainPage = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={onClickUserPage}>마이페이지</MenuItem>
+                {adminType ? (
+                  <MenuItem onClick={onClickAdminPage}>관리자페이지</MenuItem>
+                ) : (
+                  <MenuItem onClick={onClickUserPage}>마이페이지</MenuItem>
+                )}
                 <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
               </Menu>
             </div>
@@ -493,6 +502,7 @@ MainPage.propTypes = {
   visibleMap: PropTypes.func.isRequired,
   onClickLogout: PropTypes.func.isRequired,
   onClickUserPage: PropTypes.func.isRequired,
+  onClickAdminPage: PropTypes.func.isRequired,
   currentUserName: PropTypes.string.isRequired,
   cabinetNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   cabinetEnroll: PropTypes.func.isRequired,

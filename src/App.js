@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Route, Switch, HashRouter as Router } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { auth } from './configs/firebase.config';
 import LoginContainer from './Container/LoginContainer';
 import SIgnUpContainer from './Container/SIgnUpContainer';
 import MainPageContainer from './Container/MainPageContainer';
 import UserPageContainer from './Container/UserPageContainer';
+import AdminPageContainer from './Container/AdminPageContainer';
 import getUserData from './utils/firebase/getUserData';
 import getCabinetData from './utils/firebase/getCabinetData';
 import { clearCurrentUser, setCurrentUser } from './redux/auth/auth.reducer';
@@ -45,6 +46,7 @@ const App = () => {
           <Route path="/signup" component={SIgnUpContainer} exact />
           <Route path="/main" component={MainPageContainer} exact />
           <Route path="/userpage" component={UserPageContainer} exact />
+          <Route path="/adminpage" component={AdminPageContainer} exact />
         </Switch>
       </Router>
     </Container>
