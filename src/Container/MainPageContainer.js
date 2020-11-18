@@ -5,6 +5,7 @@ import LoadingPage from '../Pages/LoadingPage';
 import MainPage from '../Pages/MainPage';
 import cancelCabinet from '../utils/firebase/cancelCabinet';
 import enrollCabinet from '../utils/firebase/enrollCabinet';
+import logOutUser from '../utils/firebase/logoutUser';
 
 const MainPageContainer = () => {
   const history = useHistory();
@@ -29,7 +30,7 @@ const MainPageContainer = () => {
     history.push('/userpage');
   };
   const onClickLogout = () => {
-    history.push('/');
+    logOutUser(history);
   };
 
   const handleChangeIndex = (value) => {
@@ -38,6 +39,10 @@ const MainPageContainer = () => {
 
   const handleChange = (event, newValue) => {
     setIndex(newValue);
+  };
+
+  const toLoginPage = () => {
+    history.push('/');
   };
 
   const cabinetEnroll = (title) => {
@@ -82,7 +87,7 @@ const MainPageContainer = () => {
           onClickUserPage={onClickUserPage}
         />
       ) : (
-        <LoadingPage />
+        toLoginPage()
       )}
     </>
   );
