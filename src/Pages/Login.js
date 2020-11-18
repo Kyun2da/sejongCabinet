@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { TextField, Button } from '@material-ui/core';
-import Logo from '../image/softwareLogo.png';
+import Logo from '../image/softwareLogo_origin.png';
 import './Fadeout.css';
 import { Mobile, Default } from '../MediaQuery';
 
@@ -160,6 +160,7 @@ const Login = (props) => {
             <TextField
               id="password"
               label="Password"
+              type="password"
               variant="outlined"
               onChange={onPasswordHanlder}
               style={{ width: '80vw', margin: '1vh 0' }}

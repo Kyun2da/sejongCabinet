@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import SwipeableViews from 'react-swipeable-views';
 import {
@@ -17,13 +17,6 @@ import Cabinet from './Cabinet';
 import Logo from '../image/softwareLogo.png';
 import { Default, Mobile } from '../MediaQuery';
 import test from '../image/Test.png';
-import Cabinet001 from '../image/Cabinet001.png';
-import Cabinet049 from '../image/Cabinet049.png';
-import Cabinet061 from '../image/Cabinet061.png';
-import Cabinet085 from '../image/Cabinet085.png';
-import Cabinet145 from '../image/Cabinet145.png';
-import Cabinet6x6 from '../image/Cabinet6x6.jpg';
-import Cabinet6x10 from '../image/Cabinet6x10.jpg';
 
 const Container = styled.div`
   display: flex;
@@ -85,34 +78,17 @@ const MainPage = (props) => {
     cabinetEnroll,
     currentUserID,
     cabinetCancel,
+    mapImage,
+    cabinetImage,
   } = props;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const drawlerHandler = () => {
-    let mapImage = Cabinet001;
-    let cabinetImage = Cabinet6x6;
-
-    if (index === 0) {
-      mapImage = Cabinet001;
-      cabinetImage = Cabinet6x6;
-    } else if (index === 1) {
-      mapImage = Cabinet049;
-      cabinetImage = Cabinet6x10;
-    } else if (index === 2) {
-      mapImage = Cabinet061;
-      cabinetImage = Cabinet6x6;
-    } else if (index === 3) {
-      mapImage = Cabinet085;
-      cabinetImage = Cabinet6x10;
-    } else if (index === 4) {
-      mapImage = Cabinet145;
-      cabinetImage = Cabinet6x6;
-    }
-
     return (
       <div>
         <Default>
@@ -170,13 +146,13 @@ const MainPage = (props) => {
               <img
                 src={mapImage}
                 alt="map"
-                width="80%"
+                width="90%"
                 style={{ backgroundColor: 'white' }}
               />
               <img
                 src={cabinetImage}
                 alt="cabinetpicture"
-                width="80%"
+                width="90%"
                 style={{
                   margin: '5vh 0',
                   padding: '0.1rem',
@@ -342,13 +318,13 @@ const MainPage = (props) => {
               width: '100%',
             }}
           >
-            <div style={{ left: '2vw', position: 'absolute' }}>
+            <div style={{ left: '1.5vw', position: 'absolute' }}>
               <img
                 src={Logo}
                 alt="logo"
                 style={{
-                  width: '3rem',
-                  backgroundColor: 'white',
+                  width: '3.5vw',
+                  filter: 'invert(100%) grayscale(100%)',
                 }}
               />
             </div>
@@ -458,7 +434,7 @@ const MainPage = (props) => {
             >
               <Button
                 onClick={handleClick}
-                style={{ backgroundColor: 'transparent', margin: '0 0 0 2vw' }}
+                style={{ backgroundColor: 'transparent' }}
                 disableRipple
               >
                 <MenuIcon />
@@ -513,6 +489,8 @@ MainPage.propTypes = {
   cabinetEnroll: PropTypes.func.isRequired,
   currentUserID: PropTypes.string.isRequired,
   cabinetCancel: PropTypes.func.isRequired,
+  mapImage: PropTypes.string.isRequired,
+  cabinetImage: PropTypes.string.isRequired,
 };
 
 export default MainPage;
