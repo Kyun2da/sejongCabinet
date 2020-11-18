@@ -6,8 +6,12 @@ import {
   FormControl,
   TextField,
   makeStyles,
+  Menu,
+  MenuItem,
 } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 import EjectIcon from '@material-ui/icons/Eject';
+import ImageIcon from '@material-ui/icons/Image';
 import { Link } from 'react-router-dom';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PropTypes from 'prop-types';
@@ -16,6 +20,7 @@ import Logo from '../image/Logo.png';
 import { Default, Mobile } from '../MediaQuery';
 import test from '../image/Test.png';
 import cabinetpicture from '../image/Cabinet.jpg';
+import backwards from '../image/Backward.png';
 
 const Container = styled.div`
   display: flex;
@@ -145,12 +150,21 @@ const UserPage = (props) => {
     _map,
     visibleMap,
     onClickLogout,
+    onClickUserPage,
     currentUserName,
     currentUserCabinetIdx,
     currentUserCabinetTitle,
     cabinetCancel,
     updatePW,
   } = props;
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const classes = useStyles();
   const [currentPassword, setCurrent] = React.useState('');
   const [changePassword, setChange] = React.useState('');
@@ -202,23 +216,16 @@ const UserPage = (props) => {
             <div style={{ left: '2vw', position: 'absolute' }}>
               <Link to="/main">
                 <img
-                  src={Logo}
-                  alt="logo"
+                  src={backwards}
+                  alt="backwards"
                   style={{
-                    width: '3rem',
-                    backgroundColor: 'white',
+                    width: '1.5vw',
+                    filter: 'invert(100%)',
                   }}
                 />
               </Link>
             </div>
-            <div>
-              <Button
-                onClick={() => visibleMap(true)}
-                style={{ backgroundColor: 'white', width: '5vw' }}
-              >
-                <EjectIcon />
-              </Button>
-            </div>
+
             <div
               style={{
                 position: 'absolute',
@@ -230,12 +237,31 @@ const UserPage = (props) => {
             >
               {currentUserName}님 환영합니다!
               <Button
-                onClick={onClickLogout}
+                onClick={handleClick}
                 style={{ backgroundColor: 'transparent', margin: '0 0 0 2vw' }}
                 disableRipple
               >
-                <PowerSettingsNewIcon />
+                <MenuIcon />
               </Button>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                getContentAnchorEl={null}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem>
+                  <Link
+                    to="/userpage"
+                    style={{ textDecoration: 'none', color: 'black' }}
+                  >
+                    마이페이지
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
+              </Menu>
             </div>
           </div>
         </header>
@@ -405,12 +431,16 @@ const UserPage = (props) => {
             }}
           >
             <div style={{ left: '4vw', position: 'absolute' }}>
-              <Button
-                onClick={() => visibleMap(true)}
-                style={{ backgroundColor: 'white', width: '2.5vw' }}
-              >
-                <EjectIcon />
-              </Button>
+              <Link to="/main">
+                <img
+                  src={backwards}
+                  alt="backwards"
+                  style={{
+                    width: '5vw',
+                    filter: 'invert(100%)',
+                  }}
+                />
+              </Link>
             </div>
 
             <div
@@ -422,12 +452,28 @@ const UserPage = (props) => {
               }}
             >
               <Button
-                onClick={onClickLogout}
-                style={{ backgroundColor: 'transparent', width: '2.5vw' }}
+                onClick={handleClick}
+                style={{ backgroundColor: 'transparent', margin: '0 0 0 2vw' }}
                 disableRipple
               >
-                <PowerSettingsNewIcon />
+                <MenuIcon />
               </Button>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                getContentAnchorEl={null}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem>
+                  <Link to="/userpage" style={{ textDecoration: 'none' }}>
+                    마이페이지
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
+              </Menu>
             </div>
           </div>
         </header>
@@ -474,9 +520,9 @@ const UserPage = (props) => {
               border: '5px solid lightgray',
               borderRadius: '6vw',
               width: '80%',
-              height: '75vh',
+              height: '65vh',
               margin: '2vh 0',
-              padding: '3vh 0 5vh',
+              padding: '3vh 0 4vh',
             }}
           >
             <div
@@ -498,7 +544,7 @@ const UserPage = (props) => {
                     display: 'flex',
                     margin: '4vh 0 1vh',
                     paddingBottom: '5vh',
-                    fontSize: '1.5rem',
+                    fontSize: '1.2rem',
                     flexDirection: 'column',
                     borderBottom: '1px solid gray',
                   }}
@@ -603,6 +649,7 @@ UserPage.propTypes = {
   _map: PropTypes.bool.isRequired,
   visibleMap: PropTypes.func.isRequired,
   onClickLogout: PropTypes.func.isRequired,
+  onClickUserPage: PropTypes.func.isRequired,
   currentUserName: PropTypes.string.isRequired,
   currentUserCabinetIdx: PropTypes.number.isRequired,
   currentUserCabinetTitle: PropTypes.string.isRequired,
