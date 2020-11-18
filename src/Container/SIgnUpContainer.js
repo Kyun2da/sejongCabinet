@@ -37,6 +37,7 @@ const SIgnUpContainer = () => {
       name: _name,
       cabinetIdx: 0,
       cabinetTitle: 0,
+      adminType: 0,
     });
   };
 

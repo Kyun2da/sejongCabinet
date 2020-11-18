@@ -15,6 +15,8 @@ const MainPageContainer = () => {
   const userId = useSelector((state) => state.auth.currentUser.uid);
   const userCabinetIdx = useSelector((state) => state.auth.cabinetIdx);
   const userCabinetTitle = useSelector((state) => state.auth.cabinetTitle);
+  const serverStatus = useSelector((state) => state.server.status);
+  console.log(serverStatus);
   const cabinetNames = [
     'cabinet1',
     'cabinet2',
@@ -69,25 +71,37 @@ const MainPageContainer = () => {
   return (
     <>
       {data ? (
-        <MainPage
-          data={data}
-          _map={_map}
-          visibleMap={visibleMap}
-          index={index}
-          select={select}
-          setSelect={setSelect}
-          onClickLogout={onClickLogout}
-          handleChangeIndex={handleChangeIndex}
-          handleChange={handleChange}
-          currentUserName={currentUserName}
-          cabinetNames={cabinetNames}
-          cabinetEnroll={cabinetEnroll}
-          currentUserID={currentUserID}
-          cabinetCancel={cabinetCancel}
-          onClickUserPage={onClickUserPage}
-        />
+        <>
+          {userId ? (
+            <>
+              {serverStatus.status ? (
+                <MainPage
+                  data={data}
+                  _map={_map}
+                  visibleMap={visibleMap}
+                  index={index}
+                  select={select}
+                  setSelect={setSelect}
+                  onClickLogout={onClickLogout}
+                  handleChangeIndex={handleChangeIndex}
+                  handleChange={handleChange}
+                  currentUserName={currentUserName}
+                  cabinetNames={cabinetNames}
+                  cabinetEnroll={cabinetEnroll}
+                  currentUserID={currentUserID}
+                  cabinetCancel={cabinetCancel}
+                  onClickUserPage={onClickUserPage}
+                />
+              ) : (
+                <div>관리자가 서버를 열어야합니다.</div>
+              )}
+            </>
+          ) : (
+            toLoginPage()
+          )}
+        </>
       ) : (
-        toLoginPage()
+        <LoadingPage />
       )}
     </>
   );
