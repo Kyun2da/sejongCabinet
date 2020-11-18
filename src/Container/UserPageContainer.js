@@ -1,45 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import { database } from '../configs/firebase.config';
 import LoadingPage from '../Pages/LoadingPage';
 import Userpage from '../Pages/Userpage';
+import cancelCabinet from '../utils/firebase/cancelCabinet';
+import updatePassword from '../utils/firebase/updatePassword';
 
 const UserPageContainer = () => {
-  const history = useHistory();
   const data = useSelector((state) => state.cabinet.currentCabinets);
-  const currentUserID = useSelector((state) => state.auth.currentUserID);
-  const cabinetNames = [
-    'cabinet1',
-    'cabinet2',
-    'cabinet3',
-    'cabinet4',
-    'cabinet5',
-  ];
-  const [_map, visibleMap] = useState(false);
-  const [index, setIndex] = useState(0);
-  const [select, setSelect] = useState(-1);
+  const history = useHistory();
+  const currentUserCabinetNum = useSelector((state) => state.auth.cabinetTitle);
+  const currentUserCabinetIdx = useSelector((state) => state.auth.cabinetIdx);
   const currentUserName = useSelector((state) => state.auth.currentUserName);
+  const currentUserID = useSelector((state) => state.auth.currentUserID);
+  const userId = useSelector((state) => state.auth.currentUser.uid);
+  const [_map, visibleMap] = useState(false);
 
   const onClickLogout = () => {
     history.push('/');
   };
 
+  const cabinetCancel = () => {
+    cancelCabinet(
+      currentUserCabinetNum,
+      currentUserCabinetIdx,
+      currentUserID,
+      userId,
+      currentUserName,
+    );
+  };
+
+  const updatePW = (currentPW, newPW, confirmPW) => {
+    updatePassword(currentPW, newPW, confirmPW);
+  };
   return (
     <>
       {data ? (
         <Userpage
-          data={data}
           _map={_map}
           visibleMap={visibleMap}
-          index={index}
-          select={select}
-          setSelect={setSelect}
           onClickLogout={onClickLogout}
           currentUserName={currentUserName}
-          cabinetNames={cabinetNames}
-          currentUserID={currentUserID}
+          currentUserCabinetIdx={currentUserCabinetIdx}
+          currentUserCabinetTitle={currentUserCabinetNum}
+          cabinetCancel={cabinetCancel}
+          updatePW={updatePW}
         />
       ) : (
         <LoadingPage />
