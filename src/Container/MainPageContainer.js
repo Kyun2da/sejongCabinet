@@ -15,8 +15,7 @@ const MainPageContainer = () => {
   const userId = useSelector((state) => state.auth.currentUser.uid);
   const userCabinetIdx = useSelector((state) => state.auth.cabinetIdx);
   const userCabinetTitle = useSelector((state) => state.auth.cabinetTitle);
-  const serverStatus = useSelector((state) => state.server.status);
-  console.log(serverStatus);
+  const serverStatus = useSelector((state) => state.server);
   const cabinetNames = [
     'cabinet1',
     'cabinet2',
@@ -74,7 +73,7 @@ const MainPageContainer = () => {
         <>
           {userId ? (
             <>
-              {serverStatus.status ? (
+              {serverStatus?.status?.status ? (
                 <MainPage
                   data={data}
                   _map={_map}
