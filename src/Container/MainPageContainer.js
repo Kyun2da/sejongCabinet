@@ -3,8 +3,10 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoadingPage from '../Pages/LoadingPage';
 import MainPage from '../Pages/MainPage';
+import breakDownCabinet from '../utils/firebase/breakDownCabinet';
 import cancelCabinet from '../utils/firebase/cancelCabinet';
 import enrollCabinet from '../utils/firebase/enrollCabinet';
+import fixCabinet from '../utils/firebase/fixCabinet';
 import logOutUser from '../utils/firebase/logoutUser';
 import Cabinet001 from '../image/Cabinet001.png';
 import Cabinet049 from '../image/Cabinet049.png';
@@ -23,6 +25,7 @@ const MainPageContainer = () => {
   const userCabinetIdx = useSelector((state) => state.auth.cabinetIdx);
   const userCabinetTitle = useSelector((state) => state.auth.cabinetTitle);
   const serverStatus = useSelector((state) => state.server);
+  const adminType = useSelector((state) => state.auth.adminType);
   const cabinetNames = [
     'cabinet1',
     'cabinet2',
@@ -99,6 +102,14 @@ const MainPageContainer = () => {
       currentUserName,
     );
   };
+
+  const cabinetBreakDown = (title) => {
+    breakDownCabinet(title, select);
+  };
+
+  const cabinetFix = (title) => {
+    fixCabinet(title, select);
+  };
   return (
     <>
       {data ? (
@@ -122,6 +133,9 @@ const MainPageContainer = () => {
                   currentUserID={currentUserID}
                   cabinetCancel={cabinetCancel}
                   onClickUserPage={onClickUserPage}
+                  adminType={adminType}
+                  cabinetBreakDown={cabinetBreakDown}
+                  cabinetFix={cabinetFix}
                   mapImage={mapImage}
                   cabinetImage={cabinetImage}
                 />

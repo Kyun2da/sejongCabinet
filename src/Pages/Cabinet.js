@@ -186,9 +186,17 @@ const Cabinet = (props) => {
     cabinetEnroll,
     currentUserID,
     cabinetCancel,
+    adminType,
+    cabinetBreakDown,
+    cabinetFix,
   } = props;
   const onClickFunc = () => {
-    if (item[select] !== currentUserID) {
+    console.log(adminType, item[select]);
+    if (adminType && item[select] === 0) {
+      cabinetBreakDown(cabinetNum);
+    } else if (adminType && item[select] === 2) {
+      cabinetFix(cabinetNum);
+    } else if (item[select] !== currentUserID) {
       cabinetEnroll(cabinetNum);
     } else {
       cabinetCancel();
@@ -229,7 +237,14 @@ const Cabinet = (props) => {
       if (item[arrIdx] === 2) {
         return (
           <Grid item xs={1} key={arrIdx}>
-            <Button className={classes.button3} disabled>
+            <Button
+              className={classes.button3}
+              disabled={!adminType}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelect(arrIdx);
+              }}
+            >
               🚧
             </Button>
           </Grid>
@@ -244,6 +259,7 @@ const Cabinet = (props) => {
                 e.stopPropagation();
                 setSelect(arrIdx);
               }}
+              disabled={adminType}
             >
               <CheckOutlinedIcon style={{ fontSize: '1.7vw' }} />
             </Button>
@@ -292,8 +308,11 @@ const Cabinet = (props) => {
             <button
               type="button"
               className={classes.Mbutton3}
-              style={{ padding: '0' }}
-              disabled
+              disabled={!adminType}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelect(arrIdx);
+              }}
             >
               🚧
             </button>
@@ -307,6 +326,7 @@ const Cabinet = (props) => {
               type="button"
               className={classes.Mbutton4}
               style={{ padding: '0' }}
+              disabled={adminType}
               onClick={(e) => {
                 e.stopPropagation();
                 setSelect(arrIdx);
@@ -440,7 +460,14 @@ const Cabinet = (props) => {
             onClick={onClickFunc}
             disabled={select === -1}
           >
-            {item[select] !== currentUserID ? '신청' : '취소'}
+            {/* eslint-disable-next-line no-nested-ternary */}
+            {adminType
+              ? item[select] === 0
+                ? '고장내기'
+                : '고치기'
+              : item[select] !== currentUserID
+              ? '신청'
+              : '취소'}
           </Button>
         </div>
       </Default>
@@ -514,7 +541,14 @@ const Cabinet = (props) => {
                 onClick={onClickFunc}
                 disabled={select === -1}
               >
-                {item[select] !== currentUserID ? '신청' : '취소'}
+                {/* eslint-disable-next-line no-nested-ternary */}
+                {adminType
+                  ? item[select] === 0
+                    ? '고장내기'
+                    : '고치기'
+                  : item[select] !== currentUserID
+                  ? '신청'
+                  : '취소'}
               </Button>
             </div>
           </div>
@@ -537,6 +571,9 @@ Cabinet.propTypes = {
   cabinetNum: PropTypes.string.isRequired,
   currentUserID: PropTypes.string.isRequired,
   cabinetCancel: PropTypes.func.isRequired,
+  adminType: PropTypes.bool.isRequired,
+  cabinetBreakDown: PropTypes.func.isRequired,
+  cabinetFix: PropTypes.func.isRequired,
 };
 
 export default Cabinet;
