@@ -5,6 +5,7 @@ import LoadingPage from '../Pages/LoadingPage';
 import MainPage from '../Pages/MainPage';
 import cancelCabinet from '../utils/firebase/cancelCabinet';
 import enrollCabinet from '../utils/firebase/enrollCabinet';
+import logOutUser from '../utils/firebase/logoutUser';
 
 const MainPageContainer = () => {
   const history = useHistory();
@@ -26,7 +27,7 @@ const MainPageContainer = () => {
   const [select, setSelect] = useState(-1);
 
   const onClickLogout = () => {
-    history.push('/');
+    logOutUser(history);
   };
 
   const handleChangeIndex = (value) => {
@@ -35,6 +36,10 @@ const MainPageContainer = () => {
 
   const handleChange = (event, newValue) => {
     setIndex(newValue);
+  };
+
+  const toLoginPage = () => {
+    history.push('/');
   };
 
   const cabinetEnroll = (title) => {
@@ -60,25 +65,31 @@ const MainPageContainer = () => {
   };
   return (
     <>
-      {data ? (
-        <MainPage
-          data={data}
-          _map={_map}
-          visibleMap={visibleMap}
-          index={index}
-          select={select}
-          setSelect={setSelect}
-          onClickLogout={onClickLogout}
-          handleChangeIndex={handleChangeIndex}
-          handleChange={handleChange}
-          currentUserName={currentUserName}
-          cabinetNames={cabinetNames}
-          cabinetEnroll={cabinetEnroll}
-          currentUserID={currentUserID}
-          cabinetCancel={cabinetCancel}
-        />
+      {userId ? (
+        <>
+          {data ? (
+            <MainPage
+              data={data}
+              _map={_map}
+              visibleMap={visibleMap}
+              index={index}
+              select={select}
+              setSelect={setSelect}
+              onClickLogout={onClickLogout}
+              handleChangeIndex={handleChangeIndex}
+              handleChange={handleChange}
+              currentUserName={currentUserName}
+              cabinetNames={cabinetNames}
+              cabinetEnroll={cabinetEnroll}
+              currentUserID={currentUserID}
+              cabinetCancel={cabinetCancel}
+            />
+          ) : (
+            <LoadingPage />
+          )}
+        </>
       ) : (
-        <LoadingPage />
+        toLoginPage()
       )}
     </>
   );

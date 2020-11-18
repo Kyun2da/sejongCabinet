@@ -20,7 +20,6 @@ const Container = styled.div`
 `;
 
 const App = () => {
-  const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,7 +34,7 @@ const App = () => {
       }
     });
     return () => unsubscribeFromAuth();
-  }, [currentUser, setCurrentUser, clearCurrentUser]);
+  }, [setCurrentUser, clearCurrentUser]);
   return (
     <Container>
       <Router basename={`${process.env.PUBLIC_URL}/`}>

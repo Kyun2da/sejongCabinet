@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { auth } from '../configs/firebase.config';
@@ -9,6 +10,7 @@ const LoginContainer = () => {
   const history = useHistory();
   const [_id, setId] = useState('');
   const [_password, setPassword] = useState('');
+  const userId = useSelector((state) => state.auth.currentUser.uid);
   const onIdHandler = (e) => {
     setId(e.currentTarget.value);
   };
@@ -42,12 +44,16 @@ const LoginContainer = () => {
   };
   return (
     <>
-      <Login
-        LoginSubmit={LoginSubmit}
-        onIdHandler={onIdHandler}
-        onPasswordHanlder={onPasswordHanlder}
-        toSignUp={toSignUp}
-      />
+      {userId ? (
+        toMainPage()
+      ) : (
+        <Login
+          LoginSubmit={LoginSubmit}
+          onIdHandler={onIdHandler}
+          onPasswordHanlder={onPasswordHanlder}
+          toSignUp={toSignUp}
+        />
+      )}
     </>
   );
 };
