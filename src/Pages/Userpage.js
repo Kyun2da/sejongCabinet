@@ -149,13 +149,12 @@ const UserPage = (props) => {
     currentUserCabinetIdx,
     currentUserCabinetTitle,
     cabinetCancel,
+    updatePW,
   } = props;
-  const passwordsample = '123456';
   const classes = useStyles();
   const [currentPassword, setCurrent] = React.useState('');
   const [changePassword, setChange] = React.useState('');
   const [confirmPassword, setConfirm] = React.useState('');
-  const [passwordCheck, setCheck] = React.useState(false);
   const cabinetTitle = ['001', '049', '061', '085', '145'];
 
   const currnetPasswordHandler = (e) => {
@@ -178,53 +177,7 @@ const UserPage = (props) => {
   };
 
   const passwordChangeFunc = () => {
-    console.log(currentPassword, changePassword, confirmPassword);
-    if (currentPassword !== passwordsample) {
-      Swal.fire({
-        icon: 'error',
-        text: '현재 비밀번호가 일치하지 않습니다.',
-        showConfirmButton: false,
-        width: 'auto',
-        fontSize: '2rem',
-        timer: 1500,
-      });
-    } else if (comparePassword() === false) {
-      Swal.fire({
-        icon: 'error',
-        text: '비밀번호 확인이 일치하지 않습니다.',
-        showConfirmButton: false,
-        width: 'auto',
-        fontSize: '2rem',
-        timer: 1500,
-      });
-    } else if (passwordsample === changePassword) {
-      Swal.fire({
-        icon: 'error',
-        text: '변경 패스워드가 옳지 않습니다.',
-        showConfirmButton: false,
-        width: 'auto',
-        fontSize: '2rem',
-        timer: 1500,
-      });
-    } else if (changePassword.length === 0) {
-      Swal.fire({
-        icon: 'error',
-        text: '변경 패스워드를 입력해주세요.',
-        showConfirmButton: false,
-        width: 'auto',
-        fontSize: '2rem',
-        timer: 1500,
-      });
-    } else {
-      Swal.fire({
-        icon: 'success',
-        text: '비밀번호가 변경되었습니다.',
-        showConfirmButton: false,
-        width: 'auto',
-        fontSize: '2rem',
-        timer: 1500,
-      });
-    }
+    updatePW(currentPassword, changePassword, confirmPassword);
   };
 
   return (
@@ -654,6 +607,7 @@ UserPage.propTypes = {
   currentUserCabinetIdx: PropTypes.number.isRequired,
   currentUserCabinetTitle: PropTypes.string.isRequired,
   cabinetCancel: PropTypes.func.isRequired,
+  updatePW: PropTypes.func.isRequired,
 };
 
 export default UserPage;

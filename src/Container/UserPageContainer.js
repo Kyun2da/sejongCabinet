@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import LoadingPage from '../Pages/LoadingPage';
 import Userpage from '../Pages/Userpage';
 import cancelCabinet from '../utils/firebase/cancelCabinet';
+import updatePassword from '../utils/firebase/updatePassword';
 
 const UserPageContainer = () => {
   const data = useSelector((state) => state.cabinet.currentCabinets);
@@ -28,6 +29,10 @@ const UserPageContainer = () => {
       currentUserName,
     );
   };
+
+  const updatePW = (currentPW, newPW, confirmPW) => {
+    updatePassword(currentPW, newPW, confirmPW);
+  };
   return (
     <>
       {data ? (
@@ -39,6 +44,7 @@ const UserPageContainer = () => {
           currentUserCabinetIdx={currentUserCabinetIdx}
           currentUserCabinetTitle={currentUserCabinetNum}
           cabinetCancel={cabinetCancel}
+          updatePW={updatePW}
         />
       ) : (
         <LoadingPage />
