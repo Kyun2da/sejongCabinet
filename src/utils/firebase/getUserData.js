@@ -10,6 +10,7 @@ const getUserData = (userId, dispatch) => {
         name: snapshot.val().name,
         cabinetTitle: snapshot.val().cabinetTitle,
         cabinetIdx: snapshot.val().cabinetIdx,
+        adminType: snapshot.val().adminType,
       }),
     );
   });

@@ -10,6 +10,7 @@ import UserPageContainer from './Container/UserPageContainer';
 import getUserData from './utils/firebase/getUserData';
 import getCabinetData from './utils/firebase/getCabinetData';
 import { clearCurrentUser, setCurrentUser } from './redux/auth/auth.reducer';
+import getServerData from './utils/firebase/getServerData';
 
 const Container = styled.div`
   -ms-user-select: none;
@@ -29,6 +30,7 @@ const App = () => {
         dispatch(setCurrentUser(user));
         getUserData(user.uid, dispatch);
         getCabinetData(dispatch);
+        getServerData(dispatch);
       } else {
         dispatch(clearCurrentUser());
       }
