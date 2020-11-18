@@ -26,6 +26,9 @@ const MainPageContainer = () => {
   const [index, setIndex] = useState(0);
   const [select, setSelect] = useState(-1);
 
+  const onClickUserPage = () => {
+    history.push('/userpage');
+  };
   const onClickLogout = () => {
     logOutUser(history);
   };
@@ -65,29 +68,24 @@ const MainPageContainer = () => {
   };
   return (
     <>
-      {userId ? (
-        <>
-          {data ? (
-            <MainPage
-              data={data}
-              _map={_map}
-              visibleMap={visibleMap}
-              index={index}
-              select={select}
-              setSelect={setSelect}
-              onClickLogout={onClickLogout}
-              handleChangeIndex={handleChangeIndex}
-              handleChange={handleChange}
-              currentUserName={currentUserName}
-              cabinetNames={cabinetNames}
-              cabinetEnroll={cabinetEnroll}
-              currentUserID={currentUserID}
-              cabinetCancel={cabinetCancel}
-            />
-          ) : (
-            <LoadingPage />
-          )}
-        </>
+      {data ? (
+        <MainPage
+          data={data}
+          _map={_map}
+          visibleMap={visibleMap}
+          index={index}
+          select={select}
+          setSelect={setSelect}
+          onClickLogout={onClickLogout}
+          handleChangeIndex={handleChangeIndex}
+          handleChange={handleChange}
+          currentUserName={currentUserName}
+          cabinetNames={cabinetNames}
+          cabinetEnroll={cabinetEnroll}
+          currentUserID={currentUserID}
+          cabinetCancel={cabinetCancel}
+          onClickUserPage={onClickUserPage}
+        />
       ) : (
         toLoginPage()
       )}
