@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import LoadingPage from '../Pages/LoadingPage';
 import Userpage from '../Pages/Userpage';
 import cancelCabinet from '../utils/firebase/cancelCabinet';
+import logOutUser from '../utils/firebase/logoutUser';
 import updatePassword from '../utils/firebase/updatePassword';
 
 const UserPageContainer = () => {
@@ -17,9 +18,12 @@ const UserPageContainer = () => {
   const [_map, visibleMap] = useState(false);
 
   const onClickLogout = () => {
-    history.push('/');
+    logOutUser(history);
   };
 
+  const toLoginPage = () => {
+    history.push('/');
+  };
   const cabinetCancel = () => {
     cancelCabinet(
       currentUserCabinetNum,
@@ -35,19 +39,25 @@ const UserPageContainer = () => {
   };
   return (
     <>
-      {data ? (
-        <Userpage
-          _map={_map}
-          visibleMap={visibleMap}
-          onClickLogout={onClickLogout}
-          currentUserName={currentUserName}
-          currentUserCabinetIdx={currentUserCabinetIdx}
-          currentUserCabinetTitle={currentUserCabinetNum}
-          cabinetCancel={cabinetCancel}
-          updatePW={updatePW}
-        />
+      {userId ? (
+        <>
+          {data ? (
+            <Userpage
+              _map={_map}
+              visibleMap={visibleMap}
+              onClickLogout={onClickLogout}
+              currentUserName={currentUserName}
+              currentUserCabinetIdx={currentUserCabinetIdx}
+              currentUserCabinetTitle={currentUserCabinetNum}
+              cabinetCancel={cabinetCancel}
+              updatePW={updatePW}
+            />
+          ) : (
+            <LoadingPage />
+          )}
+        </>
       ) : (
-        <LoadingPage />
+        toLoginPage()
       )}
     </>
   );
