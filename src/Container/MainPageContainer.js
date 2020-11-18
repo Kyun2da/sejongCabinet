@@ -65,6 +65,11 @@ const MainPageContainer = () => {
   const onClickUserPage = () => {
     history.push('/userpage');
   };
+
+  const onClickAdminPage = () => {
+    history.push('/adminpage');
+  };
+
   const onClickLogout = () => {
     logOutUser(history);
   };
@@ -133,6 +138,7 @@ const MainPageContainer = () => {
                   currentUserID={currentUserID}
                   cabinetCancel={cabinetCancel}
                   onClickUserPage={onClickUserPage}
+                  onClickAdminPage={onClickAdminPage}
                   adminType={adminType}
                   cabinetBreakDown={cabinetBreakDown}
                   cabinetFix={cabinetFix}
