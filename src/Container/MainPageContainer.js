@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoadingPage from '../Pages/LoadingPage';
@@ -8,6 +8,13 @@ import cancelCabinet from '../utils/firebase/cancelCabinet';
 import enrollCabinet from '../utils/firebase/enrollCabinet';
 import fixCabinet from '../utils/firebase/fixCabinet';
 import logOutUser from '../utils/firebase/logoutUser';
+import Cabinet001 from '../image/Cabinet001.png';
+import Cabinet049 from '../image/Cabinet049.png';
+import Cabinet061 from '../image/Cabinet061.png';
+import Cabinet085 from '../image/Cabinet085.png';
+import Cabinet145 from '../image/Cabinet145.png';
+import Cabinet6x6 from '../image/Cabinet6x6.jpg';
+import Cabinet6x10 from '../image/Cabinet6x10.jpg';
 
 const MainPageContainer = () => {
   const history = useHistory();
@@ -29,6 +36,31 @@ const MainPageContainer = () => {
   const [_map, visibleMap] = useState(false);
   const [index, setIndex] = useState(0);
   const [select, setSelect] = useState(-1);
+  const [mapImage, setMapImage] = React.useState(null);
+  const [cabinetImage, setCabinetImage] = React.useState(null);
+
+  const imageChange = () => {
+    if (index === 0) {
+      setMapImage(Cabinet001);
+      setCabinetImage(Cabinet6x6);
+    } else if (index === 1) {
+      setMapImage(Cabinet049);
+      setCabinetImage(Cabinet6x10);
+    } else if (index === 2) {
+      setMapImage(Cabinet061);
+      setCabinetImage(Cabinet6x6);
+    } else if (index === 3) {
+      setMapImage(Cabinet085);
+      setCabinetImage(Cabinet6x10);
+    } else if (index === 4) {
+      setMapImage(Cabinet145);
+      setCabinetImage(Cabinet6x6);
+    }
+  };
+
+  useEffect(() => {
+    imageChange();
+  }, [index]);
 
   const onClickUserPage = () => {
     history.push('/userpage');
@@ -104,6 +136,8 @@ const MainPageContainer = () => {
                   adminType={adminType}
                   cabinetBreakDown={cabinetBreakDown}
                   cabinetFix={cabinetFix}
+                  mapImage={mapImage}
+                  cabinetImage={cabinetImage}
                 />
               ) : (
                 <div>관리자가 서버를 열어야합니다.</div>

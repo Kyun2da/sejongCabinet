@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
 import Logo from '../image/Logo.png';
 import { Default, Mobile } from '../MediaQuery';
 import test from '../image/Test.png';
-import cabinetpicture from '../image/Cabinet.jpg';
+import cabinetpicture from '../image/Cabinet6x6.jpg';
 import backwards from '../image/Backward.png';
 
 const Container = styled.div`
@@ -266,39 +266,6 @@ const UserPage = (props) => {
           </div>
         </header>
         <Container style={{ marginTop: '14vh' }}>
-          <SwipeableDrawer
-            anchor="top"
-            open={_map}
-            onClick={() => visibleMap(false)}
-            onClose={() => {}}
-            onOpen={() => {}}
-          >
-            <div
-              style={{
-                display: 'flex',
-                width: '100%',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                padding: '10vh 0',
-                backgroundColor: 'rgb(240,240,240)',
-                rowGpa: '10vw',
-              }}
-            >
-              <img
-                src={test}
-                alt="map"
-                width="700vw"
-                style={{ backgroundColor: 'white' }}
-              />
-              <img
-                src={cabinetpicture}
-                alt="cabinetpicture"
-                width="500vw"
-                style={{ padding: '1rem', backgroundColor: 'white' }}
-              />
-            </div>
-          </SwipeableDrawer>
           <div
             style={{
               display: 'flex',
@@ -478,40 +445,6 @@ const UserPage = (props) => {
           </div>
         </header>
         <Container style={{ marginTop: '10vh' }}>
-          <SwipeableDrawer
-            anchor="top"
-            open={_map}
-            onClick={() => visibleMap(false)}
-            onClose={() => {}}
-            onOpen={() => {}}
-          >
-            <div
-              style={{
-                position: 'static',
-                width: '100%',
-                height: 'auto',
-                padding: '5vh 5%',
-                backgroundColor: 'RGB(245,245,245)',
-              }}
-            >
-              <img
-                src={test}
-                alt="map"
-                width="90%"
-                style={{ backgroundColor: 'white' }}
-              />
-              <img
-                src={cabinetpicture}
-                alt="cabinetpicture"
-                width="90%"
-                style={{
-                  margin: '5vh 0',
-                  padding: '0.1rem',
-                  backgroundColor: 'white',
-                }}
-              />
-            </div>
-          </SwipeableDrawer>
           <div
             style={{
               display: 'flex',
