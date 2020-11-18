@@ -1,11 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import SwipeableViews from 'react-swipeable-views';
 import {
   SwipeableDrawer,
   Button,
-  Tabs,
-  Tab,
   FormControl,
   TextField,
   makeStyles,
@@ -15,7 +12,6 @@ import { Link } from 'react-router-dom';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
-import Cabinet from './Cabinet';
 import Logo from '../image/Logo.png';
 import { Default, Mobile } from '../MediaQuery';
 import test from '../image/Test.png';
@@ -146,13 +142,13 @@ const useStyles = makeStyles((theme) => ({
 
 const UserPage = (props) => {
   const {
-    data,
     _map,
     visibleMap,
     onClickLogout,
-    index,
     currentUserName,
-    cabinetNames,
+    currentUserCabinetIdx,
+    currentUserCabinetTitle,
+    cabinetCancel,
   } = props;
   const passwordsample = '123456';
   const classes = useStyles();
@@ -160,33 +156,7 @@ const UserPage = (props) => {
   const [changePassword, setChange] = React.useState('');
   const [confirmPassword, setConfirm] = React.useState('');
   const [passwordCheck, setCheck] = React.useState(false);
-
-  const onFinishFunc = () => {
-    Swal.fire({
-      icon: 'success',
-      title: '취소 되었습니다.',
-      showConfirmButton: false,
-      width: '20rem',
-      fontSize: '1rem',
-      timer: 1500,
-    });
-  };
-
-  const cancleCabinet = () => {
-    Swal.fire({
-      text: '자리를 취소 하시겠습니까?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '네',
-      cancelButtonText: '아니요',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        onFinishFunc();
-      }
-    });
-  };
+  const cabinetTitle = ['001', '049', '061', '085', '145'];
 
   const currnetPasswordHandler = (e) => {
     setCurrent(e.target.value);
@@ -386,10 +356,24 @@ const UserPage = (props) => {
                     flexDirection: 'row',
                   }}
                 >
-                  <div>사물함위치</div>
+                  <div>
+                    {currentUserCabinetTitle !== 0
+                      ? `사물함위치 : ${
+                          cabinetTitle[
+                            // eslint-disable-next-line radix
+                            parseInt(
+                              currentUserCabinetTitle.substr(
+                                currentUserCabinetTitle.length - 1,
+                              ),
+                            ) - 1
+                          ]
+                        } -
+                    ${currentUserCabinetIdx}번 사물함`
+                      : `예약된 사물함이 없습니다.`}
+                  </div>
                   <Button
                     className={classes.cancleButton}
-                    onClick={cancleCabinet}
+                    onClick={cabinetCancel}
                   >
                     취소
                   </Button>
@@ -567,11 +551,23 @@ const UserPage = (props) => {
                   }}
                 >
                   <div style={{ marginBottom: '3vh' }}>
-                    Title의 Number 사물함
+                    {currentUserCabinetTitle !== 0
+                      ? `사물함위치 : ${
+                          cabinetTitle[
+                            // eslint-disable-next-line radix
+                            parseInt(
+                              currentUserCabinetTitle.substr(
+                                currentUserCabinetTitle.length - 1,
+                              ),
+                            ) - 1
+                          ]
+                        } -
+                    ${currentUserCabinetIdx}번 사물함`
+                      : `예약된 사물함이 없습니다.`}
                   </div>
                   <Button
                     className={classes.McancleButton}
-                    onClick={cancleCabinet}
+                    onClick={cabinetCancel}
                   >
                     취소
                   </Button>
@@ -651,13 +647,13 @@ const UserPage = (props) => {
 };
 
 UserPage.propTypes = {
-  data: PropTypes.objectOf(PropTypes.object).isRequired,
   _map: PropTypes.bool.isRequired,
   visibleMap: PropTypes.func.isRequired,
   onClickLogout: PropTypes.func.isRequired,
   currentUserName: PropTypes.string.isRequired,
-  cabinetNames: PropTypes.arrayOf(PropTypes.string).isRequired,
-  index: PropTypes.number.isRequired,
+  currentUserCabinetIdx: PropTypes.number.isRequired,
+  currentUserCabinetTitle: PropTypes.string.isRequired,
+  cabinetCancel: PropTypes.func.isRequired,
 };
 
 export default UserPage;
