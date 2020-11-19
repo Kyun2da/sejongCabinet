@@ -9,7 +9,6 @@ import {
   makeStyles,
   Switch,
   Tooltip,
-  withStyles,
 } from '@material-ui/core';
 import { Default, Mobile } from '../MediaQuery';
 
@@ -29,20 +28,6 @@ const MContent = styled.div`
 const StatusValue = styled.div`
   margin: 0 1vw 0 1vw;
 `;
-
-const PurpleSwitch = withStyles({
-  switchBase: {
-    color: '#52d869',
-    '&$checked': {
-      color: '#52d869',
-    },
-    '&$checked + $track': {
-      backgroundColor: '#52d869',
-    },
-  },
-  checked: {},
-  track: {},
-})(Switch);
 
 const useStyles = makeStyles((theme) => ({
   root: {
