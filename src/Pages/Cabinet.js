@@ -151,7 +151,7 @@ const useStyles = makeStyles((theme) => ({
   },
   Mbutton3: {
     fontFamily: 'Anton',
-    borderRadius: '3px',
+    borderRadius: '4px',
     border: '2px solid lightgray',
     color: 'white',
     margin: '0 1rem',
@@ -174,11 +174,17 @@ const useStyles = makeStyles((theme) => ({
     width: '2rem',
     fontSize: '10px',
     backgroundColor: '#008000',
-    '&:focus': {
-      outline: 'none',
-      border: '2px solid #DF1840',
+    '&:hover': {
       backgroundColor: '#DF1840',
       color: 'white',
+      border: '2px solid #DF1840',
+      outline: 'none',
+    },
+    '&:focus': {
+      backgroundColor: '#DF1840',
+      color: 'white',
+      border: '2px solid #DF1840',
+      outline: 'none',
     },
   },
 }));
