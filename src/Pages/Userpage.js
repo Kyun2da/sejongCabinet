@@ -178,6 +178,7 @@ const UserPage = (props) => {
                 backgroundColor: 'white',
                 borderRadius: '0.5rem',
                 padding: '0.5vh 1vw',
+                fontFamily: 'Noto Sans KR',
               }}
             >
               {currentUserName}님 환영합니다!
@@ -197,7 +198,12 @@ const UserPage = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
+                <MenuItem
+                  onClick={onClickLogout}
+                  style={{ fontFamily: 'Noto Sans KR' }}
+                >
+                  로그아웃
+                </MenuItem>
               </Menu>
             </div>
           </div>
@@ -222,7 +228,9 @@ const UserPage = (props) => {
                 width: '80%',
               }}
             >
-              <UserpageTitle>나의 사물함</UserpageTitle>
+              <UserpageTitle style={{ fontFamily: 'Noto Sans KR' }}>
+                나의 사물함
+              </UserpageTitle>
               <div
                 style={{
                   height: 'auto',
@@ -239,7 +247,7 @@ const UserPage = (props) => {
                     flexDirection: 'row',
                   }}
                 >
-                  <div>
+                  <div style={{ fontFamily: 'Noto Sans KR' }}>
                     {currentUserCabinetTitle !== 0
                       ? `사물함위치 : ${
                           cabinetTitle[
@@ -258,6 +266,7 @@ const UserPage = (props) => {
                     className={classes.cancleButton}
                     onClick={cabinetCancel}
                     disabled={currentUserCabinetTitle === 0}
+                    style={{ fontFamily: 'Noto Sans KR' }}
                   >
                     취소
                   </Button>
@@ -265,7 +274,9 @@ const UserPage = (props) => {
               </div>
             </div>
             <div style={{ flexGrow: 2, width: '80%' }}>
-              <UserpageTitle>비밀번호 변경</UserpageTitle>
+              <UserpageTitle style={{ fontFamily: 'Noto Sans KR' }}>
+                비밀번호 변경
+              </UserpageTitle>
               <div
                 style={{
                   height: 'auto',
@@ -310,6 +321,7 @@ const UserPage = (props) => {
                     <Button
                       className={classes.changeButton}
                       onClick={passwordChangeFunc}
+                      style={{ fontFamily: 'Noto Sans KR' }}
                     >
                       변경하기
                     </Button>
@@ -375,7 +387,12 @@ const UserPage = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
+                <MenuItem
+                  onClick={onClickLogout}
+                  style={{ fontFamily: 'Noto Sans KR' }}
+                >
+                  로그아웃
+                </MenuItem>
               </Menu>
             </div>
           </div>
@@ -400,7 +417,9 @@ const UserPage = (props) => {
                 width: '80%',
               }}
             >
-              <MUserpageTitle>사물함위치</MUserpageTitle>
+              <MUserpageTitle style={{ fontFamily: 'Noto Sans KR' }}>
+                사물함위치
+              </MUserpageTitle>
               <div
                 style={{
                   height: 'auto',
@@ -418,7 +437,9 @@ const UserPage = (props) => {
                     borderBottom: '1px solid gray',
                   }}
                 >
-                  <div style={{ marginBottom: '3vh' }}>
+                  <div
+                    style={{ marginBottom: '3vh', fontFamily: 'Noto Sans KR' }}
+                  >
                     {currentUserCabinetTitle !== 0
                       ? `사물함위치 : ${
                           cabinetTitle[
@@ -444,7 +465,9 @@ const UserPage = (props) => {
               </div>
             </div>
             <div style={{ flexGrow: 2, width: '80%' }}>
-              <MUserpageTitle>비밀번호 변경</MUserpageTitle>
+              <MUserpageTitle style={{ fontFamily: 'Noto Sans KR' }}>
+                비밀번호 변경
+              </MUserpageTitle>
               <div
                 style={{
                   height: 'auto',
@@ -474,7 +497,7 @@ const UserPage = (props) => {
                         style={{
                           width: '95%',
 
-                          margin: '1.7vh 0',
+                          margin: '2vh 0',
                         }}
                       />
                       <TextField
@@ -486,7 +509,7 @@ const UserPage = (props) => {
                         onChange={changePasswordHandler}
                         style={{
                           width: '95%',
-                          margin: '1.7vh 0',
+                          margin: '2vh 0',
                         }}
                       />
                       <TextField
@@ -498,13 +521,14 @@ const UserPage = (props) => {
                         onChange={confirmPasswordHandler}
                         style={{
                           width: '95%',
-                          margin: '1.7vh 0',
+                          margin: '2vh 0',
                         }}
                       />
                     </center>
                     <Button
                       className={classes.MchangeButton}
                       onClick={passwordChangeFunc}
+                      style={{ fontFamily: 'Noto Sans KR' }}
                     >
                       변경하기
                     </Button>

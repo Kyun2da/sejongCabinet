@@ -158,7 +158,7 @@ const useStyles = makeStyles((theme) => ({
     height: '2rem',
     width: '2rem',
     textAlign: 'center',
-    fontSize: '6px',
+    fontSize: '8px',
     backgroundColor: 'lightgray',
     '&:focus': {
       outline: 'none',
@@ -513,9 +513,10 @@ const Cabinet = (props) => {
             style={{
               backgroundColor: select === -1 ? 'gray' : 'black',
               color: 'white',
-              width: '6vw',
+              width: '7.5vw',
               padding: '1vh 2vw',
               marginRight: '1vw',
+              fontFamily: 'Noto Sans KR',
             }}
             onClick={onClickFunc}
             disabled={select === -1}
