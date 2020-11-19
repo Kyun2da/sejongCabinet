@@ -8,15 +8,16 @@ import {
   Tab,
   Menu,
   MenuItem,
+  IconButton,
+  Tooltip,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ImageIcon from '@material-ui/icons/Image';
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PropTypes from 'prop-types';
 import Cabinet from './Cabinet';
-import Logo from '../image/softwareLogo.png';
 import { Default, Mobile } from '../MediaQuery';
-import test from '../image/Test.png';
+import SimpleModal from './SimpleModal';
 
 const Container = styled.div`
   display: flex;
@@ -91,7 +92,10 @@ const MainPage = (props) => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  const [toggleHelp, setToggleHelp] = React.useState(false);
+  const handleOpen = () => {
+    setToggleHelp(!toggleHelp);
+  };
   const drawlerHandler = () => {
     return (
       <div>
@@ -328,29 +332,48 @@ const MainPage = (props) => {
               width: '100vw',
             }}
           >
-            <div style={{ left: '1.5vw', position: 'absolute' }}>
-              <img
-                src={Logo}
-                alt="logo"
+            <Tooltip
+              title={<div style={{ fontSize: '1vw' }}>도움말</div>}
+              placement="bottom"
+              arrow
+            >
+              <IconButton
+                aria-label="delete"
                 style={{
-                  width: '3.5vw',
-                  filter: 'invert(100%) grayscale(100%)',
-                }}
-              />
-            </div>
-            <div>
-              <Button
-                onClick={() => visibleMap(true)}
-                style={{
-                  backgroundColor: 'white',
+                  left: '1.5vw',
+                  position: 'absolute',
                   width: 'auto',
-                  fontFamily: 'Anton',
-                  fontSize: '1.2rem',
+                  fontSize: '3.0vw',
+                  color: 'white',
                 }}
+                onClick={handleOpen}
               >
-                photo
-                <ImageIcon style={{ fontSize: '2vw', marginLeft: '0.5vw' }} />
-              </Button>
+                <HelpOutlineIcon
+                  style={{
+                    fontSize: '3.0vw',
+                  }}
+                />
+              </IconButton>
+            </Tooltip>
+            <div>
+              <Tooltip
+                title={<div style={{ fontSize: '1vw' }}>실제 사진 보기</div>}
+                placement="bottom"
+                arrow
+              >
+                <Button
+                  onClick={() => visibleMap(true)}
+                  style={{
+                    backgroundColor: 'white',
+                    width: 'auto',
+                    fontFamily: 'Anton',
+                    fontSize: '1.2rem',
+                  }}
+                >
+                  photo
+                  <ImageIcon style={{ fontSize: '2vw', marginLeft: '0.5vw' }} />
+                </Button>
+              </Tooltip>
             </div>
             <div
               style={{
@@ -422,6 +445,7 @@ const MainPage = (props) => {
             {showContents()}
           </div>
         </Container>
+        <SimpleModal open={toggleHelp} setOpen={handleOpen} />
       </Default>
       <Mobile>
         <div
@@ -465,7 +489,6 @@ const MainPage = (props) => {
               <ImageIcon />
             </Button>
           </div>
-
           <div
             style={{
               position: 'absolute',
@@ -506,6 +529,12 @@ const MainPage = (props) => {
                 </MenuItem>
               )}
               <MenuItem
+                onClick={handleOpen}
+                style={{ fontFamily: 'Noto Sans KR' }}
+              >
+                도움말
+              </MenuItem>
+              <MenuItem
                 onClick={onClickLogout}
                 style={{ fontFamily: 'Noto Sans KR' }}
               >
@@ -529,6 +558,7 @@ const MainPage = (props) => {
             {MshowContents()}
           </div>
         </Container>
+        <SimpleModal open={toggleHelp} setOpen={handleOpen} />
       </Mobile>
     </div>
   );
