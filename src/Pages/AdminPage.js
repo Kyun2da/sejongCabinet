@@ -101,7 +101,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const AdminPage = (props) => {
-  const { onClickLogout, currentUserName, updatePW } = props;
+  const { onClickLogout, currentUserName, updatePW, total } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -239,7 +239,7 @@ const AdminPage = (props) => {
                     flexDirection: 'row',
                   }}
                 >
-                  <div>현재 예약된 사물함 수 :</div>
+                  <div>현재 예약된 사물함 수 : {total}개</div>
                 </div>
                 <div>
                   <Button>엑셀 추출하기</Button>
@@ -404,7 +404,7 @@ const AdminPage = (props) => {
                   }}
                 >
                   <div style={{ marginBottom: '3vh' }}>
-                    현재 예약된 사물함 수 :
+                    현재 예약된 사물함 수 : {total}개
                   </div>
                 </div>
                 <div>
@@ -489,6 +489,7 @@ AdminPage.propTypes = {
   onClickLogout: PropTypes.func.isRequired,
   currentUserName: PropTypes.string.isRequired,
   updatePW: PropTypes.func.isRequired,
+  total: PropTypes.number.isRequired,
 };
 
 export default AdminPage;
