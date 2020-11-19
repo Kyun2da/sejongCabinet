@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import Modal from '@material-ui/core/Modal';
+import { CircularProgress } from '@material-ui/core/';
+import { Mobile, Default } from '../MediaQuery';
+import ServerLoadingPage from '../Pages/ServerLoadingPage';
 import LoadingPage from '../Pages/LoadingPage';
 import MainPage from '../Pages/MainPage';
 import breakDownCabinet from '../utils/firebase/breakDownCabinet';
@@ -108,6 +113,15 @@ const MainPageContainer = () => {
     );
   };
 
+  const serverWarning = () => {
+    return Swal.fire({
+      title: '서버가 닫혀있습니다.',
+      width: 600,
+      padding: '3em',
+      background: 'RGB(200,200,200)',
+    });
+  };
+
   const cabinetBreakDown = (title) => {
     breakDownCabinet(title, select);
   };
@@ -146,7 +160,9 @@ const MainPageContainer = () => {
                   cabinetImage={cabinetImage}
                 />
               ) : (
-                <div>관리자가 서버를 열어야합니다.</div>
+                <div>
+                  <ServerLoadingPage />
+                </div>
               )}
             </>
           ) : (
