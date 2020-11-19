@@ -52,7 +52,7 @@ const enrollCabinet = (
           Swal.fire({
             icon: 'success',
             title: '사물함 신청 성공',
-            text: `${select}번 사물함이 ${snapshot.val()}학번으로 신청되었습니다`,
+            text: `${select}번 사물함으로 신청되었습니다`,
             showConfirmButton: true,
             width: '25rem',
             timer: 5000,
@@ -63,15 +63,15 @@ const enrollCabinet = (
   } else {
     Swal.fire({
       icon: 'question',
-      title: '사물함 신청을 취소하시겠습니까?',
+      title: '사물함 신청 취소',
       html:
-        '사물함을 신청하기 위해선 현재 등록된 사물함을 취소해야합니다.<br/>' +
+        '현재 등록된 사물함을 취소해야합니다.<br/>' +
         '정말 사물함을 취소하시겠습니까?',
       showConfirmButton: true,
       showCancelButton: true,
       confirmButtonText: '예',
       cancelButtonText: '아니오',
-      width: '50rem',
+      width: '35rem',
     }).then((result) => {
       if (result.isConfirmed) {
         cancelCabinet();
