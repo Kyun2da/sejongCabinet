@@ -135,8 +135,11 @@ const UserPage = (props) => {
     setConfirm(e.target.value);
   };
 
-  const passwordChangeFunc = () => {
-    updatePW(currentPassword, changePassword, confirmPassword);
+  const passwordChangeFunc = async () => {
+    await updatePW(currentPassword, changePassword, confirmPassword);
+    setCurrent('');
+    setChange('');
+    setConfirm('');
   };
 
   return (
@@ -262,14 +265,17 @@ const UserPage = (props) => {
                     ${currentUserCabinetIdx}번 사물함`
                       : `예약된 사물함이 없습니다.`}
                   </div>
-                  <Button
-                    className={classes.cancleButton}
-                    onClick={cabinetCancel}
-                    disabled={currentUserCabinetTitle === 0}
-                    style={{ fontFamily: 'Noto Sans KR' }}
-                  >
-                    취소
-                  </Button>
+                  {currentUserCabinetTitle !== 0 ? (
+                    <Button
+                      className={classes.cancleButton}
+                      onClick={cabinetCancel}
+                      style={{
+                        fontFamily: 'Noto Sans KR',
+                      }}
+                    >
+                      취소
+                    </Button>
+                  ) : null}
                 </div>
               </div>
             </div>
@@ -299,7 +305,9 @@ const UserPage = (props) => {
                       <TextField
                         label="현재 비밀번호"
                         variant="outlined"
+                        value={currentPassword}
                         onChange={currnetPasswordHandler}
+                        placeholder="현재 비밀번호를 입력해주세요."
                         type="password"
                         style={{ width: '25vw', margin: '1.5vh 0' }}
                       />
@@ -307,6 +315,8 @@ const UserPage = (props) => {
                         label="변경 비밀번호"
                         variant="outlined"
                         type="password"
+                        value={changePassword}
+                        placeholder="6글자 이상의 비밀번호를 입력해주세요."
                         onChange={changePasswordHandler}
                         style={{ width: '25vw', margin: '1.5vh 0' }}
                       />
@@ -314,6 +324,8 @@ const UserPage = (props) => {
                         label="비밀번호 확인"
                         variant="outlined"
                         type="password"
+                        value={confirmPassword}
+                        placeholder="위와 동일한 6글자 이상의 비밀번호를 입력해주세요."
                         onChange={confirmPasswordHandler}
                         style={{ width: '25vw', margin: '1.5vh 0' }}
                       />
@@ -321,7 +333,11 @@ const UserPage = (props) => {
                     <Button
                       className={classes.changeButton}
                       onClick={passwordChangeFunc}
-                      style={{ fontFamily: 'Noto Sans KR' }}
+                      style={{
+                        fontFamily: 'Noto Sans KR',
+                        backgroundColor: 'rgb(63,81,181)',
+                        color: 'white',
+                      }}
                     >
                       변경하기
                     </Button>
@@ -454,13 +470,15 @@ const UserPage = (props) => {
                     ${currentUserCabinetIdx}번 사물함`
                       : `예약된 사물함이 없습니다.`}
                   </div>
-                  <Button
-                    className={classes.McancleButton}
-                    onClick={cabinetCancel}
-                    disabled={currentUserCabinetTitle === 0}
-                  >
-                    취소
-                  </Button>
+                  {currentUserCabinetTitle !== 0 ? (
+                    <Button
+                      className={classes.McancleButton}
+                      onClick={cabinetCancel}
+                      disabled={currentUserCabinetTitle === 0}
+                    >
+                      취소
+                    </Button>
+                  ) : null}
                 </div>
               </div>
             </div>
@@ -530,7 +548,11 @@ const UserPage = (props) => {
                     <Button
                       className={classes.MchangeButton}
                       onClick={passwordChangeFunc}
-                      style={{ fontFamily: 'Noto Sans KR' }}
+                      style={{
+                        fontFamily: 'Noto Sans KR',
+                        backgroundColor: 'rgb(63,81,181)',
+                        color: 'white',
+                      }}
                     >
                       변경하기
                     </Button>
