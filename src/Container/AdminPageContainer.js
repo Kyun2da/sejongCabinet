@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import AdminPage from '../Pages/AdminPage';
@@ -26,6 +26,23 @@ const AdminPageContainer = () => {
   const updatePW = (currentPW, newPW, confirmPW) => {
     updatePassword(currentPW, newPW, confirmPW);
   };
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    let count = 0;
+    if (data.currentCabinets) {
+      Object.keys(data.currentCabinets).forEach((key) => {
+        Object.keys(data.currentCabinets[key].item).forEach((keys) => {
+          if (
+            data.currentCabinets[key].item[keys] !== 0 &&
+            data.currentCabinets[key].item[keys] !== 2
+          ) {
+            count += 1;
+          }
+        });
+      });
+    }
+    setTotal(count);
+  }, [data]);
   return (
     <>
       {userId ? (
@@ -39,6 +56,7 @@ const AdminPageContainer = () => {
               currentUserCabinetIdx={currentUserCabinetIdx}
               currentUserCabinetTitle={currentUserCabinetNum}
               updatePW={updatePW}
+              total={total}
             />
           ) : (
             <LoadingPage />
