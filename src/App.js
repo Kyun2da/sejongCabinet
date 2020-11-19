@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Route, Switch, HashRouter as Router } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { auth } from './configs/firebase.config';
+import { auth, database } from './configs/firebase.config';
 import LoginContainer from './Container/LoginContainer';
 import SIgnUpContainer from './Container/SIgnUpContainer';
 import MainPageContainer from './Container/MainPageContainer';
@@ -23,21 +23,25 @@ const Container = styled.div`
 
 const App = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
+    let uid = null;
     let unsubscribeFromAuth = null;
     unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
       if (user) {
         dispatch(setCurrentUser(user));
+        uid = user.uid;
         getUserData(user.uid, dispatch);
-        getCabinetData(dispatch);
-        getServerData(dispatch);
       } else {
+        database.ref(`users/${uid}`).off('value');
         dispatch(clearCurrentUser());
       }
     });
     return () => unsubscribeFromAuth();
   }, [setCurrentUser, clearCurrentUser]);
+  useEffect(() => {
+    getCabinetData(dispatch);
+    getServerData(dispatch);
+  }, []);
   return (
     <Container>
       <Router basename={`${process.env.PUBLIC_URL}/`}>
