@@ -101,7 +101,14 @@ const useStyles = makeStyles(() => ({
 }));
 
 const AdminPage = (props) => {
-  const { onClickLogout, currentUserName, updatePW, total } = props;
+  const {
+    onClickLogout,
+    currentUserName,
+    updatePW,
+    total,
+    serverStatus,
+    toggleServer,
+  } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -243,7 +250,9 @@ const AdminPage = (props) => {
                 </div>
                 <div>
                   <Button>엑셀 추출하기</Button>
-                  <Button>서버 열기</Button>
+                  <Button onClick={toggleServer}>
+                    {serverStatus?.status?.status ? '서버 닫기' : '서버 열기'}
+                  </Button>
                 </div>
               </div>
             </div>
@@ -409,7 +418,9 @@ const AdminPage = (props) => {
                 </div>
                 <div>
                   <Button>엑셀 추출하기</Button>
-                  <Button>서버 열기</Button>
+                  <Button onClick={toggleServer}>
+                    {serverStatus?.status?.status ? '서버 닫기' : '서버 열기'}
+                  </Button>
                 </div>
               </div>
             </div>
@@ -490,6 +501,8 @@ AdminPage.propTypes = {
   currentUserName: PropTypes.string.isRequired,
   updatePW: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
+  serverStatus: PropTypes.objectOf.isRequired,
+  toggleServer: PropTypes.func.isRequired,
 };
 
 export default AdminPage;
