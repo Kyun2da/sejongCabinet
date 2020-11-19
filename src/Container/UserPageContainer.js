@@ -19,10 +19,6 @@ const UserPageContainer = () => {
   const onClickLogout = () => {
     logOutUser(history);
   };
-
-  const toLoginPage = () => {
-    history.push('/');
-  };
   const cabinetCancel = () => {
     cancelCabinet(
       currentUserCabinetNum,

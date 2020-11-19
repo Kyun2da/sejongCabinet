@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import AdminPage from '../Pages/AdminPage';
 import LoadingPage from '../Pages/LoadingPage';
 import logOutUser from '../utils/firebase/logoutUser';
+import toggleServerStatus from '../utils/firebase/setServerStatus';
 import updatePassword from '../utils/firebase/updatePassword';
 
 const AdminPageContainer = () => {
@@ -14,19 +15,17 @@ const AdminPageContainer = () => {
   const currentUserName = useSelector((state) => state.auth.currentUserName);
   const userId = useSelector((state) => state.auth.currentUser.uid);
   const [_map, visibleMap] = useState(false);
-
+  const serverStatus = useSelector((state) => state.server);
   const onClickLogout = () => {
     logOutUser(history);
   };
-
-  const toLoginPage = () => {
-    history.push('/');
-  };
-
   const updatePW = (currentPW, newPW, confirmPW) => {
     updatePassword(currentPW, newPW, confirmPW);
   };
   const [total, setTotal] = useState(0);
+  const toggleServer = () => {
+    toggleServerStatus();
+  };
   useEffect(() => {
     let count = 0;
     if (data.currentCabinets) {
@@ -57,6 +56,8 @@ const AdminPageContainer = () => {
               currentUserCabinetTitle={currentUserCabinetNum}
               updatePW={updatePW}
               total={total}
+              serverStatus={serverStatus}
+              toggleServer={toggleServer}
             />
           ) : (
             <LoadingPage />
