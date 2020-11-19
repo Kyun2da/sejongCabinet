@@ -2,7 +2,14 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
-import { Button, Grid, makeStyles, Tooltip } from '@material-ui/core';
+import {
+  Button,
+  FormControlLabel,
+  Grid,
+  makeStyles,
+  Switch,
+  Tooltip,
+} from '@material-ui/core';
 import { Default, Mobile } from '../MediaQuery';
 
 const Content = styled.div`
@@ -203,6 +210,10 @@ const Cabinet = (props) => {
     }
   };
   const [count, setCount] = useState([0, 0, 0]);
+  const [toggle, setToggle] = useState(false);
+  const toggleChange = (event) => {
+    setToggle(event.target.checked);
+  };
   useEffect(() => {
     const newCount = [0, 0, 0];
     for (let i = 1; i < item.length; i += 1) {
@@ -274,7 +285,7 @@ const Cabinet = (props) => {
             arrow
           >
             <Button className={classes.button2} disableRipple>
-              {arrIdx}
+              {toggle ? item[arrIdx] : arrIdx}
             </Button>
           </Tooltip>
         </Grid>
@@ -389,15 +400,28 @@ const Cabinet = (props) => {
           }}
         >
           <div style={{ marginBottom: '1vh' }}>{title}</div>
+
           <div
             style={{
               fontSize: '1rem',
-              display: 'flex',
-              flexDirection: 'row',
               marginRight: '2vw',
-              alignItems: 'flex-start',
             }}
           >
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={toggle}
+                  onChange={toggleChange}
+                  color="primary"
+                  name="toggle"
+                  inputProps={{ 'aria-label': 'primary checkbox' }}
+                />
+              }
+              label="학번으로 보기"
+              style={{
+                marginBottom: '12px',
+              }}
+            />
             <StatusValue>✅ : {count[0]} </StatusValue>
             <StatusValue>❌ : {count[1]}</StatusValue>
             <StatusValue>🚧 : {count[2]}</StatusValue>

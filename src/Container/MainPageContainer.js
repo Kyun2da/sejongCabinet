@@ -135,7 +135,7 @@ const MainPageContainer = () => {
         <>
           {userId ? (
             <>
-              {serverStatus?.status?.status ? (
+              {serverStatus?.status?.status || adminType ? (
                 <MainPage
                   data={data}
                   _map={_map}
