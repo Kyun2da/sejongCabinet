@@ -289,17 +289,20 @@ const UserPage = (props) => {
                         label="현재 비밀번호"
                         variant="outlined"
                         onChange={currnetPasswordHandler}
+                        type="password"
                         style={{ width: '25vw', margin: '1.5vh 0' }}
                       />
                       <TextField
                         label="변경 비밀번호"
                         variant="outlined"
+                        type="password"
                         onChange={changePasswordHandler}
                         style={{ width: '25vw', margin: '1.5vh 0' }}
                       />
                       <TextField
                         label="비밀번호 확인"
                         variant="outlined"
+                        type="password"
                         onChange={confirmPasswordHandler}
                         style={{ width: '25vw', margin: '1.5vh 0' }}
                       />
@@ -358,7 +361,7 @@ const UserPage = (props) => {
             >
               <Button
                 onClick={handleClick}
-                style={{ backgroundColor: 'transparent', margin: '0 0 0 2vw' }}
+                style={{ backgroundColor: 'transparent' }}
                 disableRipple
               >
                 <MenuIcon />
@@ -386,7 +389,7 @@ const UserPage = (props) => {
               border: '5px solid lightgray',
               borderRadius: '6vw',
               width: '80%',
-              height: '65vh',
+              height: '50%',
               margin: '2vh 0',
               padding: '3vh 0 4vh',
             }}
@@ -465,11 +468,13 @@ const UserPage = (props) => {
                         id="currentpassword"
                         label="현재 비밀번호"
                         variant="outlined"
+                        type="password"
                         onChange={currnetPasswordHandler}
                         margin="dense"
                         style={{
                           width: '95%',
-                          margin: '1.5vh 0',
+
+                          margin: '1.7vh 0',
                         }}
                       />
                       <TextField
@@ -477,10 +482,11 @@ const UserPage = (props) => {
                         label="변경 비밀번호"
                         variant="outlined"
                         margin="dense"
+                        type="password"
                         onChange={changePasswordHandler}
                         style={{
                           width: '95%',
-                          margin: '1.5vh 0',
+                          margin: '1.7vh 0',
                         }}
                       />
                       <TextField
@@ -488,10 +494,11 @@ const UserPage = (props) => {
                         label="비밀번호 확인"
                         variant="outlined"
                         margin="dense"
+                        type="password"
                         onChange={confirmPasswordHandler}
                         style={{
                           width: '95%',
-                          margin: '1.5vh 0',
+                          margin: '1.7vh 0',
                         }}
                       />
                     </center>

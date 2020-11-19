@@ -325,7 +325,7 @@ const MainPage = (props) => {
               left: 0,
               right: 0,
               height: '10vh',
-              width: '100%',
+              width: '100vw',
             }}
           >
             <div style={{ left: '1.5vw', position: 'absolute' }}>
@@ -408,71 +408,83 @@ const MainPage = (props) => {
         </Container>
       </Default>
       <Mobile>
-        <header>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'black',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              height: '8vh',
-              width: '100%',
-              margin: 0,
-              padding: 0,
-            }}
-          >
-            <div style={{ left: '4vw', position: 'absolute' }}>
-              <Button
-                onClick={() => visibleMap(true)}
-                style={{
-                  backgroundColor: 'white',
-                  width: '2.5vw',
-                  fontFamily: 'Anton',
-                }}
-              >
-                <ImageIcon />
-              </Button>
-            </div>
-
-            <div
+        <div
+          style={{
+            top: 0,
+            left: 0,
+            width: '120vw',
+            backgroundColor: 'black',
+            position: 'absolute',
+            height: '8vh',
+            padding: 0,
+            margin: 0,
+          }}
+        >
+          {' '}
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: '8vh',
+            width: '100vw',
+            margin: 0,
+            padding: 0,
+          }}
+        >
+          <div style={{ left: '4vw', position: 'absolute' }}>
+            <Button
+              onClick={() => visibleMap(true)}
               style={{
-                position: 'absolute',
-                right: '4vw',
                 backgroundColor: 'white',
-                borderRadius: '1vw',
+                width: '2.5vw',
+                fontFamily: 'Anton',
               }}
             >
-              <Button
-                onClick={handleClick}
-                style={{ backgroundColor: 'transparent' }}
-                disableRipple
-              >
-                <MenuIcon />
-              </Button>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                getContentAnchorEl={null}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                {adminType ? (
-                  <MenuItem onClick={onClickAdminPage}>관리자페이지</MenuItem>
-                ) : (
-                  <MenuItem onClick={onClickUserPage}>마이페이지</MenuItem>
-                )}
-                <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
-              </Menu>
-            </div>
+              <ImageIcon />
+            </Button>
           </div>
-          {drawlerHandler()}
-        </header>
+
+          <div
+            style={{
+              position: 'absolute',
+              right: '4vw',
+              backgroundColor: 'white',
+              borderRadius: '1vw',
+            }}
+          >
+            <Button
+              onClick={handleClick}
+              style={{ backgroundColor: 'transparent' }}
+              disableRipple
+            >
+              <MenuIcon />
+            </Button>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              getContentAnchorEl={null}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              {adminType ? (
+                <MenuItem onClick={onClickAdminPage}>관리자페이지</MenuItem>
+              ) : (
+                <MenuItem onClick={onClickUserPage}>마이페이지</MenuItem>
+              )}
+              <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
+            </Menu>
+          </div>
+        </div>
+        {drawlerHandler()}
+
         <Container style={{ marginTop: '10vh' }}>
           <div
             style={{
