@@ -308,7 +308,7 @@ const SignUp = (props) => {
               type="submit"
               style={{
                 width: '80vw',
-                height: '6vh',
+                height: '2.5rem',
                 backgroundColor: 'rgb(63,81,181)',
                 color: 'white',
                 border: '1px solid rgb(63,81,181)',

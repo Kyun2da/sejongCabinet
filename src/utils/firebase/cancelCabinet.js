@@ -44,9 +44,9 @@ const cancelCabinet = (
           Swal.fire({
             icon: 'success',
             title: '사물함 취소 성공',
-            text: `${currentUserName}님이 신청했던 ${select}번 사물함이 취소되었습니다`,
+            text: ` ${select}번 사물함이 취소되었습니다`,
             showConfirmButton: true,
-            width: '25rem',
+            width: '30rem',
             timer: 5000,
           });
         }

@@ -495,9 +495,8 @@ const UserPage = (props) => {
                         onChange={currnetPasswordHandler}
                         margin="dense"
                         style={{
-                          width: '95%',
-                          height: '6.5vh',
-                          padding: '0.5vh 0',
+                          width: '60vw',
+                          margin: '1vh 0',
                         }}
                       />
                       <TextField
@@ -508,9 +507,8 @@ const UserPage = (props) => {
                         type="password"
                         onChange={changePasswordHandler}
                         style={{
-                          width: '95%',
-                          height: '6.5vh',
-                          padding: '0.5vh 0',
+                          width: '60vw',
+                          margin: '1vh 0',
                         }}
                       />
                       <TextField
@@ -521,9 +519,8 @@ const UserPage = (props) => {
                         type="password"
                         onChange={confirmPasswordHandler}
                         style={{
-                          width: '95%',
-                          height: '6.5vh',
-                          padding: '0.5vh 0',
+                          width: '60vw',
+                          margin: '1vh 0',
                         }}
                       />
                     </center>
