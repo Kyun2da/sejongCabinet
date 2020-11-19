@@ -116,7 +116,7 @@ const Login = (props) => {
             src={Logo}
             alt="logo"
             width="150vw"
-            style={{ margin: '12vh 0 0 ' }}
+            style={{ margin: '10vh 0 0 ' }}
           />
           <p
             style={{
@@ -170,7 +170,7 @@ const Login = (props) => {
               type="submit"
               style={{
                 width: '80vw',
-                height: '3rem',
+                height: '3.5rem',
                 backgroundColor: 'rgb(63,81,181)',
                 color: 'white',
                 border: '1px solid rgb(63,81,181)',

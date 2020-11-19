@@ -50,7 +50,8 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'red',
     color: 'white',
     opacity: 0.6,
-    padding: '0.5vh 1vw',
+    padding: '0.5vh 2vw',
+    margin: '3vh 0 0',
     borderRadius: '0.5vw',
     '&:hover': {
       backgroundColor: 'red',
@@ -60,9 +61,9 @@ const useStyles = makeStyles(() => ({
 
   McancleButton: {
     fontFamily: 'Noto Sans KR',
-    fontWeight: 'bold',
     backgroundColor: 'red',
     opacity: 0.6,
+    fontSize: '0.5rem',
     color: 'white',
     borderRadius: '2vw',
     '&:hover': {
@@ -241,25 +242,23 @@ const AdminPage = (props) => {
                     justifyContent: 'space-evenly',
                     alignItems: 'center',
                     display: 'flex',
-                    margin: '4vh 0 5vh',
+                    margin: '4vh 0 2vh',
                     fontSize: '2vw',
-                    flexDirection: 'row',
+                    flexDirection: 'column',
                   }}
                 >
                   <div style={{ fontFamily: 'Noto Sans KR' }}>
                     현재 예약된 사물함 수 : {total}개
                   </div>
-                </div>
-                <div>
-                  <Button style={{ fontFamily: 'Noto Sans KR' }}>
-                    엑셀 추출하기
-                  </Button>
-                  <Button
-                    onClick={toggleServer}
-                    style={{ fontFamily: 'Noto Sans KR' }}
-                  >
-                    {serverStatus?.status?.status ? '서버 닫기' : '서버 열기'}
-                  </Button>
+                  <center>
+                    <Button
+                      className={classes.cancleButton}
+                      onClick={toggleServer}
+                      style={{ fontFamily: 'Noto Sans KR' }}
+                    >
+                      {serverStatus?.status?.status ? '서버 닫기' : '서버 열기'}
+                    </Button>
+                  </center>
                 </div>
               </div>
             </div>
@@ -413,23 +412,28 @@ const AdminPage = (props) => {
                     alignItems: 'center',
                     display: 'flex',
                     margin: '4vh 0 1vh',
-                    paddingBottom: '5vh',
+                    paddingBottom: '3vh',
                     fontSize: '1.2rem',
                     flexDirection: 'column',
                     borderBottom: '1px solid gray',
                   }}
                 >
                   <div
-                    style={{ marginBottom: '3vh', fontFamily: 'Noto Sans KR' }}
+                    style={{ marginBottom: '1vh', fontFamily: 'Noto Sans KR' }}
                   >
                     현재 예약된 사물함 수 : {total}개
+                    <center>
+                      <Button
+                        className={classes.McancleButton}
+                        onClick={toggleServer}
+                        style={{ marginTop: '3vh' }}
+                      >
+                        {serverStatus?.status?.status
+                          ? '서버 닫기'
+                          : '서버 열기'}
+                      </Button>
+                    </center>
                   </div>
-                </div>
-                <div>
-                  <Button>엑셀 추출하기</Button>
-                  <Button onClick={toggleServer}>
-                    {serverStatus?.status?.status ? '서버 닫기' : '서버 열기'}
-                  </Button>
                 </div>
               </div>
             </div>

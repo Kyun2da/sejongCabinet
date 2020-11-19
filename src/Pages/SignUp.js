@@ -193,7 +193,7 @@ const SignUp = (props) => {
             src={Logo}
             alt="logo"
             width="80vw"
-            style={{ margin: '3vh 0 0' }}
+            style={{ margin: '2vh 0 0' }}
           />
           <p
             style={{
