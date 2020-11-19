@@ -4,6 +4,9 @@ const getFirebaseErrorMessage = (code) => {
   let message = null;
 
   switch (code) {
+    case 'auth/weak-password':
+      message = ERROR_MESSAGES.AUTH_WEAK_PASSWORD;
+      break;
     case 'auth/email-already-in-use':
       message = ERROR_MESSAGES.EMAIL_ALREADY_IN_USE;
       break;

@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2';
 
 import firebase from 'firebase/app';
+import getFirebaseErrorMessage from '../error/auth/authError';
 
 const { auth } = require('../../configs/firebase.config');
 
@@ -40,7 +41,7 @@ const updatePassword = (currentPW, newPW, confirmPW) => {
           Swal.fire({
             icon: 'error',
             title: '비밀번호 변경 실패',
-            text: `비밀번호가 알 수 없는 이유로 변경에 실패하였습니다. 관리자에게 문의해주세요.`,
+            text: getFirebaseErrorMessage(error.code),
             showConfirmButton: true,
             width: '25rem',
             timer: 5000,
