@@ -251,7 +251,7 @@ const UserPage = (props) => {
                   }}
                 >
                   <div style={{ fontFamily: 'Noto Sans KR' }}>
-                    {currentUserCabinetTitle !== 0
+                    {currentUserCabinetTitle && currentUserCabinetTitle !== 0
                       ? `사물함위치 : ${
                           cabinetTitle[
                             // eslint-disable-next-line radix
@@ -456,7 +456,7 @@ const UserPage = (props) => {
                   <div
                     style={{ marginBottom: '3vh', fontFamily: 'Noto Sans KR' }}
                   >
-                    {currentUserCabinetTitle !== 0
+                    {currentUserCabinetTitle && currentUserCabinetTitle !== 0
                       ? `사물함위치 : ${
                           cabinetTitle[
                             // eslint-disable-next-line radix
