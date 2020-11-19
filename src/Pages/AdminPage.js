@@ -197,18 +197,6 @@ const AdminPage = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem>
-                  <Link
-                    to="/adminpage"
-                    style={{
-                      textDecoration: 'none',
-                      color: 'black',
-                      fontFamily: 'Noto Sans KR',
-                    }}
-                  >
-                    관리자페이지
-                  </Link>
-                </MenuItem>
                 <MenuItem
                   onClick={onClickLogout}
                   style={{ fontFamily: 'Noto Sans KR' }}
@@ -383,17 +371,6 @@ const AdminPage = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem>
-                  <Link
-                    to="/adminpage"
-                    style={{
-                      textDecoration: 'none',
-                      fontFamily: 'Noto Sans KR',
-                    }}
-                  >
-                    관리자페이지
-                  </Link>
-                </MenuItem>
                 <MenuItem
                   onClick={onClickLogout}
                   style={{ fontFamily: 'Noto Sans KR' }}

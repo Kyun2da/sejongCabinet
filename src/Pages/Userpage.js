@@ -496,8 +496,8 @@ const UserPage = (props) => {
                         margin="dense"
                         style={{
                           width: '95%',
-
-                          margin: '2vh 0',
+                          height: '6.5vh',
+                          padding: '0.5vh 0',
                         }}
                       />
                       <TextField
@@ -509,7 +509,8 @@ const UserPage = (props) => {
                         onChange={changePasswordHandler}
                         style={{
                           width: '95%',
-                          margin: '2vh 0',
+                          height: '6.5vh',
+                          padding: '0.5vh 0',
                         }}
                       />
                       <TextField
@@ -521,7 +522,8 @@ const UserPage = (props) => {
                         onChange={confirmPasswordHandler}
                         style={{
                           width: '95%',
-                          margin: '2vh 0',
+                          height: '6.5vh',
+                          padding: '0.5vh 0',
                         }}
                       />
                     </center>
