@@ -218,6 +218,8 @@ const SignUp = (props) => {
           </p>
 
           <form
+            onSubmit={SignUpSubmit}
+            name="signUp"
             noValidate
             autoComplete="off"
             style={{
@@ -267,20 +269,29 @@ const SignUp = (props) => {
             </div>
             <TextField
               id="id"
-              label="ID"
+              label="Email"
+              placeholder="이메일 형식으로 입력해주세요"
+              type="email"
               variant="outlined"
+              onChange={onIdHandler}
               style={{ width: '80vw', margin: '1vh 0.1vw' }}
             />
             <TextField
               id="password"
               label="Password"
+              placeholder="6글자 이상의 패스워드를 입력해주세요."
+              type="password"
               variant="outlined"
+              onChange={onPasswordHandler}
               style={{ width: '80vw', margin: '1vh 0.1vw' }}
             />
             <TextField
               id="studentID"
               label="학번"
+              placeholder="학번을 입력해주세요."
+              type="text"
               variant="outlined"
+              onChange={onStudentIdHandler}
               style={{ width: '80vw', margin: '1vh 0.1vw' }}
             />
             <TextField
@@ -294,6 +305,7 @@ const SignUp = (props) => {
             />
             <Button
               variant="contained"
+              type="submit"
               style={{
                 width: '80vw',
                 height: '6vh',

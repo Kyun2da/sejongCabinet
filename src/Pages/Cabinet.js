@@ -22,7 +22,7 @@ const MContent = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 4vh 0 4vh 3vw;
+  padding: 4vh 0 4vh 4vw;
 `;
 
 const StatusValue = styled.div`
@@ -36,8 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   mroot: {
-    width: '90%',
-    paddingLeft: '5vw',
+    width: '50vw',
     overflow: 'scroll',
   },
   button: {
@@ -152,13 +151,14 @@ const useStyles = makeStyles((theme) => ({
   },
   Mbutton3: {
     fontFamily: 'Anton',
-    borderRadius: '3px',
+    borderRadius: '4px',
     border: '2px solid lightgray',
     color: 'white',
     margin: '0 1rem',
     height: '2rem',
     width: '2rem',
-    fontSize: '10px',
+    textAlign: 'center',
+    fontSize: '8px',
     backgroundColor: 'lightgray',
     '&:focus': {
       outline: 'none',
@@ -174,11 +174,17 @@ const useStyles = makeStyles((theme) => ({
     width: '2rem',
     fontSize: '10px',
     backgroundColor: '#008000',
-    '&:focus': {
-      outline: 'none',
-      border: '2px solid #DF1840',
+    '&:hover': {
       backgroundColor: '#DF1840',
       color: 'white',
+      border: '2px solid #DF1840',
+      outline: 'none',
+    },
+    '&:focus': {
+      backgroundColor: '#DF1840',
+      color: 'white',
+      border: '2px solid #DF1840',
+      outline: 'none',
     },
   },
 }));
@@ -513,9 +519,10 @@ const Cabinet = (props) => {
             style={{
               backgroundColor: select === -1 ? 'gray' : 'black',
               color: 'white',
-              width: '6vw',
+              width: '7.5vw',
               padding: '1vh 2vw',
               marginRight: '1vw',
+              fontFamily: 'Noto Sans KR',
             }}
             onClick={onClickFunc}
             disabled={select === -1}
@@ -537,11 +544,11 @@ const Cabinet = (props) => {
             <div
               style={{
                 display: 'flex',
-                width: '60%',
+                width: '70%',
                 flexDirection: 'row',
                 MarginLeft: '2rem',
                 justifyContent: 'center',
-                padding: '1.5vh 2vw',
+                padding: '1.5vh 0',
                 border: '2vw solid RGB(240,240,240)',
                 backgroundColor: 'white',
                 borderRadius: '10px',
@@ -566,12 +573,9 @@ const Cabinet = (props) => {
           <div
             style={{
               width: '100%',
-              backgroudColor: 'black',
             }}
           >
-            <MContent>
-              <div className={classes.mroot}>{MshowGridRow()}</div>
-            </MContent>
+            <MContent>{MshowGridRow()}</MContent>
           </div>
           <div
             style={{
@@ -590,7 +594,7 @@ const Cabinet = (props) => {
             >
               {select === -1 ? '-' : select}
             </div>
-            <div style={{ marginLeft: 0 }}>
+            <div style={{ marginLeft: 0, marginBotto: '2vh' }}>
               <Button
                 style={{
                   backgroundColor: select === -1 ? 'gray' : 'black',

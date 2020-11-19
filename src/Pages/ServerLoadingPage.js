@@ -86,6 +86,7 @@ const ServerLoadingPage = () => {
             aria-describedby="server-modal-description"
             className={classes.modal}
             container={() => rootRef.current}
+            style={{ marginBottom: '20vh' }}
           >
             <div
               className={classes.mpaper}

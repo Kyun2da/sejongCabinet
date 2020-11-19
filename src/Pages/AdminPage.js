@@ -177,6 +177,7 @@ const AdminPage = (props) => {
                 backgroundColor: 'white',
                 borderRadius: '0.5rem',
                 padding: '0.5vh 1vw',
+                fontFamily: 'Noto Sans KR',
               }}
             >
               {currentUserName}님 환영합니다!
@@ -196,15 +197,12 @@ const AdminPage = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem>
-                  <Link
-                    to="/adminpage"
-                    style={{ textDecoration: 'none', color: 'black' }}
-                  >
-                    관리자페이지
-                  </Link>
+                <MenuItem
+                  onClick={onClickLogout}
+                  style={{ fontFamily: 'Noto Sans KR' }}
+                >
+                  로그아웃
                 </MenuItem>
-                <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
               </Menu>
             </div>
           </div>
@@ -229,7 +227,9 @@ const AdminPage = (props) => {
                 width: '80%',
               }}
             >
-              <AdminpageTitle>관리자 페이지</AdminpageTitle>
+              <AdminpageTitle style={{ fontFamily: 'Noto Sans KR' }}>
+                관리자 페이지
+              </AdminpageTitle>
               <div
                 style={{
                   height: 'auto',
@@ -246,11 +246,18 @@ const AdminPage = (props) => {
                     flexDirection: 'row',
                   }}
                 >
-                  <div>현재 예약된 사물함 수 : {total}개</div>
+                  <div style={{ fontFamily: 'Noto Sans KR' }}>
+                    현재 예약된 사물함 수 : {total}개
+                  </div>
                 </div>
                 <div>
-                  <Button>엑셀 추출하기</Button>
-                  <Button onClick={toggleServer}>
+                  <Button style={{ fontFamily: 'Noto Sans KR' }}>
+                    엑셀 추출하기
+                  </Button>
+                  <Button
+                    onClick={toggleServer}
+                    style={{ fontFamily: 'Noto Sans KR' }}
+                  >
                     {serverStatus?.status?.status ? '서버 닫기' : '서버 열기'}
                   </Button>
                 </div>
@@ -350,7 +357,7 @@ const AdminPage = (props) => {
             >
               <Button
                 onClick={handleClick}
-                style={{ backgroundColor: 'transparent', margin: '0 0 0 2vw' }}
+                style={{ backgroundColor: 'transparent' }}
                 disableRipple
               >
                 <MenuIcon />
@@ -364,12 +371,12 @@ const AdminPage = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem>
-                  <Link to="/adminpage" style={{ textDecoration: 'none' }}>
-                    관리자페이지
-                  </Link>
+                <MenuItem
+                  onClick={onClickLogout}
+                  style={{ fontFamily: 'Noto Sans KR' }}
+                >
+                  로그아웃
                 </MenuItem>
-                <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
               </Menu>
             </div>
           </div>
@@ -383,7 +390,7 @@ const AdminPage = (props) => {
               border: '5px solid lightgray',
               borderRadius: '6vw',
               width: '80%',
-              height: '65vh',
+              height: '50%',
               margin: '2vh 0',
               padding: '3vh 0 4vh',
             }}
@@ -412,7 +419,9 @@ const AdminPage = (props) => {
                     borderBottom: '1px solid gray',
                   }}
                 >
-                  <div style={{ marginBottom: '3vh' }}>
+                  <div
+                    style={{ marginBottom: '3vh', fontFamily: 'Noto Sans KR' }}
+                  >
                     현재 예약된 사물함 수 : {total}개
                   </div>
                 </div>
@@ -453,7 +462,7 @@ const AdminPage = (props) => {
                         margin="dense"
                         style={{
                           width: '95%',
-                          margin: '1.5vh 0',
+                          margin: '2vh 0',
                         }}
                       />
                       <TextField
@@ -464,7 +473,7 @@ const AdminPage = (props) => {
                         onChange={changePasswordHandler}
                         style={{
                           width: '95%',
-                          margin: '1.5vh 0',
+                          margin: '2vh 0',
                         }}
                       />
                       <TextField
