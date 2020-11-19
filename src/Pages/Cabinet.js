@@ -419,12 +419,48 @@ const Cabinet = (props) => {
               }
               label="학번으로 보기"
               style={{
-                marginBottom: '12px',
+                marginBottom: '0.8vh',
               }}
             />
-            <StatusValue>✅ : {count[0]} </StatusValue>
-            <StatusValue>❌ : {count[1]}</StatusValue>
-            <StatusValue>🚧 : {count[2]}</StatusValue>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'flex-end',
+                flexDirection: 'column',
+                textAlign: 'left',
+              }}
+            >
+              <Tooltip
+                title={<div style={{ fontSize: '0.8rem' }}>신청 가능</div>}
+                fontSize="5vw"
+                placement="left"
+                arrow
+              >
+                <StatusValue style={{ width: '3.2vw', fontSize: '0.9vw' }}>
+                  ✅ : {count[0]}{' '}
+                </StatusValue>
+              </Tooltip>
+              <Tooltip
+                title={<div style={{ fontSize: '0.8rem' }}>신청 불가</div>}
+                fontSize="5vw"
+                placement="left"
+                arrow
+              >
+                <StatusValue style={{ width: '3.2vw', fontSize: '0.9vw' }}>
+                  ❌ : {count[1]}
+                </StatusValue>
+              </Tooltip>
+              <Tooltip
+                title={<div style={{ fontSize: '0.8rem' }}>고장</div>}
+                fontSize="5vw"
+                placement="left"
+                arrow
+              >
+                <StatusValue style={{ width: '3.2vw', fontSize: '0.9vw' }}>
+                  🚧 : {count[2]}
+                </StatusValue>
+              </Tooltip>
+            </div>
           </div>
         </div>
         <div
