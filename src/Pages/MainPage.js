@@ -16,9 +16,8 @@ import ImageIcon from '@material-ui/icons/Image';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PropTypes from 'prop-types';
 import Cabinet from './Cabinet';
-import Logo from '../image/softwareLogo.png';
 import { Default, Mobile } from '../MediaQuery';
-import test from '../image/Test.png';
+import SimpleModal from './SimpleModal';
 
 const Container = styled.div`
   display: flex;
@@ -93,7 +92,10 @@ const MainPage = (props) => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  const [toggleHelp, setToggleHelp] = React.useState(false);
+  const handleOpen = () => {
+    setToggleHelp(!toggleHelp);
+  };
   const drawlerHandler = () => {
     return (
       <div>
@@ -344,6 +346,7 @@ const MainPage = (props) => {
                   fontSize: '3.0vw',
                   color: 'white',
                 }}
+                onClick={handleOpen}
               >
                 <HelpOutlineIcon
                   style={{
@@ -442,6 +445,7 @@ const MainPage = (props) => {
             {showContents()}
           </div>
         </Container>
+        <SimpleModal open={toggleHelp} setOpen={handleOpen} />
       </Default>
       <Mobile>
         <div
@@ -485,7 +489,6 @@ const MainPage = (props) => {
               <ImageIcon />
             </Button>
           </div>
-
           <div
             style={{
               position: 'absolute',
@@ -526,6 +529,12 @@ const MainPage = (props) => {
                 </MenuItem>
               )}
               <MenuItem
+                onClick={handleOpen}
+                style={{ fontFamily: 'Noto Sans KR' }}
+              >
+                도움말
+              </MenuItem>
+              <MenuItem
                 onClick={onClickLogout}
                 style={{ fontFamily: 'Noto Sans KR' }}
               >
@@ -549,6 +558,7 @@ const MainPage = (props) => {
             {MshowContents()}
           </div>
         </Container>
+        <SimpleModal open={toggleHelp} setOpen={handleOpen} />
       </Mobile>
     </div>
   );
