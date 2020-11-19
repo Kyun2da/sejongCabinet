@@ -359,6 +359,7 @@ const MainPage = (props) => {
                 backgroundColor: 'white',
                 borderRadius: '0.5rem',
                 padding: '0.5vh 1vw',
+                fontFamily: 'Noto Sans KR',
               }}
             >
               {currentUserName}님 환영합니다!
@@ -379,11 +380,26 @@ const MainPage = (props) => {
                 onClose={handleClose}
               >
                 {adminType ? (
-                  <MenuItem onClick={onClickAdminPage}>관리자페이지</MenuItem>
+                  <MenuItem
+                    onClick={onClickAdminPage}
+                    style={{ fontFamily: 'Noto Sans KR' }}
+                  >
+                    관리자페이지
+                  </MenuItem>
                 ) : (
-                  <MenuItem onClick={onClickUserPage}>마이페이지</MenuItem>
+                  <MenuItem
+                    onClick={onClickUserPage}
+                    style={{ fontFamily: 'Noto Sans KR' }}
+                  >
+                    마이페이지
+                  </MenuItem>
                 )}
-                <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
+                <MenuItem
+                  onClick={onClickLogout}
+                  style={{ fontFamily: 'Noto Sans KR' }}
+                >
+                  로그아웃
+                </MenuItem>
               </Menu>
             </div>
           </div>
@@ -475,11 +491,26 @@ const MainPage = (props) => {
               onClose={handleClose}
             >
               {adminType ? (
-                <MenuItem onClick={onClickAdminPage}>관리자페이지</MenuItem>
+                <MenuItem
+                  onClick={onClickAdminPage}
+                  style={{ fontFamily: 'Noto Sans KR' }}
+                >
+                  관리자페이지
+                </MenuItem>
               ) : (
-                <MenuItem onClick={onClickUserPage}>마이페이지</MenuItem>
+                <MenuItem
+                  onClick={onClickUserPage}
+                  style={{ fontFamily: 'Noto Sans KR' }}
+                >
+                  마이페이지
+                </MenuItem>
               )}
-              <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
+              <MenuItem
+                onClick={onClickLogout}
+                style={{ fontFamily: 'Noto Sans KR' }}
+              >
+                로그아웃
+              </MenuItem>
             </Menu>
           </div>
         </div>
