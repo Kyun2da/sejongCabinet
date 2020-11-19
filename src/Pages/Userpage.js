@@ -510,7 +510,9 @@ const UserPage = (props) => {
                         label="현재 비밀번호"
                         variant="outlined"
                         type="password"
+                        value={currentPassword}
                         onChange={currnetPasswordHandler}
+                        placeholder="현재 비밀번호를 입력해주세요."
                         margin="dense"
                         style={{
                           width: '60vw',
@@ -523,6 +525,8 @@ const UserPage = (props) => {
                         variant="outlined"
                         margin="dense"
                         type="password"
+                        value={changePassword}
+                        placeholder="6글자 이상의 비밀번호를 입력해주세요."
                         onChange={changePasswordHandler}
                         style={{
                           width: '60vw',
@@ -535,6 +539,8 @@ const UserPage = (props) => {
                         variant="outlined"
                         margin="dense"
                         type="password"
+                        value={confirmPassword}
+                        placeholder="위와 동일한 6글자 이상의 비밀번호를 입력해주세요."
                         onChange={confirmPasswordHandler}
                         style={{
                           width: '60vw',
