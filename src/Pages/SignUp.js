@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { TextField, Button, makeStyles, Img } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import Logo from '../image/softwareLogo.png';
+import Logo from '../image/softwareLogo_origin.png';
 import { Mobile, Default } from '../MediaQuery';
 import './Fadeout.css';
 import backwards from '../image/Backward.png';
@@ -192,7 +192,7 @@ const SignUp = (props) => {
           <img
             src={Logo}
             alt="logo"
-            width="60vw"
+            width="80vw"
             style={{ margin: '3vh 0 0' }}
           />
           <p
