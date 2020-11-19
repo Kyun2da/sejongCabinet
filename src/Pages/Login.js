@@ -115,7 +115,7 @@ const Login = (props) => {
           <img
             src={Logo}
             alt="logo"
-            width="100vw"
+            width="150vw"
             style={{ margin: '12vh 0 0 ' }}
           />
           <p
