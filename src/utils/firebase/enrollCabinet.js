@@ -74,7 +74,13 @@ const enrollCabinet = (
       width: '35rem',
     }).then((result) => {
       if (result.isConfirmed) {
-        cancelCabinet();
+        cancelCabinet(
+          userCabinetTitle,
+          userCabinetIdx,
+          currentUserID,
+          userId,
+          currentUserName,
+        );
       }
     });
   }
