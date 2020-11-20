@@ -25,19 +25,18 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 6, 3),
   },
   mpaper: {
-    height: 'auto',
+    width: '90%',
     backgroundColor: 'RGB(250,250,250)',
     border: '2px solid lightgray',
     padding: '5vh 1vw',
-    justifyContent: 'center',
-    alignItems: 'center',
-    display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // display: 'flex',
   },
   mmodal: {
     display: 'flex',
     alignItems: 'center',
     marginBottom: '30vh',
-    justifyContent: 'center',
   },
   modal: {
     display: 'flex',
@@ -93,10 +92,12 @@ const SimpleModal = (props) => {
           }}
         >
           <Fade in={open}>
-            <div className={classes.mpaper}>
-              <div>
-                <img src={mobileHelp} alt="mobileHelp" width="85%" />
-              </div>
+            <div style={{ width: '100vw' }}>
+              <center>
+                <div className={classes.mpaper}>
+                  <img src={mobileHelp} alt="mobileHelp" width="100%" />
+                </div>
+              </center>
             </div>
           </Fade>
         </Modal>
