@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '5vh 1vw',
     justifyContent: 'center',
     alignItems: 'center',
+    display: 'flex',
   },
   mmodal: {
     display: 'flex',
