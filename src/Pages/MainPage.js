@@ -557,8 +557,8 @@ const MainPage = (props) => {
             {MshowTabs()}
             {MshowContents()}
           </div>
+          <SimpleModal open={toggleHelp} setOpen={handleOpen} />
         </Container>
-        <SimpleModal open={toggleHelp} setOpen={handleOpen} />
       </Mobile>
     </div>
   );
