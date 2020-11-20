@@ -33,7 +33,7 @@ const fixCabinet = (cabinetTitle, select) => {
         Swal.fire({
           icon: 'success',
           title: '사물함 고치기 성공',
-          text: `${select}번 사물함이 고장상태로 변경되었습니다`,
+          text: `${select}번 사물함이 사용가능 상태로 변경되었습니다`,
           showConfirmButton: true,
           width: '25rem',
           timer: 5000,
