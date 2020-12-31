@@ -3,9 +3,11 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoadingPage from '../Pages/LoadingPage';
 import Userpage from '../Pages/Userpage';
+import UserpageMobile from '../Mobile/UserPageMobile';
 import cancelCabinet from '../utils/firebase/cancelCabinet';
 import logOutUser from '../utils/firebase/logoutUser';
 import updatePassword from '../utils/firebase/updatePassword';
+import { Mobile, Default } from '../MediaQuery';
 
 const UserPageContainer = () => {
   const data = useSelector((state) => state.cabinet.currentCabinets);
@@ -37,14 +39,28 @@ const UserPageContainer = () => {
       {userId ? (
         <>
           {data ? (
-            <Userpage
-              onClickLogout={onClickLogout}
-              currentUserName={currentUserName}
-              currentUserCabinetIdx={currentUserCabinetIdx}
-              currentUserCabinetTitle={currentUserCabinetNum}
-              cabinetCancel={cabinetCancel}
-              updatePW={updatePW}
-            />
+            <>
+              <Default>
+                <Userpage
+                  onClickLogout={onClickLogout}
+                  currentUserName={currentUserName}
+                  currentUserCabinetIdx={currentUserCabinetIdx}
+                  currentUserCabinetTitle={currentUserCabinetNum}
+                  cabinetCancel={cabinetCancel}
+                  updatePW={updatePW}
+                />
+              </Default>
+              <Mobile>
+                <UserpageMobile
+                  onClickLogout={onClickLogout}
+                  currentUserName={currentUserName}
+                  currentUserCabinetIdx={currentUserCabinetIdx}
+                  currentUserCabinetTitle={currentUserCabinetNum}
+                  cabinetCancel={cabinetCancel}
+                  updatePW={updatePW}
+                />
+              </Mobile>
+            </>
           ) : (
             <LoadingPage />
           )}

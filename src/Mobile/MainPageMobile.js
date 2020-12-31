@@ -15,9 +15,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ImageIcon from '@material-ui/icons/Image';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PropTypes from 'prop-types';
-import Cabinet from './Cabinet';
+import Cabinet from '../Pages/Cabinet';
 import { Default, Mobile } from '../MediaQuery';
-import SimpleModal from './SimpleModal';
+import SimpleModal from '../Pages/SimpleModal';
 
 const Container = styled.div`
   display: flex;
@@ -30,16 +30,18 @@ const Container = styled.div`
 `;
 
 const styles = {
-  tabs: {
-    height: '9vh',
+  Mtabs: {
+    height: '7vh',
   },
 
-  tab_pc: {
-    fontSize: '2vw',
-    letterSpacing: '0.0001px',
-    borderRadius: '10px',
+  tab_mobile: {
+    fontSize: '6vw',
     fontFamily: 'Anton',
-    width: '15vw',
+    margin: '0',
+    letterSpacing: '0.0001px',
+    justifyContent: 'center',
+    borderRadius: '10px',
+    width: 'auto',
   },
 
   slide: {
@@ -48,7 +50,7 @@ const styles = {
   },
 };
 
-const MainPage = (props) => {
+const MainPageMobile = (props) => {
   const {
     data,
     _map,
@@ -85,41 +87,6 @@ const MainPage = (props) => {
   const drawlerHandler = () => {
     return (
       <div>
-        <Default>
-          <SwipeableDrawer
-            anchor="top"
-            open={_map}
-            onClick={() => visibleMap(false)}
-            onClose={() => {}}
-            onOpen={() => {}}
-          >
-            <div
-              style={{
-                display: 'flex',
-                width: '100%',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                padding: '10vh 0',
-                backgroundColor: 'rgb(240,240,240)',
-                rowGpa: '10vw',
-              }}
-            >
-              <img
-                src={mapImage}
-                alt="map"
-                width="700vw"
-                style={{ backgroundColor: 'white' }}
-              />
-              <img
-                src={cabinetImage}
-                alt="cabinetpicture"
-                width="500vw"
-                style={{ padding: '1rem', backgroundColor: 'white' }}
-              />
-            </div>
-          </SwipeableDrawer>
-        </Default>
         <Mobile>
           <SwipeableDrawer
             anchor="top"
@@ -164,35 +131,35 @@ const MainPage = (props) => {
     setAnchorEl(null);
   };
 
-  const LoadTabs = () => {
+  const MLoadTabs = () => {
     return cabinetNames.map((i) => {
       return (
         <Tab
           key={data.currentCabinets[i].title}
           label={data.currentCabinets[i].title}
-          style={styles.tab_pc}
+          style={styles.tab_mobile}
         />
       );
     });
   };
 
-  const showTabs = () => {
+  const MshowTabs = () => {
     return (
       <Tabs
         value={index}
         fullwidth="true"
         onChange={handleChange}
-        style={styles.tabs}
+        style={styles.Mtabs}
         textColor="inherit"
         indicatorColor="primary"
         centered
       >
-        {LoadTabs()}
+        {MLoadTabs()}
       </Tabs>
     );
   };
 
-  const LoadContents = () => {
+  const MLoadContents = () => {
     return cabinetNames.map((i) => {
       return (
         <Cabinet
@@ -212,20 +179,19 @@ const MainPage = (props) => {
     });
   };
 
-  const showContents = () => {
+  const MshowContents = () => {
     return (
       <SwipeableViews
         index={index}
         onChangeIndex={handleChangeIndex}
         animateHeight
         style={{
-          margin: '5vh 5vw',
-          padding: '3vh 0 2vh 3vw',
-          border: '0.5vh solid lightgray',
+          margin: '3vh 0',
+          padding: '1vh 0',
           borderRadius: '2vw',
         }}
       >
-        {LoadContents()}
+        {MLoadContents()}
       </SwipeableViews>
     );
   };
@@ -236,139 +202,7 @@ const MainPage = (props) => {
       aria-hidden="true"
       onClick={() => setSelect(-1)}
     >
-      <Default>
-        <header>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'black',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '10vh',
-              width: '100vw',
-            }}
-          >
-            <Tooltip
-              title={<div style={{ fontSize: '1vw' }}>도움말</div>}
-              placement="bottom"
-              arrow
-            >
-              <IconButton
-                aria-label="delete"
-                style={{
-                  left: '1.5vw',
-                  position: 'absolute',
-                  width: 'auto',
-                  fontSize: '3.0vw',
-                  color: 'white',
-                }}
-                onClick={handleOpen}
-              >
-                <HelpOutlineIcon
-                  style={{
-                    fontSize: '3.0vw',
-                  }}
-                />
-              </IconButton>
-            </Tooltip>
-            <div>
-              <Tooltip
-                title={<div style={{ fontSize: '1vw' }}>실제 사진 보기</div>}
-                placement="bottom"
-                arrow
-              >
-                <Button
-                  onClick={() => visibleMap(true)}
-                  style={{
-                    backgroundColor: 'white',
-                    width: 'auto',
-                    fontFamily: 'Anton',
-                    fontSize: '1.2rem',
-                  }}
-                >
-                  photo
-                  <ImageIcon style={{ fontSize: '2vw', marginLeft: '0.5vw' }} />
-                </Button>
-              </Tooltip>
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                right: '5vw',
-                backgroundColor: 'white',
-                borderRadius: '0.5rem',
-                padding: '0.5vh 1vw',
-                fontFamily: 'Noto Sans KR',
-              }}
-            >
-              {currentUserName}님 환영합니다!
-              <Button
-                onClick={handleClick}
-                style={{ backgroundColor: 'transparent', margin: '0 0 0 2vw' }}
-                disableRipple
-              >
-                <MenuIcon />
-              </Button>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                getContentAnchorEl={null}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                {adminType ? (
-                  <MenuItem
-                    onClick={onClickAdminPage}
-                    style={{ fontFamily: 'Noto Sans KR' }}
-                  >
-                    관리자페이지
-                  </MenuItem>
-                ) : (
-                  <MenuItem
-                    onClick={onClickUserPage}
-                    style={{ fontFamily: 'Noto Sans KR' }}
-                  >
-                    마이페이지
-                  </MenuItem>
-                )}
-                <MenuItem
-                  onClick={onClickLogout}
-                  style={{ fontFamily: 'Noto Sans KR' }}
-                >
-                  로그아웃
-                </MenuItem>
-              </Menu>
-            </div>
-          </div>
-        </header>
-        <Container>
-          {drawlerHandler()}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              overflow: 'hidden',
-              '&::-webkit-scrollbar': {
-                display: 'none',
-              },
-            }}
-          >
-            {showTabs()}
-            {showContents()}
-          </div>
-        </Container>
-        <SimpleModal open={toggleHelp} setOpen={handleOpen} />
-      </Default>
-      {/* <Mobile>
+      <Mobile>
         <div
           style={{
             top: 0,
@@ -480,12 +314,12 @@ const MainPage = (props) => {
           </div>
           <SimpleModal open={toggleHelp} setOpen={handleOpen} />
         </Container>
-      </Mobile> */}
+      </Mobile>
     </div>
   );
 };
 
-MainPage.propTypes = {
+MainPageMobile.propTypes = {
   data: PropTypes.objectOf(PropTypes.object).isRequired,
   index: PropTypes.number.isRequired,
   handleChange: PropTypes.func.isRequired,
@@ -509,4 +343,4 @@ MainPage.propTypes = {
   cabinetImage: PropTypes.string.isRequired,
 };
 
-export default MainPage;
+export default MainPageMobile;

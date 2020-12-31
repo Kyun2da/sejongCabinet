@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { Mobile, Default } from '../MediaQuery';
 import AdminPage from '../Pages/AdminPage';
+import AdminPageMobile from '../Mobile/AdminPageMobile';
 import LoadingPage from '../Pages/LoadingPage';
 import logOutUser from '../utils/firebase/logoutUser';
 import toggleServerStatus from '../utils/firebase/setServerStatus';
@@ -47,18 +49,36 @@ const AdminPageContainer = () => {
       {userId ? (
         <>
           {data ? (
-            <AdminPage
-              _map={_map}
-              visibleMap={visibleMap}
-              onClickLogout={onClickLogout}
-              currentUserName={currentUserName}
-              currentUserCabinetIdx={currentUserCabinetIdx}
-              currentUserCabinetTitle={currentUserCabinetNum}
-              updatePW={updatePW}
-              total={total}
-              serverStatus={serverStatus}
-              toggleServer={toggleServer}
-            />
+            <>
+              <Default>
+                <AdminPage
+                  _map={_map}
+                  visibleMap={visibleMap}
+                  onClickLogout={onClickLogout}
+                  currentUserName={currentUserName}
+                  currentUserCabinetIdx={currentUserCabinetIdx}
+                  currentUserCabinetTitle={currentUserCabinetNum}
+                  updatePW={updatePW}
+                  total={total}
+                  serverStatus={serverStatus}
+                  toggleServer={toggleServer}
+                />
+              </Default>
+              <Mobile>
+                <AdminPageMobile
+                  _map={_map}
+                  visibleMap={visibleMap}
+                  onClickLogout={onClickLogout}
+                  currentUserName={currentUserName}
+                  currentUserCabinetIdx={currentUserCabinetIdx}
+                  currentUserCabinetTitle={currentUserCabinetNum}
+                  updatePW={updatePW}
+                  total={total}
+                  serverStatus={serverStatus}
+                  toggleServer={toggleServer}
+                />
+              </Mobile>
+            </>
           ) : (
             <LoadingPage />
           )}
