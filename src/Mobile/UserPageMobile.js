@@ -24,39 +24,37 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const UserpageTitle = styled.div`
+const MUserpageTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5vw;
+  font-size: 6vw;
   font-weight: bold;
-  padding: 1vh 0 2vh;
-  border-bottom: 1px solid RGB(200, 200, 200);
+  padding: 1vh 0 0.5vh;
 `;
 
 const useStyles = makeStyles(() => ({
-  cancleButton: {
+  McancleButton: {
     fontFamily: 'Noto Sans KR',
     fontWeight: 'bold',
     backgroundColor: 'red',
-    color: 'white',
     opacity: 0.6,
-    padding: '0.5vh 1vw',
-    borderRadius: '0.5vw',
+    color: 'white',
+    borderRadius: '2vw',
     '&:hover': {
       backgroundColor: 'red',
       opacity: 1,
     },
   },
 
-  changeButton: {
+  MchangeButton: {
     fontFamily: 'Noto Sans KR',
     fontWeight: 'bold',
     backgroundColor: 'rgb(180,180,180)',
     color: 'white',
-    width: '25vw',
-    height: '6vh',
-    borderRadius: '0.5vw',
+    width: '60vw',
+    height: '5vh',
+    borderRadius: '3vw',
     margin: '1vh 0',
     '&:hover': {
       backgroundColor: 'rgb(150,150,150)',
@@ -64,7 +62,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const UserPage = (props) => {
+const UserPageMobile = (props) => {
   const {
     onClickLogout,
     currentUserName,
@@ -108,209 +106,7 @@ const UserPage = (props) => {
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
-      <header>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'black',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '10vh',
-            width: '100%',
-          }}
-        >
-          <div style={{ left: '2vw', position: 'absolute' }}>
-            <Link to="/main">
-              <img
-                src={backwards}
-                alt="backwards"
-                style={{
-                  width: '1.5vw',
-                  filter: 'invert(100%)',
-                }}
-              />
-            </Link>
-          </div>
-
-          <div
-            style={{
-              position: 'absolute',
-              right: '5vw',
-              backgroundColor: 'white',
-              borderRadius: '0.5rem',
-              padding: '0.5vh 1vw',
-              fontFamily: 'Noto Sans KR',
-            }}
-          >
-            {currentUserName}님 환영합니다!
-            <Button
-              onClick={handleClick}
-              style={{ backgroundColor: 'transparent', margin: '0 0 0 2vw' }}
-              disableRipple
-            >
-              <MenuIcon />
-            </Button>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              getContentAnchorEl={null}
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem
-                onClick={onClickLogout}
-                style={{ fontFamily: 'Noto Sans KR' }}
-              >
-                로그아웃
-              </MenuItem>
-            </Menu>
-          </div>
-        </div>
-      </header>
-      <Container style={{ marginTop: '14vh' }}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            border: '3px solid lightgray',
-            borderRadius: '2vw',
-            width: '40vw',
-            height: '75vh',
-            padding: '2vh 0',
-            columnGap: '2vh',
-          }}
-        >
-          <div
-            style={{
-              flexGrow: 1,
-              width: '80%',
-            }}
-          >
-            <UserpageTitle style={{ fontFamily: 'Noto Sans KR' }}>
-              나의 사물함
-            </UserpageTitle>
-            <div
-              style={{
-                height: 'auto',
-                overflow: 'hidden',
-              }}
-            >
-              <div
-                style={{
-                  justifyContent: 'space-evenly',
-                  alignItems: 'center',
-                  display: 'flex',
-                  margin: '4vh 0 5vh',
-                  fontSize: '2vw',
-                  flexDirection: 'row',
-                }}
-              >
-                <div style={{ fontFamily: 'Noto Sans KR' }}>
-                  {currentUserCabinetTitle && currentUserCabinetTitle !== 0
-                    ? `사물함위치 : ${
-                        cabinetTitle[
-                          // eslint-disable-next-line radix
-                          parseInt(
-                            currentUserCabinetTitle.substr(
-                              currentUserCabinetTitle.length - 1,
-                            ),
-                          ) - 1
-                        ]
-                      } -
-                    ${currentUserCabinetIdx}번 사물함`
-                    : `예약된 사물함이 없습니다.`}
-                </div>
-                {currentUserCabinetTitle !== 0 ? (
-                  <Button
-                    className={classes.cancleButton}
-                    onClick={cabinetCancel}
-                    style={{
-                      fontFamily: 'Noto Sans KR',
-                    }}
-                  >
-                    취소
-                  </Button>
-                ) : null}
-              </div>
-            </div>
-          </div>
-          <div style={{ flexGrow: 2, width: '80%' }}>
-            <UserpageTitle style={{ fontFamily: 'Noto Sans KR' }}>
-              비밀번호 변경
-            </UserpageTitle>
-            <div
-              style={{
-                height: 'auto',
-                overflow: 'hidden',
-                margin: '2vh 0',
-              }}
-            >
-              <FormControl>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flexDirection: 'column',
-                    marginTop: '1vh',
-                    width: '100%',
-                  }}
-                >
-                  <center>
-                    <TextField
-                      label="현재 비밀번호"
-                      variant="outlined"
-                      value={currentPassword}
-                      onChange={currnetPasswordHandler}
-                      placeholder="현재 비밀번호를 입력해주세요."
-                      type="password"
-                      style={{ width: '25vw', margin: '1.5vh 0' }}
-                    />
-                    <TextField
-                      label="변경 비밀번호"
-                      variant="outlined"
-                      type="password"
-                      value={changePassword}
-                      placeholder="6글자 이상의 비밀번호를 입력해주세요."
-                      onChange={changePasswordHandler}
-                      style={{ width: '25vw', margin: '1.5vh 0' }}
-                    />
-                    <TextField
-                      label="비밀번호 확인"
-                      variant="outlined"
-                      type="password"
-                      value={confirmPassword}
-                      placeholder="위와 동일한 6글자 이상의 비밀번호를 입력해주세요."
-                      onChange={confirmPasswordHandler}
-                      style={{ width: '25vw', margin: '1.5vh 0' }}
-                    />
-                  </center>
-                  <Button
-                    className={classes.changeButton}
-                    onClick={passwordChangeFunc}
-                    style={{
-                      fontFamily: 'Noto Sans KR',
-                      backgroundColor: 'rgb(63,81,181)',
-                      color: 'white',
-                    }}
-                  >
-                    변경하기
-                  </Button>
-                </div>
-              </FormControl>
-            </div>
-          </div>
-        </div>
-      </Container>
-      {/* <Mobile>
+      <Mobile>
         <header>
           <div
             style={{
@@ -527,12 +323,12 @@ const UserPage = (props) => {
             </div>
           </div>
         </Container>
-      </Mobile> */}
+      </Mobile>
     </div>
   );
 };
 
-UserPage.propTypes = {
+UserPageMobile.propTypes = {
   onClickLogout: PropTypes.func.isRequired,
   currentUserName: PropTypes.string.isRequired,
   currentUserCabinetIdx: PropTypes.number.isRequired,
@@ -541,4 +337,4 @@ UserPage.propTypes = {
   updatePW: PropTypes.func.isRequired,
 };
 
-export default UserPage;
+export default UserPageMobile;
