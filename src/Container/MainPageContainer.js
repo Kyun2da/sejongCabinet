@@ -8,6 +8,7 @@ import { Mobile, Default } from '../MediaQuery';
 import ServerLoadingPage from '../Pages/ServerLoadingPage';
 import LoadingPage from '../Pages/LoadingPage';
 import MainPage from '../Pages/MainPage';
+import MainPageMobile from '../Mobile/MainPageMobile';
 import breakDownCabinet from '../utils/firebase/breakDownCabinet';
 import cancelCabinet from '../utils/firebase/cancelCabinet';
 import enrollCabinet from '../utils/firebase/enrollCabinet';
@@ -136,29 +137,58 @@ const MainPageContainer = () => {
           {userId ? (
             <>
               {serverStatus?.status?.status || adminType ? (
-                <MainPage
-                  data={data}
-                  _map={_map}
-                  visibleMap={visibleMap}
-                  index={index}
-                  select={select}
-                  setSelect={setSelect}
-                  onClickLogout={onClickLogout}
-                  handleChangeIndex={handleChangeIndex}
-                  handleChange={handleChange}
-                  currentUserName={currentUserName}
-                  cabinetNames={cabinetNames}
-                  cabinetEnroll={cabinetEnroll}
-                  currentUserID={currentUserID}
-                  cabinetCancel={cabinetCancel}
-                  onClickUserPage={onClickUserPage}
-                  onClickAdminPage={onClickAdminPage}
-                  adminType={adminType}
-                  cabinetBreakDown={cabinetBreakDown}
-                  cabinetFix={cabinetFix}
-                  mapImage={mapImage}
-                  cabinetImage={cabinetImage}
-                />
+                <>
+                  <Default>
+                    <MainPage
+                      data={data}
+                      _map={_map}
+                      visibleMap={visibleMap}
+                      index={index}
+                      select={select}
+                      setSelect={setSelect}
+                      onClickLogout={onClickLogout}
+                      handleChangeIndex={handleChangeIndex}
+                      handleChange={handleChange}
+                      currentUserName={currentUserName}
+                      cabinetNames={cabinetNames}
+                      cabinetEnroll={cabinetEnroll}
+                      currentUserID={currentUserID}
+                      cabinetCancel={cabinetCancel}
+                      onClickUserPage={onClickUserPage}
+                      onClickAdminPage={onClickAdminPage}
+                      adminType={adminType}
+                      cabinetBreakDown={cabinetBreakDown}
+                      cabinetFix={cabinetFix}
+                      mapImage={mapImage}
+                      cabinetImage={cabinetImage}
+                    />
+                  </Default>
+                  <Mobile>
+                    <MainPageMobile
+                      data={data}
+                      _map={_map}
+                      visibleMap={visibleMap}
+                      index={index}
+                      select={select}
+                      setSelect={setSelect}
+                      onClickLogout={onClickLogout}
+                      handleChangeIndex={handleChangeIndex}
+                      handleChange={handleChange}
+                      currentUserName={currentUserName}
+                      cabinetNames={cabinetNames}
+                      cabinetEnroll={cabinetEnroll}
+                      currentUserID={currentUserID}
+                      cabinetCancel={cabinetCancel}
+                      onClickUserPage={onClickUserPage}
+                      onClickAdminPage={onClickAdminPage}
+                      adminType={adminType}
+                      cabinetBreakDown={cabinetBreakDown}
+                      cabinetFix={cabinetFix}
+                      mapImage={mapImage}
+                      cabinetImage={cabinetImage}
+                    />
+                  </Mobile>
+                </>
               ) : (
                 <div>
                   <ServerLoadingPage />
