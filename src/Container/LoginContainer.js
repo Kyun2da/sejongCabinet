@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import { auth } from '../configs/firebase.config';
 import Login from '../Pages/Login';
 import getFirebaseErrorMessage from '../utils/error/auth/authError';
+import LoginMobile from '../Mobile/LoginMobile';
+import { Mobile, Default } from '../MediaQuery';
 
 const LoginContainer = () => {
   const history = useHistory();
@@ -47,12 +49,24 @@ const LoginContainer = () => {
       {userId ? (
         toMainPage()
       ) : (
-        <Login
-          LoginSubmit={LoginSubmit}
-          onIdHandler={onIdHandler}
-          onPasswordHanlder={onPasswordHanlder}
-          toSignUp={toSignUp}
-        />
+        <>
+          <Default>
+            <Login
+              LoginSubmit={LoginSubmit}
+              onIdHandler={onIdHandler}
+              onPasswordHanlder={onPasswordHanlder}
+              toSignUp={toSignUp}
+            />
+          </Default>
+          <Mobile>
+            <LoginMobile
+              LoginSubmit={LoginSubmit}
+              onIdHandler={onIdHandler}
+              onPasswordHanlder={onPasswordHanlder}
+              toSignUp={toSignUp}
+            />
+          </Mobile>
+        </>
       )}
     </>
   );
