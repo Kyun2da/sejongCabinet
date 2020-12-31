@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { auth, database } from '../configs/firebase.config';
 import SignUp from '../Pages/SignUp';
+import SignUpMobile from '../Mobile/SignUpMobile';
+import { Mobile, Default } from '../MediaQuery';
 import { setCurrentUserNameAndID } from '../redux/auth/auth.reducer';
 import getFirebaseErrorMessage from '../utils/error/auth/authError';
 
@@ -63,14 +65,26 @@ const SIgnUpContainer = () => {
   };
   return (
     <>
-      <SignUp
-        SignUpSubmit={SignUpSubmit}
-        linktoLogin={linktoLogin}
-        onIdHandler={onIdHandler}
-        onPasswordHandler={onPasswordHandler}
-        onStudentIdHandler={onStudentIdHandler}
-        onNameHandler={onNameHandler}
-      />
+      <Default>
+        <SignUp
+          SignUpSubmit={SignUpSubmit}
+          linktoLogin={linktoLogin}
+          onIdHandler={onIdHandler}
+          onPasswordHandler={onPasswordHandler}
+          onStudentIdHandler={onStudentIdHandler}
+          onNameHandler={onNameHandler}
+        />
+      </Default>
+      <Mobile>
+        <SignUpMobile
+          SignUpSubmit={SignUpSubmit}
+          linktoLogin={linktoLogin}
+          onIdHandler={onIdHandler}
+          onPasswordHandler={onPasswordHandler}
+          onStudentIdHandler={onStudentIdHandler}
+          onNameHandler={onNameHandler}
+        />
+      </Mobile>
     </>
   );
 };
