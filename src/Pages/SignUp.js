@@ -188,7 +188,7 @@ const SignUp = (props) => {
           </form>
         </Default>
 
-        <Mobile style={{ textalign: 'center' }}>
+        {/* <Mobile style={{ textalign: 'center' }}>
           <img
             src={Logo}
             alt="logo"
@@ -319,7 +319,7 @@ const SignUp = (props) => {
             </Button>
           </form>
           <MobileDivider />
-        </Mobile>
+        </Mobile> */}
       </Container>
     </CSSTransitionGroup>
   );
