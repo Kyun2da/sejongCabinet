@@ -12,12 +12,12 @@ import getFirebaseErrorMessage from '../utils/error/auth/authError';
 const SIgnUpContainer = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [_id, setId] = useState('');
+  const [_email, setEmail] = useState('');
   const [_password, setPassword] = useState('');
   const [studentId, setStudentId] = useState('');
   const [name, setName] = useState('');
-  const onIdHandler = (e) => {
-    setId(e.currentTarget.value);
+  const onEmailHandler = (e) => {
+    setEmail(e.currentTarget.value);
   };
   const onPasswordHandler = (e) => {
     setPassword(e.currentTarget.value);
@@ -37,16 +37,16 @@ const SIgnUpContainer = () => {
     database.ref(`users/${userId}`).set({
       studentID,
       name: _name,
+      email: _email,
       cabinetIdx: 0,
       cabinetTitle: 0,
       adminType: 0,
     });
   };
-
   const SignUpSubmit = (e) => {
     e.preventDefault();
     auth
-      .createUserWithEmailAndPassword(_id, _password)
+      .createUserWithEmailAndPassword(`${studentId}@sjcabinet.com`, _password)
       .then((user) => {
         history.push('/main');
         writeUserData(user.user.uid, studentId, name);
@@ -69,20 +69,28 @@ const SIgnUpContainer = () => {
         <SignUp
           SignUpSubmit={SignUpSubmit}
           linktoLogin={linktoLogin}
-          onIdHandler={onIdHandler}
+          onEmailHandler={onEmailHandler}
           onPasswordHandler={onPasswordHandler}
           onStudentIdHandler={onStudentIdHandler}
           onNameHandler={onNameHandler}
+          email={_email}
+          password={_password}
+          studentID={studentId}
+          name={name}
         />
       </Default>
       <Mobile>
         <SignUpMobile
           SignUpSubmit={SignUpSubmit}
           linktoLogin={linktoLogin}
-          onIdHandler={onIdHandler}
+          onEmailHandler={onEmailHandler}
           onPasswordHandler={onPasswordHandler}
           onStudentIdHandler={onStudentIdHandler}
           onNameHandler={onNameHandler}
+          email={_email}
+          password={_password}
+          studentID={studentId}
+          name={name}
         />
       </Mobile>
     </>
