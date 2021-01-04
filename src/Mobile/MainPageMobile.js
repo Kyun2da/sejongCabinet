@@ -152,6 +152,7 @@ const MainPageMobile = (props) => {
         style={styles.Mtabs}
         textColor="inherit"
         indicatorColor="primary"
+        disabled="true"
         centered
       >
         {MLoadTabs()}
@@ -184,6 +185,7 @@ const MainPageMobile = (props) => {
       <SwipeableViews
         index={index}
         onChangeIndex={handleChangeIndex}
+        disabled="true"
         animateHeight
         style={{
           margin: '3vh 0',
