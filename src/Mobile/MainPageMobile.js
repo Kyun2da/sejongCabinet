@@ -25,6 +25,7 @@ const Container = styled.div`
   justify-contents: center;
   align-items: center;
   flex-direction: column;
+  overflow:hidden;
   margin-top: 10vh;
   height: 80%;
   width: 100%;
