@@ -22,7 +22,7 @@ const MContent = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 4vh 0 4vh 4vw;
+  padding: 4vh 0;
 `;
 
 const StatusValue = styled.div`
@@ -540,39 +540,39 @@ const Cabinet = (props) => {
       </Default>
       <Mobile>
         <div>
-          <center>
+          <div
+            style={{
+              display: 'flex',
+              width: '80%',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '1.5vh 0',
+              marginLeft: '8vw',
+              border: '2vw solid RGB(240,240,240)',
+              backgroundColor: 'white',
+              borderRadius: '10px',
+            }}
+          >
             <div
               style={{
-                display: 'flex',
-                width: '70%',
-                flexDirection: 'row',
-                MarginLeft: '2rem',
-                justifyContent: 'center',
-                padding: '1.5vh 0',
-                border: '2vw solid RGB(240,240,240)',
-                backgroundColor: 'white',
-                borderRadius: '10px',
+                flexGrow: 1,
+                fontFamily: 'Anton',
               }}
             >
-              <div
-                style={{
-                  flexGrow: 1,
-                  fontFamily: 'Anton',
-                }}
-              >
-                ⭕ : {count[0]}
-              </div>
-              <div style={{ flexGrow: 1, fontFamily: 'Anton' }}>
-                ❌ : {count[1]}
-              </div>
-              <div style={{ flexGrow: 1, fontFamily: 'Anton' }}>
-                🚧 : {count[2]}
-              </div>
+              <center>⭕ : {count[0]}</center>
             </div>
-          </center>
+            <div style={{ flexGrow: 1, fontFamily: 'Anton' }}>
+              <center>❌ : {count[1]}</center>
+            </div>
+            <div style={{ flexGrow: 1, fontFamily: 'Anton' }}>
+              <center>🚧 : {count[2]}</center>
+            </div>
+          </div>
           <div
             style={{
               width: '100%',
+              paddingLeft:'3vw',
             }}
           >
             <MContent>{MshowGridRow()}</MContent>
