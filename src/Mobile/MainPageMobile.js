@@ -24,7 +24,7 @@ const Container = styled.div`
   justify-contents: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 12vh;
+  margin-top: 10vh;
   height: 80%;
   width: 100%;
 `;
@@ -189,6 +189,7 @@ const MainPageMobile = (props) => {
           margin: '3vh 0',
           padding: '1vh 0',
           borderRadius: '2vw',
+          width:'100vw',
         }}
       >
         {MLoadContents()}
@@ -198,7 +199,7 @@ const MainPageMobile = (props) => {
 
   return (
     <div
-      style={{ width: '100%', height: '100%' }}
+      // style={{ width: '100vw', height: '100%' }}
       aria-hidden="true"
       onClick={() => setSelect(-1)}
     >
@@ -207,7 +208,7 @@ const MainPageMobile = (props) => {
           style={{
             top: 0,
             left: 0,
-            width: '120vw',
+            width: '100vw',
             backgroundColor: 'black',
             position: 'absolute',
             height: '8vh',
@@ -300,7 +301,7 @@ const MainPageMobile = (props) => {
         </div>
         {drawlerHandler()}
 
-        <Container style={{ marginTop: '10vh' }}>
+        <Container>
           <div
             style={{
               display: 'flex',
