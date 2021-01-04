@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/sejongCabinet/static/css/main.db2c5cb0.chunk.css",
-    "main.js": "/sejongCabinet/static/js/main.66ddb9c3.chunk.js",
-    "main.js.map": "/sejongCabinet/static/js/main.66ddb9c3.chunk.js.map",
+    "main.js": "/sejongCabinet/static/js/main.6cf25c47.chunk.js",
+    "main.js.map": "/sejongCabinet/static/js/main.6cf25c47.chunk.js.map",
     "runtime-main.js": "/sejongCabinet/static/js/runtime-main.61e00fda.js",
     "runtime-main.js.map": "/sejongCabinet/static/js/runtime-main.61e00fda.js.map",
     "static/js/2.67749b38.chunk.js": "/sejongCabinet/static/js/2.67749b38.chunk.js",
@@ -26,6 +26,6 @@
     "static/js/runtime-main.61e00fda.js",
     "static/js/2.67749b38.chunk.js",
     "static/css/main.db2c5cb0.chunk.css",
-    "static/js/main.66ddb9c3.chunk.js"
+    "static/js/main.6cf25c47.chunk.js"
   ]
 }
