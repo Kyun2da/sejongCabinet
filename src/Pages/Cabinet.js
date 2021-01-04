@@ -23,6 +23,7 @@ const MContent = styled.div`
   display: flex;
   justify-content: center;
   padding: 4vh 0;
+  margin-left: 5vw;
 `;
 
 const StatusValue = styled.div`
@@ -112,7 +113,6 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: 'Anton',
     borderRadius: '5px',
     backgroundColor: 'white',
-    margin: '0 1.2rem',
     width: '1.8rem',
     height: '1.8rem',
     fontSize: '10px',
@@ -140,7 +140,6 @@ const useStyles = makeStyles((theme) => ({
   Mbutton2: {
     border: '2px solid lightgray',
     fontFamily: 'Anton',
-    margin: '0 1.2rem',
     width: '1.8rem',
     height: '1.8rem',
     fontSize: '10px',
@@ -154,7 +153,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '4px',
     border: '2px solid lightgray',
     color: 'white',
-    margin: '0 1.2rem',
     width: '1.8rem',
     height: '1.8rem',
     fontSize: '7px',
@@ -169,7 +167,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '3px',
     border: '2px solid #008000',
     color: 'white',
-    margin: '0 1.2rem',
     width: '1.8rem',
     height: '1.8rem',
     fontSize: '8px',
