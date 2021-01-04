@@ -1,5 +1,5 @@
 export const AUTH_WEAK_PASSWORD = '6글자 이상의 비밀번호를 입력해주세요.';
-export const EMAIL_ALREADY_IN_USE = '이미 존재하는 이메일 입니다.';
+export const EMAIL_ALREADY_IN_USE = '이미 가입된 학번 입니다.';
 export const AUTH_WRONG_PASSWORD = '비밀번호가 일치하지 않습니다.';
 export const TOO_MANY_REQUESTS =
   '너무 많은 횟수로 비밀번호를 틀리셨습니다. 잠시후에 다시 시도해 주세요.';

@@ -25,7 +25,7 @@ const LoginContainer = () => {
   const LoginSubmit = (e) => {
     e.preventDefault();
     auth
-      .signInWithEmailAndPassword(_id, _password)
+      .signInWithEmailAndPassword(`${_id}@sjcabinet.com`, _password)
       .then(() => {
         toMainPage();
       })

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CSSTransitionGroup } from 'react-transition-group';
 import { TextField, Button, makeStyles, Img } from '@material-ui/core';
@@ -34,16 +34,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const validateEmail = (email) => {
+  const re = /\S+@\S+\.\S+/;
+  return re.test(email);
+};
+
 const SignUpMobile = (props) => {
   const {
     SignUpSubmit,
     linktoLogin,
-    onIdHandler,
+    onEmailHandler,
     onPasswordHandler,
     onStudentIdHandler,
     onNameHandler,
+    email,
+    password,
+    studentID,
+    name,
   } = props;
   const classes = useStyles();
+  const [touched, setTouched] = useState([false, false, false, false]);
+  const handleTouch = (i) => () => {
+    const arr = Array(4).fill(false);
+    arr[i] = true;
+    setTouched(arr);
+  };
   return (
     <CSSTransitionGroup
       transitionName="homeTransition"
@@ -127,30 +142,38 @@ const SignUpMobile = (props) => {
             </div>
           </div>
           <TextField
-            id="id"
-            label="Email"
-            placeholder="이메일 형식으로 입력해주세요"
-            type="email"
+            id="studentID"
+            label="학번"
+            type="text"
             variant="outlined"
-            onChange={onIdHandler}
+            error={touched[0] && studentID.length !== 8}
+            helperText={touched[0] && '학번 8자리를 입력해주세요.'}
+            onChange={onStudentIdHandler}
+            onFocus={handleTouch(0)}
             style={{ width: '80vw', margin: '1vh 0.1vw' }}
           />
           <TextField
             id="password"
             label="Password"
-            placeholder="6글자 이상의 패스워드를 입력해주세요."
             type="password"
             variant="outlined"
+            error={touched[1] && password.length < 6}
             onChange={onPasswordHandler}
+            onFocus={handleTouch(1)}
+            helperText={touched[1] && '6글자 이상의 패스워드를 입력해주세요.'}
             style={{ width: '80vw', margin: '1vh 0.1vw' }}
           />
           <TextField
-            id="studentID"
-            label="학번"
-            placeholder="학번을 입력해주세요."
-            type="text"
+            id="id"
+            label="Email"
+            helperText={
+              touched[2] && 'aaa@domain.com 형식의 이메일 주소를 입력해주세요.'
+            }
+            type="email"
             variant="outlined"
-            onChange={onStudentIdHandler}
+            error={touched[2] && !validateEmail(email)}
+            onFocus={handleTouch(2)}
+            onChange={onEmailHandler}
             style={{ width: '80vw', margin: '1vh 0.1vw' }}
           />
           <TextField
@@ -159,6 +182,9 @@ const SignUpMobile = (props) => {
             placeholder="이름을 입력해주세요."
             type="text"
             variant="outlined"
+            error={touched[3] && name.length <= 0}
+            helperText={touched[3] && '이름을 한 글자 이상 입력해주세요.'}
+            onFocus={handleTouch(3)}
             onChange={onNameHandler}
             style={{ width: '80vw', margin: '1vh 0.1vw' }}
           />
@@ -186,10 +212,14 @@ const SignUpMobile = (props) => {
 SignUpMobile.propTypes = {
   SignUpSubmit: PropTypes.func.isRequired,
   linktoLogin: PropTypes.func.isRequired,
-  onIdHandler: PropTypes.func.isRequired,
+  onEmailHandler: PropTypes.func.isRequired,
   onPasswordHandler: PropTypes.func.isRequired,
   onStudentIdHandler: PropTypes.func.isRequired,
   onNameHandler: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  studentID: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default SignUpMobile;
