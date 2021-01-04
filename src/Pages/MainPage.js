@@ -108,13 +108,15 @@ const MainPage = (props) => {
               <img
                 src={mapImage}
                 alt="map"
-                width="700vw"
+                // width="700vw"
+                width="50%"
                 style={{ backgroundColor: 'white' }}
               />
               <img
                 src={cabinetImage}
                 alt="cabinetpicture"
-                width="500vw"
+                // width="500vw"
+                width="30%"
                 style={{ padding: '1rem', backgroundColor: 'white' }}
               />
             </div>
