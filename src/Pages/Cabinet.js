@@ -539,7 +539,7 @@ const Cabinet = (props) => {
         </div>
       </Default>
       <Mobile>
-        <div>
+        <div style={{height:'75vh'}}>
           <div
             style={{
               display: 'flex',
@@ -583,6 +583,8 @@ const Cabinet = (props) => {
               flexDirection: 'row',
               justifyContent: 'space-evenly',
               alignItems: 'center',
+              position:'fixed',
+              width:'100vw',
             }}
           >
             <div
