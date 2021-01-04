@@ -140,7 +140,7 @@ const useStyles = makeStyles((theme) => ({
   Mbutton2: {
     border: '2px solid lightgray',
     fontFamily: 'Anton',
-    margin: '0 1.5rem',
+    margin: '0 1.2rem',
     width: '1.8rem',
     height: '1.8rem',
     fontSize: '10px',
@@ -539,7 +539,7 @@ const Cabinet = (props) => {
         </div>
       </Default>
       <Mobile>
-        <div style={{height:'75vh'}}>
+        <div style={{height:'75vh',overflow:'hidden'}}>
           <div
             style={{
               display: 'flex',

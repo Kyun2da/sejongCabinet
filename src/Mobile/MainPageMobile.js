@@ -21,6 +21,7 @@ import SimpleModal from '../Pages/SimpleModal';
 
 const Container = styled.div`
   display: flex;
+  position : fixed;
   justify-contents: center;
   align-items: center;
   flex-direction: column;
