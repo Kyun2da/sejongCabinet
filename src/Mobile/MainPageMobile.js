@@ -107,13 +107,13 @@ const MainPageMobile = (props) => {
               <img
                 src={mapImage}
                 alt="map"
-                width="80%"
+                width="90%"
                 style={{ backgroundColor: 'white' }}
               />
               <img
                 src={cabinetImage}
                 alt="cabinetpicture"
-                width="80%"
+                width="90%"
                 style={{
                   margin: '5vh 0',
                   padding: '0.1rem',
