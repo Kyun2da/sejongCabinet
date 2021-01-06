@@ -27,7 +27,7 @@ const Container = styled.div`
   flex-direction: column;
   overflow:hidden;
   margin-top: 10vh;
-  height: 80%;
+  height: 100%;
   width: 100%;
 `;
 
@@ -202,25 +202,10 @@ const MainPageMobile = (props) => {
 
   return (
     <div
-      // style={{ width: '100vw', height: '100%' }}
       aria-hidden="true"
       onClick={() => setSelect(-1)}
     >
       <Mobile>
-        <div
-          style={{
-            top: 0,
-            left: 0,
-            width: '100vw',
-            backgroundColor: 'black',
-            position: 'fixed',
-            height: '8vh',
-            padding: 0,
-            margin: 0,
-          }}
-        >
-          {' '}
-        </div>
         <div
           style={{
             display: 'flex',
@@ -232,6 +217,8 @@ const MainPageMobile = (props) => {
             left: 0,
             height: '8vh',
             width: '100vw',
+            minHeight:'40px',
+            backgroundColor:'black',
             margin: 0,
             padding: 0,
           }}
@@ -242,7 +229,8 @@ const MainPageMobile = (props) => {
               style={{
                 backgroundColor: 'white',
                 width: '2.5vw',
-                height:'4vh',
+                height:'5vh',
+                minHeight:'30px',
                 fontFamily: 'Anton',
               }}
             >
@@ -259,7 +247,7 @@ const MainPageMobile = (props) => {
           >
             <Button
               onClick={handleClick}
-              style={{ backgroundColor: 'transparent',width:'2.5vw',height:'4vh' }}
+              style={{ backgroundColor: 'transparent',width:'2.5vw',height:'5vh',minHeight:'30px' }}
               disableRipple
             >
               <MenuIcon />
@@ -304,7 +292,6 @@ const MainPageMobile = (props) => {
           </div>
         </div>
         {drawlerHandler()}
-
         <Container>
           <div
             style={{
