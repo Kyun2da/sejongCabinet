@@ -15,6 +15,7 @@ import { Default, Mobile } from '../MediaQuery';
 const Content = styled.div`
   font-family: 'Anton';
   width: 100%;
+  overflow:hidden;
 `;
 
 const MContent = styled.div`
