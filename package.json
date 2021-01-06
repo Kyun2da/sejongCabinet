@@ -84,5 +84,5 @@
     "eslint": "^7.13.0"
   },
   "main": "public/Main.js",
-  "homepage": "http://sjswcabinet.site"
+  "homepage": "https://sjswcabinet.site"
 }
