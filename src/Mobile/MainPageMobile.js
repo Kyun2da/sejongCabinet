@@ -43,7 +43,7 @@ const styles = {
     letterSpacing: '0.0001px',
     justifyContent: 'center',
     borderRadius: '10px',
-    width: 'auto',
+    width:'auto'
   },
 
   slide: {
@@ -149,7 +149,6 @@ const MainPageMobile = (props) => {
     return (
       <Tabs
         value={index}
-        fullwidth="true"
         onChange={handleChange}
         style={styles.Mtabs}
         textColor="inherit"
@@ -243,6 +242,7 @@ const MainPageMobile = (props) => {
               style={{
                 backgroundColor: 'white',
                 width: '2.5vw',
+                height:'4vh',
                 fontFamily: 'Anton',
               }}
             >
@@ -259,7 +259,7 @@ const MainPageMobile = (props) => {
           >
             <Button
               onClick={handleClick}
-              style={{ backgroundColor: 'transparent' }}
+              style={{ backgroundColor: 'transparent',width:'2.5vw',height:'4vh' }}
               disableRipple
             >
               <MenuIcon />
