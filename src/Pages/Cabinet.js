@@ -15,7 +15,6 @@ import { Default, Mobile } from '../MediaQuery';
 const Content = styled.div`
   font-family: 'Anton';
   width: 100%;
-  overflow:hidden;
 `;
 
 const MContent = styled.div`
@@ -25,6 +24,7 @@ const MContent = styled.div`
   justify-content: center;
   padding: 4vh 0;
   margin-left: 5vw;
+  overflow:hidden;
 `;
 
 const StatusValue = styled.div`
@@ -392,7 +392,7 @@ const Cabinet = (props) => {
   };
 
   return (
-    <div style={{ height: 'auto' }}>
+    <div>
       <Default>
         <div
           style={{
@@ -537,7 +537,7 @@ const Cabinet = (props) => {
         </div>
       </Default>
       <Mobile>
-        <div style={{height:'75vh',overflow:'hidden'}}>
+        <div style={{height:'100vh',overflow:'hidden'}}>
           <div
             style={{
               display: 'flex',

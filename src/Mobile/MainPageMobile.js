@@ -27,7 +27,7 @@ const Container = styled.div`
   flex-direction: column;
   overflow:hidden;
   margin-top: 10vh;
-  height: 80%;
+  height: 100%;
   width: 100%;
 `;
 
@@ -208,20 +208,6 @@ const MainPageMobile = (props) => {
       <Mobile>
         <div
           style={{
-            top: 0,
-            left: 0,
-            width: '100vw',
-            backgroundColor: 'black',
-            position: 'fixed',
-            height: '8vh',
-            padding: 0,
-            margin: 0,
-          }}
-        >
-          {' '}
-        </div>
-        <div
-          style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -232,6 +218,7 @@ const MainPageMobile = (props) => {
             height: '8vh',
             width: '100vw',
             minHeight:'40px',
+            backgroundColor:'black',
             margin: 0,
             padding: 0,
           }}
@@ -305,7 +292,6 @@ const MainPageMobile = (props) => {
           </div>
         </div>
         {drawlerHandler()}
-
         <Container>
           <div
             style={{
