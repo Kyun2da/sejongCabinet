@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/react-responsive": "^8.0.2",
     "@types/react-router-dom": "^5.1.6",
+    "dotenv": "^8.2.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^6.15.0",
     "firebase": "^8.0.1",
@@ -83,5 +84,5 @@
     "eslint": "^7.13.0"
   },
   "main": "public/Main.js",
-  "homepage": "https://Kyun2da.github.io/sejongCabinet"
+  "homepage": "https://sjswcabinet.site"
 }
