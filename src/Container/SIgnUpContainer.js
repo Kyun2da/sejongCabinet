@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -16,22 +16,22 @@ const SIgnUpContainer = () => {
   const [_password, setPassword] = useState('');
   const [studentId, setStudentId] = useState('');
   const [name, setName] = useState('');
-  const onEmailHandler = (e) => {
+  const onEmailHandler = useCallback((e) => {
     setEmail(e.currentTarget.value);
-  };
-  const onPasswordHandler = (e) => {
+  }, []);
+  const onPasswordHandler = useCallback((e) => {
     setPassword(e.currentTarget.value);
-  };
-  const onStudentIdHandler = (e) => {
+  }, []);
+  const onStudentIdHandler = useCallback((e) => {
     setStudentId(e.currentTarget.value);
-  };
-  const onNameHandler = (e) => {
+  }, []);
+  const onNameHandler = useCallback((e) => {
     setName(e.currentTarget.value);
-  };
+  }, []);
 
-  const linktoLogin = () => {
+  const linktoLogin = useCallback(() => {
     history.push('/');
-  };
+  }, []);
 
   const writeUserData = (userId, studentID, _name) => {
     database.ref(`users/${userId}`).set({
@@ -97,4 +97,4 @@ const SIgnUpContainer = () => {
   );
 };
 
-export default SIgnUpContainer;
+export default React.memo(SIgnUpContainer);

@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CSSTransitionGroup } from 'react-transition-group';
-import { TextField, Button, makeStyles, Img } from '@material-ui/core';
+import { TextField, Button, makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Logo from '../image/softwareLogo_origin.png';
-import { Mobile, Default } from '../MediaQuery';
 import '../Pages/Fadeout.css';
 import backwards from '../image/Backward.png';
 
 const Container = styled.div`
   display: flex;
-  justify-contents: center;
   align-items: center;
   flex-direction: column;
   width: 100%;
@@ -23,7 +21,7 @@ const MobileDivider = styled.div`
   margin: 5vh 1vw;
 `;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   backwards: {
     opacity: 0.6,
 
@@ -154,7 +152,7 @@ const SignUpMobile = (props) => {
           />
           <TextField
             id="password"
-            label="Password"
+            label="비밀번호"
             type="password"
             variant="outlined"
             error={touched[1] && password.length < 6}
@@ -165,7 +163,7 @@ const SignUpMobile = (props) => {
           />
           <TextField
             id="id"
-            label="Email"
+            label="이메일"
             helperText={
               touched[2] && 'aaa@domain.com 형식의 이메일 주소를 입력해주세요.'
             }
@@ -222,4 +220,4 @@ SignUpMobile.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default SignUpMobile;
+export default React.memo(SignUpMobile);
