@@ -59,14 +59,14 @@ const LoginMobile = (props) => {
       >
         <TextField
           id="id"
-          label="ID"
+          label="학번"
           variant="outlined"
           onChange={onIdHandler}
           style={{ width: '80vw', margin: '1vh 0' }}
         />
         <TextField
           id="password"
-          label="Password"
+          label="비밀번호"
           type="password"
           variant="outlined"
           onChange={onPasswordHanlder}
