@@ -8,7 +8,6 @@ import './Fadeout.css';
 
 const Container = styled.div`
   display: flex;
-  justify-contents: center;
   align-items: center;
   flex-direction: column;
   width: 100%;

@@ -11,12 +11,11 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Default, Mobile } from '../MediaQuery';
+import { Mobile } from '../MediaQuery';
 import backwards from '../image/Backward.png';
 
 const Container = styled.div`
   display: flex;
-  justify-contents: center;
   align-items: center;
   flex-direction: column;
   margin-top: 9vh;
@@ -65,7 +64,6 @@ const useStyles = makeStyles(() => ({
 const UserPageMobile = (props) => {
   const {
     onClickLogout,
-    currentUserName,
     currentUserCabinetIdx,
     currentUserCabinetTitle,
     cabinetCancel,
@@ -330,7 +328,6 @@ const UserPageMobile = (props) => {
 
 UserPageMobile.propTypes = {
   onClickLogout: PropTypes.func.isRequired,
-  currentUserName: PropTypes.string.isRequired,
   currentUserCabinetIdx: PropTypes.number.isRequired,
   currentUserCabinetTitle: PropTypes.string.isRequired,
   cabinetCancel: PropTypes.func.isRequired,

@@ -24,7 +24,7 @@ const MContent = styled.div`
   justify-content: center;
   padding: 4vh 0;
   margin-left: 5vw;
-  overflow:hidden;
+  overflow: hidden;
 `;
 
 const StatusValue = styled.div`
@@ -202,7 +202,6 @@ const Cabinet = (props) => {
     cabinetFix,
   } = props;
   const onClickFunc = () => {
-    console.log(adminType, item[select]);
     if (adminType && item[select] === 0) {
       cabinetBreakDown(cabinetNum);
     } else if (adminType && item[select] === 2) {
@@ -537,7 +536,7 @@ const Cabinet = (props) => {
         </div>
       </Default>
       <Mobile>
-        <div style={{height:'200vh',overflow:'hidden'}}>
+        <div style={{ height: '200vh', overflow: 'hidden' }}>
           <div
             style={{
               display: 'flex',
@@ -570,7 +569,7 @@ const Cabinet = (props) => {
           <div
             style={{
               width: '100%',
-              paddingLeft:'3vw',
+              paddingLeft: '3vw',
             }}
           >
             <MContent>{MshowGridRow()}</MContent>
@@ -581,8 +580,8 @@ const Cabinet = (props) => {
               flexDirection: 'row',
               justifyContent: 'space-evenly',
               alignItems: 'center',
-              position:'fixed',
-              width:'100vw',
+              position: 'fixed',
+              width: '100vw',
             }}
           >
             <div

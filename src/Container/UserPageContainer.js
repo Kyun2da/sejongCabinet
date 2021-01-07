@@ -53,7 +53,6 @@ const UserPageContainer = () => {
               <Mobile>
                 <UserpageMobile
                   onClickLogout={onClickLogout}
-                  currentUserName={currentUserName}
                   currentUserCabinetIdx={currentUserCabinetIdx}
                   currentUserCabinetTitle={currentUserCabinetNum}
                   cabinetCancel={cabinetCancel}

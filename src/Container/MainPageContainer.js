@@ -174,7 +174,6 @@ const MainPageContainer = () => {
                       onClickLogout={onClickLogout}
                       handleChangeIndex={handleChangeIndex}
                       handleChange={handleChange}
-                      currentUserName={currentUserName}
                       cabinetNames={cabinetNames}
                       cabinetEnroll={cabinetEnroll}
                       currentUserID={currentUserID}

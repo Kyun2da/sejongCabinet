@@ -69,7 +69,6 @@ const AdminPageContainer = () => {
                   _map={_map}
                   visibleMap={visibleMap}
                   onClickLogout={onClickLogout}
-                  currentUserName={currentUserName}
                   currentUserCabinetIdx={currentUserCabinetIdx}
                   currentUserCabinetTitle={currentUserCabinetNum}
                   updatePW={updatePW}

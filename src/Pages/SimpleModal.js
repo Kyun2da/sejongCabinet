@@ -29,9 +29,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'RGB(250,250,250)',
     border: '2px solid lightgray',
     padding: '5vh 1vw',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // display: 'flex',
   },
   mmodal: {
     display: 'flex',
@@ -48,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
 const SimpleModal = (props) => {
   const { open, setOpen } = props;
   const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
 
   const body = (

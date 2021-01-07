@@ -11,12 +11,11 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Default, Mobile } from '../MediaQuery';
+import { Mobile } from '../MediaQuery';
 import backwards from '../image/Backward.png';
 
 const Container = styled.div`
   display: flex;
-  justify-contents: center;
   align-items: center;
   flex-direction: column;
   margin-top: 9vh;
@@ -34,7 +33,6 @@ const MAdminpageTitle = styled.div`
 `;
 
 const useStyles = makeStyles(() => ({
-
   McancleButton: {
     fontFamily: 'Noto Sans KR',
     backgroundColor: 'red',
@@ -64,14 +62,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const AdminPageMobile = (props) => {
-  const {
-    onClickLogout,
-    currentUserName,
-    updatePW,
-    total,
-    serverStatus,
-    toggleServer,
-  } = props;
+  const { onClickLogout, updatePW, total, serverStatus, toggleServer } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -299,7 +290,6 @@ const AdminPageMobile = (props) => {
 
 AdminPageMobile.propTypes = {
   onClickLogout: PropTypes.func.isRequired,
-  currentUserName: PropTypes.string.isRequired,
   updatePW: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
   serverStatus: PropTypes.objectOf.isRequired,
