@@ -10,7 +10,6 @@ import backwards from '../image/Backward.png';
 
 const Container = styled.div`
   display: flex;
-  justify-contents: center;
   align-items: center;
   flex-direction: column;
   width: 100%;
@@ -157,7 +156,7 @@ const SignUp = (props) => {
             />
             <TextField
               id="password"
-              label="Password"
+              label="비밀번호"
               type="password"
               variant="outlined"
               error={touched[1] && password.length < 6}
@@ -168,7 +167,7 @@ const SignUp = (props) => {
             />
             <TextField
               id="id"
-              label="Email"
+              label="이메일"
               helperText={
                 touched[2] &&
                 'aaa@domain.com 형식의 이메일 주소를 입력해주세요.'
@@ -226,4 +225,4 @@ SignUp.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default SignUp;
+export default React.memo(SignUp);

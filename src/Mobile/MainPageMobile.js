@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import SwipeableViews from 'react-swipeable-views';
 import {
@@ -8,24 +8,20 @@ import {
   Tab,
   Menu,
   MenuItem,
-  IconButton,
-  Tooltip,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ImageIcon from '@material-ui/icons/Image';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PropTypes from 'prop-types';
 import Cabinet from '../Pages/Cabinet';
-import { Default, Mobile } from '../MediaQuery';
+import { Mobile } from '../MediaQuery';
 import SimpleModal from '../Pages/SimpleModal';
 
 const Container = styled.div`
   display: flex;
-  position : fixed;
-  justify-contents: center;
+  position: fixed;
   align-items: center;
   flex-direction: column;
-  overflow:hidden;
+  overflow: hidden;
   margin-top: 10vh;
   height: 100%;
   width: 100%;
@@ -43,7 +39,7 @@ const styles = {
     letterSpacing: '0.0001px',
     justifyContent: 'center',
     borderRadius: '10px',
-    width:'auto'
+    width: 'auto',
   },
 
   slide: {
@@ -65,7 +61,6 @@ const MainPageMobile = (props) => {
     onClickLogout,
     onClickUserPage,
     onClickAdminPage,
-    currentUserName,
     cabinetNames,
     cabinetEnroll,
     currentUserID,
@@ -192,7 +187,7 @@ const MainPageMobile = (props) => {
           margin: '3vh 0',
           padding: '1vh 0',
           borderRadius: '2vw',
-          width:'100vw',
+          width: '100vw',
         }}
       >
         {MLoadContents()}
@@ -201,10 +196,7 @@ const MainPageMobile = (props) => {
   };
 
   return (
-    <div
-      aria-hidden="true"
-      onClick={() => setSelect(-1)}
-    >
+    <div aria-hidden="true" onClick={() => setSelect(-1)}>
       <Mobile>
         <div
           style={{
@@ -217,8 +209,8 @@ const MainPageMobile = (props) => {
             left: 0,
             height: '8vh',
             width: '100vw',
-            minHeight:'40px',
-            backgroundColor:'black',
+            minHeight: '40px',
+            backgroundColor: 'black',
             margin: 0,
             padding: 0,
           }}
@@ -229,8 +221,8 @@ const MainPageMobile = (props) => {
               style={{
                 backgroundColor: 'white',
                 width: '2.5vw',
-                height:'5vh',
-                minHeight:'30px',
+                height: '5vh',
+                minHeight: '30px',
                 fontFamily: 'Anton',
               }}
             >
@@ -247,7 +239,12 @@ const MainPageMobile = (props) => {
           >
             <Button
               onClick={handleClick}
-              style={{ backgroundColor: 'transparent',width:'2.5vw',height:'5vh',minHeight:'30px' }}
+              style={{
+                backgroundColor: 'transparent',
+                width: '2.5vw',
+                height: '5vh',
+                minHeight: '30px',
+              }}
               disableRipple
             >
               <MenuIcon />
@@ -323,7 +320,6 @@ MainPageMobile.propTypes = {
   onClickLogout: PropTypes.func.isRequired,
   onClickUserPage: PropTypes.func.isRequired,
   onClickAdminPage: PropTypes.func.isRequired,
-  currentUserName: PropTypes.string.isRequired,
   cabinetNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   cabinetEnroll: PropTypes.func.isRequired,
   currentUserID: PropTypes.string.isRequired,

@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { CSSTransitionGroup } from 'react-transition-group';
 import { TextField, Button } from '@material-ui/core';
 import Logo from '../image/softwareLogo_origin.png';
 import '../Pages/Fadeout.css';
-import { Mobile, Default } from '../MediaQuery';
 
 const Container = styled.div`
   display: flex;
-  justify-contents: center;
   align-items: center;
   flex-direction: column;
   width: 100%;
@@ -59,14 +56,14 @@ const LoginMobile = (props) => {
       >
         <TextField
           id="id"
-          label="ID"
+          label="학번"
           variant="outlined"
           onChange={onIdHandler}
           style={{ width: '80vw', margin: '1vh 0' }}
         />
         <TextField
           id="password"
-          label="Password"
+          label="비밀번호"
           type="password"
           variant="outlined"
           onChange={onPasswordHanlder}

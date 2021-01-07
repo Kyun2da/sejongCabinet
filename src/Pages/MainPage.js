@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import SwipeableViews from 'react-swipeable-views';
 import {
@@ -21,7 +21,6 @@ import SimpleModal from './SimpleModal';
 
 const Container = styled.div`
   display: flex;
-  justify-contents: center;
   align-items: center;
   flex-direction: column;
   margin-top: 12vh;
@@ -370,119 +369,6 @@ const MainPage = (props) => {
         </Container>
         <SimpleModal open={toggleHelp} setOpen={handleOpen} />
       </Default>
-      {/* <Mobile>
-        <div
-          style={{
-            top: 0,
-            left: 0,
-            width: '120vw',
-            backgroundColor: 'black',
-            position: 'absolute',
-            height: '8vh',
-            padding: 0,
-            margin: 0,
-          }}
-        >
-          {' '}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            height: '8vh',
-            width: '100vw',
-            margin: 0,
-            padding: 0,
-          }}
-        >
-          <div style={{ left: '4vw', position: 'absolute' }}>
-            <Button
-              onClick={() => visibleMap(true)}
-              style={{
-                backgroundColor: 'white',
-                width: '2.5vw',
-                fontFamily: 'Anton',
-              }}
-            >
-              <ImageIcon />
-            </Button>
-          </div>
-          <div
-            style={{
-              position: 'absolute',
-              right: '4vw',
-              backgroundColor: 'white',
-              borderRadius: '1vw',
-            }}
-          >
-            <Button
-              onClick={handleClick}
-              style={{ backgroundColor: 'transparent' }}
-              disableRipple
-            >
-              <MenuIcon />
-            </Button>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              getContentAnchorEl={null}
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              {adminType ? (
-                <MenuItem
-                  onClick={onClickAdminPage}
-                  style={{ fontFamily: 'Noto Sans KR' }}
-                >
-                  관리자페이지
-                </MenuItem>
-              ) : (
-                <MenuItem
-                  onClick={onClickUserPage}
-                  style={{ fontFamily: 'Noto Sans KR' }}
-                >
-                  마이페이지
-                </MenuItem>
-              )}
-              <MenuItem
-                onClick={handleOpen}
-                style={{ fontFamily: 'Noto Sans KR' }}
-              >
-                도움말
-              </MenuItem>
-              <MenuItem
-                onClick={onClickLogout}
-                style={{ fontFamily: 'Noto Sans KR' }}
-              >
-                로그아웃
-              </MenuItem>
-            </Menu>
-          </div>
-        </div>
-        {drawlerHandler()}
-
-        <Container style={{ marginTop: '10vh' }}>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {MshowTabs()}
-            {MshowContents()}
-          </div>
-          <SimpleModal open={toggleHelp} setOpen={handleOpen} />
-        </Container>
-      </Mobile> */}
     </div>
   );
 };

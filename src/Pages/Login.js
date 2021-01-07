@@ -8,7 +8,6 @@ import './Fadeout.css';
 
 const Container = styled.div`
   display: flex;
-  justify-contents: center;
   align-items: center;
   flex-direction: column;
   width: 100%;
@@ -118,4 +117,4 @@ Login.propTypes = {
   onPasswordHanlder: PropTypes.func.isRequired,
   toSignUp: PropTypes.func.isRequired,
 };
-export default Login;
+export default React.memo(Login);
