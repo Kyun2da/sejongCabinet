@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -13,37 +13,40 @@ const LoginContainer = () => {
   const [_id, setId] = useState('');
   const [_password, setPassword] = useState('');
   const userId = useSelector((state) => state.auth.currentUser.uid);
-  const onIdHandler = (e) => {
+  const onIdHandler = useCallback((e) => {
     setId(e.currentTarget.value);
-  };
-  const onPasswordHanlder = (e) => {
+  }, []);
+  const onPasswordHanlder = useCallback((e) => {
     setPassword(e.currentTarget.value);
-  };
+  }, []);
   const toMainPage = () => {
     history.push('/main');
   };
-  const LoginSubmit = (e) => {
-    e.preventDefault();
-    auth
-      .signInWithEmailAndPassword(`${_id}@sjcabinet.com`, _password)
-      .then(() => {
-        toMainPage();
-      })
-      .catch((err) => {
-        Swal.fire({
-          icon: 'error',
-          title: '로그인 실패',
-          text: getFirebaseErrorMessage(err.code),
-          showConfirmButton: true,
-          width: '25rem',
-          timer: 2000,
+  const LoginSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      auth
+        .signInWithEmailAndPassword(`${_id}@sjcabinet.com`, _password)
+        .then(() => {
+          toMainPage();
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: '로그인 실패',
+            text: getFirebaseErrorMessage(err.code),
+            showConfirmButton: true,
+            width: '25rem',
+            timer: 2000,
+          });
         });
-      });
-  };
+    },
+    [_id, _password],
+  );
 
-  const toSignUp = () => {
+  const toSignUp = useCallback(() => {
     history.push('/signup');
-  };
+  }, []);
   return (
     <>
       {userId ? (
@@ -72,4 +75,4 @@ const LoginContainer = () => {
   );
 };
 
-export default LoginContainer;
+export default React.memo(LoginContainer);

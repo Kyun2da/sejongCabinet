@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { CSSTransitionGroup } from 'react-transition-group';
 import { TextField, Button } from '@material-ui/core';
 import Logo from '../image/softwareLogo_origin.png';
 import '../Pages/Fadeout.css';
-import { Mobile, Default } from '../MediaQuery';
 
 const Container = styled.div`
   display: flex;

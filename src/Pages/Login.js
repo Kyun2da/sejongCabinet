@@ -118,4 +118,4 @@ Login.propTypes = {
   onPasswordHanlder: PropTypes.func.isRequired,
   toSignUp: PropTypes.func.isRequired,
 };
-export default Login;
+export default React.memo(Login);
