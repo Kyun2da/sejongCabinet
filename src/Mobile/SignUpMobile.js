@@ -32,20 +32,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const validateEmail = (email) => {
-  const re = /\S+@\S+\.\S+/;
-  return re.test(email);
-};
-
 const SignUpMobile = (props) => {
   const {
     SignUpSubmit,
     linktoLogin,
-    onEmailHandler,
+
     onPasswordHandler,
     onStudentIdHandler,
     onNameHandler,
-    email,
+
     password,
     studentID,
     name,
@@ -161,19 +156,7 @@ const SignUpMobile = (props) => {
             helperText={touched[1] && '6글자 이상의 패스워드를 입력해주세요.'}
             style={{ width: '80vw', margin: '1vh 0.1vw' }}
           />
-          <TextField
-            id="id"
-            label="이메일"
-            helperText={
-              touched[2] && 'aaa@domain.com 형식의 이메일 주소를 입력해주세요.'
-            }
-            type="email"
-            variant="outlined"
-            error={touched[2] && !validateEmail(email)}
-            onFocus={handleTouch(2)}
-            onChange={onEmailHandler}
-            style={{ width: '80vw', margin: '1vh 0.1vw' }}
-          />
+
           <TextField
             id="name"
             label="이름"
@@ -210,11 +193,9 @@ const SignUpMobile = (props) => {
 SignUpMobile.propTypes = {
   SignUpSubmit: PropTypes.func.isRequired,
   linktoLogin: PropTypes.func.isRequired,
-  onEmailHandler: PropTypes.func.isRequired,
   onPasswordHandler: PropTypes.func.isRequired,
   onStudentIdHandler: PropTypes.func.isRequired,
   onNameHandler: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   studentID: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,

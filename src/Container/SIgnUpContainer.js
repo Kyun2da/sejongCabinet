@@ -12,13 +12,9 @@ import getFirebaseErrorMessage from '../utils/error/auth/authError';
 const SIgnUpContainer = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [_email, setEmail] = useState('');
   const [_password, setPassword] = useState('');
   const [studentId, setStudentId] = useState('');
   const [name, setName] = useState('');
-  const onEmailHandler = useCallback((e) => {
-    setEmail(e.currentTarget.value);
-  }, []);
   const onPasswordHandler = useCallback((e) => {
     setPassword(e.currentTarget.value);
   }, []);
@@ -37,7 +33,6 @@ const SIgnUpContainer = () => {
     database.ref(`users/${userId}`).set({
       studentID,
       name: _name,
-      email: _email,
       cabinetIdx: 0,
       cabinetTitle: 0,
       adminType: 0,
@@ -69,11 +64,9 @@ const SIgnUpContainer = () => {
         <SignUp
           SignUpSubmit={SignUpSubmit}
           linktoLogin={linktoLogin}
-          onEmailHandler={onEmailHandler}
           onPasswordHandler={onPasswordHandler}
           onStudentIdHandler={onStudentIdHandler}
           onNameHandler={onNameHandler}
-          email={_email}
           password={_password}
           studentID={studentId}
           name={name}
@@ -83,11 +76,9 @@ const SIgnUpContainer = () => {
         <SignUpMobile
           SignUpSubmit={SignUpSubmit}
           linktoLogin={linktoLogin}
-          onEmailHandler={onEmailHandler}
           onPasswordHandler={onPasswordHandler}
           onStudentIdHandler={onStudentIdHandler}
           onNameHandler={onNameHandler}
-          email={_email}
           password={_password}
           studentID={studentId}
           name={name}
