@@ -6,16 +6,10 @@
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
     "@types/react-responsive": "^8.0.2",
     "@types/react-router-dom": "^5.1.6",
     "dotenv": "^8.2.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^6.15.0",
     "firebase": "^8.0.1",
-    "gh-pages": "^3.1.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -31,8 +25,7 @@
     "redux-logger": "^3.0.6",
     "styled-components": "^5.2.1",
     "sweetalert2": "^10.10.0",
-    "sweetalert2-react-content": "^3.2.1",
-    "web-vitals": "^0.2.4"
+    "sweetalert2-react-content": "^3.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -81,7 +74,10 @@
     "babel-eslint": "^10.1.0",
     "electron": "^10.1.5",
     "electron-builder": "^22.9.1",
-    "eslint": "^7.13.0"
+    "eslint": "^7.13.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "gh-pages": "^3.1.0"
   },
   "main": "public/Main.js",
   "homepage": "https://sjswcabinet.site"
