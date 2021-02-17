@@ -27,7 +27,7 @@ const SIgnUpContainer = () => {
 
   const linktoLogin = useCallback(() => {
     history.push('/');
-  }, []);
+  }, [history]);
 
   const writeUserData = (userId, studentID, _name) => {
     database.ref(`users/${userId}`).set({

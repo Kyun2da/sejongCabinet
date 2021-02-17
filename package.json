@@ -55,7 +55,6 @@
     "electron": "^10.1.5",
     "electron-builder": "^22.9.1",
     "eslint": "^7.13.0",
-    "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^6.15.0",
     "gh-pages": "^3.1.0"
   },

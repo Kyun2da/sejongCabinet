@@ -19,9 +19,9 @@ const LoginContainer = () => {
   const onPasswordHanlder = useCallback((e) => {
     setPassword(e.currentTarget.value);
   }, []);
-  const toMainPage = () => {
+  const toMainPage = useCallback(() => {
     history.push('/main');
-  };
+  }, [history]);
   const LoginSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -41,12 +41,12 @@ const LoginContainer = () => {
           });
         });
     },
-    [_id, _password],
+    [_id, _password, toMainPage],
   );
 
   const toSignUp = useCallback(() => {
     history.push('/signup');
-  }, []);
+  }, [history]);
   return (
     <>
       {userId ? (

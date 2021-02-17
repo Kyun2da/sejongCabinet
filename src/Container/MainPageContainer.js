@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Mobile, Default } from '../MediaQuery';
@@ -42,7 +42,7 @@ const MainPageContainer = () => {
   const [mapImage, setMapImage] = React.useState(null);
   const [cabinetImage, setCabinetImage] = React.useState(null);
 
-  const imageChange = () => {
+  const imageChange = useCallback(() => {
     if (index === 0) {
       setMapImage(Cabinet001);
       setCabinetImage(Cabinet6x6);
@@ -59,11 +59,11 @@ const MainPageContainer = () => {
       setMapImage(Cabinet145);
       setCabinetImage(Cabinet6x6);
     }
-  };
+  }, [index]);
 
   useEffect(() => {
     imageChange();
-  }, [index]);
+  }, [imageChange]);
 
   const onClickUserPage = () => {
     history.push('/userpage');

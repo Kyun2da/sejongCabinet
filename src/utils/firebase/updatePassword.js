@@ -30,7 +30,7 @@ const updatePassword = (currentPW, newPW, confirmPW) => {
           Swal.fire({
             icon: 'success',
             title: '비밀번호 변경 성공',
-            text: `비밀번호가 성공적으로 변경되었습니다!`,
+            text: '비밀번호가 성공적으로 변경되었습니다!',
             showConfirmButton: true,
             width: '25rem',
             timer: 5000,
@@ -47,16 +47,16 @@ const updatePassword = (currentPW, newPW, confirmPW) => {
           });
         });
     })
-    .catch(() => {
-      return Swal.fire({
+    .catch(() =>
+      Swal.fire({
         icon: 'error',
         text: '현재 비밀번호가 일치하지 않습니다.',
         showConfirmButton: false,
         width: 'auto',
         fontSize: '2rem',
         timer: 1500,
-      });
-    });
+      }),
+    );
 };
 
 export default updatePassword;

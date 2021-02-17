@@ -81,119 +81,107 @@ const MainPageMobile = (props) => {
   const handleOpen = () => {
     setToggleHelp(!toggleHelp);
   };
-  const drawlerHandler = () => {
-    return (
-      <div>
-        <Mobile>
-          <SwipeableDrawer
-            anchor="top"
-            open={_map}
-            onClick={() => visibleMap(false)}
-            onClose={() => {}}
-            onOpen={() => {}}
+  const drawlerHandler = () => (
+    <div>
+      <Mobile>
+        <SwipeableDrawer
+          anchor="top"
+          open={_map}
+          onClick={() => visibleMap(false)}
+          onClose={() => {}}
+          onOpen={() => {}}
+        >
+          <div
+            style={{
+              position: 'static',
+              width: '100%',
+              height: 'auto',
+              padding: '5vh 5%',
+              backgroundColor: 'RGB(245,245,245)',
+            }}
           >
-            <div
+            <img
+              src={mapImage}
+              alt="map"
+              width="90%"
+              style={{ backgroundColor: 'white' }}
+            />
+            <img
+              src={cabinetImage}
+              alt="cabinetpicture"
+              width="90%"
               style={{
-                position: 'static',
-                width: '100%',
-                height: 'auto',
-                padding: '5vh 5%',
-                backgroundColor: 'RGB(245,245,245)',
+                margin: '5vh 0',
+                padding: '0.1rem',
+                backgroundColor: 'white',
               }}
-            >
-              <img
-                src={mapImage}
-                alt="map"
-                width="90%"
-                style={{ backgroundColor: 'white' }}
-              />
-              <img
-                src={cabinetImage}
-                alt="cabinetpicture"
-                width="90%"
-                style={{
-                  margin: '5vh 0',
-                  padding: '0.1rem',
-                  backgroundColor: 'white',
-                }}
-              />
-            </div>
-          </SwipeableDrawer>
-        </Mobile>
-      </div>
-    );
-  };
+            />
+          </div>
+        </SwipeableDrawer>
+      </Mobile>
+    </div>
+  );
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const MLoadTabs = () => {
-    return cabinetNames.map((i) => {
-      return (
-        <Tab
-          key={data.currentCabinets[i].title}
-          label={data.currentCabinets[i].title}
-          style={styles.tab_mobile}
-        />
-      );
-    });
-  };
+  const MLoadTabs = () =>
+    cabinetNames.map((i) => (
+      <Tab
+        key={data.currentCabinets[i].title}
+        label={data.currentCabinets[i].title}
+        style={styles.tab_mobile}
+      />
+    ));
 
-  const MshowTabs = () => {
-    return (
-      <Tabs
-        value={index}
-        onChange={handleChange}
-        style={styles.Mtabs}
-        textColor="inherit"
-        indicatorColor="primary"
-        disabled="true"
-        centered
-      >
-        {MLoadTabs()}
-      </Tabs>
-    );
-  };
+  const MshowTabs = () => (
+    <Tabs
+      value={index}
+      onChange={handleChange}
+      style={styles.Mtabs}
+      textColor="inherit"
+      indicatorColor="primary"
+      disabled="true"
+      centered
+    >
+      {MLoadTabs()}
+    </Tabs>
+  );
 
-  const MLoadContents = () => {
-    return cabinetNames.map((i) => {
-      return (
-        <Cabinet
-          key={i}
-          cabinetNum={i}
-          data={data.currentCabinets[i]}
-          select={select}
-          setSelect={setSelect}
-          cabinetEnroll={cabinetEnroll}
-          currentUserID={currentUserID}
-          cabinetCancel={cabinetCancel}
-          adminType={adminType}
-          cabinetBreakDown={cabinetBreakDown}
-          cabinetFix={cabinetFix}
-        />
-      );
-    });
-  };
+  const MLoadContents = () =>
+    cabinetNames.map((i) => (
+      <Cabinet
+        key={i}
+        cabinetNum={i}
+        data={data.currentCabinets[i]}
+        select={select}
+        setSelect={setSelect}
+        cabinetEnroll={cabinetEnroll}
+        currentUserID={currentUserID}
+        cabinetCancel={cabinetCancel}
+        adminType={adminType}
+        cabinetBreakDown={cabinetBreakDown}
+        cabinetFix={cabinetFix}
+      />
+    ));
 
-  const MshowContents = () => {
-    return (
-      <SwipeableViews
-        index={index}
-        onChangeIndex={handleChangeIndex}
-        disabled="true"
-        animateHeight
-        style={{
-          margin: '3vh 0',
-          padding: '1vh 0',
-          borderRadius: '2vw',
-          width: '100vw',
-        }}
-      >
-        {MLoadContents()}
-      </SwipeableViews>
-    );
-  };
+  const MshowContents = () => (
+    <SwipeableViews
+      index={index}
+      onChangeIndex={handleChangeIndex}
+      disabled="true"
+      animateHeight
+      style={{
+        margin: '3vh 0',
+        padding: '1vh 0',
+        borderRadius: '2vw',
+        width: '100vw',
+      }}
+    >
+      {MLoadContents()}
+    </SwipeableViews>
+  );
 
   return (
     <div aria-hidden="true" onClick={() => setSelect(-1)}>

@@ -37,11 +37,11 @@ const App = () => {
       }
     });
     return () => unsubscribeFromAuth();
-  }, [setCurrentUser, clearCurrentUser]);
+  }, [dispatch]);
   useEffect(() => {
     getCabinetData(dispatch);
     getServerData(dispatch);
-  }, []);
+  });
   return (
     <Container>
       <Router basename={`${process.env.PUBLIC_URL}/`}>
