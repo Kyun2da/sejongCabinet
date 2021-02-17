@@ -38,26 +38,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": [
-      "airbnb",
-      "prettier"
-    ],
-    "rules": {
-      "react/prefer-stateless-function": 0,
-      "react/jsx-filename-extension": 0,
-      "react/jsx-one-expression-per-line": 0,
-      "no-unused-vars": 1,
-      "react/no-array-index-key": "off",
-      "no-param-reassign": 0,
-      "consistent-return": 0,
-      "react/jsx-wrap-multilines": "off"
-    },
-    "env": {
-      "browser": true
-    }
-  },
   "browserslist": {
     "production": [
       ">0.2%",
