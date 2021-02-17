@@ -37,7 +37,6 @@ const updatePassword = (currentPW, newPW, confirmPW) => {
           });
         })
         .catch((error) => {
-          console.error(error);
           Swal.fire({
             icon: 'error',
             title: '비밀번호 변경 실패',
@@ -48,8 +47,7 @@ const updatePassword = (currentPW, newPW, confirmPW) => {
           });
         });
     })
-    .catch((error) => {
-      console.error(error);
+    .catch(() => {
       return Swal.fire({
         icon: 'error',
         text: '현재 비밀번호가 일치하지 않습니다.',

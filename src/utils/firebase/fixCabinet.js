@@ -10,7 +10,7 @@ const fixCabinet = (cabinetTitle, select) => {
       // eslint-disable-next-line no-useless-return
       return;
     },
-    (error, committed, snapshot) => {
+    (error, committed) => {
       if (error) {
         Swal.fire({
           icon: 'error',
