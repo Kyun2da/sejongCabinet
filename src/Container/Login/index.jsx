@@ -1,14 +1,14 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { auth } from '../configs/firebase.config';
-import getFirebaseErrorMessage from '../utils/error/auth/authError';
-import LoginMobile from '../Mobile/LoginMobile';
-import { Mobile, Default } from '../MediaQuery';
-import customSwal from '../utils/alert/swal';
-import Login from '../Pages/Login';
+import { auth } from '../../configs/firebase.config';
+import getFirebaseErrorMessage from '../../utils/error/auth/authError';
+import customSwal from '../../utils/alert/swal';
+import Login from '../../Pages/Login';
+import LoginMobile from '../../Mobile/LoginMobile';
+import { Default, Mobile } from '../../MediaQuery';
 
-const LoginContainer = () => {
+const LoginPageContainer = () => {
   const history = useHistory();
   const [_id, setId] = useState('');
   const [_password, setPassword] = useState('');
@@ -68,4 +68,4 @@ const LoginContainer = () => {
   );
 };
 
-export default React.memo(LoginContainer);
+export default React.memo(LoginPageContainer);

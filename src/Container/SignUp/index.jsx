@@ -1,15 +1,15 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { auth, database } from '../configs/firebase.config';
-import SignUp from '../Pages/SignUp';
-import SignUpMobile from '../Mobile/SignUpMobile';
-import { Mobile, Default } from '../MediaQuery';
-import { setCurrentUserNameAndID } from '../redux/auth/auth.reducer';
-import getFirebaseErrorMessage from '../utils/error/auth/authError';
-import customSwal from '../utils/alert/swal';
+import { auth, database } from '../../configs/firebase.config';
+import SignUp from '../../Pages/SignUp';
+import SignUpMobile from '../../Mobile/SignUpMobile';
+import { setCurrentUserNameAndID } from '../../redux/auth/auth.reducer';
+import getFirebaseErrorMessage from '../../utils/error/auth/authError';
+import customSwal from '../../utils/alert/swal';
+import { Default, Mobile } from '../../MediaQuery';
 
-const SIgnUpContainer = () => {
+const SignUpPageContainer = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [_password, setPassword] = useState('');
@@ -81,4 +81,4 @@ const SIgnUpContainer = () => {
   );
 };
 
-export default React.memo(SIgnUpContainer);
+export default React.memo(SignUpPageContainer);

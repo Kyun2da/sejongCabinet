@@ -3,15 +3,15 @@ import styled from 'styled-components';
 import { Route, Switch, HashRouter as Router } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { auth, database } from './configs/firebase.config';
-import LoginContainer from './Container/LoginContainer';
-import SIgnUpContainer from './Container/SIgnUpContainer';
-import MainPageContainer from './Container/MainPageContainer';
-import UserPageContainer from './Container/UserPageContainer';
-import AdminPageContainer from './Container/AdminPageContainer';
 import getUserData from './utils/firebase/getUserData';
 import getCabinetData from './utils/firebase/getCabinetData';
 import { clearCurrentUser, setCurrentUser } from './redux/auth/auth.reducer';
 import getServerData from './utils/firebase/getServerData';
+import AdminPageContainer from './Container/Admin';
+import MainPageContainer from './Container/Main';
+import LoginPageContainer from './Container/Login';
+import SignUpPageContainer from './Container/SignUp';
+import UserPageContainer from './Container/User';
 
 const Container = styled.div`
   -ms-user-select: none;
@@ -45,8 +45,8 @@ const App = () => {
     <Container>
       <Router basename={`${process.env.PUBLIC_URL}/`}>
         <Switch>
-          <Route path="/" component={LoginContainer} exact />
-          <Route path="/signup" component={SIgnUpContainer} exact />
+          <Route path="/" component={LoginPageContainer} exact />
+          <Route path="/signup" component={SignUpPageContainer} exact />
           <Route path="/main" component={MainPageContainer} exact />
           <Route path="/userpage" component={UserPageContainer} exact />
           <Route path="/adminpage" component={AdminPageContainer} exact />
