@@ -2,11 +2,11 @@ import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { auth } from '../configs/firebase.config';
-import Login from '../Pages/Login';
 import getFirebaseErrorMessage from '../utils/error/auth/authError';
 import LoginMobile from '../Mobile/LoginMobile';
 import { Mobile, Default } from '../MediaQuery';
 import customSwal from '../utils/alert/swal';
+import Login from '../Pages/Login';
 
 const LoginContainer = () => {
   const history = useHistory();
