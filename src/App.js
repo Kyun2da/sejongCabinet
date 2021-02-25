@@ -18,7 +18,6 @@ const Container = styled.div`
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
   -webkit-user-select: none;
-  user-select: none;
 `;
 
 const App = () => {
