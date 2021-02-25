@@ -1,31 +1,21 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { CSSTransitionGroup } from 'react-transition-group';
-import { TextField, Button, makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import Logo from '../image/softwareLogo_origin.png';
-import { Default } from '../MediaQuery';
-import './Fadeout.css';
-import backwards from '../image/Backward.png';
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  height: 98vh;
-`;
-
-const useStyles = makeStyles(() => ({
-  backwards: {
-    opacity: 0.6,
-
-    '&:hover': {
-      backgroundColor: 'transparent',
-      opacity: 1,
-    },
-  },
-}));
+import Logo from '../../image/softwareLogo_origin.png';
+import { Default } from '../../MediaQuery';
+import '../Fadeout.css';
+import backwards from '../../image/Backward.png';
+import {
+  SignUpContainer,
+  useStyles,
+  LogoMainTitle,
+  LogoSubTitle,
+  SignUpButton,
+  GoLoginButton,
+  SignUpTitle,
+  SignUpTextField,
+  SignUpHeader,
+} from './styles';
 
 const SignUp = (props) => {
   const {
@@ -53,7 +43,7 @@ const SignUp = (props) => {
       transitionEnter={false}
       transitionLeave={false}
     >
-      <Container>
+      <SignUpContainer>
         <Default>
           <img
             src={Logo}
@@ -61,57 +51,17 @@ const SignUp = (props) => {
             width="80vw"
             style={{ margin: '1vh 0 0 ' }}
           />
-
-          <p
-            style={{
-              fontSize: '0.8vw',
-              fontWeight: 'bold',
-              letterSpacing: '0.5vw',
-              borderBottom: '0.1vw solid black',
-              margin: '0.7rem 0 0',
-            }}
-          >
-            SEJONG UNIV
-          </p>
-          <p
-            style={{
-              fontSize: '0.6vw',
-              fontWeight: 'bolder',
-              letterSpacing: '0.4vw',
-              margin: '0.15rem 0 2rem',
-            }}
-          >
-            소프트웨어학과 사물함
-          </p>
+          <LogoMainTitle>SEJONG UNIV</LogoMainTitle>
+          <LogoSubTitle>소프트웨어학과 사물함</LogoSubTitle>
           <form
             onSubmit={SignUpSubmit}
             noValidate
             name="signUp"
             autoComplete="off"
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              display: 'flex',
-              borderTop: '3px solid lightgray',
-              borderBottom: '3px solid lightgray',
-              padding: '2vh 5vw 6vh',
-              borderRadius: '2rem',
-            }}
+            className={classes.signUpForm}
           >
-            <div
-              style={{
-                display: 'inline-flex',
-                flexDirection: 'row',
-                width: '100%',
-              }}
-            >
-              <Button
-                style={{
-                  position: 'absolute',
-                  backgroundColor: 'transparent',
-                  width: 'auto',
-                }}
+            <SignUpHeader>
+              <GoLoginButton
                 onClick={linktoLogin}
                 className={classes.backwards}
               >
@@ -121,22 +71,12 @@ const SignUp = (props) => {
                   width="20rem"
                   style={{ margin: '2vh 1vw auto 0' }}
                 />
-              </Button>
+              </GoLoginButton>
               <div style={{ width: '100%' }}>
-                <p
-                  style={{
-                    fontSize: '2.5rem',
-                    fontWeight: 'bold',
-                    letterSpacing: '0.1vw',
-                    marginTop: '1vh',
-                    textAlign: 'center',
-                  }}
-                >
-                  회원가입
-                </p>
+                <SignUpTitle>회원가입</SignUpTitle>
               </div>
-            </div>
-            <TextField
+            </SignUpHeader>
+            <SignUpTextField
               id="studentID"
               label="학번"
               type="text"
@@ -145,9 +85,8 @@ const SignUp = (props) => {
               helperText={touched[0] && '학번 8자리를 입력해주세요.'}
               onChange={onStudentIdHandler}
               onFocus={handleTouch(0)}
-              style={{ width: '30vw', margin: '1.5vh' }}
             />
-            <TextField
+            <SignUpTextField
               id="password"
               label="비밀번호"
               type="password"
@@ -156,9 +95,8 @@ const SignUp = (props) => {
               onChange={onPasswordHandler}
               onFocus={handleTouch(1)}
               helperText={touched[1] && '6글자 이상의 패스워드를 입력해주세요.'}
-              style={{ width: '30vw', margin: '1.5vh' }}
             />
-            <TextField
+            <SignUpTextField
               id="name"
               label="이름"
               placeholder="이름을 입력해주세요."
@@ -168,25 +106,13 @@ const SignUp = (props) => {
               helperText={touched[3] && '이름을 한 글자 이상 입력해주세요.'}
               onFocus={handleTouch(3)}
               onChange={onNameHandler}
-              style={{ width: '30vw', margin: '1.5vh' }}
             />
-            <Button
-              variant="contained"
-              type="submit"
-              style={{
-                width: '30vw',
-                height: '5vh',
-                backgroundColor: 'rgb(63,81,181)',
-                color: 'white',
-                border: '1px solid rgb(63,81,181)',
-                marginTop: '1vh',
-              }}
-            >
+            <SignUpButton variant="contained" type="submit">
               회원가입
-            </Button>
+            </SignUpButton>
           </form>
         </Default>
-      </Container>
+      </SignUpContainer>
     </CSSTransitionGroup>
   );
 };
