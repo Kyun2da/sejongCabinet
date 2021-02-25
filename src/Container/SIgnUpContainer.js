@@ -1,13 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { auth, database } from '../configs/firebase.config';
 import SignUp from '../Pages/SignUp';
 import SignUpMobile from '../Mobile/SignUpMobile';
 import { Mobile, Default } from '../MediaQuery';
 import { setCurrentUserNameAndID } from '../redux/auth/auth.reducer';
 import getFirebaseErrorMessage from '../utils/error/auth/authError';
+import customSwal from '../utils/alert/swal';
 
 const SIgnUpContainer = () => {
   const history = useHistory();
@@ -48,14 +48,7 @@ const SIgnUpContainer = () => {
         dispatch(setCurrentUserNameAndID({ studentId, name }));
       })
       .catch((err) => {
-        Swal.fire({
-          icon: 'error',
-          title: '회원가입 실패',
-          text: getFirebaseErrorMessage(err.code),
-          showConfirmButton: true,
-          width: '25rem',
-          timer: 2000,
-        });
+        customSwal('error', '회원가입 실패', getFirebaseErrorMessage(err.code));
       });
   };
   return (

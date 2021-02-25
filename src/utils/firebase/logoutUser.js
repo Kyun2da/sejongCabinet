@@ -1,5 +1,5 @@
-import Swal from 'sweetalert2';
 import { clearCurrentUser } from '../../redux/auth/auth.reducer';
+import customSwal from '../alert/swal';
 
 const { auth } = require('../../configs/firebase.config');
 
@@ -11,14 +11,11 @@ const logOutUser = (history) => {
       history.push('/');
     })
     .catch(() =>
-      Swal.fire({
-        icon: 'error',
-        text: '로그아웃을 시도하던 중에 알 수 없는 에러가 발생하였습니다.',
-        showConfirmButton: false,
-        width: 'auto',
-        fontSize: '2rem',
-        timer: 1500,
-      }),
+      customSwal(
+        'error',
+        '로그아웃 에러',
+        '로그아웃을 시도하던 중에 알 수 없는 에러가 발생하였습니다.',
+      ),
     );
 };
 

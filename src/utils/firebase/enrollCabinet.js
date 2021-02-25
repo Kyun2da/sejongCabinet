@@ -1,6 +1,7 @@
+import Swal from 'sweetalert2';
+import customSwal from '../alert/swal';
 import cancelCabinet from './cancelCabinet';
 
-const { default: Swal } = require('sweetalert2');
 const { database } = require('../../configs/firebase.config');
 const { default: writeUserData } = require('./writeUserData');
 
@@ -19,28 +20,17 @@ const enrollCabinet = (
         if (cabinet === 0) {
           return currentUserID;
         }
-        // eslint-disable-next-line no-useless-return
         return;
       },
       (error, committed) => {
         if (error) {
-          Swal.fire({
-            icon: 'error',
-            title: '사물함 신청 에러',
-            text: `관리자에게 문의해 주세요.`,
-            showConfirmButton: true,
-            width: '25rem',
-            timer: 5000,
-          });
+          customSwal('error', '사물함 신청 에러', '관리자에게 문의해 주세요.');
         } else if (!committed) {
-          Swal.fire({
-            icon: 'error',
-            title: '사물함 신청 실패',
-            text: `이미 신청한 사람이 있거나 신청이 불가능합니다.`,
-            showConfirmButton: true,
-            width: '25rem',
-            timer: 5000,
-          });
+          customSwal(
+            'error',
+            '사물함 신청 실패',
+            '이미 신청한 사람이 있거나 신청이 불가능합니다.',
+          );
         } else {
           writeUserData(
             userId,
@@ -49,14 +39,11 @@ const enrollCabinet = (
             cabinetTitle,
             select,
           );
-          Swal.fire({
-            icon: 'success',
-            title: '사물함 신청 성공',
-            text: `${select}번 사물함으로 신청되었습니다`,
-            showConfirmButton: true,
-            width: '25rem',
-            timer: 5000,
-          });
+          customSwal(
+            'sucess',
+            '사물함 신청 성공',
+            `${select}번 사물함으로 신청되었습니다.`,
+          );
         }
       },
     );

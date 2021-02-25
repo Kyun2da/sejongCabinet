@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { auth } from '../configs/firebase.config';
 import Login from '../Pages/Login';
 import getFirebaseErrorMessage from '../utils/error/auth/authError';
 import LoginMobile from '../Mobile/LoginMobile';
 import { Mobile, Default } from '../MediaQuery';
+import customSwal from '../utils/alert/swal';
 
 const LoginContainer = () => {
   const history = useHistory();
@@ -31,14 +31,7 @@ const LoginContainer = () => {
           toMainPage();
         })
         .catch((err) => {
-          Swal.fire({
-            icon: 'error',
-            title: '로그인 실패',
-            text: getFirebaseErrorMessage(err.code),
-            showConfirmButton: true,
-            width: '25rem',
-            timer: 2000,
-          });
+          customSwal('error', '로그인 실패', getFirebaseErrorMessage(err.code));
         });
     },
     [_id, _password, toMainPage],
