@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import AdminPage from '../../Pages/AdminPage';
 import AdminPageMobile from '../../Mobile/AdminPageMobile';
 import LoadingPage from '../../Pages/LoadingPage';
 import logOutUser from '../../utils/firebase/logoutUser';
 import toggleServerStatus from '../../utils/firebase/setServerStatus';
 import updatePassword from '../../utils/firebase/updatePassword';
 import { Default, Mobile } from '../../MediaQuery';
+import AdminPage from '../../Pages/Admin';
 
 const AdminPageContainer = () => {
   const data = useSelector((state) => state.cabinet.currentCabinets);
