@@ -5,7 +5,6 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/styles": "^4.11.3",
     "@types/react-responsive": "^8.0.2",
     "@types/react-router-dom": "^5.1.6",
@@ -25,8 +24,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "styled-components": "^5.2.1",
-    "sweetalert2": "^10.10.0",
-    "sweetalert2-react-content": "^3.2.1"
+    "sweetalert2": "^10.10.0"
   },
   "scripts": {
     "start": "react-scripts start",
