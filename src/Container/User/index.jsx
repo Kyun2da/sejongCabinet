@@ -2,12 +2,12 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import LoadingPage from '../../Pages/LoadingPage';
-import Userpage from '../../Pages/Userpage';
 import UserpageMobile from '../../Mobile/UserPageMobile';
 import cancelCabinet from '../../utils/firebase/cancelCabinet';
 import logOutUser from '../../utils/firebase/logoutUser';
 import updatePassword from '../../utils/firebase/updatePassword';
 import { Default, Mobile } from '../../MediaQuery';
+import UserPage from '../../Pages/User';
 
 const UserPageContainer = () => {
   const data = useSelector((state) => state.cabinet.currentCabinets);
@@ -41,7 +41,7 @@ const UserPageContainer = () => {
           {data ? (
             <>
               <Default>
-                <Userpage
+                <UserPage
                   onClickLogout={onClickLogout}
                   currentUserName={currentUserName}
                   currentUserCabinetIdx={currentUserCabinetIdx}
