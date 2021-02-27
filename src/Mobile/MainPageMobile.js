@@ -14,7 +14,7 @@ import ImageIcon from '@material-ui/icons/Image';
 import PropTypes from 'prop-types';
 import Cabinet from '../Pages/Cabinet';
 import { Mobile } from '../MediaQuery';
-import SimpleModal from '../Pages/SimpleModal';
+import SimpleModal from '../Components/Modal';
 
 const Container = styled.div`
   display: flex;
