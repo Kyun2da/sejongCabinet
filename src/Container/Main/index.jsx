@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import ServerLoadingPage from '../../Pages/ClosedServer';
-import LoadingPage from '../../Pages/LoadingPage';
 import MainPage from '../../Pages/MainPage';
 import MainPageMobile from '../../Mobile/MainPageMobile';
 import breakDownCabinet from '../../utils/firebase/breakDownCabinet';
@@ -18,6 +17,7 @@ import Cabinet145 from '../../image/Cabinet145.png';
 import Cabinet6x6 from '../../image/Cabinet6x6.jpg';
 import Cabinet6x10 from '../../image/Cabinet6x10.jpg';
 import { Default, Mobile } from '../../MediaQuery';
+import LoadingPage from '../../Pages/Loading';
 
 const MainPageContainer = () => {
   const history = useHistory();
