@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import ServerLoadingPage from '../../Pages/ServerLoadingPage';
+import ServerLoadingPage from '../../Pages/ClosedServer';
 import LoadingPage from '../../Pages/LoadingPage';
 import MainPage from '../../Pages/MainPage';
 import MainPageMobile from '../../Mobile/MainPageMobile';

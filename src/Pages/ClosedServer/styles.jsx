@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/styles';
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     backgroundColor: 'RGB(240,240,240)',
@@ -8,19 +8,20 @@ export const useStyles = makeStyles((theme) => ({
     '@media all and (-ms-high-contrast: none)': {
       display: 'none',
     },
+    padding: '20px 40px 30px',
   },
   modal: {
     display: 'flex',
-    padding: theme.spacing(1),
     alignItems: 'center',
     justifyContent: 'center',
+    padding: '20px 40px 30px',
   },
   paper: {
     width: '28vw',
     backgroundColor: 'RGB(250,250,250)',
     border: 'none',
     borderRadius: '0.3vw',
-    padding: theme.spacing(2, 4, 3),
+    padding: '20px 40px 30px',
   },
   mpaper: {
     width: '70vw',
@@ -28,6 +29,6 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: 'RGB(250,250,250)',
     border: 'none',
     borderRadius: '5vw',
-    padding: theme.spacing(2, 4, 3),
+    padding: '20px 40px 30px',
   },
 }));

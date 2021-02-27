@@ -1,7 +1,7 @@
 import React from 'react';
 import { CircularProgress } from '@material-ui/core/';
 import Modal from '@material-ui/core/Modal';
-import { Mobile, Default } from '../MediaQuery';
+import { Mobile, Default } from '../../MediaQuery';
 import { useStyles } from './styles';
 
 const ServerLoadingPage = () => {
