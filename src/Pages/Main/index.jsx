@@ -1,41 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 import SwipeableViews from 'react-swipeable-views';
-import { Tabs, Tab } from '@material-ui/core';
-
 import PropTypes from 'prop-types';
 import Cabinet from '../Cabinet';
 import { Default } from '../../MediaQuery';
-import SimpleModal from '../../Components/Modal';
 import DrawerHandler from '../../Components/DrawerHandler';
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 12vh;
-  height: 80%;
-  width: 100%;
-`;
-
-const styles = {
-  tabs: {
-    height: '9vh',
-  },
-
-  tab_pc: {
-    fontSize: '2vw',
-    letterSpacing: '0.0001px',
-    borderRadius: '10px',
-    fontFamily: 'Anton',
-    width: '15vw',
-  },
-
-  slide: {
-    padding: '100rem',
-    minHeight: 100,
-  },
-};
+import { MainContainer } from './styles';
+import CabinetTab from '../../Components/Tab';
 
 const MainPage = (props) => {
   const {
@@ -47,10 +17,6 @@ const MainPage = (props) => {
     handleChangeIndex,
     select,
     setSelect,
-    onClickLogout,
-    onClickUserPage,
-    onClickAdminPage,
-    currentUserName,
     cabinetNames,
     cabinetEnroll,
     currentUserID,
@@ -61,34 +27,6 @@ const MainPage = (props) => {
     mapImage,
     cabinetImage,
   } = props;
-
-  const LoadTabs = () => {
-    return cabinetNames.map((i) => {
-      return (
-        <Tab
-          key={data.currentCabinets[i].title}
-          label={data.currentCabinets[i].title}
-          style={styles.tab_pc}
-        />
-      );
-    });
-  };
-
-  const showTabs = () => {
-    return (
-      <Tabs
-        value={index}
-        fullwidth="true"
-        onChange={handleChange}
-        style={styles.tabs}
-        textColor="inherit"
-        indicatorColor="primary"
-        centered
-      >
-        {LoadTabs()}
-      </Tabs>
-    );
-  };
 
   const LoadContents = () => {
     return cabinetNames.map((i) => {
@@ -135,7 +73,7 @@ const MainPage = (props) => {
       onClick={() => setSelect(-1)}
     >
       <Default>
-        <Container>
+        <MainContainer>
           <DrawerHandler
             _map={_map}
             visibleMap={visibleMap}
@@ -154,10 +92,14 @@ const MainPage = (props) => {
               },
             }}
           >
-            {showTabs()}
+            <CabinetTab
+              index={index}
+              handleChange={handleChange}
+              cabinetNames={cabinetNames}
+            />
             {showContents()}
           </div>
-        </Container>
+        </MainContainer>
       </Default>
     </div>
   );
@@ -172,10 +114,6 @@ MainPage.propTypes = {
   setSelect: PropTypes.func.isRequired,
   _map: PropTypes.bool.isRequired,
   visibleMap: PropTypes.func.isRequired,
-  onClickLogout: PropTypes.func.isRequired,
-  onClickUserPage: PropTypes.func.isRequired,
-  onClickAdminPage: PropTypes.func.isRequired,
-  currentUserName: PropTypes.string.isRequired,
   cabinetNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   cabinetEnroll: PropTypes.func.isRequired,
   currentUserID: PropTypes.string.isRequired,

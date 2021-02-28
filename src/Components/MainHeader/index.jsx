@@ -1,4 +1,4 @@
-import { Button, IconButton, Menu, MenuItem, Tooltip } from '@material-ui/core';
+import { Button, Menu, MenuItem, Tooltip } from '@material-ui/core';
 import React from 'react';
 import MenuIcon from '@material-ui/icons/Menu';
 import ImageIcon from '@material-ui/icons/Image';
