@@ -40,7 +40,7 @@ const enrollCabinet = (
             select,
           );
           customSwal(
-            'sucess',
+            'success',
             '사물함 신청 성공',
             `${select}번 사물함으로 신청되었습니다.`,
           );

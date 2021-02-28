@@ -28,7 +28,7 @@ const cancelCabinet = (
         } else {
           writeUserData(userId, currentUserName, currentUserID, 0, 0);
           customSwal(
-            'sucess',
+            'success',
             '사물함 취소 성공',
             `${select}번 사물함이 취소되었습니다.`,
           );
