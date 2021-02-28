@@ -15,9 +15,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ImageIcon from '@material-ui/icons/Image';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PropTypes from 'prop-types';
-import Cabinet from './Cabinet';
-import { Default, Mobile } from '../MediaQuery';
-import SimpleModal from '../Components/Modal';
+import Cabinet from '../Cabinet';
+import { Default, Mobile } from '../../MediaQuery';
+import SimpleModal from '../../Components/Modal';
 
 const Container = styled.div`
   display: flex;
