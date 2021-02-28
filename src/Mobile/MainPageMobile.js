@@ -12,9 +12,9 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import ImageIcon from '@material-ui/icons/Image';
 import PropTypes from 'prop-types';
-import Cabinet from '../Pages/Cabinet';
 import { Mobile } from '../MediaQuery';
 import SimpleModal from '../Components/Modal';
+import CabinetMobile from './CabinetMobile';
 
 const Container = styled.div`
   display: flex;
@@ -151,7 +151,7 @@ const MainPageMobile = (props) => {
 
   const MLoadContents = () =>
     cabinetNames.map((i) => (
-      <Cabinet
+      <CabinetMobile
         key={i}
         cabinetNum={i}
         data={data.currentCabinets[i]}

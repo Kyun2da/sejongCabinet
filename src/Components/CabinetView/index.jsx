@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import SwipeableViews from 'react-swipeable-views';
-import Cabinet from '../../Pages/Cabinet';
+import Cabinet from '../Cabinet';
 
 const CabinetView = (props) => {
   const {
