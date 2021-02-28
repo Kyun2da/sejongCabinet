@@ -18,6 +18,8 @@ import Cabinet6x10 from '../../image/Cabinet6x10.jpg';
 import { Default, Mobile } from '../../MediaQuery';
 import LoadingPage from '../../Pages/Loading';
 import MainPage from '../../Pages/Main';
+import MainHeader from '../../Components/MainHeader';
+import SimpleModal from '../../Components/Modal';
 
 const MainPageContainer = () => {
   const history = useHistory();
@@ -41,6 +43,10 @@ const MainPageContainer = () => {
   const [select, setSelect] = useState(-1);
   const [mapImage, setMapImage] = React.useState(null);
   const [cabinetImage, setCabinetImage] = React.useState(null);
+  const [toggleHelp, setToggleHelp] = React.useState(false);
+  const handleOpen = () => {
+    setToggleHelp(!toggleHelp);
+  };
 
   const imageChange = useCallback(() => {
     if (index === 0) {
@@ -127,6 +133,15 @@ const MainPageContainer = () => {
               {serverStatus?.status?.status || adminType ? (
                 <>
                   <Default>
+                    <MainHeader
+                      visibleMap={visibleMap}
+                      onClickLogout={onClickLogout}
+                      onClickUserPage={onClickUserPage}
+                      onClickAdminPage={onClickAdminPage}
+                      currentUserName={currentUserName}
+                      adminType={adminType}
+                      handleOpen={handleOpen}
+                    />
                     <MainPage
                       data={data}
                       _map={_map}
@@ -150,6 +165,7 @@ const MainPageContainer = () => {
                       mapImage={mapImage}
                       cabinetImage={cabinetImage}
                     />
+                    <SimpleModal open={toggleHelp} setOpen={handleOpen} />
                   </Default>
                   <Mobile>
                     <MainPageMobile

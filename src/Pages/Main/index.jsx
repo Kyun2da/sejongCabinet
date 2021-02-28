@@ -1,18 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import SwipeableViews from 'react-swipeable-views';
-import {
-  Button,
-  Tabs,
-  Tab,
-  Menu,
-  MenuItem,
-  IconButton,
-  Tooltip,
-} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import ImageIcon from '@material-ui/icons/Image';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import { Tabs, Tab } from '@material-ui/core';
+
 import PropTypes from 'prop-types';
 import Cabinet from '../Cabinet';
 import { Default } from '../../MediaQuery';
@@ -71,20 +61,6 @@ const MainPage = (props) => {
     mapImage,
     cabinetImage,
   } = props;
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const [toggleHelp, setToggleHelp] = React.useState(false);
-  const handleOpen = () => {
-    setToggleHelp(!toggleHelp);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const LoadTabs = () => {
     return cabinetNames.map((i) => {
@@ -159,117 +135,6 @@ const MainPage = (props) => {
       onClick={() => setSelect(-1)}
     >
       <Default>
-        <header>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'black',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '10vh',
-              width: '100vw',
-            }}
-          >
-            <Tooltip
-              title={<div style={{ fontSize: '1vw' }}>도움말</div>}
-              placement="bottom"
-              arrow
-            >
-              <IconButton
-                aria-label="delete"
-                style={{
-                  left: '1.5vw',
-                  position: 'absolute',
-                  width: 'auto',
-                  fontSize: '3.0vw',
-                  color: 'white',
-                }}
-                onClick={handleOpen}
-              >
-                <HelpOutlineIcon
-                  style={{
-                    fontSize: '3.0vw',
-                  }}
-                />
-              </IconButton>
-            </Tooltip>
-            <div>
-              <Tooltip
-                title={<div style={{ fontSize: '1vw' }}>실제 사진 보기</div>}
-                placement="bottom"
-                arrow
-              >
-                <Button
-                  onClick={() => visibleMap(true)}
-                  style={{
-                    backgroundColor: 'white',
-                    width: 'auto',
-                    fontFamily: 'Anton',
-                    fontSize: '1.2rem',
-                  }}
-                >
-                  photo
-                  <ImageIcon style={{ fontSize: '2vw', marginLeft: '0.5vw' }} />
-                </Button>
-              </Tooltip>
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                right: '5vw',
-                backgroundColor: 'white',
-                borderRadius: '0.5rem',
-                padding: '0.5vh 1vw',
-                fontFamily: 'Noto Sans KR',
-              }}
-            >
-              {currentUserName}님 환영합니다!
-              <Button
-                onClick={handleClick}
-                style={{ backgroundColor: 'transparent', margin: '0 0 0 2vw' }}
-                disableRipple
-              >
-                <MenuIcon />
-              </Button>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                getContentAnchorEl={null}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                {adminType ? (
-                  <MenuItem
-                    onClick={onClickAdminPage}
-                    style={{ fontFamily: 'Noto Sans KR' }}
-                  >
-                    관리자페이지
-                  </MenuItem>
-                ) : (
-                  <MenuItem
-                    onClick={onClickUserPage}
-                    style={{ fontFamily: 'Noto Sans KR' }}
-                  >
-                    마이페이지
-                  </MenuItem>
-                )}
-                <MenuItem
-                  onClick={onClickLogout}
-                  style={{ fontFamily: 'Noto Sans KR' }}
-                >
-                  로그아웃
-                </MenuItem>
-              </Menu>
-            </div>
-          </div>
-        </header>
         <Container>
           <DrawerHandler
             _map={_map}
@@ -293,7 +158,6 @@ const MainPage = (props) => {
             {showContents()}
           </div>
         </Container>
-        <SimpleModal open={toggleHelp} setOpen={handleOpen} />
       </Default>
     </div>
   );
