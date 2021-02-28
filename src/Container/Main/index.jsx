@@ -143,7 +143,6 @@ const MainPageContainer = () => {
                       handleOpen={handleOpen}
                     />
                     <MainPage
-                      data={data}
                       _map={_map}
                       visibleMap={visibleMap}
                       index={index}
