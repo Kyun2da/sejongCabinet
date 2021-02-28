@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import SwipeableViews from 'react-swipeable-views';
 import {
-  SwipeableDrawer,
   Button,
   Tabs,
   Tab,
@@ -16,8 +15,9 @@ import ImageIcon from '@material-ui/icons/Image';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import PropTypes from 'prop-types';
 import Cabinet from '../Cabinet';
-import { Default, Mobile } from '../../MediaQuery';
+import { Default } from '../../MediaQuery';
 import SimpleModal from '../../Components/Modal';
+import DrawerHandler from '../../Components/DrawerHandler';
 
 const Container = styled.div`
   display: flex;
@@ -80,85 +80,6 @@ const MainPage = (props) => {
   const [toggleHelp, setToggleHelp] = React.useState(false);
   const handleOpen = () => {
     setToggleHelp(!toggleHelp);
-  };
-  const drawlerHandler = () => {
-    return (
-      <div>
-        <Default>
-          <SwipeableDrawer
-            anchor="top"
-            open={_map}
-            onClick={() => visibleMap(false)}
-            onClose={() => {}}
-            onOpen={() => {}}
-          >
-            <div
-              style={{
-                display: 'flex',
-                width: '100%',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                padding: '10vh 0',
-                backgroundColor: 'rgb(240,240,240)',
-                rowGpa: '10vw',
-              }}
-            >
-              <img
-                src={mapImage}
-                alt="map"
-                // width="700vw"
-                width="50%"
-                style={{ backgroundColor: 'white' }}
-              />
-              <img
-                src={cabinetImage}
-                alt="cabinetpicture"
-                // width="500vw"
-                width="30%"
-                style={{ padding: '1rem', backgroundColor: 'white' }}
-              />
-            </div>
-          </SwipeableDrawer>
-        </Default>
-        <Mobile>
-          <SwipeableDrawer
-            anchor="top"
-            open={_map}
-            onClick={() => visibleMap(false)}
-            onClose={() => {}}
-            onOpen={() => {}}
-          >
-            <div
-              style={{
-                position: 'static',
-                width: '100%',
-                height: 'auto',
-                padding: '5vh 5%',
-                backgroundColor: 'RGB(245,245,245)',
-              }}
-            >
-              <img
-                src={mapImage}
-                alt="map"
-                width="90%"
-                style={{ backgroundColor: 'white' }}
-              />
-              <img
-                src={cabinetImage}
-                alt="cabinetpicture"
-                width="90%"
-                style={{
-                  margin: '5vh 0',
-                  padding: '0.1rem',
-                  backgroundColor: 'white',
-                }}
-              />
-            </div>
-          </SwipeableDrawer>
-        </Mobile>
-      </div>
-    );
   };
 
   const handleClose = () => {
@@ -350,7 +271,12 @@ const MainPage = (props) => {
           </div>
         </header>
         <Container>
-          {drawlerHandler()}
+          <DrawerHandler
+            _map={_map}
+            visibleMap={visibleMap}
+            mapImage={mapImage}
+            cabinetImage={cabinetImage}
+          />
           <div
             style={{
               display: 'flex',
