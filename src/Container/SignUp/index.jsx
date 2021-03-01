@@ -15,12 +15,15 @@ const SignUpPageContainer = () => {
   const [_password, setPassword] = useState('');
   const [studentId, setStudentId] = useState('');
   const [name, setName] = useState('');
+
   const onPasswordHandler = useCallback((e) => {
     setPassword(e.currentTarget.value);
   }, []);
+
   const onStudentIdHandler = useCallback((e) => {
     setStudentId(e.currentTarget.value);
   }, []);
+
   const onNameHandler = useCallback((e) => {
     setName(e.currentTarget.value);
   }, []);
@@ -29,7 +32,7 @@ const SignUpPageContainer = () => {
     history.push('/');
   }, [history]);
 
-  const writeUserData = (userId, studentID, _name) => {
+  const writeUserData = useCallback((userId, studentID, _name) => {
     database.ref(`users/${userId}`).set({
       studentID,
       name: _name,
@@ -37,20 +40,29 @@ const SignUpPageContainer = () => {
       cabinetTitle: 0,
       adminType: 0,
     });
-  };
-  const SignUpSubmit = (e) => {
-    e.preventDefault();
-    auth
-      .createUserWithEmailAndPassword(`${studentId}@sjcabinet.com`, _password)
-      .then((user) => {
-        history.push('/main');
-        writeUserData(user.user.uid, studentId, name);
-        dispatch(setCurrentUserNameAndID({ studentId, name }));
-      })
-      .catch((err) => {
-        customSwal('error', '회원가입 실패', getFirebaseErrorMessage(err.code));
-      });
-  };
+  }, []);
+
+  const SignUpSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      auth
+        .createUserWithEmailAndPassword(`${studentId}@sjcabinet.com`, _password)
+        .then((user) => {
+          history.push('/main');
+          writeUserData(user.user.uid, studentId, name);
+          dispatch(setCurrentUserNameAndID({ studentId, name }));
+        })
+        .catch((err) => {
+          customSwal(
+            'error',
+            '회원가입 실패',
+            getFirebaseErrorMessage(err.code),
+          );
+        });
+    },
+    [studentId, _password, history, name, dispatch, writeUserData],
+  );
+
   return (
     <>
       <Default>

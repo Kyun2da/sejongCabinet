@@ -68,6 +68,7 @@ export const SignUpHeader = styled(Container)({
 });
 
 export const SignUpTitle = styled(Typography)({
+  width: '100%',
   fontSize: '2.5rem',
   fontWeight: 'bold',
   letterSpacing: '0.1vw',

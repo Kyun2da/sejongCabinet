@@ -66,9 +66,7 @@ const SignUp = (props) => {
                   style={{ margin: '2vh 1vw auto 0' }}
                 />
               </GoLoginButton>
-              <div style={{ width: '100%' }}>
-                <SignUpTitle>회원가입</SignUpTitle>
-              </div>
+              <SignUpTitle>회원가입</SignUpTitle>
             </SignUpHeader>
             <SignUpTextField
               id="studentID"
