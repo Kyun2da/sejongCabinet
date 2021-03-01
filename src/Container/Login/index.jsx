@@ -13,15 +13,19 @@ const LoginPageContainer = () => {
   const [_id, setId] = useState('');
   const [_password, setPassword] = useState('');
   const userId = useSelector((state) => state.auth.currentUser.uid);
+
   const onIdHandler = useCallback((e) => {
     setId(e.currentTarget.value);
   }, []);
+
   const onPasswordHanlder = useCallback((e) => {
     setPassword(e.currentTarget.value);
   }, []);
+
   const toMainPage = useCallback(() => {
     history.push('/main');
   }, [history]);
+
   const LoginSubmit = useCallback(
     (e) => {
       e.preventDefault();

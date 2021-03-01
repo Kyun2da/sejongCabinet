@@ -47,6 +47,11 @@ export const LoginTextField = mstyled(TextField)({
   margin: '1vh',
 });
 
+export const GoSignUpWrapper = styled.div`
+  display: inline-block;
+  margin: 2vh 0 0;
+`;
+
 export const GoSignUpButton = mstyled(Button)({
   color: '#0500FF',
   backgroundColor: 'transparent',

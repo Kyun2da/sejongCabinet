@@ -12,6 +12,7 @@ import {
   LoginTextField,
   LoginForm,
   LogoImg,
+  GoSignUpWrapper,
 } from './styles';
 
 const Login = (props) => {
@@ -45,10 +46,10 @@ const Login = (props) => {
             로그인
           </LoginButton>
         </LoginForm>
-        <div style={{ display: 'inline-block', margin: '2vh 0 0' }}>
+        <GoSignUpWrapper>
           계정이 없으신가요?
           <GoSignUpButton onClick={toSignUp}>가입하기</GoSignUpButton>
-        </div>
+        </GoSignUpWrapper>
       </LoginContainer>
     </TransitionGroup>
   );
