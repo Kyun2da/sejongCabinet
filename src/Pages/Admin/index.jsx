@@ -1,39 +1,19 @@
 import React from 'react';
-import { Button, Menu, MenuItem } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import backwards from '../../image/Backward.png';
 import { Default } from '../../MediaQuery';
 import {
   AdminContainer,
   AdminFormControl,
-  AdminHeader,
-  AdminTabWrapper,
   AdminFormTitle,
-  BackArrowWrapper,
   useStyles,
   AdminTextField,
   AdminUtilityWrapper,
 } from './styles';
+import UserPageHeader from '../../Components/UserPageHeader';
 
 const AdminPage = (props) => {
-  const {
-    onClickLogout,
-    currentUserName,
-    updatePW,
-    total,
-    serverStatus,
-    toggleServer,
-  } = props;
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const { onClickLogout, updatePW, total, serverStatus, toggleServer } = props;
   const classes = useStyles();
   const [currentPassword, setCurrent] = React.useState('');
   const [changePassword, setChange] = React.useState('');
@@ -57,46 +37,7 @@ const AdminPage = (props) => {
 
   return (
     <Default>
-      <AdminHeader>
-        <BackArrowWrapper>
-          <Link to="/main">
-            <img
-              src={backwards}
-              alt="backwards"
-              style={{
-                width: '1.5vw',
-                filter: 'invert(100%)',
-              }}
-            />
-          </Link>
-        </BackArrowWrapper>
-        <AdminTabWrapper>
-          {currentUserName}님 환영합니다!
-          <Button
-            onClick={handleClick}
-            style={{ backgroundColor: 'transparent', margin: '0 0 0 2vw' }}
-            disableRipple
-          >
-            <MenuIcon />
-          </Button>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            getContentAnchorEl={null}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem
-              onClick={onClickLogout}
-              style={{ fontFamily: 'Noto Sans KR' }}
-            >
-              로그아웃
-            </MenuItem>
-          </Menu>
-        </AdminTabWrapper>
-      </AdminHeader>
+      <UserPageHeader onClickLogout={onClickLogout} />
       <AdminContainer>
         <AdminFormTitle>관리자 페이지</AdminFormTitle>
         <AdminUtilityWrapper>
@@ -133,7 +74,6 @@ const AdminPage = (props) => {
 
 AdminPage.propTypes = {
   onClickLogout: PropTypes.func.isRequired,
-  currentUserName: PropTypes.string.isRequired,
   updatePW: PropTypes.func.isRequired,
   total: PropTypes.number.isRequired,
   serverStatus: PropTypes.objectOf.isRequired,

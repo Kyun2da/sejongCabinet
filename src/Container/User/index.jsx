@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import UserpageMobile from '../../Mobile/UserPageMobile';
@@ -18,10 +18,11 @@ const UserPageContainer = () => {
   const currentUserID = useSelector((state) => state.auth.currentUserID);
   const userId = useSelector((state) => state.auth.currentUser.uid);
 
-  const onClickLogout = () => {
+  const onClickLogout = useCallback(() => {
     logOutUser(history);
-  };
-  const cabinetCancel = () => {
+  }, [history]);
+
+  const cabinetCancel = useCallback(() => {
     cancelCabinet(
       currentUserCabinetNum,
       currentUserCabinetIdx,
@@ -29,40 +30,36 @@ const UserPageContainer = () => {
       userId,
       currentUserName,
     );
-  };
+  }, [
+    currentUserCabinetNum,
+    currentUserCabinetIdx,
+    currentUserID,
+    userId,
+    currentUserName,
+  ]);
 
-  const updatePW = (currentPW, newPW, confirmPW) => {
+  const updatePW = useCallback((currentPW, newPW, confirmPW) => {
     updatePassword(currentPW, newPW, confirmPW);
-  };
+  }, []);
+
   return (
     <>
-      {userId ? (
+      {userId && data ? (
         <>
-          {data ? (
-            <>
-              <Default>
-                <UserPage
-                  onClickLogout={onClickLogout}
-                  currentUserName={currentUserName}
-                  currentUserCabinetIdx={currentUserCabinetIdx}
-                  currentUserCabinetTitle={currentUserCabinetNum}
-                  cabinetCancel={cabinetCancel}
-                  updatePW={updatePW}
-                />
-              </Default>
-              <Mobile>
-                <UserpageMobile
-                  onClickLogout={onClickLogout}
-                  currentUserCabinetIdx={currentUserCabinetIdx}
-                  currentUserCabinetTitle={currentUserCabinetNum}
-                  cabinetCancel={cabinetCancel}
-                  updatePW={updatePW}
-                />
-              </Mobile>
-            </>
-          ) : (
-            <LoadingPage />
-          )}
+          <Default>
+            <UserPage
+              onClickLogout={onClickLogout}
+              cabinetCancel={cabinetCancel}
+              updatePW={updatePW}
+            />
+          </Default>
+          <Mobile>
+            <UserpageMobile
+              onClickLogout={onClickLogout}
+              cabinetCancel={cabinetCancel}
+              updatePW={updatePW}
+            />
+          </Mobile>
         </>
       ) : (
         <LoadingPage />

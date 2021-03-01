@@ -1,7 +1,6 @@
 import { styled as mstyled } from '@material-ui/core/styles';
 import { Container, FormControl, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import styled from 'styled-components';
 
 export const AdminContainer = mstyled(Container)({
   display: 'flex',
@@ -16,36 +15,6 @@ export const AdminContainer = mstyled(Container)({
   columnGap: '2vh',
   flexGrow: 1,
 });
-
-export const AdminHeader = mstyled(Container)({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: 'black',
-  position: 'absolute',
-  margin: 0,
-  top: 0,
-  left: 0,
-  right: 0,
-  height: '10vh',
-  width: '100%',
-  maxWidth: '100%',
-});
-
-export const BackArrowWrapper = mstyled(Container)({
-  left: '2vw',
-  position: 'absolute',
-});
-
-export const AdminTabWrapper = styled.div`
-  position: absolute;
-  right: 5vw;
-  background-color: white;
-  border-radius: 0.5rem;
-  padding: 0.5vh 1vw;
-  font-family: Noto Sans KR;
-`;
 
 export const AdminFormTitle = mstyled(Container)({
   display: 'flex',

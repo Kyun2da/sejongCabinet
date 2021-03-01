@@ -14,7 +14,6 @@ const AdminPageContainer = () => {
   const history = useHistory();
   const currentUserCabinetNum = useSelector((state) => state.auth.cabinetTitle);
   const currentUserCabinetIdx = useSelector((state) => state.auth.cabinetIdx);
-  const currentUserName = useSelector((state) => state.auth.currentUserName);
   const userId = useSelector((state) => state.auth.currentUser.uid);
   const [_map, visibleMap] = useState(false);
   const serverStatus = useSelector((state) => state.server);
@@ -55,7 +54,6 @@ const AdminPageContainer = () => {
                   _map={_map}
                   visibleMap={visibleMap}
                   onClickLogout={onClickLogout}
-                  currentUserName={currentUserName}
                   currentUserCabinetIdx={currentUserCabinetIdx}
                   currentUserCabinetTitle={currentUserCabinetNum}
                   updatePW={updatePW}

@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Mobile } from '../MediaQuery';
 import backwards from '../image/Backward.png';
+import { useSelector } from 'react-redux';
 
 const Container = styled.div`
   display: flex;
@@ -62,14 +63,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 const UserPageMobile = (props) => {
-  const {
-    onClickLogout,
-    currentUserCabinetIdx,
-    currentUserCabinetTitle,
-    cabinetCancel,
-    updatePW,
-  } = props;
+  const { onClickLogout, cabinetCancel, updatePW } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const currentUserCabinetTitle = useSelector(
+    (state) => state.auth.cabinetTitle,
+  );
+  const currentUserCabinetIdx = useSelector((state) => state.auth.cabinetIdx);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -328,8 +328,6 @@ const UserPageMobile = (props) => {
 
 UserPageMobile.propTypes = {
   onClickLogout: PropTypes.func.isRequired,
-  currentUserCabinetIdx: PropTypes.number.isRequired,
-  currentUserCabinetTitle: PropTypes.string.isRequired,
   cabinetCancel: PropTypes.func.isRequired,
   updatePW: PropTypes.func.isRequired,
 };

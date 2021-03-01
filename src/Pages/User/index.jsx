@@ -1,44 +1,29 @@
 import React from 'react';
-import { Button, Menu, MenuItem } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import backwards from '../../image/Backward.png';
 import {
-  AdminTabContainer,
-  BackwardsContainer,
   UserPageContainer,
   UserpageTitle,
-  UserPageHeader,
   useStyles,
   UserPageFormContainer,
   CurrentCabinetStatus,
   FormControlWrapper,
   UserPageTextField,
 } from './styles';
+import UserPageHeader from '../../Components/UserPageHeader';
+import { useSelector } from 'react-redux';
 
 const UserPage = (props) => {
-  const {
-    onClickLogout,
-    currentUserName,
-    currentUserCabinetIdx,
-    currentUserCabinetTitle,
-    cabinetCancel,
-    updatePW,
-  } = props;
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const { onClickLogout, cabinetCancel, updatePW } = props;
   const classes = useStyles();
   const [currentPassword, setCurrent] = React.useState('');
   const [changePassword, setChange] = React.useState('');
   const [confirmPassword, setConfirm] = React.useState('');
   const cabinetTitle = ['001', '049', '061', '085', '145'];
+  const currentUserCabinetTitle = useSelector(
+    (state) => state.auth.cabinetTitle,
+  );
+  const currentUserCabinetIdx = useSelector((state) => state.auth.cabinetIdx);
 
   const currnetPasswordHandler = (e) => {
     setCurrent(e.target.value);
@@ -61,46 +46,7 @@ const UserPage = (props) => {
 
   return (
     <UserPageContainer>
-      <UserPageHeader>
-        <BackwardsContainer>
-          <Link to="/main">
-            <img
-              src={backwards}
-              alt="backwards"
-              style={{
-                width: '1.5vw',
-                filter: 'invert(100%)',
-              }}
-            />
-          </Link>
-        </BackwardsContainer>
-        <AdminTabContainer>
-          {currentUserName}님 환영합니다!
-          <Button
-            onClick={handleClick}
-            style={{ backgroundColor: 'transparent', margin: '0 0 0 2vw' }}
-            disableRipple
-          >
-            <MenuIcon />
-          </Button>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            getContentAnchorEl={null}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem
-              onClick={onClickLogout}
-              style={{ fontFamily: 'Noto Sans KR' }}
-            >
-              로그아웃
-            </MenuItem>
-          </Menu>
-        </AdminTabContainer>
-      </UserPageHeader>
+      <UserPageHeader onClickLogout={onClickLogout} />
       <UserPageFormContainer>
         <UserpageTitle style={{ fontFamily: 'Noto Sans KR' }}>
           나의 사물함
@@ -109,7 +55,6 @@ const UserPage = (props) => {
           {currentUserCabinetTitle && currentUserCabinetTitle !== 0
             ? `사물함위치 : ${
                 cabinetTitle[
-                  // eslint-disable-next-line radix
                   parseInt(
                     currentUserCabinetTitle.substr(
                       currentUserCabinetTitle.length - 1,
@@ -168,9 +113,6 @@ const UserPage = (props) => {
 
 UserPage.propTypes = {
   onClickLogout: PropTypes.func.isRequired,
-  currentUserName: PropTypes.string.isRequired,
-  currentUserCabinetIdx: PropTypes.number.isRequired,
-  currentUserCabinetTitle: PropTypes.string.isRequired,
   cabinetCancel: PropTypes.func.isRequired,
   updatePW: PropTypes.func.isRequired,
 };
