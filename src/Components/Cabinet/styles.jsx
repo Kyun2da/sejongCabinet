@@ -1,4 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
+import { makeStyles, styled as mstyled } from '@material-ui/core/styles';
 import styled from 'styled-components';
 
 export const Content = styled.div`
@@ -14,10 +15,6 @@ export const MContent = styled.div`
   padding: 4vh 0;
   margin-left: 5vw;
   overflow: hidden;
-`;
-
-export const StatusValue = styled.div`
-  margin: 0 1vw 0 1vw;
 `;
 
 export const useStyles = makeStyles((theme) => ({
@@ -175,3 +172,37 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+export const SelectedCabinet = styled.div`
+  margin-right: 1vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  font-family: Anton;
+  font-size: 2rem;
+  padding: 0 3vw 0 1vw;
+  width: 1.5vw;
+  text-align: left;
+`;
+
+export const CabinetButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 2vh 2vw 0 0;
+`;
+
+export const CabinetButton = mstyled(Button)({
+  color: 'white',
+  width: '7.5vw',
+  padding: '1vh 2vw',
+  marginRight: '1vw',
+  fontFamily: 'Noto Sans KR',
+});
+
+export const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;

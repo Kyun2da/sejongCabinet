@@ -9,12 +9,8 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { Default, Mobile } from '../MediaQuery';
-import {
-  Content,
-  MContent,
-  StatusValue,
-  useStyles,
-} from '../Components/Cabinet/styles';
+import { Content, MContent, useStyles } from '../Components/Cabinet/styles';
+import { StatusValue } from '../Components/Tooltip/styles';
 
 const CabinetMobile = (props) => {
   const classes = useStyles();
