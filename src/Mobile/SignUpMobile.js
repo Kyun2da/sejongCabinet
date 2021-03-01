@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { CSSTransitionGroup } from 'react-transition-group';
 import { TextField, Button, makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Logo from '../image/softwareLogo_origin.png';
 import '../Pages/Fadeout.css';
 import backwards from '../image/Backward.png';
+import { TransitionGroup } from 'react-transition-group';
 
 const Container = styled.div`
   display: flex;
@@ -53,13 +53,7 @@ const SignUpMobile = (props) => {
     setTouched(arr);
   };
   return (
-    <CSSTransitionGroup
-      transitionName="homeTransition"
-      transitionAppear
-      transitionAppearTimeout={500}
-      transitionEnter={false}
-      transitionLeave={false}
-    >
+    <TransitionGroup>
       <Container>
         <img src={Logo} alt="logo" width="80vw" style={{ margin: '2vh 0 0' }} />
         <p
@@ -186,7 +180,7 @@ const SignUpMobile = (props) => {
         </form>
         <MobileDivider />
       </Container>
-    </CSSTransitionGroup>
+    </TransitionGroup>
   );
 };
 

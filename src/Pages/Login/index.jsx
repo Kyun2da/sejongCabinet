@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CSSTransitionGroup } from 'react-transition-group';
+import { TransitionGroup } from 'react-transition-group';
 import Logo from '../../image/softwareLogo_origin.png';
 import '../Fadeout.css';
 import {
@@ -15,13 +15,7 @@ import {
 const Login = (props) => {
   const { LoginSubmit, onIdHandler, onPasswordHanlder, toSignUp } = props;
   return (
-    <CSSTransitionGroup
-      transitionName="homeTransition"
-      transitionAppear
-      transitionAppearTimeout={500}
-      transitionEnter={false}
-      transitionLeave={false}
-    >
+    <TransitionGroup>
       <LoginContainer>
         <img
           src={Logo}
@@ -64,7 +58,7 @@ const Login = (props) => {
           <GoSignUpButton onClick={toSignUp}>가입하기</GoSignUpButton>
         </div>
       </LoginContainer>
-    </CSSTransitionGroup>
+    </TransitionGroup>
   );
 };
 

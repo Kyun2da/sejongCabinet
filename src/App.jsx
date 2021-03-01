@@ -37,10 +37,13 @@ const App = () => {
     });
     return () => unsubscribeFromAuth();
   }, [dispatch]);
+
   useEffect(() => {
+    console.log('ㅋㅋ');
     getCabinetData(dispatch);
     getServerData(dispatch);
-  });
+  }, [dispatch]);
+
   return (
     <Container>
       <Router basename={`${process.env.PUBLIC_URL}/`}>

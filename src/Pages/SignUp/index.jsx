@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CSSTransitionGroup } from 'react-transition-group';
+import { TransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 import Logo from '../../image/softwareLogo_origin.png';
 import { Default } from '../../MediaQuery';
@@ -36,13 +36,7 @@ const SignUp = (props) => {
     setTouched(arr);
   };
   return (
-    <CSSTransitionGroup
-      transitionName="homeTransition"
-      transitionAppear
-      transitionAppearTimeout={500}
-      transitionEnter={false}
-      transitionLeave={false}
-    >
+    <TransitionGroup>
       <SignUpContainer>
         <Default>
           <img
@@ -113,7 +107,7 @@ const SignUp = (props) => {
           </form>
         </Default>
       </SignUpContainer>
-    </CSSTransitionGroup>
+    </TransitionGroup>
   );
 };
 
