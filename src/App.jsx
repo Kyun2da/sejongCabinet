@@ -39,7 +39,6 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log('ㅋㅋ');
     getCabinetData(dispatch);
     getServerData(dispatch);
   }, [dispatch]);

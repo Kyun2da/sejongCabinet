@@ -36,7 +36,7 @@ const SignUp = (props) => {
     setTouched(arr);
   };
   return (
-    <TransitionGroup>
+    <TransitionGroup className="homeTransition">
       <SignUpContainer>
         <Default>
           <img

@@ -10,31 +10,23 @@ import {
   LoginButton,
   GoSignUpButton,
   LoginTextField,
+  LoginForm,
+  LogoImg,
 } from './styles';
 
 const Login = (props) => {
   const { LoginSubmit, onIdHandler, onPasswordHanlder, toSignUp } = props;
   return (
-    <TransitionGroup>
+    <TransitionGroup className="homeTransition">
       <LoginContainer>
-        <img
-          src={Logo}
-          alt="logo"
-          width="180vw"
-          style={{ margin: '9vh 0 0 ' }}
-        />
+        <LogoImg src={Logo} alt="logo" />
         <MainTitle>SEJONG UNIV</MainTitle>
         <SubTitle>소프트웨어학과 사물함</SubTitle>
-        <form
+        <LoginForm
           onSubmit={LoginSubmit}
           name="login"
           noValidate
           autoComplete="off"
-          style={{
-            justifyContent: 'center',
-            flexDirection: 'column',
-            display: 'flex',
-          }}
         >
           <LoginTextField
             id="id"
@@ -49,10 +41,10 @@ const Login = (props) => {
             variant="outlined"
             onChange={onPasswordHanlder}
           />
-          <LoginButton type="submit" variant="contained">
+          <LoginButton type="submit" variant="contained" color="primary">
             로그인
           </LoginButton>
-        </form>
+        </LoginForm>
         <div style={{ display: 'inline-block', margin: '2vh 0 0' }}>
           계정이 없으신가요?
           <GoSignUpButton onClick={toSignUp}>가입하기</GoSignUpButton>

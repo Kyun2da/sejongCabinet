@@ -53,7 +53,7 @@ const SignUpMobile = (props) => {
     setTouched(arr);
   };
   return (
-    <TransitionGroup>
+    <TransitionGroup className="homeTransition">
       <Container>
         <img src={Logo} alt="logo" width="80vw" style={{ margin: '2vh 0 0' }} />
         <p
@@ -77,7 +77,6 @@ const SignUpMobile = (props) => {
         >
           소프트웨어학과 사물함
         </p>
-
         <form
           onSubmit={SignUpSubmit}
           name="signUp"
@@ -114,7 +113,6 @@ const SignUpMobile = (props) => {
                 style={{ margin: '5vh 8vw auto 0' }}
               />
             </Button>
-
             <div style={{ width: '100%' }}>
               <p
                 style={{
@@ -150,7 +148,6 @@ const SignUpMobile = (props) => {
             helperText={touched[1] && '6글자 이상의 패스워드를 입력해주세요.'}
             style={{ width: '80vw', margin: '1vh 0.1vw' }}
           />
-
           <TextField
             id="name"
             label="이름"

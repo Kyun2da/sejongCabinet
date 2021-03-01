@@ -1,14 +1,20 @@
-import { styled } from '@material-ui/core/styles';
-import { Button, Container, TextField, Typography } from '@material-ui/core';
+import { styled as mstyled } from '@material-ui/core/styles';
+import styled from 'styled-components';
+import { Button, TextField, Typography } from '@material-ui/core';
 
-export const LoginContainer = styled(Container)({
-  display: 'flex',
-  alignItems: 'center',
-  flexDirection: 'column',
-  width: '100%',
-});
+export const LoginContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+`;
 
-export const MainTitle = styled(Typography)({
+export const LogoImg = styled.img`
+  width: 9.5vw;
+  margin: 9vh 0 0;
+`;
+
+export const MainTitle = mstyled(Typography)({
   fontSize: '2vw',
   fontWeight: 'bold',
   letterSpacing: '1vw',
@@ -16,28 +22,32 @@ export const MainTitle = styled(Typography)({
   margin: '1.5rem 0 0',
 });
 
-export const SubTitle = styled(Typography)({
+export const LoginForm = styled.form`
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+`;
+
+export const SubTitle = mstyled(Typography)({
   fontSize: '1.2vw',
   fontWeight: 'bolder',
   letterSpacing: '0.8vw',
   margin: '0.3rem 0 2rem',
 });
 
-export const LoginButton = styled(Button)({
+export const LoginButton = mstyled(Button)({
   width: '30vw',
   height: '5vh',
-  backgroundColor: 'rgb(63,81,181)',
   color: 'white',
-  border: '1px solid rgb(63,81,181)',
   margin: '1vh',
 });
 
-export const LoginTextField = styled(TextField)({
+export const LoginTextField = mstyled(TextField)({
   width: '30vw',
   margin: '1vh',
 });
 
-export const GoSignUpButton = styled(Button)({
+export const GoSignUpButton = mstyled(Button)({
   color: '#0500FF',
   backgroundColor: 'transparent',
   fontSize: '1rem',
