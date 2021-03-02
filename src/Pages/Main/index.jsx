@@ -4,7 +4,7 @@ import { Default } from '../../MediaQuery';
 import DrawerHandler from '../../Components/DrawerHandler';
 import { MainContainer, TabCabinetWrapper } from './styles';
 import CabinetTab from '../../Components/Tab';
-import CabinetView from '../../Components/CabinetView';
+import SwipeableView from '../../Components/SwipeableView';
 
 const MainPage = (props) => {
   const {
@@ -41,7 +41,7 @@ const MainPage = (props) => {
             handleChange={handleChange}
             cabinetNames={cabinetNames}
           />
-          <CabinetView
+          <SwipeableView
             index={index}
             handleChangeIndex={handleChangeIndex}
             cabinetNames={cabinetNames}

@@ -14,13 +14,15 @@ const UserPageHeader = (props) => {
   const { onClickLogout } = props;
   const currentUserName = useSelector((state) => state.auth.currentUserName);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <UserPageHeaderContainer>
       <BackwardsContainer>

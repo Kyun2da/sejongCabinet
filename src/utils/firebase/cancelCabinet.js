@@ -17,7 +17,6 @@ const cancelCabinet = (
         if (cabinet === currentUserID) {
           return 0;
         }
-        // eslint-disable-next-line no-useless-return
         return;
       },
       (error, committed) => {

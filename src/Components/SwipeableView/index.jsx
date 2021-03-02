@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import SwipeableViews from 'react-swipeable-views';
-import Cabinet from '../Cabinet';
+import CabinetForm from '../CabinetForm';
 
-const CabinetView = (props) => {
+const SwipeableView = (props) => {
   const {
     index,
     handleChangeIndex,
@@ -32,7 +32,7 @@ const CabinetView = (props) => {
     >
       {cabinetNames.map((i) => {
         return (
-          <Cabinet
+          <CabinetForm
             key={i}
             cabinetNum={i}
             data={data.currentCabinets[i]}
@@ -51,4 +51,4 @@ const CabinetView = (props) => {
   );
 };
 
-export default CabinetView;
+export default SwipeableView;

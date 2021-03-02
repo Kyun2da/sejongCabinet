@@ -7,7 +7,6 @@ const breakDownCabinet = (cabinetTitle, select) => {
       if (cabinet === 0) {
         return 2;
       }
-      // eslint-disable-next-line no-useless-return
       return;
     },
     (error, committed) => {
