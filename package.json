@@ -1,69 +1,32 @@
 {
-  "name": "cabinet",
+  "name": "sejongcabinet",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@types/react-responsive": "^8.0.2",
-    "@types/react-router-dom": "^5.1.6",
-    "dotenv": "^8.2.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-prettier": "^6.15.0",
-    "firebase": "^8.0.1",
-    "gh-pages": "^3.1.0",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-redux": "^7.2.2",
-    "react-responsive": "^8.1.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.0",
-    "react-swipeable-views": "^0.13.9",
-    "react-transition-group": "^1.2.1",
-    "redux": "^4.0.5",
-    "redux-actions": "^2.6.5",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-logger": "^3.0.6",
-    "styled-components": "^5.2.1",
-    "sweetalert2": "^10.10.0",
-    "sweetalert2-react-content": "^3.2.1",
-    "web-vitals": "^0.2.4"
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "react-start": "set BROWSER=none && yarn start",
-    "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
-    "electron-pack": "yarn build && electron-builder build -c.extraMetadata.main=build/Main.js",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "parser": "babel-eslint",
     "extends": [
-      "airbnb",
-      "prettier"
-    ],
-    "rules": {
-      "react/prefer-stateless-function": 0,
-      "react/jsx-filename-extension": 0,
-      "react/jsx-one-expression-per-line": 0,
-      "no-unused-vars": 1,
-      "react/no-array-index-key": "off",
-      "no-param-reassign": 0,
-      "consistent-return": 0,
-      "react/jsx-wrap-multilines": "off"
-    },
-    "env": {
-      "browser": true
-    }
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -76,13 +39,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "electron": "^10.1.5",
-    "electron-builder": "^22.9.1",
-    "eslint": "^7.13.0"
-  },
-  "main": "public/Main.js",
-  "homepage": "https://sjswcabinet.site"
+  }
 }
