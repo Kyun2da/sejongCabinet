@@ -105,7 +105,7 @@ const LogoImg = styled('img')({
   width: 'auto',
   height: '13vh',
 
-  [`${media.medium.trim()}`]: {
+  [`${media.medium}`]: {
     height: '8vh',
     width: 'auto',
   },
@@ -118,7 +118,7 @@ const LogoTitle = styled('p')({
   margin: '1.5vh 0 0',
   borderBottom: '0.1vh solid black',
 
-  [`${media.medium.trim()}`]: {
+  [`${media.medium}`]: {
     fontSize: '0.8rem',
     margin: '1vh 0 0',
   },
@@ -130,7 +130,7 @@ const LogoTitle2 = styled('p')({
   letterSpacing: '0.4vw',
   margin: '0.15vh 0 2vh',
 
-  [`${media.medium.trim()}`]: {
+  [`${media.medium}`]: {
     fontSize: '0.3rem',
   },
 });
@@ -148,7 +148,7 @@ const SignUpForm = styled('form')({
   minHeight: '50vh',
   width: '30vw',
 
-  [`${media.medium.trim()}`]: {
+  [`${media.medium}`]: {
     width: '75%',
     top: '20%',
     minHeight: '65vh',
@@ -168,7 +168,7 @@ const SignUpFormHeader = styled(Container)({
   margin: '8vh 0 7vh',
   width: '100%',
 
-  [`${media.medium.trim()}`]: {
+  [`${media.medium}`]: {
     marginTop: '6vh',
   },
 });
@@ -184,7 +184,7 @@ const BackwardsButton = styled(Button)({
     backgroundColor: 'transparent',
   },
 
-  [`${media.medium.trim()}`]: { left: '0' },
+  [`${media.medium}`]: { left: '0' },
 });
 
 const SignUpFormHeaderTitle = styled('p')({
@@ -195,7 +195,7 @@ const SignUpFormHeaderTitle = styled('p')({
   position: 'absolute',
   color: '#1A1A1A',
 
-  [`${media.medium.trim()}`]: {
+  [`${media.medium}`]: {
     fontSize: '1.5rem',
   },
 });
@@ -204,7 +204,7 @@ const SignUpFormTextField = styled(TextField)({
   width: '30vw',
   margin: '1.5vh 0',
 
-  [`${media.medium.trim()}`]: {
+  [`${media.medium}`]: {
     width: '70vw',
     margin: '2vh 0',
   },
@@ -222,7 +222,7 @@ const SubmitButton = styled(Button)({
     backgroundColor: 'rgb(63,81,181)',
   },
 
-  [`${media.medium.trim()}`]: {
+  [`${media.medium}`]: {
     width: '70vw',
   },
 });
