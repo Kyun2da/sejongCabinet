@@ -1,6 +1,4 @@
-const mediaQuery = (maxWidth: number) => `
-  @media (max-width: ${maxWidth}px)
-`;
+const mediaQuery = (maxWidth: number) => `@media (max-width: ${maxWidth}px)`;
 
 const media = {
   xxxlarge: mediaQuery(2200),
