@@ -1,13 +1,27 @@
 import React from 'react';
 import { TextField, Button, Container } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Logo from '../../images/softwareLogo_origin.png';
 import media from '../../lib/styles/media';
 
+type SignUpInputs = {
+  studentID: number;
+  password: string;
+  name: string;
+};
+
 export type SignUpProps = {};
 
 function SignUp({}: SignUpProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpInputs>();
+  const onSubmit: SubmitHandler<SignUpInputs> = (data) => console.log(data);
+
   return (
     <SignUpContainer>
       <LogoContainer>
@@ -16,7 +30,7 @@ function SignUp({}: SignUpProps) {
         <LogoTitle2>소프트웨어학과 사물함</LogoTitle2>
       </LogoContainer>
       <SignUpForm
-        // onSubmit={SignUpSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         noValidate
         name="signUp"
         autoComplete="off"
@@ -27,60 +41,45 @@ function SignUp({}: SignUpProps) {
           >
             <ArrowBackIosIcon
               style={{
-                color: 'lightgray',
+                color: '#C9C9C9',
               }}
             />
           </BackwardsButton>
           <SignUpFormHeaderTitle>회원가입</SignUpFormHeaderTitle>
         </SignUpFormHeader>
-        <TextField
-          id="studentID"
+        <SignUpFormTextField
           label="학번"
-          type="text"
+          type="tel"
           variant="outlined"
-          // error={touched[0] && studentID.length !== 8}
-          // helperText={touched[0] && '학번 8자리를 입력해주세요.'}
-          // onChange={onStudentIdHandler}
-          // onFocus={handleTouch(0)}
-          style={{ width: '30vw', margin: '1.5vh' }}
+          {...register('studentID', {
+            required: true,
+            minLength: 8,
+            maxLength: 8,
+          })}
+          inputProps={{ maxLength: 8 }}
+          helperText={errors.studentID && '학번 8자리를 입력해주세요.'}
         />
-        <TextField
-          id="password"
+        <SignUpFormTextField
           label="비밀번호"
           type="password"
           variant="outlined"
-          // error={touched[1] && password.length < 6}
-          // onChange={onPasswordHandler}
-          // onFocus={handleTouch(1)}
-          // helperText={touched[1] && '6글자 이상의 패스워드를 입력해주세요.'}
-          style={{ width: '30vw', margin: '1.5vh' }}
+          {...register('password', { required: true, minLength: 6 })}
+          inputProps={{ maxLength: 12 }}
+          helperText={
+            errors.password && '6글자 이상의 패스워드를 입력해주세요.'
+          }
         />
-        <TextField
-          id="name"
+        <SignUpFormTextField
           label="이름"
-          placeholder="이름을 입력해주세요."
           type="text"
           variant="outlined"
-          // error={touched[3] && name.length <= 0}
-          // helperText={touched[3] && '이름을 한 글자 이상 입력해주세요.'}
-          // onFocus={handleTouch(3)}
-          // onChange={onNameHandler}
-          style={{ width: '30vw', margin: '1.5vh' }}
+          {...register('name', { required: true, minLength: 1 })}
+          inputProps={{ maxLength: 8 }}
+          helperText={errors.name && '이름을 한 글자 이상 입력해주세요.'}
         />
-        <Button
-          variant="contained"
-          type="submit"
-          style={{
-            width: '30vw',
-            height: '5vh',
-            backgroundColor: 'rgb(63,81,181)',
-            color: 'white',
-            border: '1px solid rgb(63,81,181)',
-            marginTop: '1vh',
-          }}
-        >
+        <SubmitButton variant="contained" type="submit">
           회원가입
-        </Button>
+        </SubmitButton>
       </SignUpForm>
     </SignUpContainer>
   );
@@ -140,21 +139,24 @@ const SignUpForm = styled('form')({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  borderTop: '3px solid lightgray',
-  borderBottom: '3px solid lightgray',
+  borderTop: '3px solid #C9C9C9',
+  borderBottom: '3px solid #C9C9C9',
   padding: '0 5vw 6vh',
   borderRadius: '2rem',
   top: '28%',
   position: 'absolute',
-  height: '50vh',
+  minHeight: '50vh',
   width: '30vw',
 
   [`${media.medium.trim()}`]: {
     width: '75%',
     top: '20%',
-    height: '60vh',
-    padding: '1vh 1vw',
+    minHeight: '65vh',
+    padding: '1vh 1vw 4vh',
     borderRadius: '1rem',
+    borderTop: '2px solid #C9C9C9',
+    borderBottom: '2px solid #C9C9C9',
+    marginTop: '2vh',
   },
 });
 
@@ -186,14 +188,42 @@ const BackwardsButton = styled(Button)({
 });
 
 const SignUpFormHeaderTitle = styled('p')({
-  fontSize: '2.5rem',
+  fontSize: '2.6rem',
   fontWeight: 'bold',
   letterSpacing: '0.1vw',
   textAlign: 'center',
   position: 'absolute',
+  color: '#1A1A1A',
 
   [`${media.medium.trim()}`]: {
     fontSize: '1.5rem',
+  },
+});
+
+const SignUpFormTextField = styled(TextField)({
+  width: '30vw',
+  margin: '1.5vh 0',
+
+  [`${media.medium.trim()}`]: {
+    width: '70vw',
+    margin: '2vh 0',
+  },
+});
+
+const SubmitButton = styled(Button)({
+  width: '30vw',
+  height: '6vh',
+  backgroundColor: 'rgb(63,81,181)',
+  color: 'white',
+  border: '1px solid rgb(63,81,181)',
+  marginTop: '1vh',
+
+  '&:hover': {
+    backgroundColor: 'rgb(63,81,181)',
+  },
+
+  [`${media.medium.trim()}`]: {
+    width: '70vw',
   },
 });
 
