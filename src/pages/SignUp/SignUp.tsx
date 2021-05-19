@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import { TextField, Button, makeStyles } from '@material-ui/core';
+import { TextField, Button, Container } from '@material-ui/core';
+import { styled } from '@material-ui/core/styles';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Logo from '../../images/softwareLogo_origin.png';
 import media from '../../lib/styles/media';
@@ -8,10 +8,8 @@ import media from '../../lib/styles/media';
 export type SignUpProps = {};
 
 function SignUp({}: SignUpProps) {
-  const classes = useStyles();
-
   return (
-    <Container>
+    <SignUpContainer>
       <LogoContainer>
         <LogoImg src={Logo} alt="logo" />
         <LogoTitle>SEJONG UNIV</LogoTitle>
@@ -24,16 +22,15 @@ function SignUp({}: SignUpProps) {
         autoComplete="off"
       >
         <SignUpFormHeader>
-          <Button
-            // onClick={linktoLogin}
-            className={classes.backwards}
+          <BackwardsButton
+          // onClick={linktoLogin}
           >
             <ArrowBackIosIcon
               style={{
                 color: 'lightgray',
               }}
             />
-          </Button>
+          </BackwardsButton>
           <SignUpFormHeaderTitle>회원가입</SignUpFormHeaderTitle>
         </SignUpFormHeader>
         <TextField
@@ -85,135 +82,119 @@ function SignUp({}: SignUpProps) {
           회원가입
         </Button>
       </SignUpForm>
-    </Container>
+    </SignUpContainer>
   );
 }
 
-const useStyles = makeStyles(() => ({
-  backwards: {
-    opacity: 0.7,
+const SignUpContainer = styled(Container)({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'column',
+  width: '100%',
+  height: '100vh',
+});
+
+const LogoContainer = styled(Container)({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'column',
+  position: 'absolute',
+  top: '3%',
+});
+
+const LogoImg = styled('img')({
+  width: 'auto',
+  height: '13vh',
+
+  [`${media.medium.trim()}`]: {
+    height: '8vh',
     width: 'auto',
-    left: '10%',
-    position: 'absolute',
-
-    '&:hover': {
-      backgroundColor: 'transparent',
-      opacity: 1,
-    },
-
-    [`${media.medium.trim()}`]: { left: '0' },
   },
-}));
+});
 
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  height: 98vh;
-`;
+const LogoTitle = styled('p')({
+  fontSize: '2vh',
+  fontWeight: 'bold',
+  letterSpacing: '0.5vw',
+  margin: '1.5vh 0 0',
+  borderBottom: '0.1vh solid black',
 
-const LogoContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  position: absolute;
-  top: 3%;
+  [`${media.medium.trim()}`]: {
+    fontSize: '0.8rem',
+    margin: '1vh 0 0',
+  },
+});
 
-  ${media.medium} {
-    width: 75%;
-  }
-`;
+const LogoTitle2 = styled('p')({
+  fontSize: '1.5vh',
+  fontWeight: 'bold',
+  letterSpacing: '0.4vw',
+  margin: '0.15vh 0 2vh',
 
-const LogoImg = styled.img`
-  width: auto;
-  height: 13vh;
+  [`${media.medium.trim()}`]: {
+    fontSize: '0.3rem',
+  },
+});
 
-  ${media.medium} {
-    height: 8vh;
-    width: auto;
-  }
-`;
+const SignUpForm = styled('form')({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  borderTop: '3px solid lightgray',
+  borderBottom: '3px solid lightgray',
+  padding: '0 5vw 6vh',
+  borderRadius: '2rem',
+  top: '28%',
+  position: 'absolute',
+  height: '50vh',
+  width: '30vw',
 
-const LogoTitle = styled.p`
-  font-size: 2vh;
-  font-weight: bold;
-  letter-spacing: 0.5vw;
-  margin: 1.5vh 0 0;
-  border-bottom: 0.1vh solid black;
+  [`${media.medium.trim()}`]: {
+    width: '75%',
+    top: '20%',
+    height: '60vh',
+    padding: '1vh 1vw',
+    borderRadius: '1rem',
+  },
+});
 
-  ${media.medium} {
-    font-size: 0.8rem;
-    margin: 1vh 0 0;
-  }
-`;
+const SignUpFormHeader = styled(Container)({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  margin: '8vh 0 7vh',
+  width: '100%',
 
-const LogoTitle2 = styled.p`
-  font-size: 1.5vh;
-  font-weight: bold;
-  letter-spacing: 0.4vw;
-  margin: 0.15vh 0 2vh;
+  [`${media.medium.trim()}`]: {
+    marginTop: '6vh',
+  },
+});
 
-  ${media.medium} {
-    font-size: 0.3rem;
-  }
-`;
+const BackwardsButton = styled(Button)({
+  opacity: '0.7',
+  width: 'auto',
+  left: '10%',
+  position: 'absolute',
 
-const SignUpForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-top: 3px solid lightgray;
-  border-bottom: 3px solid lightgray;
-  padding: 0vh 5vw 6vh;
-  border-radius: 2rem;
-  top: 28%;
-  position: absolute;
-  height: 50vh;
-  width: 30vw;
+  '&:hover': {
+    opacity: '1',
+    backgroundColor: 'transparent',
+  },
 
-  ${media.medium} {
-    width: 75%;
-    top: 20%;
-    height: 70vh;
-    padding: 1vh 1vw;
-    border-radius: 1rem;
-  }
-`;
+  [`${media.medium.trim()}`]: { left: '0' },
+});
 
-const SignUpFormHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin: 8vh 0 7vh;
-  width: 100%;
+const SignUpFormHeaderTitle = styled('p')({
+  fontSize: '2.5rem',
+  fontWeight: 'bold',
+  letterSpacing: '0.1vw',
+  textAlign: 'center',
+  position: 'absolute',
 
-  ${media.medium} {
-    margin-top: 6vh;
-  }
-`;
-
-const BackwardsButton = styled.button`
-  width: auto;
-  left: 10%;
-  position: absolute;
-
-  ${media.medium} {
-    left: 3%;
-  }
-`;
-
-const SignUpFormHeaderTitle = styled.p`
-  font-size: 2.5rem;
-  font-weight: bold;
-  letter-spacing: 0.1vw;
-  text-align: center;
-  position: absolute;
-
-  ${media.medium} {
-    font-size: 1.5rem;
-  }
-`;
+  [`${media.medium.trim()}`]: {
+    fontSize: '1.5rem',
+  },
+});
 
 export default SignUp;
