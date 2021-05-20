@@ -10,10 +10,10 @@ function App() {
   return (
     <>
       <Switch>
-        <Route path={['/', '/main']} exact>
+        <Route path="/main" exact>
           <MainPage />
         </Route>
-        <Route path="/login" exact>
+        <Route path={['/', '/login']} exact>
           <Login />
         </Route>
         <Route path="/signup" exact>
