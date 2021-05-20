@@ -38,6 +38,10 @@ const LoginContainer = styled(Container)({
 const LogoImg = styled('img')({
   width: '180px',
   margin: '9vh 0 0',
+
+  [`${media.medium}`]: {
+    width: '150px',
+  },
 });
 
 const LogoTitle = styled('p')({
@@ -46,6 +50,10 @@ const LogoTitle = styled('p')({
   letterSpacing: '1vw',
   borderBottom: '0.1vw solid black',
   margin: '1.5rem 0 0',
+
+  [`${media.medium}`]: {
+    fontSize: '5vw',
+  },
 });
 
 const LogoTitle2 = styled('p')({
@@ -53,6 +61,10 @@ const LogoTitle2 = styled('p')({
   fontWeight: 'bolder',
   letterSpacing: '0.8vw',
   margin: '0.3rem 0 2rem',
+
+  [`${media.medium}`]: {
+    fontSize: '3vw',
+  },
 });
 
 const LoginForm = styled('form')({
@@ -64,6 +76,10 @@ const LoginForm = styled('form')({
 const LoginTextField = styled(TextField)({
   width: '30vw',
   margin: '1vh',
+
+  [`${media.medium}`]: {
+    width: '60vw',
+  },
 });
 
 const LoginButton = styled(Button)({
@@ -76,6 +92,10 @@ const LoginButton = styled(Button)({
 
   '&:hover': {
     backgroundColor: '#2036b1',
+  },
+
+  [`${media.medium}`]: {
+    width: '60vw',
   },
 });
 
