@@ -2,9 +2,11 @@ import React from 'react';
 import { TextField, Button, Container } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Logo from '../../images/softwareLogo_origin.png';
 import media from '../../lib/styles/media';
+import FadeIn from 'react-fade-in';
 
 type SignUpInputs = {
   studentID: number;
@@ -21,67 +23,68 @@ function SignUp({}: SignUpProps) {
     formState: { errors },
   } = useForm<SignUpInputs>();
   const onSubmit: SubmitHandler<SignUpInputs> = (data) => console.log(data);
+  const history = useHistory();
 
   return (
-    <SignUpContainer>
-      <LogoContainer>
-        <LogoImg src={Logo} alt="logo" />
-        <LogoTitle>SEJONG UNIV</LogoTitle>
-        <LogoTitle2>소프트웨어학과 사물함</LogoTitle2>
-      </LogoContainer>
-      <SignUpForm
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-        name="signUp"
-        autoComplete="off"
-      >
-        <SignUpFormHeader>
-          <BackwardsButton
-          // onClick={linktoLogin}
-          >
-            <ArrowBackIosIcon
-              style={{
-                color: '#C9C9C9',
-              }}
-            />
-          </BackwardsButton>
-          <SignUpFormHeaderTitle>회원가입</SignUpFormHeaderTitle>
-        </SignUpFormHeader>
-        <SignUpFormTextField
-          label="학번"
-          type="tel"
-          variant="outlined"
-          {...register('studentID', {
-            required: true,
-            minLength: 8,
-            maxLength: 8,
-          })}
-          inputProps={{ maxLength: 8 }}
-          helperText={errors.studentID && '학번 8자리를 입력해주세요.'}
-        />
-        <SignUpFormTextField
-          label="비밀번호"
-          type="password"
-          variant="outlined"
-          {...register('password', { required: true, minLength: 6 })}
-          inputProps={{ maxLength: 12 }}
-          helperText={
-            errors.password && '6글자 이상의 패스워드를 입력해주세요.'
-          }
-        />
-        <SignUpFormTextField
-          label="이름"
-          type="text"
-          variant="outlined"
-          {...register('name', { required: true, minLength: 1 })}
-          inputProps={{ maxLength: 8 }}
-          helperText={errors.name && '이름을 한 글자 이상 입력해주세요.'}
-        />
-        <SubmitButton variant="contained" type="submit">
-          회원가입
-        </SubmitButton>
-      </SignUpForm>
-    </SignUpContainer>
+    <FadeIn delay={0} transitionDuration={500}>
+      <SignUpContainer>
+        <LogoContainer>
+          <LogoImg src={Logo} alt="logo" />
+          <LogoTitle>SEJONG UNIV</LogoTitle>
+          <LogoTitle2>소프트웨어학과 사물함</LogoTitle2>
+        </LogoContainer>
+        <SignUpForm
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+          name="signUp"
+          autoComplete="off"
+        >
+          <SignUpFormHeader>
+            <BackwardsButton onClick={() => history.push('/')}>
+              <ArrowBackIosIcon
+                style={{
+                  color: '#C9C9C9',
+                }}
+              />
+            </BackwardsButton>
+            <SignUpFormHeaderTitle>회원가입</SignUpFormHeaderTitle>
+          </SignUpFormHeader>
+          <SignUpFormTextField
+            label="학번"
+            type="tel"
+            variant="outlined"
+            {...register('studentID', {
+              required: true,
+              minLength: 8,
+              maxLength: 8,
+            })}
+            inputProps={{ maxLength: 8 }}
+            helperText={errors.studentID && '학번 8자리를 입력해주세요.'}
+          />
+          <SignUpFormTextField
+            label="비밀번호"
+            type="password"
+            variant="outlined"
+            {...register('password', { required: true, minLength: 6 })}
+            inputProps={{ maxLength: 12 }}
+            helperText={
+              errors.password && '6글자 이상의 패스워드를 입력해주세요.'
+            }
+          />
+          <SignUpFormTextField
+            label="이름"
+            type="text"
+            variant="outlined"
+            {...register('name', { required: true, minLength: 1 })}
+            inputProps={{ maxLength: 8 }}
+            helperText={errors.name && '이름을 한 글자 이상 입력해주세요.'}
+          />
+          <SubmitButton variant="contained" type="submit">
+            회원가입
+          </SubmitButton>
+        </SignUpForm>
+      </SignUpContainer>
+    </FadeIn>
   );
 }
 
@@ -219,7 +222,7 @@ const SubmitButton = styled(Button)({
   marginTop: '1vh',
 
   '&:hover': {
-    backgroundColor: 'rgb(63,81,181)',
+    backgroundColor: '#2036b1',
   },
 
   [`${media.medium}`]: {

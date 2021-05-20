@@ -3,7 +3,9 @@ import { styled } from '@material-ui/core/styles';
 import Logo from '../../images/softwareLogo_origin.png';
 import media from '../../lib/styles/media';
 import { Button, Container, TextField } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import FadeIn from 'react-fade-in';
 
 export type LoginProps = {};
 
@@ -20,42 +22,46 @@ function Login({}: LoginProps) {
     formState: { errors },
   } = useForm<LoginInput>();
   const onSubmit = (data: LoginInput) => console.log(data);
+  const history = useHistory();
+
   return (
-    <LoginContainer>
-      <LogoImg src={Logo} alt="logo" />
-      <LogoTitle>SEJONG UNIV</LogoTitle>
-      <LogoTitle2>소프트웨어학과 사물함</LogoTitle2>
-      <LoginForm onSubmit={handleSubmit(onSubmit)}>
-        <LoginTextField
-          label="학번"
-          variant="outlined"
-          {...register('studentID', {
-            required: true,
-            minLength: 8,
-            maxLength: 8,
-          })}
-          inputProps={{ maxLength: 8 }}
-          helperText={errors.studentID && '학번 8자리를 입력해주세요.'}
-        />
-        <LoginTextField
-          label="비밀번호"
-          variant="outlined"
-          type="password"
-          {...register('password', { required: true, minLength: 6 })}
-          inputProps={{ maxLength: 12 }}
-          helperText={
-            errors.password && '6글자 이상의 패스워드를 입력해주세요.'
-          }
-        />
-        <LoginButton type="submit" variant="contained">
-          로그인
-        </LoginButton>
-      </LoginForm>
-      <SignUpDiv>
-        <span>계정이 없으신가요? </span>
-        <GoSignUp href="/signup">가입하기</GoSignUp>
-      </SignUpDiv>
-    </LoginContainer>
+    <FadeIn delay={0} transitionDuration={500}>
+      <LoginContainer>
+        <LogoImg src={Logo} alt="logo" />
+        <LogoTitle>SEJONG UNIV</LogoTitle>
+        <LogoTitle2>소프트웨어학과 사물함</LogoTitle2>
+        <LoginForm onSubmit={handleSubmit(onSubmit)}>
+          <LoginTextField
+            label="학번"
+            variant="outlined"
+            {...register('studentID', {
+              required: true,
+              minLength: 8,
+              maxLength: 8,
+            })}
+            inputProps={{ maxLength: 8 }}
+            helperText={errors.studentID && '학번 8자리를 입력해주세요.'}
+          />
+          <LoginTextField
+            label="비밀번호"
+            variant="outlined"
+            type="password"
+            {...register('password', { required: true, minLength: 6 })}
+            inputProps={{ maxLength: 12 }}
+            helperText={
+              errors.password && '6글자 이상의 패스워드를 입력해주세요.'
+            }
+          />
+          <LoginButton type="submit" variant="contained">
+            로그인
+          </LoginButton>
+        </LoginForm>
+        <SignUpDiv>
+          <span>계정이 없으신가요? </span>
+          <GoSignUp onClick={() => history.push('/signup')}>가입하기</GoSignUp>
+        </SignUpDiv>
+      </LoginContainer>
+    </FadeIn>
   );
 }
 
