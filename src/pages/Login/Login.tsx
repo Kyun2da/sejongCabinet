@@ -6,6 +6,8 @@ import { Button, Container, TextField } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import FadeIn from 'react-fade-in';
+import useSignInWithEmailAndPassword from '../../hooks/useSignInWithEmailAndPassword';
+import { auth } from '../../config/firebase.config';
 
 export type LoginProps = {};
 
@@ -21,8 +23,28 @@ function Login({}: LoginProps) {
     watch,
     formState: { errors },
   } = useForm<LoginInput>();
-  const onSubmit = (data: LoginInput) => console.log(data);
+  const onSubmit = async (data: LoginInput) => {
+    await signInwithEmailAndPassword(data.studentID, data.password);
+    console.log(user);
+  };
   const history = useHistory();
+
+  const [signInwithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
+  if (error) {
+    // TODO : sweetalert 붙여야함
+    return <div>로그인 에러</div>;
+  }
+
+  if (loading) {
+    return <div>로딩중...</div>;
+  }
+
+  if (user) {
+    // TODO : 리덕스 툴킷에 유저 정보 연동
+    history.push('/main');
+  }
 
   return (
     <FadeIn delay={0} transitionDuration={500}>
