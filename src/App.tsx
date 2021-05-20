@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import MainPage from './pages/MainPage';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
@@ -8,25 +8,15 @@ import UserPage from './pages/UserPage';
 
 function App() {
   return (
-    <>
+    <Router>
       <Switch>
-        <Route path={['/', '/main']} exact>
-          <MainPage />
-        </Route>
-        <Route path="/login" exact>
-          <Login />
-        </Route>
-        <Route path="/signup" exact>
-          <SignUp />
-        </Route>
-        <Route path="/userpage" exact>
-          <UserPage />
-        </Route>
-        <Route path="/adminpage" exact>
-          <AdminPage />
-        </Route>
+        <Route path="/main" component={MainPage} exact />
+        <Route path={['/', '/login']} component={Login} exact />
+        <Route path="/signup" component={SignUp} exact />
+        <Route path="/userpage" component={UserPage} exact />
+        <Route path="/adminpage" component={AdminPage} exact />
       </Switch>
-    </>
+    </Router>
   );
 }
 
