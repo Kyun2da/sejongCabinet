@@ -3,18 +3,50 @@ import { styled } from '@material-ui/core/styles';
 import Logo from '../../images/softwareLogo_origin.png';
 import media from '../../lib/styles/media';
 import { Button, Container, TextField } from '@material-ui/core';
+import { useForm } from 'react-hook-form';
 
 export type LoginProps = {};
 
+export type LoginInput = {
+  studentID: string;
+  password: string;
+};
+
 function Login({}: LoginProps) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<LoginInput>();
+  const onSubmit = (data: LoginInput) => console.log(data);
   return (
     <LoginContainer>
       <LogoImg src={Logo} alt="logo" />
       <LogoTitle>SEJONG UNIV</LogoTitle>
       <LogoTitle2>소프트웨어학과 사물함</LogoTitle2>
-      <LoginForm>
-        <LoginTextField label="학번" variant="outlined" />
-        <LoginTextField label="비밀번호" variant="outlined" type="password" />
+      <LoginForm onSubmit={handleSubmit(onSubmit)}>
+        <LoginTextField
+          label="학번"
+          variant="outlined"
+          {...register('studentID', {
+            required: true,
+            minLength: 8,
+            maxLength: 8,
+          })}
+          inputProps={{ maxLength: 8 }}
+          helperText={errors.studentID && '학번 8자리를 입력해주세요.'}
+        />
+        <LoginTextField
+          label="비밀번호"
+          variant="outlined"
+          type="password"
+          {...register('password', { required: true, minLength: 6 })}
+          inputProps={{ maxLength: 12 }}
+          helperText={
+            errors.password && '6글자 이상의 패스워드를 입력해주세요.'
+          }
+        />
         <LoginButton type="submit" variant="contained">
           로그인
         </LoginButton>
