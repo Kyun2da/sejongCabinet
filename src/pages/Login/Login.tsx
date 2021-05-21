@@ -8,6 +8,9 @@ import { useForm } from 'react-hook-form';
 import FadeIn from 'react-fade-in';
 import useSignInWithEmailAndPassword from '../../hooks/useSignInWithEmailAndPassword';
 import { auth } from '../../config/firebase.config';
+import Swal from 'sweetalert2';
+import customSwal from '../../utils/alert';
+import getFirebaseErrorMessage from '../../utils/error/firebase';
 
 export type LoginProps = {};
 
@@ -33,8 +36,11 @@ function Login({}: LoginProps) {
     useSignInWithEmailAndPassword(auth);
 
   if (error) {
-    // TODO : sweetalert 붙여야함
-    return <div>로그인 에러</div>;
+    customSwal(
+      'error',
+      '로그인 에러입니다.',
+      getFirebaseErrorMessage(error.code),
+    );
   }
 
   if (loading) {
