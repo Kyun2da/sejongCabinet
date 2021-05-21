@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { TextField, Button, Container } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { Controller, useForm } from 'react-hook-form';
+import { Redirect, useHistory } from 'react-router-dom';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Logo from '../../images/softwareLogo_origin.png';
 import media from '../../lib/styles/media';
@@ -22,22 +22,15 @@ type SignUpInputs = {
 export type SignUpProps = {};
 
 function SignUp({}: SignUpProps) {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    getValues,
-    formState: { errors },
-  } = useForm<SignUpInputs>();
+  const { handleSubmit, control, reset, formState, getValues } =
+    useForm<SignUpInputs>();
 
-  const onSubmit = async (data: SignUpInputs) => {
-    console.log(data);
+  const onSubmit = useCallback(async (data: SignUpInputs) => {
     await createUserWithEmailAndPassword(
       `${data.studentID}@sejongCabinet.com`,
       data.password,
     );
-    reset({ studentID: '', password: '', name: '' });
-  };
+  }, []);
 
   const history = useHistory();
 
@@ -54,13 +47,20 @@ function SignUp({}: SignUpProps) {
     });
   };
 
-  if (error) {
+  useEffect(() => {
+    if (!error) return;
     customSwal(
       'error',
       '회원가입 에러입니다.',
-      getFirebaseErrorMessage(error.code),
+      getFirebaseErrorMessage(error?.code),
     );
-  }
+  }, [error]);
+
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset({ studentID: '', password: '', name: '' });
+    }
+  }, [formState, reset]);
 
   if (loading) {
     return <div>로딩중...</div>;
@@ -68,9 +68,7 @@ function SignUp({}: SignUpProps) {
 
   if (user) {
     writeUserData(user.user?.uid, getValues('studentID'), getValues('name'));
-    // writeUserData(user.user?.uid, studentID, name);
-    // TODO : 리덕스 툴킷에 유저 정보 연동
-    history.push('/login');
+    return <Redirect to="/" />;
   }
 
   return (
@@ -97,36 +95,57 @@ function SignUp({}: SignUpProps) {
             </BackwardsButton>
             <SignUpFormHeaderTitle>회원가입</SignUpFormHeaderTitle>
           </SignUpFormHeader>
-          <SignUpFormTextField
-            label="학번"
-            // type="tel"
-            type="text" // 텍스트로 가입하기 위해 임시
-            variant="outlined"
-            {...register('studentID', {
-              required: true,
-              // minLength: 8,
-              // maxLength: 8,
-            })}
-            // inputProps={{ maxLength: 8 }}
-            helperText={errors.studentID && '학번 8자리를 입력해주세요.'}
+          <Controller
+            name="studentID"
+            control={control}
+            defaultValue=""
+            rules={{ required: true, minLength: 8, maxLength: 8 }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <SignUpFormTextField
+                label="학번"
+                variant="outlined"
+                onChange={onChange}
+                value={value}
+                error={!!error}
+                helperText={error ? '학번 8자리를 입력해주세요.' : null}
+              />
+            )}
           />
-          <SignUpFormTextField
-            label="비밀번호"
-            type="password"
-            variant="outlined"
-            {...register('password', { required: true, minLength: 6 })}
-            inputProps={{ maxLength: 12 }}
-            helperText={
-              errors.password && '6글자 이상의 패스워드를 입력해주세요.'
-            }
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            rules={{ required: true, minLength: 6 }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <SignUpFormTextField
+                label="비밀번호"
+                variant="outlined"
+                type="password"
+                value={value}
+                onChange={onChange}
+                error={!!error}
+                helperText={
+                  error ? '6글자 이상의 패스워드를 입력해주세요.' : null
+                }
+              />
+            )}
           />
-          <SignUpFormTextField
-            label="이름"
-            type="text"
-            variant="outlined"
-            {...register('name', { required: true, minLength: 1 })}
-            inputProps={{ maxLength: 8 }}
-            helperText={errors.name && '이름을 한 글자 이상 입력해주세요.'}
+          <Controller
+            name="name"
+            control={control}
+            defaultValue=""
+            rules={{ required: true, minLength: 1 }}
+            render={({ field: { onChange, value }, fieldState: { error } }) => (
+              <SignUpFormTextField
+                label="이름"
+                variant="outlined"
+                type="text"
+                value={value}
+                onChange={onChange}
+                error={!!error}
+                helperText={error ? '이름을 입력해주세요' : null}
+              />
+            )}
           />
           <SubmitButton variant="contained" type="submit">
             회원가입
