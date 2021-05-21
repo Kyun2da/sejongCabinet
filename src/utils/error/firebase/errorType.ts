@@ -94,5 +94,4 @@ export const UID_ALREADY_EXISTS =
   '제공된 uid를 기존 사용자가 이미 사용하고 있습니다. 각 사용자마다 uid가 고유해야 합니다.';
 export const UNAUTHORIZED_CONTINUE_URI =
   '연결 URL의 도메인이 허용 목록에 포함되어 있지 않습니다. Firebase Console에서 도메인을 허용해야 합니다.';
-export const USER_NOT_FOUND =
-  '제공된 식별자에 해당하는 기존 사용자 레코드가 없습니다.';
+export const USER_NOT_FOUND = '존재하지 않는 아이디입니다.';
