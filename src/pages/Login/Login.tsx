@@ -3,7 +3,7 @@ import { styled } from '@material-ui/core/styles';
 import Logo from '../../images/softwareLogo_origin.png';
 import media from '../../lib/styles/media';
 import { Button, Container, TextField } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import FadeIn from 'react-fade-in';
 import useSignInWithEmailAndPassword from '../../hooks/useSignInWithEmailAndPassword';
@@ -11,6 +11,8 @@ import { auth } from '../../config/firebase.config';
 import Swal from 'sweetalert2';
 import customSwal from '../../utils/alert';
 import getFirebaseErrorMessage from '../../utils/error/firebase';
+import { useAppDispatch } from '../../redux/hooks';
+import { setUserUID } from '../../redux/user/userSlice';
 
 export type LoginProps = {};
 
@@ -26,14 +28,24 @@ function Login({}: LoginProps) {
     watch,
     formState: { errors },
   } = useForm<LoginInput>();
+
   const onSubmit = async (data: LoginInput) => {
-    await signInwithEmailAndPassword(data.studentID, data.password);
+    await signInwithEmailAndPassword(
+      `${data.studentID}@sejongCabinet.com`,
+      data.password,
+    );
     console.log(user);
   };
   const history = useHistory();
 
   const [signInwithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+
+  const dispatch = useAppDispatch();
+
+  const saveUserInfo = (uid: string | undefined) => {
+    dispatch(setUserUID(uid));
+  };
 
   if (error) {
     customSwal(
@@ -48,8 +60,8 @@ function Login({}: LoginProps) {
   }
 
   if (user) {
-    // TODO : 리덕스 툴킷에 유저 정보 연동
-    history.push('/main');
+    saveUserInfo(user.user?.uid);
+    return <Redirect to="/main" />;
   }
 
   return (
