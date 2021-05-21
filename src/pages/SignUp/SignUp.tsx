@@ -7,9 +7,14 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Logo from '../../images/softwareLogo_origin.png';
 import media from '../../lib/styles/media';
 import FadeIn from 'react-fade-in';
+import { auth, database } from '../../config/firebase.config';
+import Swal from 'sweetalert2';
+import customSwal from '../../utils/alert';
+import getFirebaseErrorMessage from '../../utils/error/firebase';
+import useCreateUserWithEmailAndPassword from '../../hooks/useCreateUserWithEmailAndPassword';
 
 type SignUpInputs = {
-  studentID: number;
+  studentID: string;
   password: string;
   name: string;
 };
@@ -20,10 +25,53 @@ function SignUp({}: SignUpProps) {
   const {
     register,
     handleSubmit,
+    reset,
+    getValues,
     formState: { errors },
   } = useForm<SignUpInputs>();
-  const onSubmit: SubmitHandler<SignUpInputs> = (data) => console.log(data);
+
+  const onSubmit = async (data: SignUpInputs) => {
+    console.log(data);
+    await createUserWithEmailAndPassword(
+      `${data.studentID}@sejongCabinet.com`,
+      data.password,
+    );
+    reset({ studentID: '', password: '', name: '' });
+  };
+
   const history = useHistory();
+
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+
+  const writeUserData = (userID: any, studentID: string, _name: string) => {
+    database.ref(`users/${userID}`).set({
+      adminType: 0,
+      cabinetIdx: 0,
+      cabinetTitle: 0,
+      name: _name,
+      studentID,
+    });
+  };
+
+  if (error) {
+    customSwal(
+      'error',
+      '회원가입 에러입니다.',
+      getFirebaseErrorMessage(error.code),
+    );
+  }
+
+  if (loading) {
+    return <div>로딩중...</div>;
+  }
+
+  if (user) {
+    writeUserData(user.user?.uid, getValues('studentID'), getValues('name'));
+    // writeUserData(user.user?.uid, studentID, name);
+    // TODO : 리덕스 툴킷에 유저 정보 연동
+    history.push('/login');
+  }
 
   return (
     <FadeIn delay={0} transitionDuration={500}>
@@ -51,14 +99,15 @@ function SignUp({}: SignUpProps) {
           </SignUpFormHeader>
           <SignUpFormTextField
             label="학번"
-            type="tel"
+            // type="tel"
+            type="text" // 텍스트로 가입하기 위해 임시
             variant="outlined"
             {...register('studentID', {
               required: true,
-              minLength: 8,
-              maxLength: 8,
+              // minLength: 8,
+              // maxLength: 8,
             })}
-            inputProps={{ maxLength: 8 }}
+            // inputProps={{ maxLength: 8 }}
             helperText={errors.studentID && '학번 8자리를 입력해주세요.'}
           />
           <SignUpFormTextField
