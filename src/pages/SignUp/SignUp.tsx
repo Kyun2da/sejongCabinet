@@ -32,7 +32,10 @@ function SignUp({}: SignUpProps) {
 
   const onSubmit = async (data: SignUpInputs) => {
     console.log(data);
-    await createUserWithEmailAndPassword(data.studentID, data.password);
+    await createUserWithEmailAndPassword(
+      `${data.studentID}@sejongCabinet.com`,
+      data.password,
+    );
     reset({ studentID: '', password: '', name: '' });
   };
 
@@ -97,7 +100,7 @@ function SignUp({}: SignUpProps) {
           <SignUpFormTextField
             label="학번"
             // type="tel"
-            type="text" // @sejongCabinet.com로 가입하기 위해 임시
+            type="text" // 텍스트로 가입하기 위해 임시
             variant="outlined"
             {...register('studentID', {
               required: true,

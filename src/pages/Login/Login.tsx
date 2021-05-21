@@ -26,6 +26,7 @@ function Login({}: LoginProps) {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<LoginInput>();
 
@@ -34,8 +35,10 @@ function Login({}: LoginProps) {
       `${data.studentID}@sejongCabinet.com`,
       data.password,
     );
+    reset({ studentID: '', password: '' });
     console.log(user);
   };
+
   const history = useHistory();
 
   const [signInwithEmailAndPassword, user, loading, error] =
@@ -76,10 +79,10 @@ function Login({}: LoginProps) {
             variant="outlined"
             {...register('studentID', {
               required: true,
-              minLength: 8,
-              maxLength: 8,
+              // minLength: 8,
+              // maxLength: 8,
             })}
-            inputProps={{ maxLength: 8 }}
+            // inputProps={{ maxLength: 8 }}
             helperText={errors.studentID && '학번 8자리를 입력해주세요.'}
           />
           <LoginTextField
@@ -188,6 +191,7 @@ const GoSignUp = styled('a')({
   fontSize: '1rem',
   margin: '0 0 0 4px',
   textDecoration: 'none',
+  cursor: 'pointer',
 });
 
 export default Login;
