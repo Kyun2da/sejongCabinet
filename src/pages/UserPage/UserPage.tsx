@@ -3,6 +3,7 @@ import { styled } from '@material-ui/core/styles';
 import { Redirect, useHistory } from 'react-router-dom';
 import { Button, Container, TextField } from '@material-ui/core';
 import { Controller, useForm } from 'react-hook-form';
+import { useAppSelector } from '../../redux/hooks';
 import Header from '../../Components/Header';
 import customSwal from '../../utils/alert';
 import media from '../../lib/styles/media';
@@ -20,8 +21,17 @@ function UserPage({}: UserPageProps) {
     useForm<PasswordChangeInputs>();
 
   const onSubmit = useCallback(async (data: PasswordChangeInputs) => {
-    await alert(data);
+    await alert(
+      data.currentPassword +
+        '\n' +
+        data.changePassword +
+        '\n' +
+        data.confirmPassword,
+    );
   }, []);
+
+  const cabinetTitle = useAppSelector((state) => state.users.cabinetTitle);
+  const cabinetIdx = useAppSelector((state) => state.users.cabinetIdx);
 
   return (
     <PageContainer>
@@ -30,8 +40,20 @@ function UserPage({}: UserPageProps) {
         <UserPageContents>
           <UserPageTitle>나의 사물함</UserPageTitle>
           <MyCabinetContents>
-            <MyCabinet>사물함 위치 : 0번 사물함</MyCabinet>
-            <CancleButton>취소</CancleButton>
+            <MyCabinet>
+              {cabinetTitle ? (
+                `사물함위치 : ${
+                  cabinetTitle[
+                    // eslint-disable-next-line radix
+                    parseInt(cabinetTitle.substr(cabinetTitle.length - 1)) - 1
+                  ]
+                } -
+                    ${cabinetIdx}번 사물함`
+              ) : (
+                <NoCabinet>예약된 사물함이 없습니다.</NoCabinet>
+              )}
+            </MyCabinet>
+            {cabinetTitle ? <CancleButton>취소</CancleButton> : null}
           </MyCabinetContents>
         </UserPageContents>
         <UserPageContents>
@@ -86,7 +108,11 @@ function UserPage({}: UserPageProps) {
               name="confirmPassword"
               control={control}
               defaultValue=""
-              rules={{ required: true, minLength: 6 }}
+              rules={{
+                required: true,
+                minLength: 6,
+                validate: (value) => value === getValues('changePassword'),
+              }}
               render={({
                 field: { onChange, value },
                 fieldState: { error },
@@ -128,7 +154,8 @@ const UserPageContainer = styled(Container)({
   borderRadius: '2vw',
   top: '14vh',
   width: '40vw',
-  height: '80vh',
+  minHeight: '75vh',
+  paddingBottom: '5vh',
 
   [`${media.medium}`]: {
     display: 'flex',
@@ -191,7 +218,18 @@ const UserPageContents = styled(Container)({
 
   [`${media.medium}`]: {
     width: '90%',
-    margin: '1vh 0 3vh',
+    margin: '1vh 0 2vh',
+  },
+});
+
+const NoCabinet = styled(Container)({
+  height: '10vh',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+
+  [`${media.medium}`]: {
+    height: '14vh',
   },
 });
 
@@ -200,17 +238,22 @@ const PasswordChangeForm = styled('form')({
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'column',
-  marginTop: '1vh',
+  marginTop: '3vh',
   width: '100%',
+
+  [`${media.medium}`]: {
+    marginTop: '0',
+  },
 });
 
 const PasswordChangeTextfield = styled(TextField)({
   width: '25vw',
   margin: '1.5vh 0',
+  height: 'auto',
 
   [`${media.medium}`]: {
     width: '60vw',
-    height: '7vh',
+    height: 'auto',
   },
 });
 
