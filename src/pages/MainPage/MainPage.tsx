@@ -34,7 +34,7 @@ function MainPage({}: MainPageProps) {
         </button>
         <button
           style={{ position: 'absolute', top: '50%', left: '40%' }}
-          onClick={() => history.push('/userpage')}
+          onClick={() => history.push('/adminpage')}
         >
           to AdminPage
         </button>

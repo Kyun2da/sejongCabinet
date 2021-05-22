@@ -166,6 +166,7 @@ const UserPageContainer = styled(Container)({
     padding: '2vh 0 3vh',
     height: 'auto',
     width: '85%',
+    paddingBottom: '1vh',
   },
 });
 
@@ -249,11 +250,12 @@ const PasswordChangeForm = styled('form')({
 const PasswordChangeTextfield = styled(TextField)({
   width: '25vw',
   margin: '1.5vh 0',
-  height: 'auto',
+  minHeight: '6vh',
 
   [`${media.medium}`]: {
     width: '60vw',
-    height: 'auto',
+    margin: '1vh 0',
+    minHeight: '7vh',
   },
 });
 
