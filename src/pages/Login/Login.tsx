@@ -12,6 +12,7 @@ import customSwal from '../../utils/alert';
 import getFirebaseErrorMessage from '../../utils/error/firebase';
 import { useAppDispatch } from '../../redux/hooks';
 import { setUserUID } from '../../redux/user/userSlice';
+import AppLayout from '../../Components/AppLayout';
 
 export type LoginProps = {};
 
@@ -66,67 +67,57 @@ function Login({}: LoginProps) {
   }
 
   return (
-    <FadeIn delay={0} transitionDuration={500}>
-      <LoginContainer>
-        <LogoImg src={Logo} alt="logo" />
-        <LogoTitle>SEJONG UNIV</LogoTitle>
-        <LogoTitle2>소프트웨어학과 사물함</LogoTitle2>
-        <LoginForm onSubmit={handleSubmit(onSubmit)}>
-          <Controller
-            name="studentID"
-            control={control}
-            defaultValue=""
-            rules={{ required: true, minLength: 8, maxLength: 8 }}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <LoginTextField
-                label="학번"
-                variant="outlined"
-                onChange={onChange}
-                value={value}
-                error={!!error}
-                helperText={error ? '학번 8자리를 입력해주세요.' : null}
-              />
-            )}
-          />
-          <Controller
-            name="password"
-            control={control}
-            defaultValue=""
-            rules={{ required: true, minLength: 6 }}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <LoginTextField
-                label="비밀번호"
-                variant="outlined"
-                type="password"
-                value={value}
-                onChange={onChange}
-                error={!!error}
-                helperText={
-                  error ? '6글자 이상의 패스워드를 입력해주세요.' : null
-                }
-              />
-            )}
-          />
-          <LoginButton type="submit" variant="contained">
-            로그인
-          </LoginButton>
-        </LoginForm>
-        <SignUpDiv>
-          <span>계정이 없으신가요? </span>
-          <GoSignUp onClick={() => history.push('/signup')}>가입하기</GoSignUp>
-        </SignUpDiv>
-      </LoginContainer>
-    </FadeIn>
+    <AppLayout>
+      <LogoImg src={Logo} alt="logo" />
+      <LogoTitle>SEJONG UNIV</LogoTitle>
+      <LogoTitle2>소프트웨어학과 사물함</LogoTitle2>
+      <LoginForm onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          name="studentID"
+          control={control}
+          defaultValue=""
+          rules={{ required: true, minLength: 8, maxLength: 8 }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <LoginTextField
+              label="학번"
+              variant="outlined"
+              onChange={onChange}
+              value={value}
+              error={!!error}
+              helperText={error ? '학번 8자리를 입력해주세요.' : null}
+            />
+          )}
+        />
+        <Controller
+          name="password"
+          control={control}
+          defaultValue=""
+          rules={{ required: true, minLength: 6 }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <LoginTextField
+              label="비밀번호"
+              variant="outlined"
+              type="password"
+              value={value}
+              onChange={onChange}
+              error={!!error}
+              helperText={
+                error ? '6글자 이상의 패스워드를 입력해주세요.' : null
+              }
+            />
+          )}
+        />
+        <LoginButton type="submit" variant="contained">
+          로그인
+        </LoginButton>
+      </LoginForm>
+      <SignUpDiv>
+        <span>계정이 없으신가요? </span>
+        <GoSignUp onClick={() => history.push('/signup')}>가입하기</GoSignUp>
+      </SignUpDiv>
+    </AppLayout>
   );
 }
-
-const LoginContainer = styled(Container)({
-  display: 'flex',
-  alignItems: 'center',
-  flexDirection: 'column',
-  width: '100%',
-  height: '98vh',
-});
 
 const LogoImg = styled('img')({
   width: '180px',
