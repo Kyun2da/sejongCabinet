@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import customSwal from '../../utils/alert';
 import getFirebaseErrorMessage from '../../utils/error/firebase';
 import useCreateUserWithEmailAndPassword from '../../hooks/useCreateUserWithEmailAndPassword';
+import AppLayout from '../../Components/AppLayout';
 
 type SignUpInputs = {
   studentID: string;
@@ -72,97 +73,87 @@ function SignUp({}: SignUpProps) {
   }
 
   return (
-    <FadeIn delay={0} transitionDuration={500}>
-      <SignUpContainer>
-        <LogoContainer>
-          <LogoImg src={Logo} alt="logo" />
-          <LogoTitle>SEJONG UNIV</LogoTitle>
-          <LogoTitle2>소프트웨어학과 사물함</LogoTitle2>
-        </LogoContainer>
-        <SignUpForm
-          onSubmit={handleSubmit(onSubmit)}
-          noValidate
-          name="signUp"
-          autoComplete="off"
-        >
-          <SignUpFormHeader>
-            <BackwardsButton onClick={() => history.push('/')}>
-              <ArrowBackIosIcon
-                style={{
-                  color: '#C9C9C9',
-                }}
-              />
-            </BackwardsButton>
-            <SignUpFormHeaderTitle>회원가입</SignUpFormHeaderTitle>
-          </SignUpFormHeader>
-          <Controller
-            name="studentID"
-            control={control}
-            defaultValue=""
-            rules={{ required: true, minLength: 8, maxLength: 8 }}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <SignUpFormTextField
-                label="학번"
-                variant="outlined"
-                onChange={onChange}
-                value={value}
-                error={!!error}
-                helperText={error ? '학번 8자리를 입력해주세요.' : null}
-              />
-            )}
-          />
-          <Controller
-            name="password"
-            control={control}
-            defaultValue=""
-            rules={{ required: true, minLength: 6 }}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <SignUpFormTextField
-                label="비밀번호"
-                variant="outlined"
-                type="password"
-                value={value}
-                onChange={onChange}
-                error={!!error}
-                helperText={
-                  error ? '6글자 이상의 패스워드를 입력해주세요.' : null
-                }
-              />
-            )}
-          />
-          <Controller
-            name="name"
-            control={control}
-            defaultValue=""
-            rules={{ required: true, minLength: 1 }}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <SignUpFormTextField
-                label="이름"
-                variant="outlined"
-                type="text"
-                value={value}
-                onChange={onChange}
-                error={!!error}
-                helperText={error ? '이름을 입력해주세요' : null}
-              />
-            )}
-          />
-          <SubmitButton variant="contained" type="submit">
-            회원가입
-          </SubmitButton>
-        </SignUpForm>
-      </SignUpContainer>
-    </FadeIn>
+    <AppLayout>
+      <LogoContainer>
+        <LogoImg src={Logo} alt="logo" />
+        <LogoTitle>SEJONG UNIV</LogoTitle>
+        <LogoTitle2>소프트웨어학과 사물함</LogoTitle2>
+      </LogoContainer>
+      <SignUpForm
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+        name="signUp"
+        autoComplete="off"
+      >
+        <SignUpFormHeader>
+          <BackwardsButton onClick={() => history.push('/')}>
+            <ArrowBackIosIcon
+              style={{
+                color: '#C9C9C9',
+              }}
+            />
+          </BackwardsButton>
+          <SignUpFormHeaderTitle>회원가입</SignUpFormHeaderTitle>
+        </SignUpFormHeader>
+        <Controller
+          name="studentID"
+          control={control}
+          defaultValue=""
+          rules={{ required: true, minLength: 8, maxLength: 8 }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <SignUpFormTextField
+              label="학번"
+              variant="outlined"
+              onChange={onChange}
+              value={value}
+              error={!!error}
+              helperText={error ? '학번 8자리를 입력해주세요.' : null}
+            />
+          )}
+        />
+        <Controller
+          name="password"
+          control={control}
+          defaultValue=""
+          rules={{ required: true, minLength: 6 }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <SignUpFormTextField
+              label="비밀번호"
+              variant="outlined"
+              type="password"
+              value={value}
+              onChange={onChange}
+              error={!!error}
+              helperText={
+                error ? '6글자 이상의 패스워드를 입력해주세요.' : null
+              }
+            />
+          )}
+        />
+        <Controller
+          name="name"
+          control={control}
+          defaultValue=""
+          rules={{ required: true, minLength: 1 }}
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
+            <SignUpFormTextField
+              label="이름"
+              variant="outlined"
+              type="text"
+              value={value}
+              onChange={onChange}
+              error={!!error}
+              helperText={error ? '이름을 입력해주세요' : null}
+            />
+          )}
+        />
+        <SubmitButton variant="contained" type="submit">
+          회원가입
+        </SubmitButton>
+      </SignUpForm>
+    </AppLayout>
   );
 }
-
-const SignUpContainer = styled(Container)({
-  display: 'flex',
-  alignItems: 'center',
-  flexDirection: 'column',
-  width: '100%',
-  height: '100vh',
-});
 
 const LogoContainer = styled(Container)({
   display: 'flex',
