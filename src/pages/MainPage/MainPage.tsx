@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../../Components/Header';
+import HelperButton from '../../Components/HelperButton';
+import HelperModal from '../../Components/HelperModal';
 import { useAppSelector } from '../../redux/hooks';
 import { Redirect, useHistory } from 'react-router-dom';
 
@@ -10,10 +12,16 @@ function MainPage({}: MainPageProps) {
 
   // mainpage -> userpage 테스트용으로 추가했습니다 (21-05-22)
   const history = useHistory();
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const handleOpen = () => {
+    setOpenModal(!openModal);
+  };
 
   return (
     <>
-      <Header></Header>
+      <Header>
+        <HelperButton onClick={handleOpen} />
+      </Header>
       {uuid}
 
       {/* mainpage -> userpage 테스트용으로 추가했습니다 (21-05-22) */}
@@ -31,6 +39,7 @@ function MainPage({}: MainPageProps) {
           to AdminPage
         </button>
       </div>
+      <HelperModal open={openModal} setOpen={handleOpen} />
     </>
   );
 }
