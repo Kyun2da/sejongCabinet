@@ -5,6 +5,7 @@ import { Button, Container, TextField } from '@material-ui/core';
 import { Controller, useForm } from 'react-hook-form';
 import Header from '../../Components/Header';
 import customSwal from '../../utils/alert';
+import media from '../../lib/styles/media';
 
 type PasswordChangeInputs = {
   currentPassword: string;
@@ -128,23 +129,38 @@ const UserPageContainer = styled(Container)({
   top: '14vh',
   width: '40vw',
   height: '80vh',
+
+  [`${media.medium}`]: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    border: '5px solid lightgray',
+    borderRadius: '6vw',
+    padding: '2vh 0 3vh',
+    height: 'auto',
+    width: '85%',
+  },
 });
 
 const MyCabinetContents = styled(Container)({
   alignItems: 'center',
   display: 'flex',
-  margin: '2vh 0 0',
-  fontSize: '4vh',
+  marginTop: '3vh',
+  fontSize: '3vh',
   flexDirection: 'column',
-  overflow: 'hidden',
+
+  [`${media.medium}`]: { marginTop: '1vh' },
 });
 
-const UserPageTitle = styled('p')({
-  fontSize: '1.5vw',
+const UserPageTitle = styled(Container)({
+  fontSize: '3vh',
   fontWeight: 'bold',
   padding: '1vh 0 2vh',
   borderBottom: '1px solid RGB(200, 200, 200)',
   textAlign: 'center',
+  margin: '3vh 0 2vh',
+
+  [`${media.medium}`]: { fontSize: '3vh', borderBottom: 'none', margin: '0' },
 });
 
 const CancleButton = styled(Button)({
@@ -160,14 +176,23 @@ const CancleButton = styled(Button)({
     backgroundColor: 'red',
     opacity: 1,
   },
+
+  [`${media.medium}`]: { padding: '0.5vh 5vw', marginTop: '3vh' },
 });
 
-const MyCabinet = styled('div')({ fontFamily: 'Noto Sans KR' });
+const MyCabinet = styled('div')({
+  fontFamily: 'Noto Sans KR',
+  [`${media.medium}`]: { fontSize: '2.5vh' },
+});
 
 const UserPageContents = styled(Container)({
   height: 'auto',
-  overflow: 'hidden',
   width: '80%',
+
+  [`${media.medium}`]: {
+    width: '90%',
+    margin: '1vh 0 3vh',
+  },
 });
 
 const PasswordChangeForm = styled('form')({
@@ -182,6 +207,11 @@ const PasswordChangeForm = styled('form')({
 const PasswordChangeTextfield = styled(TextField)({
   width: '25vw',
   margin: '1.5vh 0',
+
+  [`${media.medium}`]: {
+    width: '60vw',
+    height: '7vh',
+  },
 });
 
 const PasswordChangeButton = styled(Button)({
@@ -194,6 +224,11 @@ const PasswordChangeButton = styled(Button)({
   margin: '1vh 0',
   '&:hover': {
     backgroundColor: '#2036b1',
+  },
+
+  [`${media.medium}`]: {
+    width: '60vw',
+    borderRadius: '0.5rem',
   },
 });
 
