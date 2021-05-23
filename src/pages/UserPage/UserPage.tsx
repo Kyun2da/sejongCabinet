@@ -1,22 +1,11 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useState } from 'react';
 import { styled } from '@material-ui/core/styles';
 import { Redirect, useHistory } from 'react-router-dom';
-import { Button, Container, TextField } from '@material-ui/core';
-import { Controller, useForm } from 'react-hook-form';
+import { Button, Container } from '@material-ui/core';
 import { useAppSelector } from '../../redux/hooks';
-import { auth } from '../../config/firebase.config';
 import Header from '../../Components/Header';
-import customSwal from '../../utils/alert';
 import media from '../../lib/styles/media';
-import getFirebaseErrorMessage from '../../utils/error/firebase';
-import useUpadtePassword from '../../hooks/useUpdatePassword';
 import PasswordChangeForm from '../../Components/PasswordChangeForm';
-
-type PasswordChangeInputs = {
-  currentPassword: string;
-  changePassword: string;
-  confirmPassword: string;
-};
 
 export type UserPageProps = {};
 
