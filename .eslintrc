@@ -9,7 +9,10 @@
     }
   },
   "rules": {
-    "prettier/prettier": ["error", { "singleQuote": true ,"endOfLine": "auto" }],
+    "prettier/prettier": [
+      "error",
+      { "singleQuote": true, "endOfLine": "auto" }
+    ],
     "react/jsx-uses-vars": "error"
   },
   "ignorePatterns": ["*.config.js"]
