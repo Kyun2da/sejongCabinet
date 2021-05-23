@@ -4,9 +4,12 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { Button, Container, TextField } from '@material-ui/core';
 import { Controller, useForm } from 'react-hook-form';
 import { useAppSelector } from '../../redux/hooks';
+import { auth } from '../../config/firebase.config';
 import Header from '../../Components/Header';
 import customSwal from '../../utils/alert';
 import media from '../../lib/styles/media';
+import getFirebaseErrorMessage from '../../utils/error/firebase';
+import useUpadtePassword from '../../hooks/useUpdatePassword';
 
 type PasswordChangeInputs = {
   currentPassword: string;
@@ -20,18 +23,42 @@ function UserPage({}: UserPageProps) {
   const { handleSubmit, control, reset, formState, getValues } =
     useForm<PasswordChangeInputs>();
 
-  const onSubmit = useCallback(async (data: PasswordChangeInputs) => {
-    await alert(
-      data.currentPassword +
-        '\n' +
-        data.changePassword +
-        '\n' +
-        data.confirmPassword,
-    );
-  }, []);
+  const [updatePasswordWithNewPassword, loading, error] = useUpadtePassword();
 
   const cabinetTitle = useAppSelector((state) => state.users.cabinetTitle);
   const cabinetIdx = useAppSelector((state) => state.users.cabinetIdx);
+
+  const user = auth.currentUser;
+
+  const onSubmit = useCallback(async (data: PasswordChangeInputs) => {
+    await updatePasswordWithNewPassword(
+      user?.email,
+      data.currentPassword,
+      data.changePassword,
+    );
+  }, []);
+
+  useEffect(() => {
+    if (!error) return;
+    customSwal(
+      'error',
+      '비밀번호 변경 에러입니다.',
+      getFirebaseErrorMessage(error?.code),
+    );
+  }, [error]);
+
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      if (!error) {
+        customSwal(
+          'success',
+          '비밀번호 변경 성공',
+          '비밀번호가 성공적으로 변경되었습니다!',
+        );
+      }
+      reset({ currentPassword: '', changePassword: '', confirmPassword: '' });
+    }
+  }, [formState, reset]);
 
   return (
     <PageContainer>
@@ -76,6 +103,7 @@ function UserPage({}: UserPageProps) {
                 <PasswordChangeTextfield
                   label="현재 비밀번호"
                   variant="outlined"
+                  type="password"
                   onChange={onChange}
                   value={value}
                   error={!!error}
@@ -87,7 +115,10 @@ function UserPage({}: UserPageProps) {
               name="changePassword"
               control={control}
               defaultValue=""
-              rules={{ required: true, minLength: 6 }}
+              rules={{
+                required: true,
+                minLength: 6,
+              }}
               render={({
                 field: { onChange, value },
                 fieldState: { error },
@@ -96,6 +127,7 @@ function UserPage({}: UserPageProps) {
                   label="변경 비밀번호"
                   variant="outlined"
                   onChange={onChange}
+                  type="password"
                   value={value}
                   error={!!error}
                   helperText={
@@ -120,6 +152,7 @@ function UserPage({}: UserPageProps) {
                 <PasswordChangeTextfield
                   label="비밀번호 확인"
                   variant="outlined"
+                  type="password"
                   onChange={onChange}
                   value={value}
                   error={!!error}
