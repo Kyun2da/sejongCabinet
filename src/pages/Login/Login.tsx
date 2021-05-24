@@ -7,11 +7,12 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import FadeIn from 'react-fade-in';
 import useSignInWithEmailAndPassword from '../../hooks/useSignInWithEmailAndPassword';
-import { auth } from '../../config/firebase.config';
+import { auth, database } from '../../config/firebase.config';
 import customSwal from '../../utils/alert';
 import getFirebaseErrorMessage from '../../utils/error/firebase';
 import { useAppDispatch } from '../../redux/hooks';
 import { setUserUID } from '../../redux/user/userSlice';
+import { setServerStatus } from '../../redux/server/serverSlice';
 import AppLayout from '../../Components/AppLayout';
 
 export type LoginProps = {};
@@ -33,6 +34,12 @@ function Login({}: LoginProps) {
 
   const saveUserInfo = (uid: string | undefined) => {
     dispatch(setUserUID(uid));
+  };
+
+  const saveServerStatus = () => {
+    const status = database.ref('server/status').on('value', (snapshot) => {
+      dispatch(setServerStatus(snapshot.val()));
+    });
   };
 
   const onSubmit = useCallback(async (data: LoginInput) => {
@@ -63,6 +70,7 @@ function Login({}: LoginProps) {
 
   if (user) {
     saveUserInfo(user.user?.uid);
+    saveServerStatus();
     return <Redirect to="/main" />;
   }
 

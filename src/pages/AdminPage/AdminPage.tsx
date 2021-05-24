@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from '@material-ui/core/styles';
 import { Redirect, useHistory } from 'react-router-dom';
 import { Button, Container } from '@material-ui/core';
@@ -6,36 +6,36 @@ import { useAppSelector } from '../../redux/hooks';
 import Header from '../../Components/Header';
 import media from '../../lib/styles/media';
 import PasswordChangeForm from '../../Components/PasswordChangeForm';
+import { auth, database } from '../../config/firebase.config';
+import changeServerStatus from '../../utils/firebase/changeServerStatus';
 
 export type AdminPageProps = {};
 
-function UserPage({}: AdminPageProps) {
+function AdminPage({}: AdminPageProps) {
   const cabinetTitle = useAppSelector((state) => state.users.cabinetTitle);
   const cabinetIdx = useAppSelector((state) => state.users.cabinetIdx);
+  let serverStatus = useAppSelector((state) => state.server.status);
 
-  const [serverStatus, setServerStatus] = useState(0);
   const [total, setTotal] = useState(0);
 
   return (
     <PageContainer>
       <Header />
-      <UserPageContainer>
-        <UserPageContents>
-          <UserPageTitle>관리자 페이지</UserPageTitle>
+      <AdminPageContainer>
+        <AdminPageContents>
+          <AdminPageTitle>관리자 페이지</AdminPageTitle>
           <MyCabinetContents>
             <MyCabinet>현재 예약된 사물함 : {total}개</MyCabinet>
-            <CancleButton
-              onClick={() => setServerStatus((serverStatus + 1) % 2)}
-            >
+            <CancleButton onClick={() => changeServerStatus(serverStatus)}>
               {serverStatus ? '서버 열기' : '서버 닫기'}
             </CancleButton>
           </MyCabinetContents>
-        </UserPageContents>
-        <UserPageContents>
-          <UserPageTitle>비밀번호 변경</UserPageTitle>
+        </AdminPageContents>
+        <AdminPageContents>
+          <AdminPageTitle>비밀번호 변경</AdminPageTitle>
           <PasswordChangeForm />
-        </UserPageContents>
-      </UserPageContainer>
+        </AdminPageContents>
+      </AdminPageContainer>
     </PageContainer>
   );
 }
@@ -48,7 +48,7 @@ const PageContainer = styled(Container)({
   height: '100vh',
 });
 
-const UserPageContainer = styled(Container)({
+const AdminPageContainer = styled(Container)({
   display: 'flex',
   position: 'absolute',
   flexDirection: 'column',
@@ -83,7 +83,7 @@ const MyCabinetContents = styled(Container)({
   [`${media.medium}`]: { marginTop: '1vh' },
 });
 
-const UserPageTitle = styled(Container)({
+const AdminPageTitle = styled(Container)({
   fontSize: '3vh',
   fontWeight: 'bold',
   padding: '1vh 0 2vh',
@@ -116,7 +116,7 @@ const MyCabinet = styled('div')({
   [`${media.medium}`]: { fontSize: '2.5vh' },
 });
 
-const UserPageContents = styled(Container)({
+const AdminPageContents = styled(Container)({
   height: 'auto',
   width: '80%',
 
@@ -137,4 +137,4 @@ const NoCabinet = styled(Container)({
   },
 });
 
-export default UserPage;
+export default AdminPage;
