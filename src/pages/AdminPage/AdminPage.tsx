@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from '@material-ui/core/styles';
 import { Redirect, useHistory } from 'react-router-dom';
 import { Button, Container } from '@material-ui/core';
@@ -6,15 +6,32 @@ import { useAppSelector } from '../../redux/hooks';
 import Header from '../../Components/Header';
 import media from '../../lib/styles/media';
 import PasswordChangeForm from '../../Components/PasswordChangeForm';
+import { auth, database } from '../../config/firebase.config';
+import { useAppDispatch } from '../../redux/hooks';
+import { setServerStatus } from '../../redux/server/serverSlice';
 
 export type AdminPageProps = {};
 
 function UserPage({}: AdminPageProps) {
   const cabinetTitle = useAppSelector((state) => state.users.cabinetTitle);
   const cabinetIdx = useAppSelector((state) => state.users.cabinetIdx);
+  let serverStatus = useAppSelector((state) => state.server.status);
 
-  const [serverStatus, setServerStatus] = useState(0);
   const [total, setTotal] = useState(0);
+
+  const dispatch = useAppDispatch();
+
+  const onClickServerChange = () => {
+    if (serverStatus === 0) {
+      database.ref(`server`).set({
+        status: 1,
+      });
+    } else if (serverStatus === 1) {
+      database.ref(`server`).set({
+        status: 0,
+      });
+    }
+  };
 
   return (
     <PageContainer>
@@ -24,9 +41,7 @@ function UserPage({}: AdminPageProps) {
           <UserPageTitle>관리자 페이지</UserPageTitle>
           <MyCabinetContents>
             <MyCabinet>현재 예약된 사물함 : {total}개</MyCabinet>
-            <CancleButton
-              onClick={() => setServerStatus((serverStatus + 1) % 2)}
-            >
+            <CancleButton onClick={onClickServerChange}>
               {serverStatus ? '서버 열기' : '서버 닫기'}
             </CancleButton>
           </MyCabinetContents>
