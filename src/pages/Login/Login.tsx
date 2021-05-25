@@ -5,7 +5,6 @@ import media from '../../lib/styles/media';
 import { Button, Container, TextField } from '@material-ui/core';
 import { Redirect, useHistory } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
-import FadeIn from 'react-fade-in';
 import useSignInWithEmailAndPassword from '../../hooks/useSignInWithEmailAndPassword';
 import { auth, database } from '../../config/firebase.config';
 import customSwal from '../../utils/alert';
@@ -14,6 +13,7 @@ import { useAppDispatch } from '../../redux/hooks';
 import { setUserUID } from '../../redux/user/userSlice';
 import { setServerStatus } from '../../redux/server/serverSlice';
 import AppLayout from '../../Components/AppLayout';
+import useAuthState from '../../hooks/useAuthState';
 
 export type LoginProps = {};
 
@@ -26,8 +26,8 @@ function Login({}: LoginProps) {
   const { handleSubmit, control, reset, formState } = useForm<LoginInput>();
 
   const history = useHistory();
-
-  const [signInwithEmailAndPassword, user, loading, error] =
+  const [user, authLoading, authError] = useAuthState(auth);
+  const [signInwithEmailAndPassword, signInAfterUser, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
   const dispatch = useAppDispatch();
@@ -64,12 +64,12 @@ function Login({}: LoginProps) {
     }
   }, [formState, reset]);
 
-  if (loading) {
+  if (authLoading || loading) {
     return <div>로딩중...</div>;
   }
 
   if (user) {
-    saveUserInfo(user.user?.uid);
+    saveUserInfo(user.uid);
     saveServerStatus();
     return <Redirect to="/main" />;
   }
