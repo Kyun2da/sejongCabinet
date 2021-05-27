@@ -4,7 +4,7 @@ import serverReducer from './server/serverSlice';
 
 export const store = configureStore({
   reducer: {
-    users: userReducer,
+    user: userReducer,
     server: serverReducer,
   },
 });

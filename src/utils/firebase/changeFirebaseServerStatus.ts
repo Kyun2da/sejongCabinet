@@ -1,6 +1,7 @@
 import { database } from '../../config/firebase.config';
+import { serverStatusType } from '../../redux/server/serverSlice';
 
-const changeServerStatus = (serverStatus: number | undefined) => {
+const changeFirebaseServerStatus = (serverStatus: serverStatusType) => {
   if (serverStatus === 0) {
     return database.ref(`server`).set({
       status: 1,
@@ -12,4 +13,4 @@ const changeServerStatus = (serverStatus: number | undefined) => {
   }
 };
 
-export default changeServerStatus;
+export default changeFirebaseServerStatus;

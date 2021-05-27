@@ -5,11 +5,11 @@ import { auth, database } from '../../config/firebase.config';
 import { useHistory, useLocation } from 'react-router';
 import useAuthState from '../../hooks/useAuthState';
 import { useObject } from '../../hooks/useObject';
+import { useAppSelector, useUserSelector } from '../../redux/hooks';
 
-export type MenuInfoProps = { name?: string };
-
-export default function MenuInfo({ name = '익명' }: MenuInfoProps) {
+export default function MenuInfo() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { name } = useAppSelector(useUserSelector);
   const handleClose = useCallback(() => {
     setAnchorEl(null);
   }, []);
@@ -21,7 +21,7 @@ export default function MenuInfo({ name = '익명' }: MenuInfoProps) {
   }, []);
   return (
     <MenuContainer>
-      {`${name}님 환영합니다!`}
+      {`${name ?? '익명'}님 환영합니다!`}
       <HamburgerButton onClick={handleClick} disableRipple>
         <MenuIcon />
       </HamburgerButton>
