@@ -5,6 +5,7 @@ import HelperModal from '../../Components/HelperModal';
 import MenuInfo from '../../Components/MenuInfo';
 import AppLayout from '../../Components/AppLayout';
 import Cabinet from '../../Components/Cabinet';
+import { Redirect } from 'react-router-dom';
 import { useAppSelector, useUserSelector } from '../../redux/hooks';
 
 export type MainPageProps = {};
