@@ -1,18 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+export type serverStatusType = 0 | 1; // 1 : 닫힌 상태, 0 : 열린 상태
+
 interface ServerState {
-  status: number | undefined;
+  status: serverStatusType;
 }
 
 const initialState: ServerState = {
-  status: undefined,
+  status: 0,
 };
 
 export const serverSlice = createSlice({
   name: 'server',
   initialState,
   reducers: {
-    setServerStatus: (state, action: PayloadAction<number | undefined>) => {
+    setServerStatus: (state, action: PayloadAction<serverStatusType>) => {
       state.status = action.payload;
     },
   },
