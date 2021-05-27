@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { styled } from '@material-ui/core/styles';
-import { Redirect, useHistory } from 'react-router-dom';
 import { Button, Container } from '@material-ui/core';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppSelector, useServerSelector } from '../../redux/hooks';
 import Header from '../../Components/Header';
 import media from '../../lib/styles/media';
 import PasswordChangeForm from '../../Components/PasswordChangeForm';
-import { auth, database } from '../../config/firebase.config';
-import changeServerStatus from '../../utils/firebase/changeServerStatus';
+import changeFirebaseServerStatus from '../../utils/firebase/changeFirebaseServerStatus';
 
 export type AdminPageProps = {};
 
 function AdminPage({}: AdminPageProps) {
-  const cabinetTitle = useAppSelector((state) => state.users.cabinetTitle);
-  const cabinetIdx = useAppSelector((state) => state.users.cabinetIdx);
-  let serverStatus = useAppSelector((state) => state.server.status);
-
+  const { status } = useAppSelector(useServerSelector);
   const [total, setTotal] = useState(0);
 
   return (
@@ -26,8 +21,8 @@ function AdminPage({}: AdminPageProps) {
           <AdminPageTitle>관리자 페이지</AdminPageTitle>
           <MyCabinetContents>
             <MyCabinet>현재 예약된 사물함 : {total}개</MyCabinet>
-            <CancleButton onClick={() => changeServerStatus(serverStatus)}>
-              {serverStatus ? '서버 열기' : '서버 닫기'}
+            <CancleButton onClick={() => changeFirebaseServerStatus(status)}>
+              {status ? '서버 열기' : '서버 닫기'}
             </CancleButton>
           </MyCabinetContents>
         </AdminPageContents>
