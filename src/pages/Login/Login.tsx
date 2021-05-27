@@ -6,14 +6,11 @@ import { Button, Container, TextField } from '@material-ui/core';
 import { Redirect, useHistory } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import useSignInWithEmailAndPassword from '../../hooks/useSignInWithEmailAndPassword';
-import { auth, database } from '../../config/firebase.config';
+import { auth } from '../../config/firebase.config';
 import customSwal from '../../utils/alert';
 import getFirebaseErrorMessage from '../../utils/error/firebase';
-import { useAppDispatch } from '../../redux/hooks';
-import { setUserUID } from '../../redux/user/userSlice';
-import { setServerStatus } from '../../redux/server/serverSlice';
+import { useAppSelector, useUserSelector } from '../../redux/hooks';
 import AppLayout from '../../Components/AppLayout';
-import useAuthState from '../../hooks/useAuthState';
 
 export type LoginProps = {};
 
@@ -24,24 +21,10 @@ export type LoginInput = {
 
 function Login({}: LoginProps) {
   const { handleSubmit, control, reset, formState } = useForm<LoginInput>();
-
   const history = useHistory();
-  const [user, authLoading, authError] = useAuthState(auth);
+  const { uuid } = useAppSelector(useUserSelector);
   const [signInwithEmailAndPassword, signInAfterUser, loading, error] =
     useSignInWithEmailAndPassword(auth);
-
-  const dispatch = useAppDispatch();
-
-  const saveUserInfo = (uid: string | undefined) => {
-    dispatch(setUserUID(uid));
-  };
-
-  const saveServerStatus = () => {
-    const status = database.ref('server/status').on('value', (snapshot) => {
-      dispatch(setServerStatus(snapshot.val()));
-    });
-  };
-
   const onSubmit = useCallback(async (data: LoginInput) => {
     await signInwithEmailAndPassword(
       `${data.studentID}@sejongCabinet.com`,
@@ -64,13 +47,7 @@ function Login({}: LoginProps) {
     }
   }, [formState, reset]);
 
-  if (authLoading || loading) {
-    return <div>로딩중...</div>;
-  }
-
-  if (user) {
-    saveUserInfo(user.uid);
-    saveServerStatus();
+  if (uuid) {
     return <Redirect to="/main" />;
   }
 

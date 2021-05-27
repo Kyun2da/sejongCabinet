@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { styled } from '@material-ui/core/styles';
-import { Redirect, useHistory } from 'react-router-dom';
 import { Button, Container } from '@material-ui/core';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppSelector, useUserSelector } from '../../redux/hooks';
 import Header from '../../Components/Header';
 import media from '../../lib/styles/media';
 import PasswordChangeForm from '../../Components/PasswordChangeForm';
@@ -10,8 +9,7 @@ import PasswordChangeForm from '../../Components/PasswordChangeForm';
 export type UserPageProps = {};
 
 function UserPage({}: UserPageProps) {
-  const cabinetTitle = useAppSelector((state) => state.users.cabinetTitle);
-  const cabinetIdx = useAppSelector((state) => state.users.cabinetIdx);
+  const { cabinetTitle, cabinetIdx } = useAppSelector(useUserSelector);
 
   return (
     <PageContainer>
