@@ -15,6 +15,7 @@ import {
   userInitialState,
 } from './redux/user/userSlice';
 import { useAppDispatch } from './redux/hooks';
+import { setCabinet } from './redux/cabinet/cabinetSlice';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -25,6 +26,10 @@ function App() {
 
   const [serverInfo, serverInfoLoading, serverInfoError] = useObject(
     database.ref('server/status'),
+  );
+
+  const [cabinetInfo, cabinetInfoLoading, cabinetInfoError] = useObject(
+    database.ref('cabinet'),
   );
 
   // 파이어베이스 유저 데이터 리덕스로 옮기기
@@ -51,7 +56,19 @@ function App() {
     }
   }, [serverInfo]);
 
-  if (authLoading || userInfoLoading || serverInfoLoading) {
+  // 파이어베이스 캐비넷 데이터 리덕스로 옮기기
+  useEffect(() => {
+    if (cabinetInfo) {
+      dispatch(setCabinet(cabinetInfo.val()));
+    }
+  }, [cabinetInfo]);
+
+  if (
+    authLoading ||
+    userInfoLoading ||
+    serverInfoLoading ||
+    cabinetInfoLoading
+  ) {
     return <div>로딩중..</div>;
   }
 
