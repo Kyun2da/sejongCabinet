@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Header from '../../Components/Header';
 import HelperButton from '../../Components/HelperButton';
 import HelperModal from '../../Components/HelperModal';
-import { Redirect } from 'react-router-dom';
 import MenuInfo from '../../Components/MenuInfo';
+import AppLayout from '../../Components/AppLayout';
+import Cabinet from '../../Components/Cabinet';
+import { Redirect } from 'react-router-dom';
 import { useAppSelector, useUserSelector } from '../../redux/hooks';
 
 export type MainPageProps = {};
@@ -20,13 +22,14 @@ function MainPage({}: MainPageProps) {
   }
 
   return (
-    <>
+    <AppLayout>
       <Header>
         <HelperButton onClick={handleOpen} />
         <MenuInfo />
       </Header>
+      <Cabinet />
       <HelperModal open={openModal} setOpen={handleOpen} />
-    </>
+    </AppLayout>
   );
 }
 

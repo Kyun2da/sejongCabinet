@@ -73,7 +73,7 @@ function SignUp({}: SignUpProps) {
   }
 
   return (
-    <AppLayout>
+    <AppLayout fadeIn>
       <LogoContainer>
         <LogoImg src={Logo} alt="logo" />
         <LogoTitle>SEJONG UNIV</LogoTitle>

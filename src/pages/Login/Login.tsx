@@ -52,7 +52,7 @@ function Login({}: LoginProps) {
   }
 
   return (
-    <AppLayout>
+    <AppLayout fadeIn>
       <LogoImg src={Logo} alt="logo" />
       <LogoTitle>SEJONG UNIV</LogoTitle>
       <LogoTitle2>소프트웨어학과 사물함</LogoTitle2>

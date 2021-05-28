@@ -4,13 +4,20 @@ import FadeIn from 'react-fade-in';
 
 export type AppLayoutProps = {
   children: ReactElement | ReactElement[];
+  fadeIn?: boolean | undefined;
 };
 
-export default function AppLayout({ children }: AppLayoutProps) {
+export default function AppLayout({ children, fadeIn }: AppLayoutProps) {
   return (
-    <FadeIn delay={0} transitionDuration={500}>
-      <AppContainer>{children}</AppContainer>
-    </FadeIn>
+    <>
+      {fadeIn === true ? (
+        <FadeIn delay={0} transitionDuration={500}>
+          <AppContainer>{children}</AppContainer>
+        </FadeIn>
+      ) : (
+        <AppContainer>{children}</AppContainer>
+      )}
+    </>
   );
 }
 
