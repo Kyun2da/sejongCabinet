@@ -6,79 +6,13 @@ import { database } from '../../config/firebase.config';
 import media from '../../lib/styles/media';
 import CabinetButtons from '../CabinetButtons';
 
-export type CabinetProps = {};
+export type CabinetProps = { userData: any };
 
-const data = {
-  currentCabinets: [
-    {
-      width: 10,
-      height: 10,
-      title: 'CAB-A',
-      item: {
-        1: {
-          status: 1,
-          uuid: 'dasndalsndlaksd',
-          studentId: '15011145',
-          name: '허균',
-        },
-        2: {
-          status: 1,
-          uuid: 'dasndalsndlaksd',
-          studentId: '15011145',
-          name: '허균',
-        },
-        3: {
-          status: 1,
-          uuid: 'dasndalsndlaksd',
-          studentId: '15011145',
-          name: '허균',
-        },
-        4: {
-          status: 1,
-          uuid: 'dasndalsndlaksd',
-          studentId: '15011145',
-          name: '허균',
-        },
-        5: {
-          status: 1,
-          uuid: 'dasndalsndlaksd',
-          studentId: '15011145',
-          name: '허균',
-        },
-      },
-    },
-    { width: 10, height: 10, title: 'CAB-B' },
-    { width: 3, height: 3, title: 'CAB-C' },
-    { width: 6, height: 6, title: 'CAB-D' },
-    { width: 10, height: 6, title: 'CAB-E' },
-    { width: 12, height: 6, title: 'CAB-F' },
-    { width: 6, height: 6, title: 'CAB-G' },
-    { width: 10, height: 10, title: 'CAB-H' },
-    { width: 10, height: 10, title: 'CAB-I' },
-    { width: 10, height: 10, title: 'CAB-J' },
-    { width: 10, height: 10, title: 'CAB-K' },
-    { width: 10, height: 10, title: 'CAB-L' },
-    { width: 10, height: 10, title: 'CAB-A' },
-    { width: 10, height: 10, title: 'CAB-B' },
-    { width: 10, height: 10, title: 'CAB-C' },
-    { width: 10, height: 10, title: 'CAB-D' },
-    { width: 10, height: 10, title: 'CAB-E' },
-    { width: 10, height: 10, title: 'CAB-F' },
-    { width: 10, height: 10, title: 'CAB-G' },
-    { width: 10, height: 10, title: 'CAB-H' },
-    { width: 10, height: 10, title: 'CAB-I' },
-    { width: 10, height: 10, title: 'CAB-J' },
-    { width: 10, height: 10, title: 'CAB-K' },
-    { width: 10, height: 10, title: 'CAB-L' },
-    { width: 10, height: 10, title: 'CAB-M' },
-  ],
-};
+interface CabinetItem {
+  [key: string]: any;
+}
 
-const cabinetNames = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-const tabWidth = 100 / cabinetNames.length;
-
-export default function Cabinet({}: CabinetProps) {
+export default function Cabinet({ userData }: CabinetProps) {
   const [index, setIndex] = useState(0);
 
   const handleChangeIndex = (value: number) => {
@@ -90,8 +24,8 @@ export default function Cabinet({}: CabinetProps) {
   };
 
   const LoadContents = () => {
-    return cabinetNames.map((i, v) => {
-      return <CabinetButtons key={v} data={data.currentCabinets[v]} />;
+    return userData.currentCabinets.map((v: any, i: any) => {
+      return <CabinetButtons key={i} data={v} />;
     });
   };
 
@@ -108,18 +42,23 @@ export default function Cabinet({}: CabinetProps) {
   };
 
   const loadTabs = () => {
-    return cabinetNames.map((i) => {
-      return (
-        <CabinetTab
-          key={data.currentCabinets[i].title}
-          label={data.currentCabinets[i].title}
-        />
-      );
+    return userData.currentCabinets.map((v: any) => {
+      return <CabinetTab key={v.title} label={v.title} wrapped />;
     });
   };
 
   const showTabs = () => {
-    return <CabinetTabs onChange={handleChange}>{loadTabs()}</CabinetTabs>;
+    return (
+      <CabinetTabs
+        value={index}
+        onChange={handleChange}
+        variant="scrollable"
+        scrollButtons="on"
+        indicatorColor="primary"
+      >
+        {loadTabs()}
+      </CabinetTabs>
+    );
   };
 
   return (
@@ -134,21 +73,16 @@ export default function Cabinet({}: CabinetProps) {
 
 const CabinetContainer = styled('div')({
   marginTop: '12vh',
-  height: '80vh',
   width: '100vw',
-  backgroundColor: 'gray',
   display: 'flex',
   justifyContent: 'center',
-  overflow: 'visible',
 });
 
 const TabsContainer = styled('div')({
-  width: '80%',
-  backgroundColor: 'rgba(255,0,0,0.3)',
-  height: '9vh',
+  width: '90%',
 
   [`${media.medium}`]: {
-    width: '100%',
+    width: '95%',
   },
 });
 
@@ -157,22 +91,25 @@ const CabinetTabs = styled(Tabs)({
   width: '100%',
 });
 
+const CabinetSwipeableViews = styled(SwipeableViews)({
+  marginTop: '3.5vh',
+  border: '0.5vh solid lightgray',
+  borderRadius: '2vw',
+  padding: '2vh 0 2vh',
+  overflow: 'hidden',
+});
+
 const CabinetTab = styled(Tab)({
   fontSize: `2vw`,
   letterSpacing: '0.1px',
   borderRadius: '10px',
   fontFamily: 'Anton',
-  minWidth: `${tabWidth}%`,
+  minWidth: '20%',
+  maxWidth: '100%',
+  padding: '2vh 0',
 
   [`${media.medium}`]: {
-    maxWidth: `${tabWidth}%`,
-    fontSize: `${tabWidth / 20}vw`,
+    minWidth: '25%',
+    fontSize: '1rem',
   },
-});
-
-const CabinetSwipeableViews = styled(SwipeableViews)({
-  marginTop: '5vh',
-  border: '0.5vh solid lightgray',
-  borderRadius: '2vw',
-  width: '100%',
 });
