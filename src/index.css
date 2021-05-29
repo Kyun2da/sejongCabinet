@@ -27,3 +27,7 @@ code {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.swal2-container {
+  z-index: 100000 !important;
+}
