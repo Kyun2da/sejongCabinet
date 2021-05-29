@@ -4,7 +4,7 @@ type CabinetType = {
   cabinet: CabinetTabType[] | null;
 };
 
-type CabinetTabType = {
+export type CabinetTabType = {
   width: number;
   height: number;
   title: string;
