@@ -1,36 +1,70 @@
 import React, { useState } from 'react';
 import { styled } from '@material-ui/core/styles';
 import { Button, Container } from '@material-ui/core';
-import { useAppSelector, useServerSelector } from '../../redux/hooks';
+import {
+  useAppSelector,
+  useServerSelector,
+  useUserSelector,
+} from '../../redux/hooks';
 import Header from '../../Components/Header';
 import media from '../../lib/styles/media';
 import PasswordChangeForm from '../../Components/PasswordChangeForm';
 import changeFirebaseServerStatus from '../../utils/firebase/changeFirebaseServerStatus';
+import MenuInfo from '../../Components/MenuInfo';
+import BackButton from '../../Components/BackButton';
+import { Redirect } from 'react-router';
+import CabinetManageModal from '../../Components/CabinetManageModal';
 
 export type AdminPageProps = {};
 
 function AdminPage({}: AdminPageProps) {
   const { status } = useAppSelector(useServerSelector);
+  const { uuid } = useAppSelector(useUserSelector);
   const [total, setTotal] = useState(0);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  if (!uuid) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <PageContainer>
-      <Header />
+      <Header>
+        <BackButton />
+        <MenuInfo />
+      </Header>
       <AdminPageContainer>
         <AdminPageContents>
           <AdminPageTitle>관리자 페이지</AdminPageTitle>
           <MyCabinetContents>
             <MyCabinet>현재 예약된 사물함 : {total}개</MyCabinet>
-            <CancleButton onClick={() => changeFirebaseServerStatus(status)}>
-              {status ? '서버 열기' : '서버 닫기'}
-            </CancleButton>
           </MyCabinetContents>
+        </AdminPageContents>
+        <AdminPageContents>
+          <AdminPageTitle>관리자 기능</AdminPageTitle>
+          <ButtonContainer>
+            <CancelButton onClick={() => changeFirebaseServerStatus(status)}>
+              {status ? '서버 열기' : '서버 닫기'}
+            </CancelButton>
+            <CabinetManageButton onClick={handleOpen}>
+              사물함 관리
+            </CabinetManageButton>
+          </ButtonContainer>
         </AdminPageContents>
         <AdminPageContents>
           <AdminPageTitle>비밀번호 변경</AdminPageTitle>
           <PasswordChangeForm />
         </AdminPageContents>
       </AdminPageContainer>
+      <CabinetManageModal open={open} handleClose={handleClose} />
     </PageContainer>
   );
 }
@@ -89,7 +123,7 @@ const AdminPageTitle = styled(Container)({
   [`${media.medium}`]: { fontSize: '3vh', borderBottom: 'none', margin: '0' },
 });
 
-const CancleButton = styled(Button)({
+const CancelButton = styled(Button)({
   fontWeight: 'bold',
   backgroundColor: 'red',
   color: 'white',
@@ -100,6 +134,27 @@ const CancleButton = styled(Button)({
   borderRadius: '0.5rem',
   '&:hover': {
     backgroundColor: 'red',
+    opacity: 1,
+  },
+
+  [`${media.medium}`]: { padding: '0.5vh 5vw', marginTop: '3vh' },
+});
+
+const ButtonContainer = styled('div')({
+  textAlign: 'center',
+});
+
+const CabinetManageButton = styled(Button)({
+  fontWeight: 'bold',
+  backgroundColor: 'rgb(63,81,181)',
+  color: 'white',
+  opacity: 0.6,
+  padding: '0.5vh 1.5vw',
+  margin: '3vh 0 0 2vw',
+  fontFamily: 'Noto Sans KR',
+  borderRadius: '0.5rem',
+  '&:hover': {
+    backgroundColor: '#2036b1',
     opacity: 1,
   },
 
