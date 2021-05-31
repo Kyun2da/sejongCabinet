@@ -82,7 +82,7 @@ const TabsContainer = styled('div')({
   width: '90%',
 
   [`${media.medium}`]: {
-    width: '95%',
+    width: '100%',
   },
 });
 
@@ -97,6 +97,11 @@ const CabinetSwipeableViews = styled(SwipeableViews)({
   borderRadius: '2vw',
   padding: '2vh 0 2vh',
   overflow: 'hidden',
+
+  [`${media.medium}`]: {
+    border: 'none',
+    marginTop: '0',
+  },
 });
 
 const CabinetTab = styled(Tab)({
@@ -110,6 +115,6 @@ const CabinetTab = styled(Tab)({
 
   [`${media.medium}`]: {
     minWidth: '25%',
-    fontSize: '1rem',
+    fontSize: '1.2rem',
   },
 });
