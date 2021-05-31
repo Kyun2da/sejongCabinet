@@ -222,7 +222,7 @@ export default function CabinetButtons({
           ) : (
             <SelectButton>
               {adminType
-                ? item[select].status === 1
+                ? item[select].status === 0
                   ? '고장내기'
                   : '고치기'
                 : item[select].uuid === uuid
@@ -239,6 +239,13 @@ export default function CabinetButtons({
 const CabinetContainer = styled('div')({
   width: '100%',
   position: 'absolute',
+
+  [`${media.medium}`]: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
 });
 
 const CabinetTabsContainer = styled(Container)({
@@ -247,17 +254,35 @@ const CabinetTabsContainer = styled(Container)({
   alignItems: 'center',
   fontFamily: 'Anton',
   margin: '1vh 0 5vh',
+
+  [`${media.medium}`]: {
+    margin: '0',
+  },
 });
 
 const CabinetButtonsContainer = styled('div')({
   marginLeft: '3vw',
   marginTop: '8vh',
   width: '90%',
+
+  [`${media.medium}`]: {
+    marginLeft: '0',
+    marginTop: '4vh',
+    width: '90%',
+  },
 });
 
 const CabinetSelectContainer = styled('div')({
   width: '100%',
   flexDirection: 'column',
+
+  [`${media.medium}`]: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: '5vh',
+    paddingBottom: '5vh',
+  },
 });
 
 const DescriptionFormControl = styled(FormControl)({
@@ -272,7 +297,15 @@ const SelectIdxContainer = styled('div')({
   fontSize: '2vw',
   justifyContent: 'flex-end',
   marginRight: '5.5vw',
-  margin: '1vh 0',
+  marginTop: '1vh',
+
+  [`${media.medium}`]: {
+    fontSize: '2rem',
+    marginRight: '0',
+    marginTop: '0',
+    position: 'absolute',
+    left: '30vw',
+  },
 });
 
 const SelectStatusContainer = styled('div')({
@@ -281,12 +314,24 @@ const SelectStatusContainer = styled('div')({
   fontSize: '3vw',
   justifyContent: 'flex-end',
   marginRight: '3vw',
+
+  [`${media.medium}`]: {
+    fontSize: '2rem',
+    marginRight: '0',
+    height: '5vh',
+    position: 'absolute',
+    right: '10vw',
+  },
 });
 
 const CabinetTitle = styled('div')({
   fontFamily: 'Anton',
   fontSize: '3vw',
   marginLeft: '2vw',
+
+  [`${media.medium}`]: {
+    display: 'none',
+  },
 });
 
 const CabinetInfoContainer = styled(Container)({
@@ -294,6 +339,10 @@ const CabinetInfoContainer = styled(Container)({
   right: 50,
   top: 10,
   position: 'absolute',
+
+  [`${media.medium}`]: {
+    position: 'static',
+  },
 });
 
 const CabinetDescriptionContainer = styled('div')({
@@ -302,6 +351,11 @@ const CabinetDescriptionContainer = styled('div')({
   alignItems: 'flex-end',
   flexDirection: 'row',
   marginTop: '2vh',
+
+  [`${media.medium}`]: {
+    display: 'none',
+    marginTop: '0',
+  },
 });
 
 const CabinetCountContainer = styled('div')({
@@ -310,10 +364,26 @@ const CabinetCountContainer = styled('div')({
   flexDirection: 'column',
   textAlign: 'left',
   marginTop: '1vh',
+
+  [`${media.medium}`]: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: '2vw solid RGB(240,240,240)',
+    borderRadius: '10px',
+    marginTop: '0',
+    padding: '1.5vh 0',
+    textAlign: 'center',
+  },
 });
 
 const GridRowDiv = styled('div')({
   flexGrow: 1,
+
+  [`${media.medium}`]: {
+    width: 'auto',
+  },
 });
 
 const TooltipTitle = styled(Container)({
@@ -326,12 +396,21 @@ const CabinetStatusValue = styled('div')({
 
 const CabinetStatusTooltip = styled(Tooltip)({
   fontSize: '1rem',
+
+  [`${media.medium}`]: {
+    flexGrow: 1,
+  },
 });
 
 const SelectButton = styled(Button)({
   color: 'white',
   width: '7.5vw',
   backgroundColor: 'black',
+
+  [`${media.medium}`]: {
+    padding: '0.5vh 5vw',
+    width: 'auto',
+  },
 });
 
 const AvailableCabinetButton = styled(Button)({
@@ -359,6 +438,16 @@ const AvailableCabinetButton = styled(Button)({
     backgroundColor: '#00d145',
     color: 'white',
   },
+
+  [`${media.medium}`]: {
+    padding: '0.5rem',
+    minWidth: '1.6vw',
+    outline: 'none',
+    maxHeight: '1.6vw',
+    fontSize: '0.5rem',
+    borderRadius: '5px',
+    border: '2px solid #00d145',
+  },
 });
 
 const RegisteredCabinetButton = styled(Button)({
@@ -374,6 +463,16 @@ const RegisteredCabinetButton = styled(Button)({
   '&:hover': {
     backgroundColor: 'lightgray',
   },
+
+  [`${media.medium}`]: {
+    padding: '0.5rem',
+    minWidth: '1.6vw',
+    outline: 'none',
+    maxHeight: '1.6vw',
+    fontSize: '0.5rem',
+    borderRadius: '5px',
+    border: '2px solid lightgray',
+  },
 });
 
 const BrokenCabinetButton = styled(Button)({
@@ -385,6 +484,16 @@ const BrokenCabinetButton = styled(Button)({
   fontSize: '1vw',
   backgroundColor: 'lightgray',
   height: '5.5vh',
+
+  [`${media.medium}`]: {
+    padding: '0.5rem',
+    minWidth: '1.6vw',
+    outline: 'none',
+    maxHeight: '1.6vw',
+    fontSize: '0.5rem',
+    borderRadius: '5px',
+    border: '2px solid lightgray',
+  },
 });
 
 const MyCabinetButton = styled(Button)({
@@ -404,5 +513,15 @@ const MyCabinetButton = styled(Button)({
     backgroundColor: '#DF1840',
     color: 'white',
     border: '3px solid #DF1840',
+  },
+
+  [`${media.medium}`]: {
+    padding: '0.5rem',
+    minWidth: '1.6vw',
+    maxHeight: '1.6vw',
+    outline: 'none',
+    fontSize: '0.5rem',
+    borderRadius: '5px',
+    border: '2px solid #008000',
   },
 });
