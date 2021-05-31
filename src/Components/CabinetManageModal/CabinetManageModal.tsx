@@ -2,6 +2,7 @@ import { Backdrop, Fade, Modal, styled } from '@material-ui/core';
 import { useAppSelector, useCabinetSelector } from '../../redux/hooks';
 import CabinetManageItem from '../CabinetManageItem';
 import { CabinetTabType } from '../../redux/cabinet/cabinetSlice';
+import CabinetManageAddItem from '../CabinetManageAddItem';
 
 type CabinetManageModalProps = {
   open: boolean;
@@ -34,6 +35,8 @@ export default function CabinetManageModal({
           {cabinet?.map((item: CabinetTabType, i: number) => (
             <CabinetManageItem item={item} key={item.title + i} index={i} />
           ))}
+          <h1>사물함 추가하기</h1>
+          <CabinetManageAddItem />
         </PageContainer>
       </Fade>
     </ModalContainer>
