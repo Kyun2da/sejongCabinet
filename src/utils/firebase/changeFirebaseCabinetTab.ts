@@ -23,7 +23,6 @@ export default function changeFirebaseCabinetTab(
           store.getState().cabinet.cabinet?.[cabinetNum].item;
         getCabinetItem?.map((item) => {
           // 사물함 돌아다니며 예약되어 있는 사용자 아이디의 예약 정보 초기화
-          console.log(item);
           if (item.uuid) {
             changeFirebaseCancelCabinetUser(item.uuid);
           }
