@@ -11,7 +11,12 @@ import {
   FormLabel,
   FormControlLabel,
 } from '@material-ui/core';
-import { useAppSelector, useUserSelector } from '../../redux/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useUserSelector,
+} from '../../redux/hooks';
+import { setUserInfo } from '../../redux/user/userSlice';
 import { database } from '../../config/firebase.config';
 import media from '../../lib/styles/media';
 import AppLayout from '../AppLayout';
@@ -30,6 +35,7 @@ export default function CabinetButtons({
   data: { title, width, height, item },
   index,
 }: CabinetData) {
+  const dispatch = useAppDispatch();
   const [descriptionMode, setDescriptionMode] = useState('number');
   const [select, setSelect] = useState(-1);
   const [count, setCount] = useState([0, 0, 0]);
@@ -56,6 +62,13 @@ export default function CabinetButtons({
     }
   };
 
+  const onClickCabinetButton = (idx: number) => {
+    if (!adminType && item[idx].status === 0 && cabinetIdx) {
+      return alert('신청한 사물함이 있습니다.');
+    }
+    return setSelect(idx);
+  };
+
   const onClickSubmitButton = () => {
     if (adminType === 0) {
       if (item[select].status === 0) {
@@ -65,10 +78,30 @@ export default function CabinetButtons({
           name: name,
           uuid: uuid,
         });
+
+        dispatch(
+          setUserInfo({
+            adminType: 0,
+            cabinetIdx: select,
+            cabinetTitle: title,
+            name: name,
+            studentID: studentID,
+          }),
+        );
       } else if (item[select].uuid === uuid) {
         database.ref(`cabinet/${index}/item/${select}`).set({
           status: 0,
         });
+
+        dispatch(
+          setUserInfo({
+            adminType: 0,
+            cabinetIdx: 0,
+            cabinetTitle: '',
+            name: name,
+            studentID: studentID,
+          }),
+        );
       }
     } else {
       if (item[select].status === 0) {
@@ -159,13 +192,13 @@ export default function CabinetButtons({
   const loadCabinetButton = (idx: number) => {
     if (item[idx].status === 0) {
       return (
-        <AvailableCabinetButton onClick={() => setSelect(idx)}>
+        <AvailableCabinetButton onClick={() => onClickCabinetButton(idx)}>
           {idx + 1}
         </AvailableCabinetButton>
       );
     } else if (item[idx].status === 1 && item[idx].uuid === uuid) {
       return (
-        <MyCabinetButton onClick={() => setSelect(idx)}>
+        <MyCabinetButton onClick={() => onClickCabinetButton(idx)}>
           {descriptionCabinet(idx)}
         </MyCabinetButton>
       );
@@ -178,7 +211,7 @@ export default function CabinetButtons({
     } else if (item[idx].status === 2) {
       return (
         <BrokenCabinetButton
-          onClick={() => setSelect(idx)}
+          onClick={() => onClickCabinetButton(idx)}
           disabled={adminType !== 1}
         >
           🚧
