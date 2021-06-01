@@ -65,6 +65,10 @@ export default function CabinetButtons({
     };
   }, [cabinetRef]);
 
+  const isMobile = () => {
+    return window.innerWidth <= 1024;
+  };
+
   const handleDescriptionMode = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -72,12 +76,16 @@ export default function CabinetButtons({
   };
 
   const showGridRow = () => {
-    return <GridRowDiv ref={cabinetRef}>{showGridColumn()}</GridRowDiv>;
+    return (
+      <GridRowDiv>
+        <GridContentsDiv ref={cabinetRef}>{showGridColumn()}</GridContentsDiv>
+      </GridRowDiv>
+    );
   };
 
   const showGridColumn = () => {
     return [...Array(height)].map((v, i) => (
-      <Grid container spacing={1} key={i}>
+      <Grid container spacing={1} key={`${title}` + 'grid' + i}>
         {loadGridRow(i)}
       </Grid>
     ));
@@ -127,11 +135,22 @@ export default function CabinetButtons({
   const loadGridRow = (i: number) => {
     return [...Array(width)].map((v, index) => {
       const arrIdx = i * width + index;
-      return (
-        <Grid item xs={1} key={arrIdx}>
-          <Grid container>{loadCabinetButton(arrIdx)}</Grid>
-        </Grid>
-      );
+
+      if (isMobile()) {
+        return (
+          <Grid>
+            <Grid item xs={1} key={`${title}` + 'cabinet' + arrIdx}>
+              {loadCabinetButton(arrIdx)}
+            </Grid>
+          </Grid>
+        );
+      } else {
+        return (
+          <Grid item xs={1} key={`${title}` + 'cabinet' + arrIdx}>
+            {loadCabinetButton(arrIdx)}
+          </Grid>
+        );
+      }
     });
   };
 
@@ -209,9 +228,7 @@ export default function CabinetButtons({
           </CabinetCountContainer>
         </CabinetInfoContainer>
       </CabinetTabsContainer>
-      <CabinetButtonsContainer ref={cabinetRef}>
-        {showGridRow()}
-      </CabinetButtonsContainer>
+      <CabinetButtonsContainer>{showGridRow()}</CabinetButtonsContainer>
       <CabinetSelectContainer>
         <SelectIdxContainer>
           {select === -1 ? '-' : select + 1}
@@ -280,7 +297,7 @@ const CabinetSelectContainer = styled('div')({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: '5vh',
+    marginTop: '8vh',
     paddingBottom: '5vh',
   },
 });
@@ -296,11 +313,11 @@ const SelectIdxContainer = styled('div')({
   display: 'flex',
   fontSize: '2vw',
   justifyContent: 'flex-end',
-  marginRight: '5.5vw',
-  marginTop: '1vh',
+  marginRight: '4vw',
+  marginTop: '2vh',
 
   [`${media.medium}`]: {
-    fontSize: '2rem',
+    fontSize: '1.5rem',
     marginRight: '0',
     marginTop: '0',
     position: 'absolute',
@@ -314,11 +331,13 @@ const SelectStatusContainer = styled('div')({
   fontSize: '3vw',
   justifyContent: 'flex-end',
   marginRight: '3vw',
+  marginTop: '2vh',
 
   [`${media.medium}`]: {
-    fontSize: '2rem',
+    fontSize: '1.5rem',
     marginRight: '0',
-    height: '5vh',
+    marginTop: '0',
+    height: '4vh',
     position: 'absolute',
     right: '10vw',
   },
@@ -382,9 +401,12 @@ const GridRowDiv = styled('div')({
   flexGrow: 1,
 
   [`${media.medium}`]: {
-    width: 'auto',
+    display: 'flex',
+    justifyContent: 'center',
   },
 });
+
+const GridContentsDiv = styled('div')({});
 
 const TooltipTitle = styled(Container)({
   fontSize: '0.8rem',
@@ -440,10 +462,11 @@ const AvailableCabinetButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    padding: '0.5rem',
-    minWidth: '1.6vw',
+    padding: '0.6rem',
+    margin: '0.5vh 0.7vw',
+    minWidth: '1.5vw',
     outline: 'none',
-    maxHeight: '1.6vw',
+    maxHeight: '1.5vw',
     fontSize: '0.5rem',
     borderRadius: '5px',
     border: '2px solid #00d145',
@@ -460,15 +483,17 @@ const RegisteredCabinetButton = styled(Button)({
   backgroundColor: 'lightgray',
   cursor: 'default',
   height: '5.5vh',
+
   '&:hover': {
     backgroundColor: 'lightgray',
   },
 
   [`${media.medium}`]: {
-    padding: '0.5rem',
-    minWidth: '1.6vw',
+    padding: '0.6rem',
+    margin: '0.5vh 0.7vw',
+    minWidth: '1.5vw',
     outline: 'none',
-    maxHeight: '1.6vw',
+    maxHeight: '1.5vw',
     fontSize: '0.5rem',
     borderRadius: '5px',
     border: '2px solid lightgray',
@@ -486,10 +511,11 @@ const BrokenCabinetButton = styled(Button)({
   height: '5.5vh',
 
   [`${media.medium}`]: {
-    padding: '0.5rem',
-    minWidth: '1.6vw',
+    padding: '0.6rem',
+    margin: '0.5vh 0.7vw',
+    minWidth: '1.5vw',
     outline: 'none',
-    maxHeight: '1.6vw',
+    maxHeight: '1.5vw',
     fontSize: '0.5rem',
     borderRadius: '5px',
     border: '2px solid lightgray',
@@ -504,6 +530,7 @@ const MyCabinetButton = styled(Button)({
   fontSize: '1vw',
   backgroundColor: '#008000',
   height: '5.5vh',
+
   '&:hover': {
     backgroundColor: '#DF1840',
     color: 'white',
@@ -516,9 +543,10 @@ const MyCabinetButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    padding: '0.5rem',
-    minWidth: '1.6vw',
-    maxHeight: '1.6vw',
+    padding: '0.6rem',
+    margin: '0.5vh 0.7vw',
+    minWidth: '1.5vw',
+    maxHeight: '1.5vw',
     outline: 'none',
     fontSize: '0.5rem',
     borderRadius: '5px',

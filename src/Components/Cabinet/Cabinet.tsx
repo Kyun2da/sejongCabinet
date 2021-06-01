@@ -95,12 +95,14 @@ const CabinetSwipeableViews = styled(SwipeableViews)({
   marginTop: '3.5vh',
   border: '0.5vh solid lightgray',
   borderRadius: '2vw',
-  padding: '2vh 0 2vh',
+  padding: '2vh 0 4vh',
   overflow: 'hidden',
+  marginBottom: '2vh',
 
   [`${media.medium}`]: {
     border: 'none',
     marginTop: '0',
+    padding: '2vh 0',
   },
 });
 
