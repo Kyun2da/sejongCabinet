@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { CabinetTabType } from '../../redux/cabinet/cabinetSlice';
 import customSwal from '../../utils/alert';
 import changeFirebaseCabinetTab from '../../utils/firebase/changeFirebaseCabinetTab';
+import deleteFirebaseCabinetTab from '../../utils/firebase/deleteFirebaseCabinetTab';
 import initializeFirebaseCabinetTab from '../../utils/firebase/initializeFirebaseCabinetTab';
 
 type CabinetManageItemProps = {
@@ -45,6 +46,9 @@ export default function CabinetManageItem({
         // 가로 세로 정보 바꾸고 모든 아이템을 0으로 초기화
       }
     });
+  };
+  const handleDelete = () => {
+    deleteFirebaseCabinetTab(index);
   };
   return (
     <Accordion>
@@ -95,7 +99,7 @@ export default function CabinetManageItem({
         >
           해당 탭의 사물함 초기화하기
         </Button>
-        <Button size="small" style={{ color: 'red' }}>
+        <Button size="small" style={{ color: 'red' }} onClick={handleDelete}>
           삭제하기
         </Button>
         <Button size="small" color="primary" onClick={handleSubmit}>
