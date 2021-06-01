@@ -12,10 +12,12 @@ import {
   FormControlLabel,
 } from '@material-ui/core';
 import { useAppSelector, useUserSelector } from '../../redux/hooks';
+import { database } from '../../config/firebase.config';
 import media from '../../lib/styles/media';
 import AppLayout from '../AppLayout';
 
 export type CabinetData = {
+  index: number;
   data: {
     width: number;
     height: number;
@@ -26,12 +28,64 @@ export type CabinetData = {
 
 export default function CabinetButtons({
   data: { title, width, height, item },
+  index,
 }: CabinetData) {
   const [descriptionMode, setDescriptionMode] = useState('number');
   const [select, setSelect] = useState(-1);
   const [count, setCount] = useState([0, 0, 0]);
-  const { uuid, adminType } = useAppSelector(useUserSelector);
+  const { uuid, adminType, studentID, name, cabinetIdx, cabinetTitle } =
+    useAppSelector(useUserSelector);
   const cabinetRef = useRef<HTMLDivElement>(null);
+  const submitRef = useRef<HTMLDivElement>(null);
+
+  const showButtonText = () => {
+    if (adminType) {
+      if (item[select].status === 0) {
+        return '고장내기';
+      } else if (item[select].status === 1) {
+        return '취소하기';
+      } else {
+        return '고치기';
+      }
+    } else {
+      if (item[select].uuid === uuid) {
+        return '취소하기';
+      } else {
+        return '신청하기';
+      }
+    }
+  };
+
+  const onClickSubmitButton = () => {
+    if (adminType === 0) {
+      if (item[select].status === 0) {
+        database.ref(`cabinet/${index}/item/${select}`).set({
+          status: 1,
+          studentID: studentID,
+          name: name,
+          uuid: uuid,
+        });
+      } else if (item[select].uuid === uuid) {
+        database.ref(`cabinet/${index}/item/${select}`).set({
+          status: 0,
+        });
+      }
+    } else {
+      if (item[select].status === 0) {
+        database.ref(`cabinet/${index}/item/${select}`).set({
+          status: 2,
+        });
+      } else if (item[select].status === 1) {
+        database.ref(`cabinet/${index}/item/${select}`).set({
+          status: 0,
+        });
+      } else if (item[select].status === 2) {
+        database.ref(`cabinet/${index}/item/${select}`).set({
+          status: 0,
+        });
+      }
+    }
+  };
 
   useEffect(() => {
     let newCount = [0, 0, 0];
@@ -54,7 +108,8 @@ export default function CabinetButtons({
     function handleClickOutside(e: MouseEvent): void {
       if (
         cabinetRef.current &&
-        !cabinetRef.current.contains(e.target as Node)
+        !cabinetRef.current.contains(e.target as Node) &&
+        !submitRef.current?.contains(e.target as Node)
       ) {
         setSelect(-1);
       }
@@ -233,18 +288,12 @@ export default function CabinetButtons({
         <SelectIdxContainer>
           {select === -1 ? '-' : select + 1}
         </SelectIdxContainer>
-        <SelectStatusContainer>
+        <SelectStatusContainer ref={submitRef}>
           {select === -1 ? (
             <Button disabled>사물함을 선택해주세요</Button>
           ) : (
-            <SelectButton>
-              {adminType
-                ? item[select].status === 0
-                  ? '고장내기'
-                  : '고치기'
-                : item[select].uuid === uuid
-                ? '취소하기'
-                : '신청하기'}
+            <SelectButton onClick={onClickSubmitButton}>
+              {showButtonText()}
             </SelectButton>
           )}
         </SelectStatusContainer>
@@ -309,7 +358,7 @@ const DescriptionFormControl = styled(FormControl)({
 });
 
 const SelectIdxContainer = styled('div')({
-  fontFamily: 'Anton',
+  fontFamily: 'Anton,Noto Sans KR',
   display: 'flex',
   fontSize: '2vw',
   justifyContent: 'flex-end',
@@ -326,7 +375,7 @@ const SelectIdxContainer = styled('div')({
 });
 
 const SelectStatusContainer = styled('div')({
-  fontFamily: 'Anton',
+  fontFamily: 'Anton,Noto Sans KR',
   display: 'flex',
   fontSize: '3vw',
   justifyContent: 'flex-end',
@@ -344,7 +393,7 @@ const SelectStatusContainer = styled('div')({
 });
 
 const CabinetTitle = styled('div')({
-  fontFamily: 'Anton',
+  fontFamily: 'Anton,Noto Sans KR',
   fontSize: '3vw',
   marginLeft: '2vw',
 

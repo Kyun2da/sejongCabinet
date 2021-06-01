@@ -6,13 +6,9 @@ import { database } from '../../config/firebase.config';
 import media from '../../lib/styles/media';
 import CabinetButtons from '../CabinetButtons';
 
-export type CabinetProps = { userData: any };
+export type CabinetProps = { cabinetData: any };
 
-interface CabinetItem {
-  [key: string]: any;
-}
-
-export default function Cabinet({ userData }: CabinetProps) {
+export default function Cabinet({ cabinetData }: CabinetProps) {
   const [index, setIndex] = useState(0);
 
   const handleChangeIndex = (value: number) => {
@@ -24,9 +20,11 @@ export default function Cabinet({ userData }: CabinetProps) {
   };
 
   const LoadContents = () => {
-    return userData.currentCabinets.map((v: any, i: any) => {
-      return <CabinetButtons key={i} data={v} />;
-    });
+    return cabinetData
+      .map((v: any, i: any) => {
+        return <CabinetButtons key={v.title + 'Buttons'} data={v} index={i} />;
+      })
+      .filter((v: any) => v);
   };
 
   const showContents = () => {
@@ -42,9 +40,11 @@ export default function Cabinet({ userData }: CabinetProps) {
   };
 
   const loadTabs = () => {
-    return userData.currentCabinets.map((v: any) => {
-      return <CabinetTab key={v.title} label={v.title} wrapped />;
-    });
+    return cabinetData
+      .map((v: any) => {
+        return <CabinetTab key={v.title + 'Tab'} label={v.title} wrapped />;
+      })
+      .filter((v: any) => v);
   };
 
   const showTabs = () => {
