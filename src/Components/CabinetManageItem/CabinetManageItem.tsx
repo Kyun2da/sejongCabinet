@@ -12,7 +12,9 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useState } from 'react';
 import { CabinetTabType } from '../../redux/cabinet/cabinetSlice';
+import customSwal from '../../utils/alert';
 import changeFirebaseCabinetTab from '../../utils/firebase/changeFirebaseCabinetTab';
+import initializeFirebaseCabinetTab from '../../utils/firebase/initializeFirebaseCabinetTab';
 
 type CabinetManageItemProps = {
   item: CabinetTabType;
@@ -30,6 +32,19 @@ export default function CabinetManageItem({
     const isDifferent = width !== item.width || height !== item.height;
     console.log(isDifferent);
     changeFirebaseCabinetTab(index, title, width, height, isDifferent);
+  };
+  const handleInitialize = () => {
+    customSwal(
+      'warning',
+      '사물함 초기화 주의!',
+      '현재 등록된 사물함탭이 전부 예약가능 상태로 초기화 됩니다. 정말 사물함을 초기화 하시겠습니까?',
+      true,
+    ).then((result) => {
+      if (result.isConfirmed) {
+        initializeFirebaseCabinetTab(index);
+        // 가로 세로 정보 바꾸고 모든 아이템을 0으로 초기화
+      }
+    });
   };
   return (
     <Accordion>
@@ -73,7 +88,11 @@ export default function CabinetManageItem({
       </AccordionDetails>
       <Divider />
       <AccordionActions>
-        <Button size="small" style={{ color: 'red' }}>
+        <Button
+          size="small"
+          style={{ color: 'red' }}
+          onClick={handleInitialize}
+        >
           해당 탭의 사물함 초기화하기
         </Button>
         <Button size="small" style={{ color: 'red' }}>
