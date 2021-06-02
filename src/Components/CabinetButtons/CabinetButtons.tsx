@@ -44,7 +44,15 @@ export default function CabinetButtons({
   const cabinetRef = useRef<HTMLDivElement>(null);
   const submitRef = useRef<HTMLDivElement>(null);
 
+  const isMobile = () => {
+    return window.innerWidth <= 1024;
+  };
+
   const showButtonText = () => {
+    if (select === -1) {
+      return '사물함을 선택해주세요';
+    }
+
     if (adminType) {
       if (item[select].status === 0) {
         return '고장내기';
@@ -62,8 +70,9 @@ export default function CabinetButtons({
     }
   };
 
-  const onClickCabinetButton = (idx: number) => {
+  const onClickCabinetButton = (e: React.MouseEvent, idx: number) => {
     if (!adminType && item[idx].status === 0 && cabinetIdx) {
+      (e.currentTarget as HTMLElement).blur();
       return alert('신청한 사물함이 있습니다.');
     }
     return setSelect(idx);
@@ -147,10 +156,6 @@ export default function CabinetButtons({
     };
   }, [cabinetRef]);
 
-  const isMobile = () => {
-    return window.innerWidth <= 1024;
-  };
-
   const handleDescriptionMode = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -186,13 +191,17 @@ export default function CabinetButtons({
   const loadCabinetButton = (idx: number) => {
     if (item[idx].status === 0) {
       return (
-        <AvailableCabinetButton onClick={() => onClickCabinetButton(idx)}>
+        <AvailableCabinetButton
+          onClick={(e) => {
+            onClickCabinetButton(e, idx);
+          }}
+        >
           {idx + 1}
         </AvailableCabinetButton>
       );
     } else if (item[idx].status === 1 && item[idx].uuid === uuid) {
       return (
-        <MyCabinetButton onClick={() => onClickCabinetButton(idx)}>
+        <MyCabinetButton onClick={(e) => onClickCabinetButton(e, idx)}>
           {descriptionCabinet(idx)}
         </MyCabinetButton>
       );
@@ -205,7 +214,7 @@ export default function CabinetButtons({
     } else if (item[idx].status === 2) {
       return (
         <BrokenCabinetButton
-          onClick={() => onClickCabinetButton(idx)}
+          onClick={(e) => onClickCabinetButton(e, idx)}
           disabled={adminType !== 1}
         >
           🚧
@@ -316,13 +325,9 @@ export default function CabinetButtons({
           {select === -1 ? '-' : select + 1}
         </SelectIdxContainer>
         <SelectStatusContainer ref={submitRef}>
-          {select === -1 ? (
-            <Button disabled>사물함을 선택해주세요</Button>
-          ) : (
-            <SelectButton onClick={onClickSubmitButton}>
-              {showButtonText()}
-            </SelectButton>
-          )}
+          <SelectButton onClick={onClickSubmitButton} disabled={select === -1}>
+            {showButtonText()}
+          </SelectButton>
         </SelectStatusContainer>
       </CabinetSelectContainer>
     </CabinetContainer>
@@ -502,12 +507,22 @@ const CabinetStatusTooltip = styled(Tooltip)({
 
 const SelectButton = styled(Button)({
   color: 'white',
-  width: '7.5vw',
+  minWidth: '7.5vw',
   backgroundColor: 'black',
+  transition: 'background-color 0.5s ease-in-out',
+
+  '&:disabled': {
+    backgroundColor: 'transparent',
+    color: '#848484',
+  },
 
   [`${media.medium}`]: {
     padding: '0.5vh 5vw',
     width: 'auto',
+
+    '&:disabled': {
+      fontSize: '0.4rem',
+    },
   },
 });
 
