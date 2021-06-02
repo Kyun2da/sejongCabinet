@@ -11,27 +11,108 @@ import {
   FormLabel,
   FormControlLabel,
 } from '@material-ui/core';
-import { useAppSelector, useUserSelector } from '../../redux/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useUserSelector,
+} from '../../redux/hooks';
+import { setUserInfo } from '../../redux/user/userSlice';
+import { database } from '../../config/firebase.config';
 import media from '../../lib/styles/media';
+import changeCabinetStatus from '../../utils/firebase/changeCabinetStatus';
 import AppLayout from '../AppLayout';
+import type {
+  CabinetTabType,
+  CabinetItemType,
+} from '../../redux/cabinet/cabinetSlice';
 
 export type CabinetData = {
-  data: {
-    width: number;
-    height: number;
-    title: string;
-    item: any;
-  };
+  index: number;
+  data: CabinetTabType;
 };
 
 export default function CabinetButtons({
   data: { title, width, height, item },
+  index,
 }: CabinetData) {
+  const dispatch = useAppDispatch();
   const [descriptionMode, setDescriptionMode] = useState('number');
   const [select, setSelect] = useState(-1);
   const [count, setCount] = useState([0, 0, 0]);
-  const { uuid, adminType } = useAppSelector(useUserSelector);
+  const { uuid, adminType, studentID, name, cabinetIdx, cabinetTitle } =
+    useAppSelector(useUserSelector);
   const cabinetRef = useRef<HTMLDivElement>(null);
+  const submitRef = useRef<HTMLDivElement>(null);
+
+  const showButtonText = () => {
+    if (adminType) {
+      if (item[select].status === 0) {
+        return '고장내기';
+      } else if (item[select].status === 1) {
+        return '취소하기';
+      } else {
+        return '고치기';
+      }
+    } else {
+      if (item[select].uuid === uuid) {
+        return '취소하기';
+      } else {
+        return '신청하기';
+      }
+    }
+  };
+
+  const onClickCabinetButton = (idx: number) => {
+    if (!adminType && item[idx].status === 0 && cabinetIdx) {
+      return alert('신청한 사물함이 있습니다.');
+    }
+    return setSelect(idx);
+  };
+
+  const onClickSubmitButton = () => {
+    if (adminType === 0) {
+      if (item[select].status === 0) {
+        database.ref(`cabinet/${index}/item/${select}`).set({
+          status: 1,
+          studentID: studentID,
+          name: name,
+          uuid: uuid,
+        });
+
+        dispatch(
+          setUserInfo({
+            adminType: 0,
+            cabinetIdx: select,
+            cabinetTitle: title,
+            name: name,
+            studentID: studentID,
+          }),
+        );
+      } else if (item[select].uuid === uuid) {
+        database.ref(`cabinet/${index}/item/${select}`).set({
+          status: 0,
+        });
+
+        dispatch(
+          setUserInfo({
+            adminType: 0,
+            cabinetIdx: 0,
+            cabinetTitle: '',
+            name: name,
+            studentID: studentID,
+          }),
+        );
+      }
+    } else {
+      if (item[select].status === 0) {
+        changeCabinetStatus(index, select, 2);
+      } else if (item[select].status === 1) {
+        changeCabinetStatus(index, select, 0);
+      } else if (item[select].status === 2) {
+        changeCabinetStatus(index, select, 0);
+      }
+    }
+  };
 
   useEffect(() => {
     let newCount = [0, 0, 0];
@@ -54,7 +135,8 @@ export default function CabinetButtons({
     function handleClickOutside(e: MouseEvent): void {
       if (
         cabinetRef.current &&
-        !cabinetRef.current.contains(e.target as Node)
+        !cabinetRef.current.contains(e.target as Node) &&
+        !submitRef.current?.contains(e.target as Node)
       ) {
         setSelect(-1);
       }
@@ -95,7 +177,7 @@ export default function CabinetButtons({
     if (descriptionMode === 'number') {
       return idx + 1;
     } else if (descriptionMode === 'studentID') {
-      return item[idx].studentID;
+      return item[idx].studentId;
     } else {
       return item[idx].name;
     }
@@ -104,13 +186,13 @@ export default function CabinetButtons({
   const loadCabinetButton = (idx: number) => {
     if (item[idx].status === 0) {
       return (
-        <AvailableCabinetButton onClick={() => setSelect(idx)}>
+        <AvailableCabinetButton onClick={() => onClickCabinetButton(idx)}>
           {idx + 1}
         </AvailableCabinetButton>
       );
     } else if (item[idx].status === 1 && item[idx].uuid === uuid) {
       return (
-        <MyCabinetButton onClick={() => setSelect(idx)}>
+        <MyCabinetButton onClick={() => onClickCabinetButton(idx)}>
           {descriptionCabinet(idx)}
         </MyCabinetButton>
       );
@@ -123,7 +205,7 @@ export default function CabinetButtons({
     } else if (item[idx].status === 2) {
       return (
         <BrokenCabinetButton
-          onClick={() => setSelect(idx)}
+          onClick={() => onClickCabinetButton(idx)}
           disabled={adminType !== 1}
         >
           🚧
@@ -233,18 +315,12 @@ export default function CabinetButtons({
         <SelectIdxContainer>
           {select === -1 ? '-' : select + 1}
         </SelectIdxContainer>
-        <SelectStatusContainer>
+        <SelectStatusContainer ref={submitRef}>
           {select === -1 ? (
             <Button disabled>사물함을 선택해주세요</Button>
           ) : (
-            <SelectButton>
-              {adminType
-                ? item[select].status === 0
-                  ? '고장내기'
-                  : '고치기'
-                : item[select].uuid === uuid
-                ? '취소하기'
-                : '신청하기'}
+            <SelectButton onClick={onClickSubmitButton}>
+              {showButtonText()}
             </SelectButton>
           )}
         </SelectStatusContainer>
@@ -309,7 +385,7 @@ const DescriptionFormControl = styled(FormControl)({
 });
 
 const SelectIdxContainer = styled('div')({
-  fontFamily: 'Anton',
+  fontFamily: 'Anton,Noto Sans KR',
   display: 'flex',
   fontSize: '2vw',
   justifyContent: 'flex-end',
@@ -326,7 +402,7 @@ const SelectIdxContainer = styled('div')({
 });
 
 const SelectStatusContainer = styled('div')({
-  fontFamily: 'Anton',
+  fontFamily: 'Anton,Noto Sans KR',
   display: 'flex',
   fontSize: '3vw',
   justifyContent: 'flex-end',
@@ -344,7 +420,7 @@ const SelectStatusContainer = styled('div')({
 });
 
 const CabinetTitle = styled('div')({
-  fontFamily: 'Anton',
+  fontFamily: 'Anton,Noto Sans KR',
   fontSize: '3vw',
   marginLeft: '2vw',
 
