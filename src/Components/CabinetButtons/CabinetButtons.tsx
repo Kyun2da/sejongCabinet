@@ -19,16 +19,16 @@ import {
 import { setUserInfo } from '../../redux/user/userSlice';
 import { database } from '../../config/firebase.config';
 import media from '../../lib/styles/media';
+import changeCabinetStatus from '../../utils/firebase/changeCabinetStatus';
 import AppLayout from '../AppLayout';
+import type {
+  CabinetTabType,
+  CabinetItemType,
+} from '../../redux/cabinet/cabinetSlice';
 
 export type CabinetData = {
   index: number;
-  data: {
-    width: number;
-    height: number;
-    title: string;
-    item: any;
-  };
+  data: CabinetTabType;
 };
 
 export default function CabinetButtons({
@@ -105,17 +105,11 @@ export default function CabinetButtons({
       }
     } else {
       if (item[select].status === 0) {
-        database.ref(`cabinet/${index}/item/${select}`).set({
-          status: 2,
-        });
+        changeCabinetStatus(index, select, 2);
       } else if (item[select].status === 1) {
-        database.ref(`cabinet/${index}/item/${select}`).set({
-          status: 0,
-        });
+        changeCabinetStatus(index, select, 0);
       } else if (item[select].status === 2) {
-        database.ref(`cabinet/${index}/item/${select}`).set({
-          status: 0,
-        });
+        changeCabinetStatus(index, select, 0);
       }
     }
   };
@@ -183,7 +177,7 @@ export default function CabinetButtons({
     if (descriptionMode === 'number') {
       return idx + 1;
     } else if (descriptionMode === 'studentID') {
-      return item[idx].studentID;
+      return item[idx].studentId;
     } else {
       return item[idx].name;
     }

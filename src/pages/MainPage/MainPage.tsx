@@ -6,16 +6,11 @@ import MenuInfo from '../../Components/MenuInfo';
 import AppLayout from '../../Components/AppLayout';
 import Cabinet from '../../Components/Cabinet';
 import { Redirect } from 'react-router-dom';
-import {
-  useAppSelector,
-  useUserSelector,
-  useCabinetSelector,
-} from '../../redux/hooks';
+import { useAppSelector, useUserSelector } from '../../redux/hooks';
 
 export type MainPageProps = {};
 
 function MainPage({}: MainPageProps) {
-  const { cabinet } = useAppSelector(useCabinetSelector);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const { uuid } = useAppSelector(useUserSelector);
   const handleOpen = () => {
@@ -32,7 +27,7 @@ function MainPage({}: MainPageProps) {
         <HelperButton onClick={handleOpen} />
         <MenuInfo />
       </Header>
-      <Cabinet cabinetData={cabinet} />
+      <Cabinet />
       <HelperModal open={openModal} setOpen={handleOpen} />
     </AppLayout>
   );

@@ -5,26 +5,35 @@ import { Tabs, Tab, Container } from '@material-ui/core';
 import { database } from '../../config/firebase.config';
 import media from '../../lib/styles/media';
 import CabinetButtons from '../CabinetButtons';
+import { useCabinetSelector, useAppSelector } from '../../redux/hooks';
+import type {
+  CabinetTabType,
+  CabinetItemType,
+} from '../../redux/cabinet/cabinetSlice';
 
-export type CabinetProps = { cabinetData: any };
+export type CabinetProps = {};
 
-export default function Cabinet({ cabinetData }: CabinetProps) {
+export default function Cabinet({}: CabinetProps) {
   const [index, setIndex] = useState(0);
+  const { cabinet } = useAppSelector(useCabinetSelector);
 
   const handleChangeIndex = (value: number) => {
     setIndex(value);
   };
 
-  const handleChange = (e: any, newValue: number) => {
+  const handleChange = (e: object, newValue: number) => {
     setIndex(newValue);
   };
 
   const LoadContents = () => {
-    return cabinetData
-      .map((v: any, i: any) => {
-        return <CabinetButtons key={v.title + 'Buttons'} data={v} index={i} />;
-      })
-      .filter((v: any) => v);
+    if (cabinet)
+      return cabinet
+        .map((v: CabinetTabType, i: number) => {
+          return (
+            <CabinetButtons key={v.title + 'Buttons'} data={v} index={i} />
+          );
+        })
+        .filter((v: object) => v);
   };
 
   const showContents = () => {
@@ -40,11 +49,12 @@ export default function Cabinet({ cabinetData }: CabinetProps) {
   };
 
   const loadTabs = () => {
-    return cabinetData
-      .map((v: any) => {
-        return <CabinetTab key={v.title + 'Tab'} label={v.title} wrapped />;
-      })
-      .filter((v: any) => v);
+    if (cabinet)
+      return cabinet
+        .map((v: CabinetTabType) => {
+          return <CabinetTab key={v.title + 'Tab'} label={v.title} wrapped />;
+        })
+        .filter((v: object) => v);
   };
 
   const showTabs = () => {
