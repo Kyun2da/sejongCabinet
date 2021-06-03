@@ -1,5 +1,10 @@
 import React, { useEffect } from 'react';
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import {
+  Route,
+  Switch,
+  BrowserRouter as Router,
+  useLocation,
+} from 'react-router-dom';
 import MainPage from './pages/MainPage';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
@@ -31,7 +36,6 @@ function App() {
   const [cabinetInfo, cabinetInfoLoading, cabinetInfoError] = useObject(
     database.ref('cabinet'),
   );
-
   // 파이어베이스 유저 데이터 리덕스로 옮기기
   useEffect(() => {
     if (user) {
@@ -56,21 +60,11 @@ function App() {
     }
   }, [serverInfo]);
 
-  // 파이어베이스 캐비넷 데이터 리덕스로 옮기기
   useEffect(() => {
     if (cabinetInfo) {
       dispatch(setCabinet(cabinetInfo.val()));
     }
   }, [cabinetInfo]);
-
-  if (
-    authLoading ||
-    userInfoLoading ||
-    serverInfoLoading ||
-    cabinetInfoLoading
-  ) {
-    return <div>로딩중..</div>;
-  }
 
   return (
     <Router>
