@@ -27,6 +27,7 @@ import type {
   CabinetTabType,
   CabinetItemType,
 } from '../../redux/cabinet/cabinetSlice';
+import { type } from 'os';
 
 export type CabinetData = {
   index: number;
@@ -119,7 +120,7 @@ export default function CabinetButtons({
   const onClickCabinetButton = async (e: React.MouseEvent, idx: number) => {
     const target = e.currentTarget as HTMLElement;
 
-    if (!adminType && item[idx].status === 0 && cabinetIdx) {
+    if (!adminType && item[idx].status === 0 && cabinetIdx !== null) {
       target.blur();
       await Swal.fire({
         icon: 'error',
