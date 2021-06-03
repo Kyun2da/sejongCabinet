@@ -38,13 +38,13 @@ function SignUp({}: SignUpProps) {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
 
-  const writeUserData = (userID: any, studentID: string, _name: string) => {
+  const writeUserData = (userID: any, _studentID: string, _name: string) => {
     database.ref(`users/${userID}`).set({
       adminType: 0,
       cabinetIdx: 0,
-      cabinetTitle: 0,
+      cabinetTitle: '',
       name: _name,
-      studentID,
+      studentID: _studentID,
     });
   };
 

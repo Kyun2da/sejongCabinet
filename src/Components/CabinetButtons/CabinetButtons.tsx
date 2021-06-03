@@ -11,27 +11,108 @@ import {
   FormLabel,
   FormControlLabel,
 } from '@material-ui/core';
-import { useAppSelector, useUserSelector } from '../../redux/hooks';
+import {
+  useAppDispatch,
+  useAppSelector,
+  useUserSelector,
+} from '../../redux/hooks';
+import { setUserInfo } from '../../redux/user/userSlice';
+import { database } from '../../config/firebase.config';
 import media from '../../lib/styles/media';
+import changeCabinetStatus from '../../utils/firebase/changeCabinetStatus';
 import AppLayout from '../AppLayout';
+import type {
+  CabinetTabType,
+  CabinetItemType,
+} from '../../redux/cabinet/cabinetSlice';
 
 export type CabinetData = {
-  data: {
-    width: number;
-    height: number;
-    title: string;
-    item: any;
-  };
+  index: number;
+  data: CabinetTabType;
 };
 
 export default function CabinetButtons({
   data: { title, width, height, item },
+  index,
 }: CabinetData) {
+  const dispatch = useAppDispatch();
   const [descriptionMode, setDescriptionMode] = useState('number');
   const [select, setSelect] = useState(-1);
   const [count, setCount] = useState([0, 0, 0]);
-  const { uuid, adminType } = useAppSelector(useUserSelector);
+  const { uuid, adminType, studentID, name, cabinetIdx, cabinetTitle } =
+    useAppSelector(useUserSelector);
   const cabinetRef = useRef<HTMLDivElement>(null);
+  const submitRef = useRef<HTMLDivElement>(null);
+
+  const showButtonText = () => {
+    if (adminType) {
+      if (item[select].status === 0) {
+        return '고장내기';
+      } else if (item[select].status === 1) {
+        return '취소하기';
+      } else {
+        return '고치기';
+      }
+    } else {
+      if (item[select].uuid === uuid) {
+        return '취소하기';
+      } else {
+        return '신청하기';
+      }
+    }
+  };
+
+  const onClickCabinetButton = (idx: number) => {
+    if (!adminType && item[idx].status === 0 && cabinetIdx) {
+      return alert('신청한 사물함이 있습니다.');
+    }
+    return setSelect(idx);
+  };
+
+  const onClickSubmitButton = () => {
+    if (adminType === 0) {
+      if (item[select].status === 0) {
+        database.ref(`cabinet/${index}/item/${select}`).set({
+          status: 1,
+          studentID: studentID,
+          name: name,
+          uuid: uuid,
+        });
+
+        dispatch(
+          setUserInfo({
+            adminType: 0,
+            cabinetIdx: select,
+            cabinetTitle: title,
+            name: name,
+            studentID: studentID,
+          }),
+        );
+      } else if (item[select].uuid === uuid) {
+        database.ref(`cabinet/${index}/item/${select}`).set({
+          status: 0,
+        });
+
+        dispatch(
+          setUserInfo({
+            adminType: 0,
+            cabinetIdx: 0,
+            cabinetTitle: '',
+            name: name,
+            studentID: studentID,
+          }),
+        );
+      }
+    } else {
+      if (item[select].status === 0) {
+        changeCabinetStatus(index, select, 2);
+      } else if (item[select].status === 1) {
+        changeCabinetStatus(index, select, 0);
+      } else if (item[select].status === 2) {
+        changeCabinetStatus(index, select, 0);
+      }
+    }
+  };
 
   useEffect(() => {
     let newCount = [0, 0, 0];
@@ -54,7 +135,8 @@ export default function CabinetButtons({
     function handleClickOutside(e: MouseEvent): void {
       if (
         cabinetRef.current &&
-        !cabinetRef.current.contains(e.target as Node)
+        !cabinetRef.current.contains(e.target as Node) &&
+        !submitRef.current?.contains(e.target as Node)
       ) {
         setSelect(-1);
       }
@@ -65,6 +147,10 @@ export default function CabinetButtons({
     };
   }, [cabinetRef]);
 
+  const isMobile = () => {
+    return window.innerWidth <= 1024;
+  };
+
   const handleDescriptionMode = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -72,12 +158,16 @@ export default function CabinetButtons({
   };
 
   const showGridRow = () => {
-    return <GridRowDiv ref={cabinetRef}>{showGridColumn()}</GridRowDiv>;
+    return (
+      <GridRowDiv>
+        <GridContentsDiv ref={cabinetRef}>{showGridColumn()}</GridContentsDiv>
+      </GridRowDiv>
+    );
   };
 
   const showGridColumn = () => {
     return [...Array(height)].map((v, i) => (
-      <Grid container spacing={1} key={i}>
+      <Grid container spacing={1} key={`${title}` + 'grid' + i}>
         {loadGridRow(i)}
       </Grid>
     ));
@@ -87,7 +177,7 @@ export default function CabinetButtons({
     if (descriptionMode === 'number') {
       return idx + 1;
     } else if (descriptionMode === 'studentID') {
-      return item[idx].studentID;
+      return item[idx].studentId;
     } else {
       return item[idx].name;
     }
@@ -96,13 +186,13 @@ export default function CabinetButtons({
   const loadCabinetButton = (idx: number) => {
     if (item[idx].status === 0) {
       return (
-        <AvailableCabinetButton onClick={() => setSelect(idx)}>
+        <AvailableCabinetButton onClick={() => onClickCabinetButton(idx)}>
           {idx + 1}
         </AvailableCabinetButton>
       );
     } else if (item[idx].status === 1 && item[idx].uuid === uuid) {
       return (
-        <MyCabinetButton onClick={() => setSelect(idx)}>
+        <MyCabinetButton onClick={() => onClickCabinetButton(idx)}>
           {descriptionCabinet(idx)}
         </MyCabinetButton>
       );
@@ -115,7 +205,7 @@ export default function CabinetButtons({
     } else if (item[idx].status === 2) {
       return (
         <BrokenCabinetButton
-          onClick={() => setSelect(idx)}
+          onClick={() => onClickCabinetButton(idx)}
           disabled={adminType !== 1}
         >
           🚧
@@ -127,11 +217,22 @@ export default function CabinetButtons({
   const loadGridRow = (i: number) => {
     return [...Array(width)].map((v, index) => {
       const arrIdx = i * width + index;
-      return (
-        <Grid item xs={1} key={arrIdx}>
-          <Grid container>{loadCabinetButton(arrIdx)}</Grid>
-        </Grid>
-      );
+
+      if (isMobile()) {
+        return (
+          <Grid>
+            <Grid item xs={1} key={`${title}` + 'cabinet' + arrIdx}>
+              {loadCabinetButton(arrIdx)}
+            </Grid>
+          </Grid>
+        );
+      } else {
+        return (
+          <Grid item xs={1} key={`${title}` + 'cabinet' + arrIdx}>
+            {loadCabinetButton(arrIdx)}
+          </Grid>
+        );
+      }
     });
   };
 
@@ -209,25 +310,17 @@ export default function CabinetButtons({
           </CabinetCountContainer>
         </CabinetInfoContainer>
       </CabinetTabsContainer>
-      <CabinetButtonsContainer ref={cabinetRef}>
-        {showGridRow()}
-      </CabinetButtonsContainer>
+      <CabinetButtonsContainer>{showGridRow()}</CabinetButtonsContainer>
       <CabinetSelectContainer>
         <SelectIdxContainer>
           {select === -1 ? '-' : select + 1}
         </SelectIdxContainer>
-        <SelectStatusContainer>
+        <SelectStatusContainer ref={submitRef}>
           {select === -1 ? (
             <Button disabled>사물함을 선택해주세요</Button>
           ) : (
-            <SelectButton>
-              {adminType
-                ? item[select].status === 1
-                  ? '고장내기'
-                  : '고치기'
-                : item[select].uuid === uuid
-                ? '취소하기'
-                : '신청하기'}
+            <SelectButton onClick={onClickSubmitButton}>
+              {showButtonText()}
             </SelectButton>
           )}
         </SelectStatusContainer>
@@ -239,6 +332,13 @@ export default function CabinetButtons({
 const CabinetContainer = styled('div')({
   width: '100%',
   position: 'absolute',
+
+  [`${media.medium}`]: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
 });
 
 const CabinetTabsContainer = styled(Container)({
@@ -247,17 +347,35 @@ const CabinetTabsContainer = styled(Container)({
   alignItems: 'center',
   fontFamily: 'Anton',
   margin: '1vh 0 5vh',
+
+  [`${media.medium}`]: {
+    margin: '0',
+  },
 });
 
 const CabinetButtonsContainer = styled('div')({
   marginLeft: '3vw',
   marginTop: '8vh',
   width: '90%',
+
+  [`${media.medium}`]: {
+    marginLeft: '0',
+    marginTop: '4vh',
+    width: '90%',
+  },
 });
 
 const CabinetSelectContainer = styled('div')({
   width: '100%',
   flexDirection: 'column',
+
+  [`${media.medium}`]: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: '8vh',
+    paddingBottom: '5vh',
+  },
 });
 
 const DescriptionFormControl = styled(FormControl)({
@@ -267,26 +385,48 @@ const DescriptionFormControl = styled(FormControl)({
 });
 
 const SelectIdxContainer = styled('div')({
-  fontFamily: 'Anton',
+  fontFamily: 'Anton,Noto Sans KR',
   display: 'flex',
   fontSize: '2vw',
   justifyContent: 'flex-end',
-  marginRight: '5.5vw',
-  margin: '1vh 0',
+  marginRight: '4vw',
+  marginTop: '2vh',
+
+  [`${media.medium}`]: {
+    fontSize: '1.5rem',
+    marginRight: '0',
+    marginTop: '0',
+    position: 'absolute',
+    left: '30vw',
+  },
 });
 
 const SelectStatusContainer = styled('div')({
-  fontFamily: 'Anton',
+  fontFamily: 'Anton,Noto Sans KR',
   display: 'flex',
   fontSize: '3vw',
   justifyContent: 'flex-end',
   marginRight: '3vw',
+  marginTop: '2vh',
+
+  [`${media.medium}`]: {
+    fontSize: '1.5rem',
+    marginRight: '0',
+    marginTop: '0',
+    height: '4vh',
+    position: 'absolute',
+    right: '10vw',
+  },
 });
 
 const CabinetTitle = styled('div')({
-  fontFamily: 'Anton',
+  fontFamily: 'Anton,Noto Sans KR',
   fontSize: '3vw',
   marginLeft: '2vw',
+
+  [`${media.medium}`]: {
+    display: 'none',
+  },
 });
 
 const CabinetInfoContainer = styled(Container)({
@@ -294,6 +434,10 @@ const CabinetInfoContainer = styled(Container)({
   right: 50,
   top: 10,
   position: 'absolute',
+
+  [`${media.medium}`]: {
+    position: 'static',
+  },
 });
 
 const CabinetDescriptionContainer = styled('div')({
@@ -302,6 +446,11 @@ const CabinetDescriptionContainer = styled('div')({
   alignItems: 'flex-end',
   flexDirection: 'row',
   marginTop: '2vh',
+
+  [`${media.medium}`]: {
+    display: 'none',
+    marginTop: '0',
+  },
 });
 
 const CabinetCountContainer = styled('div')({
@@ -310,11 +459,30 @@ const CabinetCountContainer = styled('div')({
   flexDirection: 'column',
   textAlign: 'left',
   marginTop: '1vh',
+
+  [`${media.medium}`]: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: '2vw solid RGB(240,240,240)',
+    borderRadius: '10px',
+    marginTop: '0',
+    padding: '1.5vh 0',
+    textAlign: 'center',
+  },
 });
 
 const GridRowDiv = styled('div')({
   flexGrow: 1,
+
+  [`${media.medium}`]: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 });
+
+const GridContentsDiv = styled('div')({});
 
 const TooltipTitle = styled(Container)({
   fontSize: '0.8rem',
@@ -326,12 +494,21 @@ const CabinetStatusValue = styled('div')({
 
 const CabinetStatusTooltip = styled(Tooltip)({
   fontSize: '1rem',
+
+  [`${media.medium}`]: {
+    flexGrow: 1,
+  },
 });
 
 const SelectButton = styled(Button)({
   color: 'white',
   width: '7.5vw',
   backgroundColor: 'black',
+
+  [`${media.medium}`]: {
+    padding: '0.5vh 5vw',
+    width: 'auto',
+  },
 });
 
 const AvailableCabinetButton = styled(Button)({
@@ -359,6 +536,17 @@ const AvailableCabinetButton = styled(Button)({
     backgroundColor: '#00d145',
     color: 'white',
   },
+
+  [`${media.medium}`]: {
+    padding: '0.6rem',
+    margin: '0.5vh 0.7vw',
+    minWidth: '1.5vw',
+    outline: 'none',
+    maxHeight: '1.5vw',
+    fontSize: '0.5rem',
+    borderRadius: '5px',
+    border: '2px solid #00d145',
+  },
 });
 
 const RegisteredCabinetButton = styled(Button)({
@@ -371,8 +559,20 @@ const RegisteredCabinetButton = styled(Button)({
   backgroundColor: 'lightgray',
   cursor: 'default',
   height: '5.5vh',
+
   '&:hover': {
     backgroundColor: 'lightgray',
+  },
+
+  [`${media.medium}`]: {
+    padding: '0.6rem',
+    margin: '0.5vh 0.7vw',
+    minWidth: '1.5vw',
+    outline: 'none',
+    maxHeight: '1.5vw',
+    fontSize: '0.5rem',
+    borderRadius: '5px',
+    border: '2px solid lightgray',
   },
 });
 
@@ -385,6 +585,17 @@ const BrokenCabinetButton = styled(Button)({
   fontSize: '1vw',
   backgroundColor: 'lightgray',
   height: '5.5vh',
+
+  [`${media.medium}`]: {
+    padding: '0.6rem',
+    margin: '0.5vh 0.7vw',
+    minWidth: '1.5vw',
+    outline: 'none',
+    maxHeight: '1.5vw',
+    fontSize: '0.5rem',
+    borderRadius: '5px',
+    border: '2px solid lightgray',
+  },
 });
 
 const MyCabinetButton = styled(Button)({
@@ -395,6 +606,7 @@ const MyCabinetButton = styled(Button)({
   fontSize: '1vw',
   backgroundColor: '#008000',
   height: '5.5vh',
+
   '&:hover': {
     backgroundColor: '#DF1840',
     color: 'white',
@@ -404,5 +616,16 @@ const MyCabinetButton = styled(Button)({
     backgroundColor: '#DF1840',
     color: 'white',
     border: '3px solid #DF1840',
+  },
+
+  [`${media.medium}`]: {
+    padding: '0.6rem',
+    margin: '0.5vh 0.7vw',
+    minWidth: '1.5vw',
+    maxHeight: '1.5vw',
+    outline: 'none',
+    fontSize: '0.5rem',
+    borderRadius: '5px',
+    border: '2px solid #008000',
   },
 });
