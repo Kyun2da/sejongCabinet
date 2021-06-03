@@ -120,8 +120,13 @@ export default function CabinetButtons({
   const onClickCabinetButton = async (e: React.MouseEvent, idx: number) => {
     const target = e.currentTarget as HTMLElement;
 
-    if (!adminType && item[idx].status === 0 && cabinetIdx !== null) {
+    if (
+      !adminType &&
+      item[idx].status === 0 &&
+      typeof cabinetIdx === 'number'
+    ) {
       target.blur();
+
       await Swal.fire({
         icon: 'error',
         title: '이미 신청한 사물함이 있습니다.',
@@ -211,11 +216,71 @@ export default function CabinetButtons({
       }
     } else {
       if (item[select].status === 0) {
-        changeCabinetStatus(index, select, 2);
+        Swal.fire({
+          icon: 'warning',
+          title: '사물함 상태 변경',
+          text: `사물함의 상태를 고장 상태로 변경하시겠습니까?`,
+          showCancelButton: true,
+          showConfirmButton: true,
+          confirmButtonText: '네',
+          cancelButtonText: '아니요',
+          confirmButtonColor: 'rgb(63,81,181)',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            changeCabinetStatus(index, select, 2);
+
+            Swal.fire({
+              icon: 'success',
+              title: '사물함 상태가 변경되었습니다',
+              width: 'auto',
+              timer: 1500,
+            });
+          }
+        });
       } else if (item[select].status === 1) {
-        changeCabinetStatus(index, select, 0);
+        Swal.fire({
+          icon: 'error',
+          title: '사물함을 취소하시겠습니까?',
+          text: `유저의 사물함의 신청을 취소하시겠습니까?`,
+          showCancelButton: true,
+          showConfirmButton: true,
+          confirmButtonText: '네',
+          cancelButtonText: '아니요',
+          confirmButtonColor: 'rgb(63,81,181)',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            changeCabinetStatus(index, select, 0);
+
+            Swal.fire({
+              icon: 'success',
+              title: '사물함 신청이 취소되었습니다',
+              width: 'auto',
+              timer: 1500,
+            });
+          }
+        });
       } else if (item[select].status === 2) {
-        changeCabinetStatus(index, select, 0);
+        Swal.fire({
+          icon: 'warning',
+          title: '사물함 상태 변경',
+          text: `고장난 사물함을 고치시겠습니까?`,
+          showCancelButton: true,
+          showConfirmButton: true,
+          confirmButtonText: '네',
+          cancelButtonText: '아니요',
+          confirmButtonColor: 'rgb(63,81,181)',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            changeCabinetStatus(index, select, 0);
+
+            Swal.fire({
+              icon: 'success',
+              title: '사물함 상태가 변경되었습니다',
+              width: 'auto',
+              timer: 1500,
+            });
+          }
+        });
       }
     }
   };
