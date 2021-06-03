@@ -13,6 +13,7 @@ import customSwal from '../../utils/alert';
 import getFirebaseErrorMessage from '../../utils/error/firebase';
 import useCreateUserWithEmailAndPassword from '../../hooks/useCreateUserWithEmailAndPassword';
 import AppLayout from '../../Components/AppLayout';
+import { isNull } from 'util';
 
 type SignUpInputs = {
   studentID: string;
@@ -41,7 +42,7 @@ function SignUp({}: SignUpProps) {
   const writeUserData = (userID: any, _studentID: string, _name: string) => {
     database.ref(`users/${userID}`).set({
       adminType: 0,
-      cabinetIdx: 0,
+      cabinetIdx: null,
       cabinetTitle: '',
       name: _name,
       studentID: _studentID,
