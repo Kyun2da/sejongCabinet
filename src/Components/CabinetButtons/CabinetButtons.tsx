@@ -21,6 +21,8 @@ import { database } from '../../config/firebase.config';
 import media from '../../lib/styles/media';
 import changeCabinetStatus from '../../utils/firebase/changeCabinetStatus';
 import AppLayout from '../AppLayout';
+import Swal from 'sweetalert2';
+import customSwal from '../../utils/alert';
 import type {
   CabinetTabType,
   CabinetItemType,
@@ -70,36 +72,28 @@ export default function CabinetButtons({
     }
   };
 
-  const onClickCabinetButton = (e: React.MouseEvent, idx: number) => {
-    if (!adminType && item[idx].status === 0 && cabinetIdx) {
-      (e.currentTarget as HTMLElement).blur();
-      return alert('신청한 사물함이 있습니다.');
-    }
-    return setSelect(idx);
-  };
-
-  const onClickSubmitButton = () => {
-    if (adminType === 0) {
-      if (item[select].status === 0) {
-        database.ref(`cabinet/${index}/item/${select}`).set({
-          status: 1,
-          studentID: studentID,
-          name: name,
-          uuid: uuid,
-        });
-
-        dispatch(
-          setUserInfo({
-            adminType: 0,
-            cabinetIdx: select,
-            cabinetTitle: title,
-            name: name,
-            studentID: studentID,
-          }),
-        );
-      } else if (item[select].uuid === uuid) {
+  const cancleCabinet = (title: string, idx: number) => {
+    Swal.fire({
+      icon: 'error',
+      title: '사물함을 취소하시겠습니까?',
+      text: `${title}의 ${idx + 1}번째 사물함의 신청을 취소하시겠습니까?`,
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: '네',
+      cancelButtonText: '아니요',
+      confirmButtonColor: 'rgb(63,81,181)',
+    }).then((result) => {
+      if (result.isConfirmed) {
         database.ref(`cabinet/${index}/item/${select}`).set({
           status: 0,
+        });
+
+        database.ref(`users/${uuid}`).set({
+          adminType: adminType,
+          cabinetIdx: null,
+          cabinetTitle: '',
+          name: name,
+          studentID: studentID,
         });
 
         dispatch(
@@ -111,6 +105,108 @@ export default function CabinetButtons({
             studentID: studentID,
           }),
         );
+
+        Swal.fire({
+          icon: 'success',
+          title: '사물함 신청이 취소되었습니다',
+          width: 'auto',
+          timer: 1500,
+        });
+      }
+    });
+  };
+
+  const onClickCabinetButton = async (e: React.MouseEvent, idx: number) => {
+    const target = e.currentTarget as HTMLElement;
+
+    if (!adminType && item[idx].status === 0 && cabinetIdx) {
+      target.blur();
+      await Swal.fire({
+        icon: 'error',
+        title: '이미 신청한 사물함이 있습니다.',
+        text: `${cabinetTitle}의 ${
+          cabinetIdx + 1
+        }번째 사물함의 신청을 취소하시겠습니까?`,
+        showDenyButton: true,
+        showCancelButton: true,
+        showConfirmButton: false,
+        denyButtonText: `네`,
+        cancelButtonText: '아니요',
+      }).then((result) => {
+        if (result.isDenied) {
+          Swal.fire({
+            icon: 'success',
+            title: '신청이 취소되었습니다',
+            text: ' ',
+            width: 'auto',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          // cabinetTitle로 cabinet의 인덱스 구하기 어려움
+          // cancleCabinet(cabinetTitle, cabinetIdx);
+
+          setSelect(idx);
+          return target.focus();
+        }
+
+        return setSelect(-1);
+      });
+    } else {
+      return setSelect(idx);
+    }
+  };
+
+  const onClickSubmitButton = () => {
+    if (adminType === 0) {
+      if (item[select].status === 0) {
+        Swal.fire({
+          icon: 'warning',
+          title: '사물함 신청',
+          text: `${title}의 ${select + 1}번째 사물함을 신청하시겠습니까?`,
+          showCancelButton: true,
+          showConfirmButton: true,
+          confirmButtonText: '네',
+          cancelButtonText: '아니요',
+          confirmButtonColor: 'rgb(63,81,181)',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            database.ref(`cabinet/${index}/item/${select}`).set({
+              status: 1,
+              uuid: uuid,
+              studentID: studentID,
+              name: name,
+            });
+
+            database.ref(`users/${uuid}`).set({
+              adminType: adminType,
+              cabinetIdx: select,
+              cabinetTitle: title,
+              name: name,
+              studentID: studentID,
+            });
+
+            dispatch(
+              setUserInfo({
+                adminType: 0,
+                cabinetIdx: select,
+                cabinetTitle: title,
+                name: name,
+                studentID: studentID,
+              }),
+            );
+
+            Swal.fire({
+              icon: 'success',
+              title: '사물함이 신청되었습니다.',
+              width: 'auto',
+              timer: 1500,
+            });
+          } else {
+            setSelect(select);
+          }
+        });
+      } else if (item[select].uuid === uuid) {
+        cancleCabinet(title, select);
       }
     } else {
       if (item[select].status === 0) {

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface UserState {
   uuid: string | null;
   adminType: 0 | 1;
-  cabinetIdx: number;
+  cabinetIdx: number | null;
   cabinetTitle: string;
   name: string;
   studentID: string;
@@ -20,7 +20,7 @@ interface UserInfo {
 export const userInitialState: UserState = {
   uuid: null,
   adminType: 0,
-  cabinetIdx: 0,
+  cabinetIdx: null,
   cabinetTitle: '',
   name: '',
   studentID: '',
