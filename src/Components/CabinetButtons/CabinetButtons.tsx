@@ -664,6 +664,11 @@ const CabinetStatusTooltip = styled(Tooltip)({
 
   [`${media.medium}`]: {
     flexGrow: 1,
+    fontSize: '0.9rem',
+  },
+
+  [`${media.fold}`]: {
+    fontSize: '0.7rem',
   },
 });
 
@@ -724,6 +729,10 @@ const AvailableCabinetButton = styled(Button)({
     borderRadius: '5px',
     border: '2px solid #00d145',
   },
+
+  [`${media.fold}`]: {
+    padding: '0.55rem',
+  },
 });
 
 const RegisteredCabinetButton = styled(Button)({
@@ -751,6 +760,10 @@ const RegisteredCabinetButton = styled(Button)({
     borderRadius: '5px',
     border: '2px solid lightgray',
   },
+
+  [`${media.fold}`]: {
+    padding: '0.55rem',
+  },
 });
 
 const BrokenCabinetButton = styled(Button)({
@@ -772,6 +785,10 @@ const BrokenCabinetButton = styled(Button)({
     fontSize: '0.5rem',
     borderRadius: '5px',
     border: '2px solid lightgray',
+  },
+
+  [`${media.fold}`]: {
+    padding: '0.55rem',
   },
 });
 
@@ -804,5 +821,9 @@ const MyCabinetButton = styled(Button)({
     fontSize: '0.5rem',
     borderRadius: '5px',
     border: '2px solid #008000',
+  },
+
+  [`${media.fold}`]: {
+    padding: '0.55rem',
   },
 });

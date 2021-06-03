@@ -120,13 +120,18 @@ const CabinetTab = styled(Tab)({
   fontSize: `2vw`,
   letterSpacing: '0.1px',
   borderRadius: '10px',
-  fontFamily: 'Anton',
+  fontFamily: 'Anton,Noto Sans KR',
   minWidth: '20%',
   maxWidth: '100%',
-  padding: '2vh 0',
+  padding: '2vh 2vw',
 
   [`${media.medium}`]: {
     minWidth: '25%',
-    fontSize: '1.2rem',
+    fontSize: '1rem',
+    padding: '0 3vw',
+  },
+
+  [`${media.fold}`]: {
+    fontSize: '0.7rem',
   },
 });

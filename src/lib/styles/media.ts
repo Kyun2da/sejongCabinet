@@ -8,7 +8,7 @@ const media = {
   medium: mediaQuery(1024),
   small: mediaQuery(768),
   xsmall: mediaQuery(375),
-  custom: mediaQuery,
+  fold: mediaQuery(280),
 };
 
 export default media;
