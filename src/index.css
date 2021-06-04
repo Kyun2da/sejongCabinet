@@ -31,3 +31,14 @@ code {
 .swal2-container {
   z-index: 100000 !important;
 }
+
+@media (max-width: 768px) {
+  .swal2-title {
+    font-size: 1.2rem !important;
+  }
+
+  .swal2-popup {
+    font-size: 0.8rem !important;
+    width: 80vw !important;
+  }
+}

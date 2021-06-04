@@ -1,7 +1,11 @@
 import React from 'react';
 import { styled } from '@material-ui/core/styles';
 import { Button, Container } from '@material-ui/core';
-import { useAppSelector, useUserSelector } from '../../redux/hooks';
+import {
+  useAppSelector,
+  useCabinetSelector,
+  useUserSelector,
+} from '../../redux/hooks';
 import Header from '../../Components/Header';
 import media from '../../lib/styles/media';
 import PasswordChangeForm from '../../Components/PasswordChangeForm';
@@ -10,7 +14,7 @@ export type UserPageProps = {};
 
 function UserPage({}: UserPageProps) {
   const { cabinetTitle, cabinetIdx } = useAppSelector(useUserSelector);
-
+  const { cabinet } = useAppSelector(useCabinetSelector);
   return (
     <PageContainer>
       <Header />
@@ -19,14 +23,10 @@ function UserPage({}: UserPageProps) {
           <UserPageTitle>나의 사물함</UserPageTitle>
           <MyCabinetContents>
             <MyCabinet>
-              {cabinetTitle ? (
-                `사물함위치 : ${
-                  cabinetTitle[
-                    // eslint-disable-next-line radix
-                    parseInt(cabinetTitle.substr(cabinetTitle.length - 1)) - 1
-                  ]
-                } -
-                    ${cabinetIdx}번 사물함`
+              {cabinetTitle && cabinetIdx && cabinet ? (
+                `${cabinet[cabinetTitle].title}
+                 -
+                    ${cabinetIdx + 1}번 사물함`
               ) : (
                 <NoCabinet>예약된 사물함이 없습니다.</NoCabinet>
               )}

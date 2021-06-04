@@ -4,11 +4,11 @@ import { serverStatusType } from '../../redux/server/serverSlice';
 const changeFirebaseCancelCabinetUser = (
   cabinetNum: number,
   index: number,
-  uuid: string,
+  uuid: string | undefined | null,
 ) => {
   const postData = {
-    cabinetIdx: 0,
-    cabinetTitle: 0,
+    cabinetIdx: null,
+    cabinetTitle: null,
   };
   database.ref(`/cabinet/${cabinetNum}/item/${index}`).set({ status: 0 });
   return database.ref(`/users/${uuid}`).update(postData);
