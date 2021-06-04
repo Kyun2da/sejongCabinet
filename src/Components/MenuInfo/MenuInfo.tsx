@@ -19,6 +19,11 @@ export default function MenuInfo() {
   const onClickLogout = useCallback(() => {
     auth.signOut();
   }, []);
+
+  const onClickBugReport = useCallback(() => {
+    window.location.href = 'mailto:sjswcabinet@gmail.com';
+  }, []);
+
   return (
     <MenuContainer>
       {`${name ?? '익명'}님 환영합니다!`}
@@ -35,6 +40,7 @@ export default function MenuInfo() {
         onClose={handleClose}
       >
         <PageMenuItem />
+        <MenuItem onClick={onClickBugReport}>버그 신고</MenuItem>
         <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
       </Menu>
     </MenuContainer>

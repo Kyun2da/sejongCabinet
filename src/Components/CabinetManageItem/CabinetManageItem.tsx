@@ -6,6 +6,7 @@ import {
   Button,
   Chip,
   Divider,
+  styled,
   TextField,
   Typography,
 } from '@material-ui/core';
@@ -59,7 +60,7 @@ export default function CabinetManageItem({
       >
         <Typography>{item.title}</Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetailsContainer>
         <TextField
           label="제목"
           defaultValue={title}
@@ -89,7 +90,7 @@ export default function CabinetManageItem({
           helperText="변경하고자 하는 세로를 입력해주세요."
           variant="outlined"
         />
-      </AccordionDetails>
+      </AccordionDetailsContainer>
       <Divider />
       <AccordionActions>
         <Button
@@ -109,3 +110,7 @@ export default function CabinetManageItem({
     </Accordion>
   );
 }
+
+const AccordionDetailsContainer = styled(AccordionDetails)({
+  justifyContent: 'space-evenly',
+});

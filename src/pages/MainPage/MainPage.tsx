@@ -7,6 +7,7 @@ import AppLayout from '../../Components/AppLayout';
 import Cabinet from '../../Components/Cabinet';
 import { Redirect } from 'react-router-dom';
 import { useAppSelector, useUserSelector } from '../../redux/hooks';
+import ServerStatusIcon from '../../Components/ServerStatusIcon';
 
 export type MainPageProps = {};
 
@@ -25,6 +26,7 @@ function MainPage({}: MainPageProps) {
     <AppLayout>
       <Header>
         <HelperButton onClick={handleOpen} />
+        <ServerStatusIcon />
         <MenuInfo />
       </Header>
       <Cabinet />

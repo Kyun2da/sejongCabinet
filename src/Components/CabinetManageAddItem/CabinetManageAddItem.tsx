@@ -32,7 +32,7 @@ export default function CabinetManageAddItem({}: CabinetManageAddItemProps) {
             onChange={onChange}
             value={value}
             error={!!error}
-            helperText={error ? '제목을 입력해주세요.' : null}
+            helperText="추가하고자 하는 제목을 입력해주세요."
           />
         )}
       />
@@ -49,7 +49,11 @@ export default function CabinetManageAddItem({}: CabinetManageAddItemProps) {
             value={value}
             onChange={onChange}
             error={!!error}
-            helperText={error ? '10 이내의 가로 길이를 입력해주세요.' : null}
+            helperText={
+              error
+                ? '10 이내의 가로 길이를 입력해주세요.'
+                : '추가하고자 하는 가로 길이를 입력해주세요.'
+            }
           />
         )}
       />
@@ -66,21 +70,30 @@ export default function CabinetManageAddItem({}: CabinetManageAddItemProps) {
             value={value}
             onChange={onChange}
             error={!!error}
-            helperText={error ? '10 이내의 세로 길이를 입력해주세요.' : null}
+            helperText={
+              error
+                ? '10 이내의 세로 길이를 입력해주세요.'
+                : '추가하고자 하는 세로 길이를 입력해주세요.'
+            }
           />
         )}
       />
-      <Button type="submit" variant="contained">
+      <CabinetMakeButton type="submit" variant="contained">
         새 사물함 탭 만들기
-      </Button>
+      </CabinetMakeButton>
     </AddCabinetForm>
   );
 }
 
 const AddCabinetForm = styled('form')({
   display: 'flex',
+  justifyContent: 'space-evenly',
 });
 
 const CabinetAddTextField = styled(TextField)({
   margin: '0 12px 0 0',
+});
+
+const CabinetMakeButton = styled(Button)({
+  height: '56px',
 });
