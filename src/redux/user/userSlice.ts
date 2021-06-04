@@ -4,7 +4,7 @@ export interface UserState {
   uuid: string | null;
   adminType: 0 | 1;
   cabinetIdx: number | null;
-  cabinetTitle: string;
+  cabinetTitle: number | null;
   name: string;
   studentID: string;
 }
@@ -21,7 +21,7 @@ export const userInitialState: UserState = {
   uuid: null,
   adminType: 0,
   cabinetIdx: null,
-  cabinetTitle: '',
+  cabinetTitle: null,
   name: '',
   studentID: '',
 };

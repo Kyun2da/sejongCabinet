@@ -14,7 +14,7 @@ export type CabinetTabType = {
 export type CabinetItemType = {
   status: number;
   uuid?: string;
-  studentId?: string;
+  studentID?: string;
   name?: string;
 };
 
