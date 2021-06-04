@@ -51,6 +51,8 @@ const ModalContainer = styled(Modal)({
 
 const PageContainer = styled('div')({
   width: '80%',
+  height: '90vh',
+  overflow: 'auto',
   backgroundColor: 'white',
   border: '2px solid #000',
   boxShadow:
