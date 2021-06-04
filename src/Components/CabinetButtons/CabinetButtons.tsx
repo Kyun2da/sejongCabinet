@@ -108,11 +108,11 @@ export default function CabinetButtons({
       typeof cabinetIdx === 'number'
     ) {
       target.blur();
-      if (cabinet)
+      if (cabinet && cabinetTitle)
         await Swal.fire({
           icon: 'error',
           title: '이미 신청한 사물함이 있습니다.',
-          text: `${cabinet[index].title}의 ${
+          text: `${cabinet[cabinetTitle].title}의 ${
             cabinetIdx + 1
           }번째 사물함의 신청을 취소하시겠습니까?`,
           showDenyButton: true,
