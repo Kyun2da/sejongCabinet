@@ -10,11 +10,7 @@ export default function HelperButton({ onClick }: HelperButtonProps) {
   return (
     <Tooltip title={<HelpTooltip />} placement="bottom" arrow>
       <Button aria-label="delete" onClick={onClick}>
-        <HelpOutlineIcon
-          style={{
-            fontSize: '3.0vw',
-          }}
-        />
+        <CustomHelpOutlineIcon />
       </Button>
     </Tooltip>
   );
@@ -24,10 +20,13 @@ const Button = styled(IconButton)({
   left: '1.5vw',
   position: 'absolute',
   width: 'auto',
-  fontSize: '3.0vw',
   color: 'white',
 });
 
+const CustomHelpOutlineIcon = styled(HelpOutlineIcon)({
+  fontSize: '6vh',
+});
+
 function HelpTooltip() {
-  return <div style={{ fontSize: '1vw' }}>도움말</div>;
+  return <div style={{ fontSize: '2vh' }}>도움말</div>;
 }
