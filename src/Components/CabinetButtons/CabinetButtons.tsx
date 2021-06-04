@@ -14,6 +14,7 @@ import {
 import {
   useAppDispatch,
   useAppSelector,
+  useCabinetSelector,
   useUserSelector,
 } from '../../redux/hooks';
 import { setUserInfo } from '../../redux/user/userSlice';
@@ -27,7 +28,7 @@ import type {
   CabinetTabType,
   CabinetItemType,
 } from '../../redux/cabinet/cabinetSlice';
-import { type } from 'os';
+import changeFirebaseCancelCabinetUser from '../../utils/firebase/changeFirebaseCancelCabinetUser';
 
 export type CabinetData = {
   index: number;
@@ -42,6 +43,7 @@ export default function CabinetButtons({
   const [descriptionMode, setDescriptionMode] = useState('number');
   const [select, setSelect] = useState(-1);
   const [count, setCount] = useState([0, 0, 0]);
+  const { cabinet } = useAppSelector(useCabinetSelector);
   const { uuid, adminType, studentID, name, cabinetIdx, cabinetTitle } =
     useAppSelector(useUserSelector);
   const cabinetRef = useRef<HTMLDivElement>(null);
@@ -85,27 +87,7 @@ export default function CabinetButtons({
       confirmButtonColor: 'rgb(63,81,181)',
     }).then((result) => {
       if (result.isConfirmed) {
-        database.ref(`cabinet/${index}/item/${select}`).set({
-          status: 0,
-        });
-
-        database.ref(`users/${uuid}`).set({
-          adminType: adminType,
-          cabinetIdx: null,
-          cabinetTitle: '',
-          name: name,
-          studentID: studentID,
-        });
-
-        dispatch(
-          setUserInfo({
-            adminType: 0,
-            cabinetIdx: 0,
-            cabinetTitle: '',
-            name: name,
-            studentID: studentID,
-          }),
-        );
+        changeFirebaseCancelCabinetUser(index, select, uuid);
 
         Swal.fire({
           icon: 'success',
@@ -126,37 +108,38 @@ export default function CabinetButtons({
       typeof cabinetIdx === 'number'
     ) {
       target.blur();
+      if (cabinet)
+        await Swal.fire({
+          icon: 'error',
+          title: '이미 신청한 사물함이 있습니다.',
+          text: `${cabinet[index].title}의 ${
+            cabinetIdx + 1
+          }번째 사물함의 신청을 취소하시겠습니까?`,
+          showDenyButton: true,
+          showCancelButton: true,
+          showConfirmButton: false,
+          denyButtonText: `네`,
+          cancelButtonText: '아니요',
+        }).then((result) => {
+          if (result.isDenied) {
+            Swal.fire({
+              icon: 'success',
+              title: '신청이 취소되었습니다',
+              text: ' ',
+              width: 'auto',
+              showConfirmButton: false,
+              timer: 1500,
+            });
 
-      await Swal.fire({
-        icon: 'error',
-        title: '이미 신청한 사물함이 있습니다.',
-        text: `${cabinetTitle}의 ${
-          cabinetIdx + 1
-        }번째 사물함의 신청을 취소하시겠습니까?`,
-        showDenyButton: true,
-        showCancelButton: true,
-        showConfirmButton: false,
-        denyButtonText: `네`,
-        cancelButtonText: '아니요',
-      }).then((result) => {
-        if (result.isDenied) {
-          Swal.fire({
-            icon: 'success',
-            title: '신청이 취소되었습니다',
-            text: ' ',
-            width: 'auto',
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          // cabinetTitle로 cabinet의 인덱스 구하기 어려움
-          // cancleCabinet(cabinetTitle, cabinetIdx);
+            if (cabinetTitle)
+              changeFirebaseCancelCabinetUser(cabinetTitle, cabinetIdx, uuid);
 
-          setSelect(idx);
-          return target.focus();
-        }
+            setSelect(idx);
+            return target.focus();
+          }
 
-        return setSelect(-1);
-      });
+          return setSelect(-1);
+        });
     } else {
       return setSelect(idx);
     }
@@ -165,54 +148,57 @@ export default function CabinetButtons({
   const onClickSubmitButton = () => {
     if (adminType === 0) {
       if (item[select].status === 0) {
-        Swal.fire({
-          icon: 'warning',
-          title: '사물함 신청',
-          text: `${title}의 ${select + 1}번째 사물함을 신청하시겠습니까?`,
-          showCancelButton: true,
-          showConfirmButton: true,
-          confirmButtonText: '네',
-          cancelButtonText: '아니요',
-          confirmButtonColor: 'rgb(63,81,181)',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            database.ref(`cabinet/${index}/item/${select}`).set({
-              status: 1,
-              uuid: uuid,
-              studentID: studentID,
-              name: name,
-            });
+        if (cabinet)
+          Swal.fire({
+            icon: 'warning',
+            title: '사물함 신청',
+            text: `${cabinet[index].title}의 ${
+              select + 1
+            }번째 사물함을 신청하시겠습니까?`,
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonText: '네',
+            cancelButtonText: '아니요',
+            confirmButtonColor: 'rgb(63,81,181)',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              database.ref(`cabinet/${index}/item/${select}`).set({
+                status: 1,
+                uuid: uuid,
+                studentID: studentID,
+                name: name,
+              });
 
-            database.ref(`users/${uuid}`).set({
-              adminType: adminType,
-              cabinetIdx: select,
-              cabinetTitle: title,
-              name: name,
-              studentID: studentID,
-            });
-
-            dispatch(
-              setUserInfo({
-                adminType: 0,
+              database.ref(`users/${uuid}`).set({
+                adminType: adminType,
                 cabinetIdx: select,
-                cabinetTitle: title,
+                cabinetTitle: index,
                 name: name,
                 studentID: studentID,
-              }),
-            );
+              });
 
-            Swal.fire({
-              icon: 'success',
-              title: '사물함이 신청되었습니다.',
-              width: 'auto',
-              timer: 1500,
-            });
-          } else {
-            setSelect(select);
-          }
-        });
+              dispatch(
+                setUserInfo({
+                  adminType: 0,
+                  cabinetIdx: select,
+                  cabinetTitle: index,
+                  name: name,
+                  studentID: studentID,
+                }),
+              );
+
+              Swal.fire({
+                icon: 'success',
+                title: '사물함이 신청되었습니다.',
+                width: 'auto',
+                timer: 1500,
+              });
+            } else {
+              setSelect(select);
+            }
+          });
       } else if (item[select].uuid === uuid) {
-        cancleCabinet(title, select);
+        if (cabinet) cancleCabinet(cabinet[index].title, select);
       }
     } else {
       if (item[select].status === 0) {
@@ -249,7 +235,7 @@ export default function CabinetButtons({
           confirmButtonColor: 'rgb(63,81,181)',
         }).then((result) => {
           if (result.isConfirmed) {
-            changeCabinetStatus(index, select, 0);
+            changeFirebaseCancelCabinetUser(index, select, item[select].uuid);
 
             Swal.fire({
               icon: 'success',
@@ -344,7 +330,7 @@ export default function CabinetButtons({
     if (descriptionMode === 'number') {
       return idx + 1;
     } else if (descriptionMode === 'studentID') {
-      return item[idx].studentId;
+      return item[idx].studentID;
     } else {
       return item[idx].name;
     }
@@ -369,7 +355,10 @@ export default function CabinetButtons({
       );
     } else if (item[idx].status === 1) {
       return (
-        <RegisteredCabinetButton disabled={adminType !== 1}>
+        <RegisteredCabinetButton
+          disabled={adminType !== 1}
+          onClick={(e) => onClickCabinetButton(e, idx)}
+        >
           {descriptionCabinet(idx)}
         </RegisteredCabinetButton>
       );
@@ -694,7 +683,7 @@ const SelectButton = styled(Button)({
 });
 
 const AvailableCabinetButton = styled(Button)({
-  border: '3px solid #00d145',
+  border: '3px solid #34cf68',
   fontFamily: 'Anton',
   width: '5.5vw',
   textAlign: 'center',
@@ -703,19 +692,13 @@ const AvailableCabinetButton = styled(Button)({
   height: '5.5vh',
 
   '&:hover': {
-    backgroundColor: '#00d145',
-    color: 'white',
-  },
-  '&:active': {
-    backgroundColor: '#00d145',
-    color: 'white',
-  },
-  '&:target': {
-    backgroundColor: '#00d145',
+    backgroundColor: '#34cf68',
+    border: '3px solid #34cf68',
     color: 'white',
   },
   '&:focus': {
-    backgroundColor: '#00d145',
+    backgroundColor: '#03bd41',
+    border: '3px solid #03bd41',
     color: 'white',
   },
 
@@ -727,7 +710,18 @@ const AvailableCabinetButton = styled(Button)({
     maxHeight: '1.5vw',
     fontSize: '0.5rem',
     borderRadius: '5px',
-    border: '2px solid #00d145',
+    border: '2px solid #34cf68',
+
+    '&:hover': {
+      backgroundColor: '#34cf68',
+      border: '2px solid #34cf68',
+      color: 'white',
+    },
+    '&:focus': {
+      backgroundColor: '#03bd41',
+      border: '2px solid #03bd41',
+      color: 'white',
+    },
   },
 
   [`${media.fold}`]: {
@@ -747,7 +741,15 @@ const RegisteredCabinetButton = styled(Button)({
   height: '5.5vh',
 
   '&:hover': {
-    backgroundColor: 'lightgray',
+    backgroundColor: '#757575',
+    border: '3px solid #757575',
+    color: 'white',
+  },
+
+  '&:focus': {
+    backgroundColor: '#3d3d3d',
+    border: '3px solid #3d3d3d',
+    color: 'white',
   },
 
   [`${media.medium}`]: {
@@ -759,6 +761,18 @@ const RegisteredCabinetButton = styled(Button)({
     fontSize: '0.5rem',
     borderRadius: '5px',
     border: '2px solid lightgray',
+
+    '&:hover': {
+      backgroundColor: '#757575',
+      border: '2px solid #757575',
+      color: 'white',
+    },
+
+    '&:focus': {
+      backgroundColor: '#3d3d3d',
+      border: '2px solid #3d3d3d',
+      color: 'white',
+    },
   },
 
   [`${media.fold}`]: {
@@ -776,6 +790,18 @@ const BrokenCabinetButton = styled(Button)({
   backgroundColor: 'lightgray',
   height: '5.5vh',
 
+  '&:hover': {
+    backgroundColor: '#ecc14a',
+    border: '3px solid #ecc14a',
+    color: 'white',
+  },
+
+  '&:focus': {
+    backgroundColor: '#eeb004',
+    border: '3px solid #eeb004',
+    color: 'white',
+  },
+
   [`${media.medium}`]: {
     padding: '0.6rem',
     margin: '0.5vh 0.7vw',
@@ -785,6 +811,18 @@ const BrokenCabinetButton = styled(Button)({
     fontSize: '0.5rem',
     borderRadius: '5px',
     border: '2px solid lightgray',
+
+    '&:hover': {
+      backgroundColor: '#ecc14a',
+      border: '2px solid #ecc14a',
+      color: 'white',
+    },
+
+    '&:focus': {
+      backgroundColor: '#eeb004',
+      border: '2px solid #eeb004',
+      color: 'white',
+    },
   },
 
   [`${media.fold}`]: {
@@ -800,11 +838,12 @@ const MyCabinetButton = styled(Button)({
   fontSize: '1vw',
   backgroundColor: '#008000',
   height: '5.5vh',
+  color: '#f0f0f0',
 
   '&:hover': {
-    backgroundColor: '#DF1840',
+    backgroundColor: '#db5872',
     color: 'white',
-    border: '3px solid #DF1840',
+    border: '3px solid #db4563',
   },
   '&:focus': {
     backgroundColor: '#DF1840',
@@ -821,6 +860,17 @@ const MyCabinetButton = styled(Button)({
     fontSize: '0.5rem',
     borderRadius: '5px',
     border: '2px solid #008000',
+
+    '&:hover': {
+      backgroundColor: '#db5872',
+      color: 'white',
+      border: '2px solid #db4563',
+    },
+    '&:focus': {
+      backgroundColor: '#DF1840',
+      color: 'white',
+      border: '2px solid #DF1840',
+    },
   },
 
   [`${media.fold}`]: {
