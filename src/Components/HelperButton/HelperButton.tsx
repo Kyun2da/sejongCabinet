@@ -17,7 +17,7 @@ export default function HelperButton({ onClick }: HelperButtonProps) {
 }
 
 const Button = styled(IconButton)({
-  left: '1.5vw',
+  left: '0px',
   position: 'absolute',
   width: 'auto',
   color: 'white',

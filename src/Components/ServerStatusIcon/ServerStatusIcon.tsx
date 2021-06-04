@@ -27,7 +27,7 @@ export default function ServerStatusIcon() {
 
 const CustomClearTwoToneIcon = styled(ClearTwoToneIcon)({
   fontSize: '6vh  !important',
-  left: '8vw',
+  left: '80px',
   position: 'absolute',
 });
 
@@ -35,7 +35,7 @@ const CustomCheckCircleOutlineTwoToneIcon = styled(
   CheckCircleOutlineTwoToneIcon,
 )({
   fontSize: '6vh !important',
-  left: '8vw',
+  left: '80px',
   position: 'absolute',
 });
 
