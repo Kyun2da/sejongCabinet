@@ -14,6 +14,7 @@ import MenuInfo from '../../Components/MenuInfo';
 import BackButton from '../../Components/BackButton';
 import { Redirect } from 'react-router';
 import CabinetManageModal from '../../Components/CabinetManageModal';
+import Swal from 'sweetalert2';
 
 export type AdminPageProps = {};
 
@@ -22,6 +23,54 @@ function AdminPage({}: AdminPageProps) {
   const { uuid } = useAppSelector(useUserSelector);
   const [total, setTotal] = useState(0);
   const [open, setOpen] = useState(false);
+
+  const onClickSeverStatusButton = () => {
+    if (status === 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: '서버를 닫으시겠습니까?',
+        text: `서버를 닫게되면 유저들의 사물함 신청과 수정이 불가능해집니다.`,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonText: '네',
+        cancelButtonText: '아니요',
+        confirmButtonColor: 'rgb(63,81,181)',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          changeFirebaseServerStatus(status);
+
+          Swal.fire({
+            icon: 'success',
+            title: '성공적으로 서버를 닫았습니다',
+            width: 'auto',
+            timer: 1500,
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: '서버를 여시겠습니까?',
+        text: `서버를 열게되면 유저들의 사물함 신청과 수정이 가능해집니다.`,
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonText: '네',
+        cancelButtonText: '아니요',
+        confirmButtonColor: 'rgb(63,81,181)',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          changeFirebaseServerStatus(status);
+
+          Swal.fire({
+            icon: 'success',
+            title: '성공적으로 서버를 열었습니다',
+            width: 'auto',
+            timer: 1500,
+          });
+        }
+      });
+    }
+  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -51,7 +100,7 @@ function AdminPage({}: AdminPageProps) {
         <AdminPageContents>
           <AdminPageTitle>관리자 기능</AdminPageTitle>
           <ButtonContainer>
-            <CancelButton onClick={() => changeFirebaseServerStatus(status)}>
+            <CancelButton onClick={onClickSeverStatusButton}>
               {status ? '서버 열기' : '서버 닫기'}
             </CancelButton>
             <CabinetManageButton onClick={handleOpen}>
