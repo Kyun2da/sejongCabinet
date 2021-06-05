@@ -42,7 +42,6 @@ export default function MenuInfo({ openHelpModal }: MenuInfoProps) {
       <Menu
         id="menu-appbar"
         anchorEl={anchorEl}
-        getContentAnchorEl={null}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={Boolean(anchorEl)}
