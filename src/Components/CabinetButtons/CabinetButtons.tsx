@@ -79,31 +79,9 @@ export default function CabinetButtons({
     }
   };
 
-  const cancleCabinet = (title: string, idx: number) => {
-    Swal.fire({
-      icon: 'error',
-      title: '사물함을 취소하시겠습니까?',
-      text: `${title}의 ${idx + 1}번째 사물함의 신청을 취소하시겠습니까?`,
-      showCancelButton: true,
-      showConfirmButton: true,
-      confirmButtonText: '네',
-      cancelButtonText: '아니요',
-      confirmButtonColor: 'rgb(63,81,181)',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        changeFirebaseCancelCabinetUser(index, select, uuid);
+  const cancleCabinet = (title: string, idx: number) => {};
 
-        Swal.fire({
-          icon: 'success',
-          title: '사물함 신청이 취소되었습니다',
-          width: 'auto',
-          timer: 1500,
-        });
-      }
-    });
-  };
-
-  const onClickCabinetButton = async (e: React.MouseEvent, idx: number) => {
+  const onClickCabinetButton = (e: React.MouseEvent, idx: number) => {
     const target = e.currentTarget as HTMLElement;
 
     if (
@@ -113,7 +91,7 @@ export default function CabinetButtons({
     ) {
       target.blur();
       if (cabinet && cabinetTitle)
-        await Swal.fire({
+        Swal.fire({
           icon: 'error',
           title: '이미 신청한 사물함이 있습니다.',
           text: `${cabinet[cabinetTitle].title}의 ${
@@ -126,20 +104,12 @@ export default function CabinetButtons({
           cancelButtonText: '아니요',
         }).then((result) => {
           if (result.isDenied) {
-            Swal.fire({
-              icon: 'success',
-              title: '신청이 취소되었습니다',
-              text: ' ',
-              width: 'auto',
-              showConfirmButton: false,
-              timer: 1500,
-            });
-
             if (cabinetTitle)
               changeFirebaseCancelCabinetUser(cabinetTitle, cabinetIdx, uuid);
 
             setSelect(idx);
-            return target.focus();
+
+            return setTimeout(() => target.focus(), 300);
           }
 
           return setSelect(-1);
@@ -166,43 +136,89 @@ export default function CabinetButtons({
             confirmButtonColor: 'rgb(63,81,181)',
           }).then((result) => {
             if (result.isConfirmed) {
-              database.ref(`cabinet/${index}/item/${select}`).set({
-                status: 1,
-                uuid: uuid,
-                studentID: studentID,
-                name: name,
-              });
+              database.ref(`cabinet/${index}/item/${select}`).transaction(
+                (cabinet) => {
+                  if (cabinet.status === 0) {
+                    return {
+                      status: 1,
+                      uuid: uuid,
+                      studentID: studentID,
+                      name: name,
+                    };
+                  }
 
-              database.ref(`users/${uuid}`).set({
-                adminType: adminType,
-                cabinetIdx: select,
-                cabinetTitle: index,
-                name: name,
-                studentID: studentID,
-              });
+                  return;
+                },
+                (error, committed, snapshot) => {
+                  if (error) {
+                    Swal.fire({
+                      icon: 'error',
+                      title: '사물함 신청 에러',
+                      text: `관리자에게 문의해 주세요.`,
+                      showConfirmButton: true,
+                      width: 'auto',
+                      timer: 5000,
+                    });
+                  } else if (!committed) {
+                    Swal.fire({
+                      icon: 'error',
+                      title: '사물함 신청 실패',
+                      text: `이미 신청한 사람이 있거나 신청이 불가능합니다.`,
+                      showConfirmButton: true,
+                      width: 'auto',
+                      timer: 5000,
+                    });
+                  } else {
+                    database.ref(`users/${uuid}`).set({
+                      adminType: adminType,
+                      cabinetIdx: select,
+                      cabinetTitle: index,
+                      name: name,
+                      studentID: studentID,
+                    });
 
-              dispatch(
-                setUserInfo({
-                  adminType: 0,
-                  cabinetIdx: select,
-                  cabinetTitle: index,
-                  name: name,
-                  studentID: studentID,
-                }),
+                    dispatch(
+                      setUserInfo({
+                        adminType: 0,
+                        cabinetIdx: select,
+                        cabinetTitle: index,
+                        name: name,
+                        studentID: studentID,
+                      }),
+                    );
+
+                    Swal.fire({
+                      icon: 'success',
+                      title: '사물함이 신청되었습니다.',
+                      width: 'auto',
+                      showConfirmButton: true,
+                      timer: 2000,
+                    });
+                  }
+                },
               );
-
-              Swal.fire({
-                icon: 'success',
-                title: '사물함이 신청되었습니다.',
-                width: 'auto',
-                timer: 1500,
-              });
             } else {
               setSelect(select);
             }
           });
       } else if (item[select].uuid === uuid) {
-        if (cabinet) cancleCabinet(cabinet[index].title, select);
+        if (cabinet)
+          Swal.fire({
+            icon: 'error',
+            title: '사물함을 취소하시겠습니까?',
+            text: `${cabinet[index].title}의 ${
+              select + 1
+            }번째 사물함의 신청을 취소하시겠습니까?`,
+            showCancelButton: true,
+            showConfirmButton: true,
+            confirmButtonText: '네',
+            cancelButtonText: '아니요',
+            confirmButtonColor: 'rgb(63,81,181)',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              changeFirebaseCancelCabinetUser(index, select, uuid);
+            }
+          });
       }
     } else {
       if (item[select].status === 0) {
@@ -223,7 +239,8 @@ export default function CabinetButtons({
               icon: 'success',
               title: '사물함 상태가 변경되었습니다',
               width: 'auto',
-              timer: 1500,
+              showConfirmButton: true,
+              timer: 2000,
             });
           }
         });
@@ -240,13 +257,6 @@ export default function CabinetButtons({
         }).then((result) => {
           if (result.isConfirmed) {
             changeFirebaseCancelCabinetUser(index, select, item[select].uuid);
-
-            Swal.fire({
-              icon: 'success',
-              title: '사물함 신청이 취소되었습니다',
-              width: 'auto',
-              timer: 1500,
-            });
           }
         });
       } else if (item[select].status === 2) {
@@ -267,7 +277,8 @@ export default function CabinetButtons({
               icon: 'success',
               title: '사물함 상태가 변경되었습니다',
               width: 'auto',
-              timer: 1500,
+              showConfirmButton: true,
+              timer: 2000,
             });
           }
         });
