@@ -79,8 +79,6 @@ export default function CabinetButtons({
     }
   };
 
-  const cancleCabinet = (title: string, idx: number) => {};
-
   const onClickCabinetButton = (e: React.MouseEvent, idx: number) => {
     const target = e.currentTarget as HTMLElement;
 
