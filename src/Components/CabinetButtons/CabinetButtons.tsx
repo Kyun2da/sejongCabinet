@@ -16,6 +16,7 @@ import {
   useAppSelector,
   useCabinetSelector,
   useUserSelector,
+  useServerSelector,
 } from '../../redux/hooks';
 import { setUserInfo } from '../../redux/user/userSlice';
 import { database } from '../../config/firebase.config';
@@ -44,6 +45,7 @@ export default function CabinetButtons({
   const [select, setSelect] = useState(-1);
   const [count, setCount] = useState([0, 0, 0]);
   const { cabinet } = useAppSelector(useCabinetSelector);
+  const { status } = useAppSelector(useServerSelector);
   const { uuid, adminType, studentID, name, cabinetIdx, cabinetTitle } =
     useAppSelector(useUserSelector);
   const cabinetRef = useRef<HTMLDivElement>(null);
@@ -55,6 +57,8 @@ export default function CabinetButtons({
 
   const showButtonText = () => {
     if (select === -1) {
+      if (adminType !== 1 && status === 1)
+        return '현재는 사물함 신청이 불가능합니다';
       return '사물함을 선택해주세요';
     }
 
@@ -227,7 +231,7 @@ export default function CabinetButtons({
         Swal.fire({
           icon: 'error',
           title: '사물함을 취소하시겠습니까?',
-          text: `유저의 사물함의 신청을 취소하시겠습니까?`,
+          text: `${item[select].name}님의 사물함을 취소하시겠습니까?`,
           showCancelButton: true,
           showConfirmButton: true,
           confirmButtonText: '네',
@@ -343,13 +347,17 @@ export default function CabinetButtons({
           onClick={(e) => {
             onClickCabinetButton(e, idx);
           }}
+          disabled={adminType !== 1 && status === 1}
         >
           {idx + 1}
         </AvailableCabinetButton>
       );
     } else if (item[idx].status === 1 && item[idx].uuid === uuid) {
       return (
-        <MyCabinetButton onClick={(e) => onClickCabinetButton(e, idx)}>
+        <MyCabinetButton
+          onClick={(e) => onClickCabinetButton(e, idx)}
+          disabled={adminType !== 1 && status === 1}
+        >
           {descriptionCabinet(idx)}
         </MyCabinetButton>
       );
@@ -473,7 +481,11 @@ export default function CabinetButtons({
       <CabinetButtonsContainer>{showGridRow()}</CabinetButtonsContainer>
       <CabinetSelectContainer>
         <SelectIdxContainer>
-          {select === -1 ? '-' : select + 1}
+          {adminType !== 1 && status === 1
+            ? null
+            : select === -1
+            ? '-'
+            : select + 1}
         </SelectIdxContainer>
         <SelectStatusContainer ref={submitRef}>
           <SelectButton onClick={onClickSubmitButton} disabled={select === -1}>
