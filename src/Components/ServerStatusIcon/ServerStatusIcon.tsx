@@ -27,16 +27,14 @@ export default function ServerStatusIcon() {
 
 const CustomClearTwoToneIcon = styled(ClearTwoToneIcon)({
   fontSize: '6vh  !important',
-  left: '80px',
-  position: 'absolute',
+  verticalAlign: 'middle',
 });
 
 const CustomCheckCircleOutlineTwoToneIcon = styled(
   CheckCircleOutlineTwoToneIcon,
 )({
   fontSize: '6vh !important',
-  left: '80px',
-  position: 'absolute',
+  verticalAlign: 'middle',
 });
 
 const CustomTooltip = styled(Tooltip)({

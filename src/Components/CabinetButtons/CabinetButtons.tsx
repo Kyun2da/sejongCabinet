@@ -30,6 +30,7 @@ import type {
   CabinetItemType,
 } from '../../redux/cabinet/cabinetSlice';
 import changeFirebaseCancelCabinetUser from '../../utils/firebase/changeFirebaseCancelCabinetUser';
+import { useMediaQuery } from 'react-responsive';
 
 export type CabinetData = {
   index: number;
@@ -51,9 +52,9 @@ export default function CabinetButtons({
   const cabinetRef = useRef<HTMLDivElement>(null);
   const submitRef = useRef<HTMLDivElement>(null);
 
-  const isMobile = () => {
-    return window.innerWidth <= 1024;
-  };
+  const isMobileAndTablet = useMediaQuery({
+    query: '(max-width:1023px)',
+  });
 
   const showButtonText = () => {
     if (select === -1) {
@@ -395,7 +396,7 @@ export default function CabinetButtons({
     return [...Array(width)].map((v, index) => {
       const arrIdx = i * width + index;
 
-      if (isMobile()) {
+      if (isMobileAndTablet) {
         return (
           <Grid>
             <Grid item xs={1} key={`${title}` + 'cabinet' + arrIdx}>
