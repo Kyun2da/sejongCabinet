@@ -59,7 +59,7 @@ export default function CabinetButtons({
   const showButtonText = () => {
     if (select === -1) {
       if (adminType !== 1 && status === 1)
-        return '현재는 사물함 신청이 불가능합니다';
+        return '서버가 닫혀있으므로 현재는 사물함 신청이 불가능합니다';
       return '사물함을 선택해주세요';
     }
 
@@ -695,11 +695,14 @@ const SelectButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    padding: '0.5vh 5vw',
+    padding: '2vh 5vw',
+    minHeight: '30px',
     width: 'auto',
 
     '&:disabled': {
       fontSize: '0.4rem',
+      textAlign: 'center',
+      width: '80vw',
     },
   },
 });
@@ -725,7 +728,7 @@ const AvailableCabinetButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    padding: '0.6rem',
+    padding: '0.7rem',
     margin: '0.5vh 0.7vw',
     minWidth: '1.5vw',
     outline: 'none',
@@ -744,6 +747,10 @@ const AvailableCabinetButton = styled(Button)({
       border: '2px solid #03bd41',
       color: 'white',
     },
+  },
+
+  [`${media.se}`]: {
+    padding: '0.6rem',
   },
 
   [`${media.fold}`]: {
@@ -775,7 +782,7 @@ const RegisteredCabinetButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    padding: '0.6rem',
+    padding: '0.7rem',
     margin: '0.5vh 0.7vw',
     minWidth: '1.5vw',
     outline: 'none',
@@ -795,6 +802,10 @@ const RegisteredCabinetButton = styled(Button)({
       border: '2px solid #3d3d3d',
       color: 'white',
     },
+  },
+
+  [`${media.se}`]: {
+    padding: '0.6rem',
   },
 
   [`${media.fold}`]: {
@@ -825,7 +836,7 @@ const BrokenCabinetButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    padding: '0.6rem',
+    padding: '0.7rem',
     margin: '0.5vh 0.7vw',
     minWidth: '1.5vw',
     outline: 'none',
@@ -845,6 +856,10 @@ const BrokenCabinetButton = styled(Button)({
       border: '2px solid #eeb004',
       color: 'white',
     },
+  },
+
+  [`${media.se}`]: {
+    padding: '0.6rem',
   },
 
   [`${media.fold}`]: {
@@ -874,7 +889,7 @@ const MyCabinetButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    padding: '0.6rem',
+    padding: '0.7rem',
     margin: '0.5vh 0.7vw',
     minWidth: '1.5vw',
     maxHeight: '1.5vw',
@@ -893,6 +908,10 @@ const MyCabinetButton = styled(Button)({
       color: 'white',
       border: '2px solid #DF1840',
     },
+  },
+
+  [`${media.se}`]: {
+    padding: '0.6rem',
   },
 
   [`${media.fold}`]: {
