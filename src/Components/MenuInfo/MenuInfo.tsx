@@ -6,8 +6,13 @@ import { useHistory, useLocation } from 'react-router';
 import useAuthState from '../../hooks/useAuthState';
 import { useObject } from '../../hooks/useObject';
 import { useAppSelector, useUserSelector } from '../../redux/hooks';
+import { useMediaQuery } from 'react-responsive';
 
-export default function MenuInfo() {
+type MenuInfoProps = {
+  openHelpModal?: React.MouseEventHandler<HTMLLIElement>;
+};
+
+export default function MenuInfo({ openHelpModal }: MenuInfoProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { name } = useAppSelector(useUserSelector);
   const handleClose = useCallback(() => {
@@ -24,22 +29,26 @@ export default function MenuInfo() {
     window.location.href = 'mailto:sjswcabinet@gmail.com';
   }, []);
 
+  const isMobile = useMediaQuery({
+    query: '(max-width:767px)',
+  });
+
   return (
     <MenuContainer>
-      {`${name ?? '익명'}님 환영합니다!`}
+      {isMobile ? '' : `${name ?? '익명'}님 환영합니다!`}
       <HamburgerButton onClick={handleClick} disableRipple>
         <MenuIcon />
       </HamburgerButton>
       <Menu
         id="menu-appbar"
         anchorEl={anchorEl}
-        getContentAnchorEl={null}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
         <PageMenuItem />
+        {isMobile ? <MenuItem onClick={openHelpModal}>도움말</MenuItem> : null}
         <MenuItem onClick={onClickBugReport}>버그 신고</MenuItem>
         <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
       </Menu>
@@ -98,14 +107,12 @@ const PageMenuItem = React.forwardRef<any, any>((props, ref) => {
 });
 
 const MenuContainer = styled('div')({
-  position: 'absolute',
-  right: '5vw',
   backgroundColor: 'white',
   borderRadius: '0.5rem',
   padding: '0.5vh 1vw',
+  margin: '0 2vw 0 0',
 });
 
 const HamburgerButton = styled(Button)({
   backgroundColor: 'transparent',
-  margin: '0 0 0 2vw',
 });

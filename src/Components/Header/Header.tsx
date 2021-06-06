@@ -11,14 +11,14 @@ export default function Header({ children }: HeaderProps) {
 
 const MainHeader = styled('header')({
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'center',
   backgroundColor: 'black',
+  justifyContent: 'space-between',
   position: 'absolute',
   top: 0,
   left: 0,
   right: 0,
   height: '10vh',
-  width: '100vw',
+  width: '100%',
 });

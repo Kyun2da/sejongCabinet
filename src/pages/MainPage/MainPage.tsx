@@ -8,29 +8,47 @@ import Cabinet from '../../Components/Cabinet';
 import { Redirect } from 'react-router-dom';
 import { useAppSelector, useUserSelector } from '../../redux/hooks';
 import ServerStatusIcon from '../../Components/ServerStatusIcon';
+import PhotoShowButton from '../../Components/PhotoShowButton';
+import PhotoSwiper from '../../Components/PhotoSwiper';
+import { useMediaQuery } from 'react-responsive';
 
 export type MainPageProps = {};
 
 function MainPage({}: MainPageProps) {
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openSwiperPhoto, setOpenSwiperPhoto] = useState<boolean>(false);
   const { uuid } = useAppSelector(useUserSelector);
   const handleOpen = () => {
-    setOpenModal(!openModal);
+    setOpenModal((tmp) => !tmp);
+  };
+
+  const showPhoto = () => {
+    setOpenSwiperPhoto((tmp) => !tmp);
   };
 
   if (!uuid) {
     return <Redirect to="/login" />;
   }
 
+  const isMobile = useMediaQuery({
+    query: '(max-width:767px)',
+  });
+
   return (
     <AppLayout>
       <Header>
-        <HelperButton onClick={handleOpen} />
-        <ServerStatusIcon />
-        <MenuInfo />
+        {isMobile ? null : (
+          <div>
+            <HelperButton onClick={handleOpen} />
+            <ServerStatusIcon />
+          </div>
+        )}
+        <PhotoShowButton onClick={showPhoto} />
+        <MenuInfo openHelpModal={handleOpen} />
       </Header>
       <Cabinet />
       <HelperModal open={openModal} setOpen={handleOpen} />
+      <PhotoSwiper open={openSwiperPhoto} setOpen={setOpenSwiperPhoto} />
     </AppLayout>
   );
 }
