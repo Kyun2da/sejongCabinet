@@ -13,9 +13,9 @@ export type CabinetTabType = {
 
 export type CabinetItemType = {
   status: number;
-  uuid?: string;
-  studentID?: string;
-  name?: string;
+  uuid?: string | undefined;
+  studentID?: string | undefined;
+  name?: string | undefined;
 };
 
 const initialState: CabinetType = {

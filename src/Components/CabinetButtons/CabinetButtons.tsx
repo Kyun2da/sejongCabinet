@@ -19,9 +19,9 @@ import {
   useServerSelector,
 } from '../../redux/hooks';
 import { setUserInfo } from '../../redux/user/userSlice';
-import { database } from '../../config/firebase.config';
 import media from '../../lib/styles/media';
 import changeCabinetStatus from '../../utils/firebase/changeCabinetStatus';
+import applyForCabinet from '../../utils/firebase/applyForCabinet';
 import AppLayout from '../AppLayout';
 import Swal from 'sweetalert2';
 import customSwal from '../../utils/alert';
@@ -135,67 +135,31 @@ export default function CabinetButtons({
             confirmButtonColor: 'rgb(63,81,181)',
           }).then((result) => {
             if (result.isConfirmed) {
-              database.ref(`cabinet/${index}/item/${select}`).transaction(
-                (cabinet) => {
-                  if (cabinet.status === 0) {
-                    return {
-                      status: 1,
-                      uuid: uuid,
-                      studentID: studentID,
-                      name: name,
-                    };
-                  }
+              if (uuid && name && studentID)
+                applyForCabinet(index, select, {
+                  status: 1,
+                  uuid,
+                  name,
+                  studentID,
+                });
 
-                  return;
-                },
-                (error, committed, snapshot) => {
-                  if (error) {
-                    Swal.fire({
-                      icon: 'error',
-                      title: '사물함 신청 에러',
-                      text: `관리자에게 문의해 주세요.`,
-                      showConfirmButton: true,
-                      width: 'auto',
-                      timer: 5000,
-                    });
-                  } else if (!committed) {
-                    Swal.fire({
-                      icon: 'error',
-                      title: '사물함 신청 실패',
-                      text: `이미 신청한 사람이 있거나 신청이 불가능합니다.`,
-                      showConfirmButton: true,
-                      width: 'auto',
-                      timer: 5000,
-                    });
-                  } else {
-                    database.ref(`users/${uuid}`).set({
-                      adminType: adminType,
-                      cabinetIdx: select,
-                      cabinetTitle: index,
-                      name: name,
-                      studentID: studentID,
-                    });
-
-                    dispatch(
-                      setUserInfo({
-                        adminType: 0,
-                        cabinetIdx: select,
-                        cabinetTitle: index,
-                        name: name,
-                        studentID: studentID,
-                      }),
-                    );
-
-                    Swal.fire({
-                      icon: 'success',
-                      title: '사물함이 신청되었습니다.',
-                      width: 'auto',
-                      showConfirmButton: true,
-                      timer: 2000,
-                    });
-                  }
-                },
+              dispatch(
+                setUserInfo({
+                  adminType: 0,
+                  cabinetIdx: select,
+                  cabinetTitle: index,
+                  name: name,
+                  studentID: studentID,
+                }),
               );
+
+              Swal.fire({
+                icon: 'success',
+                title: '사물함이 신청되었습니다.',
+                width: 'auto',
+                showConfirmButton: true,
+                timer: 2000,
+              });
             } else {
               setSelect(select);
             }
