@@ -35,7 +35,7 @@ function MainPage({}: MainPageProps) {
   });
 
   return (
-    <AppLayout footer>
+    <AppLayout>
       <Header>
         {isMobile ? null : (
           <div>

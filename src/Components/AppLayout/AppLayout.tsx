@@ -31,9 +31,11 @@ export default function AppLayout({
         <>
           <AppContainer>
             {children}
-            <FooterContainer>
-              <Footer />
-            </FooterContainer>
+            {footer ? (
+              <FooterContainer>
+                <Footer />
+              </FooterContainer>
+            ) : null}
           </AppContainer>
         </>
       )}
