@@ -47,6 +47,14 @@ const applyForCabinet = (
           name: name,
           studentID: studentID,
         });
+
+        Swal.fire({
+          icon: 'success',
+          title: '사물함이 신청되었습니다.',
+          width: 'auto',
+          showConfirmButton: true,
+          timer: 2000,
+        });
       }
     },
   );

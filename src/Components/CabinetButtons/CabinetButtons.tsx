@@ -105,7 +105,6 @@ export default function CabinetButtons({
           if (result.isDenied) {
             if (cabinetTitle)
               changeFirebaseCancelCabinetUser(cabinetTitle, cabinetIdx, uuid);
-
             setSelect(idx);
 
             return setTimeout(() => target.focus(), 300);
@@ -142,24 +141,6 @@ export default function CabinetButtons({
                   name,
                   studentID,
                 });
-
-              dispatch(
-                setUserInfo({
-                  adminType: 0,
-                  cabinetIdx: select,
-                  cabinetTitle: index,
-                  name: name,
-                  studentID: studentID,
-                }),
-              );
-
-              Swal.fire({
-                icon: 'success',
-                title: '사물함이 신청되었습니다.',
-                width: 'auto',
-                showConfirmButton: true,
-                timer: 2000,
-              });
             } else {
               setSelect(select);
             }
@@ -197,14 +178,6 @@ export default function CabinetButtons({
         }).then((result) => {
           if (result.isConfirmed) {
             changeCabinetStatus(index, select, 2);
-
-            Swal.fire({
-              icon: 'success',
-              title: '사물함 상태가 변경되었습니다',
-              width: 'auto',
-              showConfirmButton: true,
-              timer: 2000,
-            });
           }
         });
       } else if (item[select].status === 1) {
@@ -235,14 +208,6 @@ export default function CabinetButtons({
         }).then((result) => {
           if (result.isConfirmed) {
             changeCabinetStatus(index, select, 0);
-
-            Swal.fire({
-              icon: 'success',
-              title: '사물함 상태가 변경되었습니다',
-              width: 'auto',
-              showConfirmButton: true,
-              timer: 2000,
-            });
           }
         });
       }
