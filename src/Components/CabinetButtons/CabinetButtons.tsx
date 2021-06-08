@@ -19,9 +19,9 @@ import {
   useServerSelector,
 } from '../../redux/hooks';
 import { setUserInfo } from '../../redux/user/userSlice';
-import { database } from '../../config/firebase.config';
 import media from '../../lib/styles/media';
 import changeCabinetStatus from '../../utils/firebase/changeCabinetStatus';
+import applyForCabinet from '../../utils/firebase/applyForCabinet';
 import AppLayout from '../AppLayout';
 import Swal from 'sweetalert2';
 import customSwal from '../../utils/alert';
@@ -59,7 +59,7 @@ export default function CabinetButtons({
   const showButtonText = () => {
     if (select === -1) {
       if (adminType !== 1 && status === 1)
-        return '현재는 사물함 신청이 불가능합니다';
+        return '서버가 닫혀있으므로 현재는 사물함 신청이 불가능합니다';
       return '사물함을 선택해주세요';
     }
 
@@ -105,7 +105,6 @@ export default function CabinetButtons({
           if (result.isDenied) {
             if (cabinetTitle)
               changeFirebaseCancelCabinetUser(cabinetTitle, cabinetIdx, uuid);
-
             setSelect(idx);
 
             return setTimeout(() => target.focus(), 300);
@@ -135,67 +134,13 @@ export default function CabinetButtons({
             confirmButtonColor: 'rgb(63,81,181)',
           }).then((result) => {
             if (result.isConfirmed) {
-              database.ref(`cabinet/${index}/item/${select}`).transaction(
-                (cabinet) => {
-                  if (cabinet.status === 0) {
-                    return {
-                      status: 1,
-                      uuid: uuid,
-                      studentID: studentID,
-                      name: name,
-                    };
-                  }
-
-                  return;
-                },
-                (error, committed, snapshot) => {
-                  if (error) {
-                    Swal.fire({
-                      icon: 'error',
-                      title: '사물함 신청 에러',
-                      text: `관리자에게 문의해 주세요.`,
-                      showConfirmButton: true,
-                      width: 'auto',
-                      timer: 5000,
-                    });
-                  } else if (!committed) {
-                    Swal.fire({
-                      icon: 'error',
-                      title: '사물함 신청 실패',
-                      text: `이미 신청한 사람이 있거나 신청이 불가능합니다.`,
-                      showConfirmButton: true,
-                      width: 'auto',
-                      timer: 5000,
-                    });
-                  } else {
-                    database.ref(`users/${uuid}`).set({
-                      adminType: adminType,
-                      cabinetIdx: select,
-                      cabinetTitle: index,
-                      name: name,
-                      studentID: studentID,
-                    });
-
-                    dispatch(
-                      setUserInfo({
-                        adminType: 0,
-                        cabinetIdx: select,
-                        cabinetTitle: index,
-                        name: name,
-                        studentID: studentID,
-                      }),
-                    );
-
-                    Swal.fire({
-                      icon: 'success',
-                      title: '사물함이 신청되었습니다.',
-                      width: 'auto',
-                      showConfirmButton: true,
-                      timer: 2000,
-                    });
-                  }
-                },
-              );
+              if (uuid && name && studentID)
+                applyForCabinet(index, select, {
+                  status: 1,
+                  uuid,
+                  name,
+                  studentID,
+                });
             } else {
               setSelect(select);
             }
@@ -233,14 +178,6 @@ export default function CabinetButtons({
         }).then((result) => {
           if (result.isConfirmed) {
             changeCabinetStatus(index, select, 2);
-
-            Swal.fire({
-              icon: 'success',
-              title: '사물함 상태가 변경되었습니다',
-              width: 'auto',
-              showConfirmButton: true,
-              timer: 2000,
-            });
           }
         });
       } else if (item[select].status === 1) {
@@ -271,14 +208,6 @@ export default function CabinetButtons({
         }).then((result) => {
           if (result.isConfirmed) {
             changeCabinetStatus(index, select, 0);
-
-            Swal.fire({
-              icon: 'success',
-              title: '사물함 상태가 변경되었습니다',
-              width: 'auto',
-              showConfirmButton: true,
-              timer: 2000,
-            });
           }
         });
       }
@@ -695,11 +624,14 @@ const SelectButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    padding: '0.5vh 5vw',
+    padding: '2vh 5vw',
+    minHeight: '30px',
     width: 'auto',
 
     '&:disabled': {
       fontSize: '0.4rem',
+      textAlign: 'center',
+      width: '80vw',
     },
   },
 });
@@ -725,7 +657,7 @@ const AvailableCabinetButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    padding: '0.6rem',
+    padding: '0.7rem',
     margin: '0.5vh 0.7vw',
     minWidth: '1.5vw',
     outline: 'none',
@@ -744,6 +676,10 @@ const AvailableCabinetButton = styled(Button)({
       border: '2px solid #03bd41',
       color: 'white',
     },
+  },
+
+  [`${media.se}`]: {
+    padding: '0.6rem',
   },
 
   [`${media.fold}`]: {
@@ -775,7 +711,7 @@ const RegisteredCabinetButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    padding: '0.6rem',
+    padding: '0.7rem',
     margin: '0.5vh 0.7vw',
     minWidth: '1.5vw',
     outline: 'none',
@@ -795,6 +731,10 @@ const RegisteredCabinetButton = styled(Button)({
       border: '2px solid #3d3d3d',
       color: 'white',
     },
+  },
+
+  [`${media.se}`]: {
+    padding: '0.6rem',
   },
 
   [`${media.fold}`]: {
@@ -825,7 +765,7 @@ const BrokenCabinetButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    padding: '0.6rem',
+    padding: '0.7rem',
     margin: '0.5vh 0.7vw',
     minWidth: '1.5vw',
     outline: 'none',
@@ -845,6 +785,10 @@ const BrokenCabinetButton = styled(Button)({
       border: '2px solid #eeb004',
       color: 'white',
     },
+  },
+
+  [`${media.se}`]: {
+    padding: '0.6rem',
   },
 
   [`${media.fold}`]: {
@@ -874,7 +818,7 @@ const MyCabinetButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    padding: '0.6rem',
+    padding: '0.7rem',
     margin: '0.5vh 0.7vw',
     minWidth: '1.5vw',
     maxHeight: '1.5vw',
@@ -893,6 +837,10 @@ const MyCabinetButton = styled(Button)({
       color: 'white',
       border: '2px solid #DF1840',
     },
+  },
+
+  [`${media.se}`]: {
+    padding: '0.6rem',
   },
 
   [`${media.fold}`]: {

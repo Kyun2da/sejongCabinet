@@ -49,6 +49,8 @@ const PageContainer = styled(Container)({
   flexDirection: 'column',
   minWidth: '100%',
   height: '100vh',
+
+  [`${media.medium}`]: { marginBottom: '0' },
 });
 
 const UserPageContainer = styled(Container)({
