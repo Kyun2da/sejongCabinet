@@ -4,7 +4,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { Tabs, Tab, Container } from '@material-ui/core';
 import { database } from '../../config/firebase.config';
 import media from '../../lib/styles/media';
-import CabinetButtons from '../CabinetButtons';
+import CabinetContents from '../CabinetContents';
 import { useCabinetSelector, useAppSelector } from '../../redux/hooks';
 import type {
   CabinetTabType,
@@ -30,7 +30,7 @@ export default function Cabinet({}: CabinetProps) {
       return cabinet
         .map((v: CabinetTabType, i: number) => {
           return (
-            <CabinetButtons key={v.title + 'Buttons'} data={v} index={i} />
+            <CabinetContents key={v.title + 'Contents'} data={v} index={i} />
           );
         })
         .filter((v: object) => v);
