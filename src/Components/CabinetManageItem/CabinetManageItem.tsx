@@ -4,7 +4,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
-  Chip,
   Divider,
   styled,
   TextField,
@@ -17,6 +16,9 @@ import customSwal from '../../utils/alert';
 import changeFirebaseCabinetTab from '../../utils/firebase/changeFirebaseCabinetTab';
 import deleteFirebaseCabinetTab from '../../utils/firebase/deleteFirebaseCabinetTab';
 import initializeFirebaseCabinetTab from '../../utils/firebase/initializeFirebaseCabinetTab';
+import cabinetNoImage1 from '../../images/cabinetNoImage1.png';
+import cabinetNoImage2 from '../../images/cabinetNoImage2.png';
+import CabinetEnrollPhotoCard from '../CabinetManageEnrollPhoto';
 
 type CabinetManageItemProps = {
   item: CabinetTabType;
@@ -61,35 +63,45 @@ export default function CabinetManageItem({
         <Typography>{item.title}</Typography>
       </AccordionSummary>
       <AccordionDetailsContainer>
-        <TextField
-          label="제목"
-          defaultValue={title}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setTitle(e.target.value);
-          }}
-          helperText="변경하고자 하는 제목을 입력해주세요."
-          variant="outlined"
-        />
-        <TextField
-          label="가로"
-          defaultValue={width}
-          type="number"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setWidth(parseInt(e.target.value));
-          }}
-          helperText="변경하고자 하는 가로를 입력해주세요."
-          variant="outlined"
-        />
-        <TextField
-          label="세로"
-          defaultValue={height}
-          type="number"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setHeight(parseInt(e.target.value));
-          }}
-          helperText="변경하고자 하는 세로를 입력해주세요."
-          variant="outlined"
-        />
+        <CabinetPhotoContainer>
+          <CabinetEnrollPhotoCard
+            image={cabinetNoImage2}
+            photoType="position"
+          />
+          <CabinetEnrollPhotoCard image={cabinetNoImage1} photoType="real" />
+        </CabinetPhotoContainer>
+        <Divider />
+        <TextFieldContainer>
+          <TextField
+            label="제목"
+            defaultValue={title}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setTitle(e.target.value);
+            }}
+            helperText="변경하고자 하는 제목을 입력해주세요."
+            variant="outlined"
+          />
+          <TextField
+            label="가로"
+            defaultValue={width}
+            type="number"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setWidth(parseInt(e.target.value));
+            }}
+            helperText="변경하고자 하는 가로를 입력해주세요."
+            variant="outlined"
+          />
+          <TextField
+            label="세로"
+            defaultValue={height}
+            type="number"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setHeight(parseInt(e.target.value));
+            }}
+            helperText="변경하고자 하는 세로를 입력해주세요."
+            variant="outlined"
+          />
+        </TextFieldContainer>
       </AccordionDetailsContainer>
       <Divider />
       <AccordionActions>
@@ -113,4 +125,14 @@ export default function CabinetManageItem({
 
 const AccordionDetailsContainer = styled(AccordionDetails)({
   justifyContent: 'space-evenly',
+  flexDirection: 'column',
+});
+
+const CabinetPhotoContainer = styled('div')({
+  display: 'flex',
+  marginBottom: '24px',
+});
+
+const TextFieldContainer = styled('div')({
+  marginTop: '24px',
 });
