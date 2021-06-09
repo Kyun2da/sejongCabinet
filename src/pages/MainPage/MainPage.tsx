@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../Components/Header';
 import HelperButton from '../../Components/HelperButton';
 import HelperModal from '../../Components/HelperModal';
@@ -18,10 +18,14 @@ function MainPage({}: MainPageProps) {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openSwiperPhoto, setOpenSwiperPhoto] = useState<boolean>(false);
   const { uuid } = useAppSelector(useUserSelector);
+  const [index, setIndex] = useState(0);
   const handleOpen = () => {
     setOpenModal((tmp) => !tmp);
   };
 
+  useEffect(() => {
+    console.log(index);
+  }, [index]);
   const showPhoto = () => {
     setOpenSwiperPhoto((tmp) => !tmp);
   };
@@ -46,9 +50,13 @@ function MainPage({}: MainPageProps) {
         <PhotoShowButton onClick={showPhoto} />
         <MenuInfo openHelpModal={handleOpen} />
       </Header>
-      <Cabinet />
+      <Cabinet index={index} setIndex={setIndex} />
       <HelperModal open={openModal} setOpen={handleOpen} />
-      <PhotoSwiper open={openSwiperPhoto} setOpen={setOpenSwiperPhoto} />
+      <PhotoSwiper
+        open={openSwiperPhoto}
+        setOpen={setOpenSwiperPhoto}
+        index={index}
+      />
     </AppLayout>
   );
 }
