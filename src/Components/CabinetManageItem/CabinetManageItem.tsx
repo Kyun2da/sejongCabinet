@@ -67,8 +67,13 @@ export default function CabinetManageItem({
           <CabinetEnrollPhotoCard
             image={cabinetNoImage2}
             photoType="position"
+            index={index}
           />
-          <CabinetEnrollPhotoCard image={cabinetNoImage1} photoType="real" />
+          <CabinetEnrollPhotoCard
+            image={cabinetNoImage1}
+            photoType="real"
+            index={index}
+          />
         </CabinetPhotoContainer>
         <Divider />
         <TextFieldContainer>

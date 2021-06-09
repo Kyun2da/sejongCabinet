@@ -11,10 +11,12 @@ import type {
   CabinetItemType,
 } from '../../redux/cabinet/cabinetSlice';
 
-export type CabinetProps = {};
+export type CabinetProps = {
+  index: number;
+  setIndex: React.Dispatch<React.SetStateAction<number>>;
+};
 
-export default function Cabinet({}: CabinetProps) {
-  const [index, setIndex] = useState(0);
+export default function Cabinet({ index, setIndex }: CabinetProps) {
   const { cabinet } = useAppSelector(useCabinetSelector);
 
   const handleChangeIndex = (value: number) => {
