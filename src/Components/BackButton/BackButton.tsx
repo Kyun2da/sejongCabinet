@@ -20,6 +20,5 @@ export default function BackButton() {
 }
 
 const BackwardsContainer = styled('div')({
-  left: '2vw',
-  position: 'absolute',
+  margin: '0 0 0 2vw',
 });
