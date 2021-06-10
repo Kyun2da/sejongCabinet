@@ -420,7 +420,7 @@ export default function CabinetButtons({
       <CabinetButtonsContainer>{showGridRow()}</CabinetButtonsContainer>
       <CabinetSelectContainer>
         <SelectIdxContainer>
-          {adminType !== 1 && status === 1
+          {adminType !== 1 && (status === 1 || select === -1)
             ? null
             : select === -1
             ? '-'
@@ -627,6 +627,7 @@ const SelectButton = styled(Button)({
     padding: '2vh 5vw',
     minHeight: '30px',
     width: 'auto',
+    transition: 'none',
 
     '&:disabled': {
       fontSize: '0.4rem',
@@ -804,6 +805,7 @@ const MyCabinetButton = styled(Button)({
   fontSize: '1vw',
   backgroundColor: '#008000',
   height: '5.5vh',
+
   color: '#f0f0f0',
 
   '&:hover': {
