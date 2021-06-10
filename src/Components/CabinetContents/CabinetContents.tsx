@@ -166,20 +166,7 @@ export default function CabinetButtons({
       }
     } else {
       if (item[select].status === 0) {
-        Swal.fire({
-          icon: 'warning',
-          title: '사물함 상태 변경',
-          text: `사물함의 상태를 고장 상태로 변경하시겠습니까?`,
-          showCancelButton: true,
-          showConfirmButton: true,
-          confirmButtonText: '네',
-          cancelButtonText: '아니요',
-          confirmButtonColor: 'rgb(63,81,181)',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            changeCabinetStatus(index, select, 2);
-          }
-        });
+        changeCabinetStatus(index, select, 2);
       } else if (item[select].status === 1) {
         Swal.fire({
           icon: 'error',
@@ -196,20 +183,7 @@ export default function CabinetButtons({
           }
         });
       } else if (item[select].status === 2) {
-        Swal.fire({
-          icon: 'warning',
-          title: '사물함 상태 변경',
-          text: `고장난 사물함을 고치시겠습니까?`,
-          showCancelButton: true,
-          showConfirmButton: true,
-          confirmButtonText: '네',
-          cancelButtonText: '아니요',
-          confirmButtonColor: 'rgb(63,81,181)',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            changeCabinetStatus(index, select, 0);
-          }
-        });
+        changeCabinetStatus(index, select, 0);
       }
     }
   };
