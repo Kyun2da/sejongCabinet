@@ -420,7 +420,9 @@ export default function CabinetButtons({
       <CabinetButtonsContainer>{showGridRow()}</CabinetButtonsContainer>
       <CabinetSelectContainer>
         <SelectIdxContainer>
-          {adminType !== 1 && (status === 1 || select === -1)
+          {isMobileAndTablet && select === -1
+            ? null
+            : adminType !== 1 && status === 1
             ? null
             : select === -1
             ? '-'
