@@ -166,20 +166,7 @@ export default function CabinetButtons({
       }
     } else {
       if (item[select].status === 0) {
-        Swal.fire({
-          icon: 'warning',
-          title: '사물함 상태 변경',
-          text: `사물함의 상태를 고장 상태로 변경하시겠습니까?`,
-          showCancelButton: true,
-          showConfirmButton: true,
-          confirmButtonText: '네',
-          cancelButtonText: '아니요',
-          confirmButtonColor: 'rgb(63,81,181)',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            changeCabinetStatus(index, select, 2);
-          }
-        });
+        changeCabinetStatus(index, select, 2);
       } else if (item[select].status === 1) {
         Swal.fire({
           icon: 'error',
@@ -196,20 +183,7 @@ export default function CabinetButtons({
           }
         });
       } else if (item[select].status === 2) {
-        Swal.fire({
-          icon: 'warning',
-          title: '사물함 상태 변경',
-          text: `고장난 사물함을 고치시겠습니까?`,
-          showCancelButton: true,
-          showConfirmButton: true,
-          confirmButtonText: '네',
-          cancelButtonText: '아니요',
-          confirmButtonColor: 'rgb(63,81,181)',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            changeCabinetStatus(index, select, 0);
-          }
-        });
+        changeCabinetStatus(index, select, 0);
       }
     }
   };
@@ -420,7 +394,9 @@ export default function CabinetButtons({
       <CabinetButtonsContainer>{showGridRow()}</CabinetButtonsContainer>
       <CabinetSelectContainer>
         <SelectIdxContainer>
-          {adminType !== 1 && status === 1
+          {isMobileAndTablet && select === -1
+            ? null
+            : adminType !== 1 && status === 1
             ? null
             : select === -1
             ? '-'
@@ -627,6 +603,7 @@ const SelectButton = styled(Button)({
     padding: '2vh 5vw',
     minHeight: '30px',
     width: 'auto',
+    transition: 'none',
 
     '&:disabled': {
       fontSize: '0.4rem',
@@ -804,6 +781,7 @@ const MyCabinetButton = styled(Button)({
   fontSize: '1vw',
   backgroundColor: '#008000',
   height: '5.5vh',
+
   color: '#f0f0f0',
 
   '&:hover': {

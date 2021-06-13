@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from '@material-ui/core/styles';
 import { Button, Container } from '@material-ui/core';
 import {
   useAppSelector,
   useServerSelector,
   useUserSelector,
+  useCabinetSelector,
 } from '../../redux/hooks';
 import Header from '../../Components/Header';
 import media from '../../lib/styles/media';
@@ -15,14 +16,30 @@ import BackButton from '../../Components/BackButton';
 import { Redirect } from 'react-router';
 import CabinetManageModal from '../../Components/CabinetManageModal';
 import Swal from 'sweetalert2';
+import type {
+  CabinetTabType,
+  CabinetItemType,
+} from '../../redux/cabinet/cabinetSlice';
 
 export type AdminPageProps = {};
 
 function AdminPage({}: AdminPageProps) {
   const { status } = useAppSelector(useServerSelector);
   const { uuid } = useAppSelector(useUserSelector);
+  const { cabinet } = useAppSelector(useCabinetSelector);
   const [total, setTotal] = useState(0);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    let count = 0;
+    cabinet?.forEach((value: CabinetTabType) =>
+      value.item.forEach((i: CabinetItemType) => {
+        if (i.status === 1) count++;
+      }),
+    );
+
+    setTotal(count);
+  }, []);
 
   const onClickSeverStatusButton = () => {
     if (status === 0) {
@@ -215,6 +232,7 @@ const CabinetManageButton = styled(Button)({
 
 const MyCabinet = styled('div')({
   fontFamily: 'Noto Sans KR',
+  fontSize: '1.5rem',
   [`${media.medium}`]: { fontSize: '2.5vh' },
 });
 
