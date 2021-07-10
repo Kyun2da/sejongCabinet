@@ -1,6 +1,8 @@
-import { makeStyles, Modal } from '@material-ui/core';
+import { makeStyles, Modal, styled } from '@material-ui/core';
 import { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import pcHelp from '../../images/pcHelp.png';
+import mobileHelp from '../../images/mobileHelp.png';
 
 export type HelperModalProps = {
   open: boolean;
@@ -12,22 +14,32 @@ export type HelperModalProps = {
 export default function HelperModal({ open, setOpen }: HelperModalProps) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
+
+  const isMobile = useMediaQuery({
+    query: '(max-width:767px)',
+  });
   return (
     <Modal
       open={open}
       onClose={setOpen}
-      className={classes.modal}
+      className={isMobile ? classes.mmodal : classes.modal}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
     >
-      <div style={modalStyle} className={classes.paper}>
-        <img
-          src={pcHelp}
-          alt="pcHelp"
-          width="1000vw"
-          style={{ backgroundColor: 'white', width: '60vw' }}
-        />
-      </div>
+      {isMobile ? (
+        <MobileModalContainer className={classes.mpaper}>
+          <MobileModalImage src={mobileHelp} alt="mobileHelp" />
+        </MobileModalContainer>
+      ) : (
+        <PcModalContainer className={classes.paper}>
+          <PcModalImage
+            src={pcHelp}
+            alt="pcHelp"
+            width="1000vw"
+            style={{ backgroundColor: 'white', width: '60vw' }}
+          />
+        </PcModalContainer>
+      )}
     </Modal>
   );
 }
@@ -47,15 +59,14 @@ export const useStyles = makeStyles(() => ({
     border: '2px solid #000',
   },
   mpaper: {
-    width: '100%',
+    position: 'absolute',
+    width: '90%',
     backgroundColor: 'RGB(250,250,250)',
-    border: '2px solid lightgray',
-    padding: '5vh 1vw',
   },
   mmodal: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: '30vh',
+    justifyContent: 'center',
   },
   modal: {
     display: 'flex',
@@ -63,3 +74,22 @@ export const useStyles = makeStyles(() => ({
     justifyContent: 'center',
   },
 }));
+
+const PcModalContainer = styled('div')({
+  backgroundColor: 'white',
+  padding: '3rem',
+  border: 'none',
+  borderRadius: '3rem',
+});
+const PcModalImage = styled('img')({
+  width: '1000vw',
+});
+const MobileModalContainer = styled('div')({
+  backgroundColor: 'white',
+  padding: '0.5rem',
+  border: 'none',
+  borderRadius: '1rem',
+});
+const MobileModalImage = styled('img')({
+  width: '100%',
+});
