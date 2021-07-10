@@ -40,7 +40,7 @@ export default function MenuInfo({ openHelpModal }: MenuInfoProps) {
       <HamburgerButton onClick={handleClick} disableRipple>
         <MenuIcon />
       </HamburgerButton>
-      <Menu
+      <MenuItems
         id="menu-appbar"
         anchorEl={anchorEl}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
@@ -52,7 +52,7 @@ export default function MenuInfo({ openHelpModal }: MenuInfoProps) {
         {isMobile ? <MenuItem onClick={openHelpModal}>도움말</MenuItem> : null}
         <MenuItem onClick={onClickBugReport}>버그 신고</MenuItem>
         <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
-      </Menu>
+      </MenuItems>
     </MenuContainer>
   );
 }
@@ -111,9 +111,17 @@ const MenuContainer = styled('div')({
   backgroundColor: 'white',
   borderRadius: '0.5rem',
   padding: '0.5vh 1vw',
-  margin: '0 5vw 0 0',
+  margin: '0 2vw 0 0',
+
+  [`${media.medium}`]: {
+    marginRight: '5vw',
+  },
 });
 
 const HamburgerButton = styled(Button)({
   backgroundColor: 'transparent',
+});
+
+const MenuItems = styled(Menu)({
+  transform: 'translateY(3rem)',
 });
