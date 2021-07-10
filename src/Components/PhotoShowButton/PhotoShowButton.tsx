@@ -13,11 +13,7 @@ export default function PhotoShowButton({ onClick }: PhotoShowButtonProps) {
   });
 
   return (
-    <Tooltip
-      title={<div style={{ fontSize: '1vw' }}>실제 사진 보기</div>}
-      placement="bottom"
-      arrow
-    >
+    <Tooltip title={<HelpTooltip />} placement="bottom" arrow>
       <ShowPhotoButton onClick={onClick}>
         {isMobile ? null : 'photo'}
         <CustomImageIcon />
@@ -46,3 +42,7 @@ const CustomImageIcon = styled(ImageIcon)({
   fontSize: '2rem',
   marginLeft: '0.5vw',
 });
+
+function HelpTooltip() {
+  return <div style={{ fontSize: '0.9rem' }}>실제 사진 보기</div>;
+}

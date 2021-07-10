@@ -22,9 +22,9 @@ const Button = styled(IconButton)({
 });
 
 const CustomHelpOutlineIcon = styled(HelpOutlineIcon)({
-  fontSize: '6vh',
+  fontSize: '6vh !important',
 });
 
 function HelpTooltip() {
-  return <div style={{ fontSize: '2vh' }}>도움말</div>;
+  return <div style={{ fontSize: '0.9rem' }}>도움말</div>;
 }

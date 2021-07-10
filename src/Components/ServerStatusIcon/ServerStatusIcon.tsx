@@ -7,21 +7,13 @@ import { useAppSelector, useServerSelector } from '../../redux/hooks';
 export default function ServerStatusIcon() {
   const { status } = useAppSelector(useServerSelector);
   return status ? (
-    <CustomTooltip
-      title="서버가 닫혀있습니다. 사물함 예약이 불가능합니다."
-      placement="bottom"
-      arrow
-    >
+    <Tooltip title={<ClosedTooltip />} placement="bottom" arrow>
       <CustomClearTwoToneIcon color="secondary" />
-    </CustomTooltip>
+    </Tooltip>
   ) : (
-    <CustomTooltip
-      title="서버가 열려있습니다. 사물함 예약이 가능합니다."
-      placement="bottom"
-      arrow
-    >
+    <Tooltip title={<OpenedTooltip />} placement="bottom" arrow>
       <CustomCheckCircleOutlineTwoToneIcon style={{ color: green[500] }} />
-    </CustomTooltip>
+    </Tooltip>
   );
 }
 
@@ -37,6 +29,18 @@ const CustomCheckCircleOutlineTwoToneIcon = styled(
   verticalAlign: 'middle',
 });
 
-const CustomTooltip = styled(Tooltip)({
-  fontSize: '2vh',
-});
+function ClosedTooltip() {
+  return (
+    <div style={{ fontSize: '0.8rem' }}>
+      서버가 닫혀있습니다. 사물함 예약이 불가능합니다.
+    </div>
+  );
+}
+
+function OpenedTooltip() {
+  return (
+    <div style={{ fontSize: '0.8rem' }}>
+      서버가 열려있습니다. 사물함 예약이 가능합니다.
+    </div>
+  );
+}
