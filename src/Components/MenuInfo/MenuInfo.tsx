@@ -7,6 +7,7 @@ import useAuthState from '../../hooks/useAuthState';
 import { useObject } from '../../hooks/useObject';
 import { useAppSelector, useUserSelector } from '../../redux/hooks';
 import { useMediaQuery } from 'react-responsive';
+import media from '../../lib/styles/media';
 
 type MenuInfoProps = {
   openHelpModal?: React.MouseEventHandler<HTMLLIElement>;
@@ -110,7 +111,7 @@ const MenuContainer = styled('div')({
   backgroundColor: 'white',
   borderRadius: '0.5rem',
   padding: '0.5vh 1vw',
-  margin: '0 2vw 0 0',
+  margin: '0 5vw 0 0',
 });
 
 const HamburgerButton = styled(Button)({
