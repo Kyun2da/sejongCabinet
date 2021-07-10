@@ -16,6 +16,7 @@ import BackButton from '../../Components/BackButton';
 import { Redirect } from 'react-router';
 import CabinetManageModal from '../../Components/CabinetManageModal';
 import Swal from 'sweetalert2';
+import { useMediaQuery } from 'react-responsive';
 import type {
   CabinetTabType,
   CabinetItemType,
@@ -29,6 +30,10 @@ function AdminPage({}: AdminPageProps) {
   const { cabinet } = useAppSelector(useCabinetSelector);
   const [total, setTotal] = useState(0);
   const [open, setOpen] = useState(false);
+
+  const isMobile = useMediaQuery({
+    query: '(max-width:767px)',
+  });
 
   useEffect(() => {
     let count = 0;
@@ -120,9 +125,11 @@ function AdminPage({}: AdminPageProps) {
             <CancelButton onClick={onClickSeverStatusButton}>
               {status ? '서버 열기' : '서버 닫기'}
             </CancelButton>
-            <CabinetManageButton onClick={handleOpen}>
-              사물함 관리
-            </CabinetManageButton>
+            {isMobile ? null : (
+              <CabinetManageButton onClick={handleOpen}>
+                사물함 관리
+              </CabinetManageButton>
+            )}
           </ButtonContainer>
         </AdminPageContents>
         <AdminPageContents>
