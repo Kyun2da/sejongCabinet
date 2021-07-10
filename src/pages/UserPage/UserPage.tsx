@@ -6,6 +6,8 @@ import {
   useCabinetSelector,
   useUserSelector,
 } from '../../redux/hooks';
+import MenuInfo from '../../Components/MenuInfo';
+import BackButton from '../../Components/BackButton';
 import Header from '../../Components/Header';
 import media from '../../lib/styles/media';
 import PasswordChangeForm from '../../Components/PasswordChangeForm';
@@ -17,7 +19,10 @@ function UserPage({}: UserPageProps) {
   const { cabinet } = useAppSelector(useCabinetSelector);
   return (
     <PageContainer>
-      <Header />
+      <Header>
+        <BackButton />
+        <MenuInfo />
+      </Header>
       <UserPageContainer>
         <UserPageContents>
           <UserPageTitle>나의 사물함</UserPageTitle>

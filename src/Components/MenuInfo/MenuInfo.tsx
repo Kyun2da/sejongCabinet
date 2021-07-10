@@ -90,13 +90,13 @@ const PageMenuItem = React.forwardRef<any, any>((props, ref) => {
           </MenuItem>
         );
       }
-    case '/admin':
+    case '/adminpage':
       return (
         <MenuItem ref={ref} {...props} onClick={goMainPage}>
           메인 페이지
         </MenuItem>
       );
-    case '/':
+    case '/userpage':
       return (
         <MenuItem ref={ref} {...props} onClick={goMainPage}>
           메인 페이지
