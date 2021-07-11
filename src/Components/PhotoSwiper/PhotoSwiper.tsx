@@ -1,9 +1,10 @@
-import { SwipeableDrawer } from '@material-ui/core';
+import { SwipeableDrawer, styled } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { storage } from '../../config/firebase.config';
 import useDownloadURL from '../../hooks/useDownloadURL';
 import cabinetNoImage1 from '../../images/cabinetNoImage1.png';
 import cabinetNoImage2 from '../../images/cabinetNoImage2.png';
+import { useMediaQuery } from 'react-responsive';
 import { useAppSelector, useCabinetSelector } from '../../redux/hooks';
 
 type PhotoSwiperProps = {
@@ -20,6 +21,10 @@ export default function PhotoSwiper({
   const { cabinet } = useAppSelector(useCabinetSelector);
   const [url1, setUrl1] = useState('');
   const [url2, setUrl2] = useState('');
+
+  const isMobile = useMediaQuery({
+    query: '(max-width:767px)',
+  });
 
   useEffect(() => {
     const idxArr: number[] = [];
@@ -43,30 +48,58 @@ export default function PhotoSwiper({
       onClose={() => {}}
       onOpen={() => {}}
     >
-      <div
-        style={{
-          display: 'flex',
-          width: '100%',
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          alignItems: 'center',
-          padding: '10vh 0',
-          backgroundColor: 'rgb(240,240,240)',
-        }}
-      >
-        <img
-          src={url1 || cabinetNoImage2}
-          alt="map"
-          width="50%"
-          style={{ backgroundColor: 'white' }}
-        />
-        <img
-          src={url2 || cabinetNoImage1}
-          alt="cabinetpicture"
-          width="30%"
-          style={{ padding: '1rem', backgroundColor: 'white' }}
-        />
-      </div>
+      {isMobile ? (
+        <MobileImageContainer>
+          <MobileMapImage src={url1 || cabinetNoImage2} alt="map" />
+          <MobileRealImage src={url2 || cabinetNoImage1} alt="cabinetpicture" />
+        </MobileImageContainer>
+      ) : (
+        <PcImageContainer>
+          <PcMapImage src={url1 || cabinetNoImage2} alt="map" />
+          <PcRealImage src={url2 || cabinetNoImage1} alt="cabinetpicture" />
+        </PcImageContainer>
+      )}
     </SwipeableDrawer>
   );
 }
+
+const PcImageContainer = styled('div')({
+  display: 'flex',
+  width: '100%',
+  flexDirection: 'row',
+  justifyContent: 'space-evenly',
+  alignItems: 'center',
+  padding: '10vh 0',
+  backgroundColor: 'rgb(240,240,240)',
+});
+
+const PcMapImage = styled('img')({
+  width: '40%',
+  backgroundColor: 'white',
+});
+
+const PcRealImage = styled('img')({
+  width: '40%',
+  backgroundColor: 'white',
+});
+
+const MobileImageContainer = styled('div')({
+  display: 'flex',
+  width: '100%',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: '10vh 0',
+  backgroundColor: 'rgb(240,240,240)',
+});
+
+const MobileMapImage = styled('img')({
+  width: '80%',
+  margin: '2vh',
+  backgroundColor: 'white',
+});
+
+const MobileRealImage = styled('img')({
+  width: '80%',
+  margin: '2vh',
+  backgroundColor: 'white',
+});

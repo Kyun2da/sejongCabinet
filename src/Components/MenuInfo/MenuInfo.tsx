@@ -7,6 +7,7 @@ import useAuthState from '../../hooks/useAuthState';
 import { useObject } from '../../hooks/useObject';
 import { useAppSelector, useUserSelector } from '../../redux/hooks';
 import { useMediaQuery } from 'react-responsive';
+import media from '../../lib/styles/media';
 
 type MenuInfoProps = {
   openHelpModal?: React.MouseEventHandler<HTMLLIElement>;
@@ -39,7 +40,7 @@ export default function MenuInfo({ openHelpModal }: MenuInfoProps) {
       <HamburgerButton onClick={handleClick} disableRipple>
         <MenuIcon />
       </HamburgerButton>
-      <Menu
+      <MenuItems
         id="menu-appbar"
         anchorEl={anchorEl}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
@@ -51,7 +52,7 @@ export default function MenuInfo({ openHelpModal }: MenuInfoProps) {
         {isMobile ? <MenuItem onClick={openHelpModal}>도움말</MenuItem> : null}
         <MenuItem onClick={onClickBugReport}>버그 신고</MenuItem>
         <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
-      </Menu>
+      </MenuItems>
     </MenuContainer>
   );
 }
@@ -89,13 +90,13 @@ const PageMenuItem = React.forwardRef<any, any>((props, ref) => {
           </MenuItem>
         );
       }
-    case '/admin':
+    case '/adminpage':
       return (
         <MenuItem ref={ref} {...props} onClick={goMainPage}>
           메인 페이지
         </MenuItem>
       );
-    case '/':
+    case '/userpage':
       return (
         <MenuItem ref={ref} {...props} onClick={goMainPage}>
           메인 페이지
@@ -111,8 +112,16 @@ const MenuContainer = styled('div')({
   borderRadius: '0.5rem',
   padding: '0.5vh 1vw',
   margin: '0 2vw 0 0',
+
+  [`${media.medium}`]: {
+    marginRight: '5vw',
+  },
 });
 
 const HamburgerButton = styled(Button)({
   backgroundColor: 'transparent',
+});
+
+const MenuItems = styled(Menu)({
+  transform: 'translateY(3rem)',
 });
