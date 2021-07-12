@@ -54,79 +54,84 @@ export default function CabinetManageItem({
     deleteFirebaseCabinetTab(index);
   };
   return (
-    <Accordion>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1c-content"
-        id="panel1c-header"
-      >
-        <Typography>{item.title}</Typography>
-      </AccordionSummary>
-      <AccordionDetailsContainer>
-        <CabinetPhotoContainer>
-          <CabinetEnrollPhotoCard
-            image={cabinetNoImage2}
-            photoType="position"
-            index={index}
-          />
-          <CabinetEnrollPhotoCard
-            image={cabinetNoImage1}
-            photoType="real"
-            index={index}
-          />
-        </CabinetPhotoContainer>
-        <Divider />
-        <TextFieldContainer>
-          <TextField
-            label="제목"
-            defaultValue={title}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setTitle(e.target.value);
-            }}
-            helperText="변경하고자 하는 제목을 입력해주세요."
-            variant="outlined"
-          />
-          <TextField
-            label="가로"
-            defaultValue={width}
-            type="number"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setWidth(parseInt(e.target.value));
-            }}
-            helperText="변경하고자 하는 가로를 입력해주세요."
-            variant="outlined"
-          />
-          <TextField
-            label="세로"
-            defaultValue={height}
-            type="number"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setHeight(parseInt(e.target.value));
-            }}
-            helperText="변경하고자 하는 세로를 입력해주세요."
-            variant="outlined"
-          />
-        </TextFieldContainer>
-      </AccordionDetailsContainer>
-      <Divider />
-      <AccordionActions>
-        <Button
-          size="small"
-          style={{ color: 'red' }}
-          onClick={handleInitialize}
+    <CabinetManageItemContainer>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1c-content"
+          id="panel1c-header"
         >
-          해당 탭의 사물함 초기화하기
-        </Button>
-        <Button size="small" style={{ color: 'red' }} onClick={handleDelete}>
-          삭제하기
-        </Button>
-        <Button size="small" color="primary" onClick={handleSubmit}>
-          저장하기
-        </Button>
-      </AccordionActions>
-    </Accordion>
+          <TitleTypography>{item.title}</TitleTypography>
+        </AccordionSummary>
+        <TitleDivider />
+        <AccordionDetailsContainer>
+          <CabinetPhotoContainer>
+            <CabinetEnrollPhotoCard
+              image={cabinetNoImage2}
+              photoType="position"
+              index={index}
+            />
+            <CabinetEnrollPhotoCard
+              image={cabinetNoImage1}
+              photoType="real"
+              index={index}
+            />
+          </CabinetPhotoContainer>
+          <CustomDivider />
+          <TextFieldContainer>
+            <TextField
+              label="제목"
+              defaultValue={title}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setTitle(e.target.value);
+              }}
+              helperText="변경하고자 하는 제목을 입력해주세요."
+              variant="outlined"
+            />
+            <TextField
+              label="가로"
+              defaultValue={width}
+              type="number"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setWidth(parseInt(e.target.value));
+              }}
+              helperText="변경하고자 하는 가로를 입력해주세요."
+              variant="outlined"
+            />
+            <TextField
+              label="세로"
+              defaultValue={height}
+              type="number"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setHeight(parseInt(e.target.value));
+              }}
+              helperText="변경하고자 하는 세로를 입력해주세요."
+              variant="outlined"
+            />
+          </TextFieldContainer>
+        </AccordionDetailsContainer>
+        <Divider />
+        <AccordionActions>
+          <Button
+            size="small"
+            style={{ color: 'red' }}
+            onClick={handleInitialize}
+          >
+            해당 탭의 사물함 초기화하기
+          </Button>
+          <Button size="small" style={{ color: 'red' }} onClick={handleDelete}>
+            삭제하기
+          </Button>
+          <Button size="small" color="primary" onClick={handleSubmit}>
+            저장하기
+          </Button>
+        </AccordionActions>
+      </Accordion>
+    </CabinetManageItemContainer>
   );
 }
+
+const CabinetManageItemContainer = styled('div')({ marginBottom: '15px' });
 
 const AccordionDetailsContainer = styled(AccordionDetails)({
   justifyContent: 'space-evenly',
@@ -143,4 +148,18 @@ const TextFieldContainer = styled('div')({
   display: 'flex',
   // justifyContent: 'space-evenly',
   columnGap: '2.5vw',
+  marginLeft: '1.2vw',
+});
+
+const TitleTypography = styled(Typography)({
+  fontFamily: 'Anton,Noto Sans KR',
+  fontSize: '1.2rem',
+});
+
+const CustomDivider = styled(Divider)({
+  margin: '2vh 0',
+});
+
+const TitleDivider = styled(Divider)({
+  marginBottom: '3vh',
 });
