@@ -40,9 +40,17 @@ export const userSlice = createSlice({
       state.name = info.name;
       state.studentID = info.studentID;
     },
+    clearUserInfo: (state) => {
+      state.uuid = userInitialState.uuid;
+      state.adminType = userInitialState.adminType;
+      state.cabinetIdx = userInitialState.cabinetIdx;
+      state.cabinetTitle = userInitialState.cabinetTitle;
+      state.name = userInitialState.name;
+      state.studentID = userInitialState.studentID;
+    },
   },
 });
 
-export const { setUserUID, setUserInfo } = userSlice.actions;
+export const { setUserUID, setUserInfo, clearUserInfo } = userSlice.actions;
 
 export default userSlice.reducer;
