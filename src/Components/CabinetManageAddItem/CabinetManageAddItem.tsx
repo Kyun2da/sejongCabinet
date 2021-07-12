@@ -87,7 +87,8 @@ export default function CabinetManageAddItem({}: CabinetManageAddItemProps) {
 
 const AddCabinetForm = styled('form')({
   display: 'flex',
-  justifyContent: 'space-evenly',
+  // justifyContent: 'space-evenly',
+  columnGap: '2.5vw',
 });
 
 const CabinetAddTextField = styled(TextField)({

@@ -140,4 +140,7 @@ const CabinetPhotoContainer = styled('div')({
 
 const TextFieldContainer = styled('div')({
   marginTop: '24px',
+  display: 'flex',
+  // justifyContent: 'space-evenly',
+  columnGap: '2.5vw',
 });
