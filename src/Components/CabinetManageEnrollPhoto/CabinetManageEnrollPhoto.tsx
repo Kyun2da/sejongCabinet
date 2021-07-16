@@ -61,7 +61,9 @@ export default function CabinetEnrollPhotoCard({
     <CustomCard>
       <CustomCardHeader
         title={
-          photoType === 'position' ? '사물함 위치 사진' : '사물함 실물 사진'
+          <TitleTypography>
+            {photoType === 'position' ? '사물함 위치 사진' : '사물함 실물 사진'}
+          </TitleTypography>
         }
       ></CustomCardHeader>
       <ImageContainer>
@@ -113,4 +115,9 @@ const CustomCardHeader = styled(CardHeader)({
   textAlign: 'center',
   color: 'white',
   backgroundColor: 'black',
+});
+
+const TitleTypography = styled(Typography)({
+  fontFamily: 'Noto Sans KR',
+  fontSize: '1.2rem',
 });

@@ -107,14 +107,16 @@ const CabinetSwipeableViews = styled(SwipeableViews)({
   marginTop: '3.5vh',
   border: '0.5vh solid lightgray',
   borderRadius: '2vw',
-  padding: '2vh 0 4vh',
+  padding: '2vh 0 3vh',
   overflow: 'hidden',
   marginBottom: '2vh',
+  minHeight: '70%',
 
   [`${media.medium}`]: {
     border: 'none',
     marginTop: '0',
     padding: '2vh 0',
+    minHeight: 'auto',
   },
 });
 
@@ -125,7 +127,7 @@ const CabinetTab = styled(Tab)({
   fontFamily: 'Anton,Noto Sans KR',
   minWidth: '20%',
   maxWidth: '100%',
-  padding: '2vh 2vw',
+  padding: '1.5vh 2vw',
 
   [`${media.medium}`]: {
     minWidth: '25%',

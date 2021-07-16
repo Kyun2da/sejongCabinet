@@ -490,7 +490,7 @@ const SelectStatusContainer = styled('div')({
   fontSize: '3vw',
   justifyContent: 'flex-end',
   marginRight: '3vw',
-  marginTop: '2vh',
+  marginTop: '1vh',
 
   [`${media.medium}`]: {
     fontSize: '1.5rem',

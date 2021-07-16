@@ -8,6 +8,8 @@ import { useObject } from '../../hooks/useObject';
 import { useAppSelector, useUserSelector } from '../../redux/hooks';
 import { useMediaQuery } from 'react-responsive';
 import media from '../../lib/styles/media';
+import { useAppDispatch } from '../../redux/hooks';
+import { clearUserInfo } from '../../redux/user/userSlice';
 
 type MenuInfoProps = {
   openHelpModal?: React.MouseEventHandler<HTMLLIElement>;
@@ -16,13 +18,18 @@ type MenuInfoProps = {
 export default function MenuInfo({ openHelpModal }: MenuInfoProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { name } = useAppSelector(useUserSelector);
+  const history = useHistory();
+  const dispatch = useAppDispatch();
   const handleClose = useCallback(() => {
     setAnchorEl(null);
   }, []);
   const handleClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
   }, []);
+
   const onClickLogout = useCallback(() => {
+    dispatch(clearUserInfo());
+    history.push('/');
     auth.signOut();
   }, []);
 
