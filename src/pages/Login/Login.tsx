@@ -140,6 +140,7 @@ const LoginForm = styled('form')({
   justifyContent: 'center',
   flexDirection: 'column',
   display: 'flex',
+  marginTop: '1rem',
 });
 
 const LoginTextField = styled(TextField)({
@@ -147,13 +148,13 @@ const LoginTextField = styled(TextField)({
   margin: '1vh',
 
   [`${media.medium}`]: {
-    width: '60vw',
+    width: '70vw',
   },
 });
 
 const LoginButton = styled(Button)({
   width: '30vw',
-  height: '5vh',
+  height: '6vh',
   backgroundColor: 'rgb(63,81,181)',
   color: 'white',
   border: '1px solid rgb(63,81,181)',
@@ -164,7 +165,7 @@ const LoginButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    width: '60vw',
+    width: '70vw',
   },
 });
 
