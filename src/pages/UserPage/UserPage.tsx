@@ -6,17 +6,42 @@ import {
   useCabinetSelector,
   useUserSelector,
 } from '../../redux/hooks';
+import Swal from 'sweetalert2';
 import MenuInfo from '../../Components/MenuInfo';
 import BackButton from '../../Components/BackButton';
 import Header from '../../Components/Header';
 import media from '../../lib/styles/media';
 import PasswordChangeForm from '../../Components/PasswordChangeForm';
+import changeFirebaseCancelCabinetUser from '../../utils/firebase/changeFirebaseCancelCabinetUser';
 
 export type UserPageProps = {};
 
 function UserPage({}: UserPageProps) {
-  const { cabinetTitle, cabinetIdx } = useAppSelector(useUserSelector);
+  const { uuid, adminType, studentID, name, cabinetIdx, cabinetTitle } =
+    useAppSelector(useUserSelector);
   const { cabinet } = useAppSelector(useCabinetSelector);
+
+  const onClickSubmit = () => {
+    if (cabinet && cabinetTitle && cabinetIdx)
+      Swal.fire({
+        icon: 'warning',
+        title: '사물함 취소',
+        text: `${cabinet[cabinetTitle].title}의 ${
+          cabinetIdx + 1
+        }번째 사물함을 취소하시겠습니까?`,
+        showDenyButton: true,
+        showCancelButton: true,
+        showConfirmButton: false,
+        denyButtonText: `네`,
+        cancelButtonText: '아니요',
+      }).then((result) => {
+        if (result.isDenied) {
+          if (cabinetTitle)
+            changeFirebaseCancelCabinetUser(cabinetTitle, cabinetIdx, uuid);
+        }
+      });
+  };
+
   return (
     <PageContainer>
       <Header>
@@ -36,7 +61,9 @@ function UserPage({}: UserPageProps) {
                 <NoCabinet>예약된 사물함이 없습니다.</NoCabinet>
               )}
             </MyCabinet>
-            {cabinetTitle ? <CancleButton>취소</CancleButton> : null}
+            {cabinetTitle ? (
+              <CancleButton onClick={onClickSubmit}>취소</CancleButton>
+            ) : null}
           </MyCabinetContents>
         </UserPageContents>
         <UserPageContents>
