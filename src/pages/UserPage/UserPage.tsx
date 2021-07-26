@@ -5,6 +5,7 @@ import {
   useAppSelector,
   useCabinetSelector,
   useUserSelector,
+  useServerSelector,
 } from '../../redux/hooks';
 import Swal from 'sweetalert2';
 import MenuInfo from '../../Components/MenuInfo';
@@ -20,9 +21,10 @@ function UserPage({}: UserPageProps) {
   const { uuid, adminType, studentID, name, cabinetIdx, cabinetTitle } =
     useAppSelector(useUserSelector);
   const { cabinet } = useAppSelector(useCabinetSelector);
+  const { status } = useAppSelector(useServerSelector);
 
   const onClickSubmit = () => {
-    if (cabinet && cabinetTitle && cabinetIdx)
+    if (cabinet && cabinetTitle && cabinetIdx && status !== 1)
       Swal.fire({
         icon: 'warning',
         title: '사물함 취소',
