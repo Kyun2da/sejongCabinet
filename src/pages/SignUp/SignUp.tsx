@@ -1,5 +1,10 @@
 import React, { useCallback, useEffect } from 'react';
-import { TextField, Button, Container } from '@material-ui/core';
+import {
+  TextField,
+  Button,
+  Container,
+  CircularProgress,
+} from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import { Controller, useForm } from 'react-hook-form';
 import { Redirect, useHistory } from 'react-router-dom';
@@ -13,7 +18,7 @@ import customSwal from '../../utils/alert';
 import getFirebaseErrorMessage from '../../utils/error/firebase';
 import useCreateUserWithEmailAndPassword from '../../hooks/useCreateUserWithEmailAndPassword';
 import AppLayout from '../../Components/AppLayout';
-import { isNull } from 'util';
+import { useMediaQuery } from 'react-responsive';
 
 type SignUpInputs = {
   studentID: string;
@@ -33,6 +38,10 @@ function SignUp({}: SignUpProps) {
       data.password,
     );
   }, []);
+
+  const isMobileAndTablet = useMediaQuery({
+    query: '(max-width:1023px)',
+  });
 
   const history = useHistory();
 
@@ -65,7 +74,11 @@ function SignUp({}: SignUpProps) {
   }, [formState, reset]);
 
   if (loading) {
-    return <div>로딩중...</div>;
+    return (
+      <AppLayout>
+        <CircularProgress size="50vw" />
+      </AppLayout>
+    );
   }
 
   if (user) {
@@ -77,8 +90,12 @@ function SignUp({}: SignUpProps) {
     <AppLayout fadeIn footer>
       <LogoContainer>
         <LogoImg src={Logo} alt="logo" />
-        <LogoTitle>SEJONG UNIV</LogoTitle>
-        <LogoTitle2>소프트웨어학과 사물함</LogoTitle2>
+        {!isMobileAndTablet ? (
+          <>
+            <LogoTitle>SEJONG UNIV</LogoTitle>
+            <LogoTitle2>소프트웨어학과 사물함</LogoTitle2>
+          </>
+        ) : null}
       </LogoContainer>
       <SignUpForm
         onSubmit={handleSubmit(onSubmit)}
@@ -160,8 +177,8 @@ const LogoContainer = styled(Container)({
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'column',
-  position: 'absolute',
-  top: '3%',
+
+  marginTop: '2rem',
 });
 
 const LogoImg = styled('img')({
@@ -182,8 +199,11 @@ const LogoTitle = styled('p')({
   borderBottom: '0.1vh solid black',
 
   [`${media.medium}`]: {
-    fontSize: '0.8rem',
-    margin: '1vh 0 0',
+    fontSize: '0.9rem',
+    fontWeight: 'bold',
+    letterSpacing: '0.5vw',
+    borderBottom: '0.1vw solid black',
+    margin: '0.7rem 0 0',
   },
 });
 
@@ -194,7 +214,10 @@ const LogoTitle2 = styled('p')({
   margin: '0.15vh 0 2vh',
 
   [`${media.medium}`]: {
-    fontSize: '0.3rem',
+    fontSize: '0.7rem',
+    fontWeight: 'bolder',
+    letterSpacing: '0.4vw',
+    margin: '0.15rem 0 0',
   },
 });
 
@@ -207,24 +230,23 @@ const SignUpForm = styled('form')({
   padding: '0 5vw 6vh',
   borderRadius: '2rem',
   top: '28%',
-  position: 'absolute',
+  position: 'static',
   minHeight: '50vh',
   width: '30vw',
+  marginTop: '4vh',
 
   [`${media.medium}`]: {
-    width: '75%',
-    top: '20%',
-    minHeight: '65vh',
-    padding: '1vh 1vw 4vh',
-    borderRadius: '1rem',
-    borderTop: '2px solid #C9C9C9',
-    borderBottom: '2px solid #C9C9C9',
-    marginTop: '2vh',
+    width: '80%',
+    marginTop: '6vh',
+    height: '60%',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+    border: 'none',
   },
 });
 
 const SignUpFormHeader = styled(Container)({
   display: 'flex',
+  position: 'relative',
   alignItems: 'center',
   flexDirection: 'row',
   justifyContent: 'center',
@@ -232,7 +254,8 @@ const SignUpFormHeader = styled(Container)({
   width: '100%',
 
   [`${media.medium}`]: {
-    marginTop: '6vh',
+    margin: '3vh 0',
+    height: '8vh',
   },
 });
 
@@ -250,8 +273,8 @@ const BackwardsButton = styled(Button)({
   [`${media.medium}`]: { left: '0' },
 });
 
-const SignUpFormHeaderTitle = styled('p')({
-  fontSize: '2.6rem',
+const SignUpFormHeaderTitle = styled('div')({
+  fontSize: '2.5rem',
   fontWeight: 'bold',
   letterSpacing: '0.1vw',
   textAlign: 'center',
@@ -259,7 +282,7 @@ const SignUpFormHeaderTitle = styled('p')({
   color: '#1A1A1A',
 
   [`${media.medium}`]: {
-    fontSize: '1.5rem',
+    fontSize: '1.8rem',
   },
 });
 
@@ -268,8 +291,8 @@ const SignUpFormTextField = styled(TextField)({
   margin: '1.5vh 0',
 
   [`${media.medium}`]: {
-    width: '70vw',
-    margin: '2vh 0',
+    width: '100%',
+    margin: '1vh 0',
   },
 });
 
@@ -286,7 +309,8 @@ const SubmitButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    width: '70vw',
+    width: '100%',
+    minHeight: '7vh',
   },
 });
 

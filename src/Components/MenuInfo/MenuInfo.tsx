@@ -19,6 +19,7 @@ export default function MenuInfo({ openHelpModal }: MenuInfoProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { name } = useAppSelector(useUserSelector);
   const history = useHistory();
+
   const dispatch = useAppDispatch();
   const handleClose = useCallback(() => {
     setAnchorEl(null);
@@ -56,7 +57,9 @@ export default function MenuInfo({ openHelpModal }: MenuInfoProps) {
         onClose={handleClose}
       >
         <PageMenuItem />
-        {isMobile ? <MenuItem onClick={openHelpModal}>도움말</MenuItem> : null}
+        {isMobile && history.location.pathname === '/main' ? (
+          <MenuItem onClick={openHelpModal}>도움말</MenuItem>
+        ) : null}
         <MenuItem onClick={onClickBugReport}>버그 신고</MenuItem>
         <MenuItem onClick={onClickLogout}>로그아웃</MenuItem>
       </MenuItems>

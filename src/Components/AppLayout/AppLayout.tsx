@@ -2,6 +2,7 @@ import { Container, styled } from '@material-ui/core';
 import React, { ReactElement } from 'react';
 import FadeIn from 'react-fade-in';
 import Footer from '../Footer';
+import media from '../../lib/styles/media';
 
 export type AppLayoutProps = {
   children: ReactElement | ReactElement[];
@@ -48,12 +49,10 @@ const AppContainer = styled(Container)({
   alignItems: 'center',
   flexDirection: 'column',
   width: '100%',
-  height: '100vh',
 });
 
 const FooterContainer = styled(Container)({
   display: 'flex',
   justifyContent: 'center',
   width: '100%',
-  height: '100vh',
 });

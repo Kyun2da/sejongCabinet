@@ -165,5 +165,6 @@ const PasswordChangeButton = styled(Button)({
   [`${media.medium}`]: {
     width: '60vw',
     borderRadius: '0.5rem',
+    minHeight: '7vh',
   },
 });
