@@ -1,5 +1,6 @@
 import { styled } from '@material-ui/core';
 import React from 'react';
+import media from '../../lib/styles/media';
 
 export type HeaderProps = {
   children?: React.ReactNode;
@@ -21,4 +22,9 @@ const MainHeader = styled('header')({
   right: 0,
   height: '10vh',
   width: '100%',
+
+  [`${media.medium}`]: {
+    padding: '0.5vh 0',
+    minHeight: '7vh',
+  },
 });

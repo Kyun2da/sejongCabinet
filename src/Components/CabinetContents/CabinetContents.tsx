@@ -261,6 +261,7 @@ export default function CabinetButtons({
             onClickCabinetButton(e, idx);
           }}
           disabled={adminType !== 1 && status === 1}
+          key={title + idx}
         >
           {idx + 1}
         </AvailableCabinetButton>
@@ -270,6 +271,7 @@ export default function CabinetButtons({
         <MyCabinetButton
           onClick={(e) => onClickCabinetButton(e, idx)}
           disabled={adminType !== 1 && status === 1}
+          key={title + idx}
         >
           {descriptionCabinet(idx)}
         </MyCabinetButton>
@@ -279,6 +281,7 @@ export default function CabinetButtons({
         <RegisteredCabinetButton
           disabled={adminType !== 1}
           onClick={(e) => onClickCabinetButton(e, idx)}
+          key={title + idx}
         >
           {descriptionCabinet(idx)}
         </RegisteredCabinetButton>
@@ -288,6 +291,7 @@ export default function CabinetButtons({
         <BrokenCabinetButton
           onClick={(e) => onClickCabinetButton(e, idx)}
           disabled={adminType !== 1}
+          key={title + idx}
         >
           🚧
         </BrokenCabinetButton>
@@ -562,10 +566,13 @@ const GridRowDiv = styled('div')({
   [`${media.medium}`]: {
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
-const GridContentsDiv = styled('div')({});
+const GridContentsDiv = styled('div')({
+  width: '90%',
+});
 
 const TooltipTitle = styled(Container)({
   fontSize: '0.8rem',
@@ -639,7 +646,7 @@ const AvailableCabinetButton = styled(Button)({
     minWidth: '1.5vw',
     outline: 'none',
     maxHeight: '1.5vw',
-    fontSize: '0.5rem',
+    fontSize: '10px',
     borderRadius: '5px',
     border: '2px solid #34cf68',
 
@@ -693,7 +700,7 @@ const RegisteredCabinetButton = styled(Button)({
     minWidth: '1.5vw',
     outline: 'none',
     maxHeight: '1.5vw',
-    fontSize: '0.5rem',
+    fontSize: '10px',
     borderRadius: '5px',
     border: '2px solid lightgray',
 
@@ -747,7 +754,7 @@ const BrokenCabinetButton = styled(Button)({
     minWidth: '1.5vw',
     outline: 'none',
     maxHeight: '1.5vw',
-    fontSize: '0.5rem',
+    fontSize: '8px',
     borderRadius: '5px',
     border: '2px solid lightgray',
 
@@ -801,7 +808,7 @@ const MyCabinetButton = styled(Button)({
     minWidth: '1.5vw',
     maxHeight: '1.5vw',
     outline: 'none',
-    fontSize: '0.5rem',
+    fontSize: '10px',
     borderRadius: '5px',
     border: '2px solid #008000',
 

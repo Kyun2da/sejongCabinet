@@ -110,6 +110,7 @@ const LogoImg = styled('img')({
 
   [`${media.medium}`]: {
     width: '150px',
+    margin: '6vh 0 0',
   },
 });
 
@@ -121,7 +122,10 @@ const LogoTitle = styled('p')({
   margin: '1.5rem 0 0',
 
   [`${media.medium}`]: {
-    fontSize: '5vw',
+    fontSize: '3vh',
+    letterSpacing: '3vw',
+    fontWeight: 'bold',
+    borderBottom: '2px solid black',
   },
 });
 
@@ -132,23 +136,31 @@ const LogoTitle2 = styled('p')({
   margin: '0.3rem 0 2rem',
 
   [`${media.medium}`]: {
-    fontSize: '3vw',
+    fontSize: '2vh',
+    fontWeight: 'bolder',
+    letterSpacing: '2vw',
+    margin: '0.3rem 0 2rem',
   },
 });
 
 const LoginForm = styled('form')({
   justifyContent: 'center',
+  alignItems: 'center',
   flexDirection: 'column',
   display: 'flex',
   marginTop: '1rem',
+
+  [`${media.medium}`]: {
+    marginTop: '1.5vh',
+  },
 });
 
 const LoginTextField = styled(TextField)({
   width: '30vw',
-  margin: '1vh',
+  margin: '1vh 0',
 
   [`${media.medium}`]: {
-    width: '70vw',
+    width: '80vw',
   },
 });
 
@@ -165,7 +177,8 @@ const LoginButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
-    width: '70vw',
+    width: '80vw',
+    minHeight: '7vh',
   },
 });
 

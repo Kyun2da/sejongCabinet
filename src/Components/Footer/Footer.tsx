@@ -22,7 +22,7 @@ const FooterContainer = styled('p')({
   bottom: 10,
 
   [`${media.xsmall}`]: {
-    fontSize: '4vw',
+    display: 'none',
   },
 });
 
