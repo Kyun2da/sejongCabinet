@@ -56,10 +56,12 @@ export const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     marginBottom: '30vh',
+    outline: 'none',
   },
   modal: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    outline: 'none',
   },
 }));
