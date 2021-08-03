@@ -21,7 +21,7 @@ const FooterContainer = styled('p')({
   position: 'absolute',
   bottom: 10,
 
-  [`${media.xsmall}`]: {
+  [`${media.small}`]: {
     display: 'none',
   },
 });
