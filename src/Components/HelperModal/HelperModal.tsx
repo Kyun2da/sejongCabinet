@@ -66,12 +66,14 @@ export const useStyles = makeStyles(() => ({
   mmodal: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    marginBottom: '30vh',
+    outline: 'none',
   },
   modal: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    outline: 'none',
   },
 }));
 
