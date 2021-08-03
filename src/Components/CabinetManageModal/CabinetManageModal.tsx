@@ -47,6 +47,7 @@ const ModalContainer = styled(Modal)({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  outline: 'none',
 });
 
 const PageContainer = styled('div')({

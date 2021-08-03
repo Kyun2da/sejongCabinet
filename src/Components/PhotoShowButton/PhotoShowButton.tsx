@@ -33,6 +33,10 @@ const ShowPhotoButton = styled(Button)({
   },
 
   [`${media.medium}`]: {
+    width: '6rem',
+  },
+
+  [`${media.small}`]: {
     width: '4.5rem',
     borderRadius: '0.5rem',
   },

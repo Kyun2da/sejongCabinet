@@ -17,6 +17,7 @@ import {
   useCabinetSelector,
   useUserSelector,
   useServerSelector,
+  useDescriptionSelector,
 } from '../../redux/hooks';
 import { setUserInfo } from '../../redux/user/userSlice';
 import media from '../../lib/styles/media';
@@ -31,6 +32,7 @@ import type {
 } from '../../redux/cabinet/cabinetSlice';
 import changeFirebaseCancelCabinetUser from '../../utils/firebase/changeFirebaseCancelCabinetUser';
 import { useMediaQuery } from 'react-responsive';
+import { setDescriptionMode } from '../../redux/description/descriptionSlice';
 
 export type CabinetData = {
   index: number;
@@ -41,8 +43,7 @@ export default function CabinetButtons({
   data: { title, width, height, item },
   index,
 }: CabinetData) {
-  const dispatch = useAppDispatch();
-  const [descriptionMode, setDescriptionMode] = useState('number');
+  const { descriptionMode } = useAppSelector(useDescriptionSelector);
   const [select, setSelect] = useState(-1);
   const [count, setCount] = useState([0, 0, 0]);
   const { cabinet } = useAppSelector(useCabinetSelector);
@@ -51,6 +52,7 @@ export default function CabinetButtons({
     useAppSelector(useUserSelector);
   const cabinetRef = useRef<HTMLDivElement>(null);
   const submitRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
 
   const isMobileAndTablet = useMediaQuery({
     query: '(max-width:1023px)',
@@ -221,10 +223,10 @@ export default function CabinetButtons({
     };
   }, [cabinetRef]);
 
-  const handleDescriptionMode = (
+  const handledescriptionMode = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setDescriptionMode(event.target.value);
+    dispatch(setDescriptionMode(event.target.value));
   };
 
   const showGridRow = () => {
@@ -334,7 +336,7 @@ export default function CabinetButtons({
             >
               <Radio
                 checked={descriptionMode === 'number'}
-                onChange={handleDescriptionMode}
+                onChange={handledescriptionMode}
                 color="default"
                 value="number"
                 name="radio-button-demo"
@@ -348,7 +350,7 @@ export default function CabinetButtons({
             >
               <Radio
                 checked={descriptionMode === 'name'}
-                onChange={handleDescriptionMode}
+                onChange={handledescriptionMode}
                 color="default"
                 value="name"
                 name="radio-button-demo"
@@ -362,7 +364,7 @@ export default function CabinetButtons({
             >
               <Radio
                 checked={descriptionMode === 'studentID'}
-                onChange={handleDescriptionMode}
+                onChange={handledescriptionMode}
                 color="default"
                 value="studentID"
                 name="radio-button-demo"
@@ -673,24 +675,27 @@ const AvailableCabinetButton = styled(Button)({
 
 const RegisteredCabinetButton = styled(Button)({
   fontFamily: 'Anton',
-  border: '3px solid lightgray',
+  border: '5px solid #707070',
   width: '5.5vw',
-  color: 'gray',
-  fontWeight: 'bold',
+  color: '#f0f0f0',
   fontSize: '1vw',
-  backgroundColor: 'lightgray',
-  cursor: 'default',
+  backgroundColor: '#707070',
+  cursor: 'pointer',
   height: '5.5vh',
 
+  '&:disabled': {
+    color: '#f0f0f0',
+  },
+
   '&:hover': {
-    backgroundColor: '#757575',
-    border: '3px solid #757575',
+    backgroundColor: '#505050',
+    border: '3px solid #505050',
     color: 'white',
   },
 
   '&:focus': {
-    backgroundColor: '#3d3d3d',
-    border: '3px solid #3d3d3d',
+    backgroundColor: '#303030',
+    border: '3px solid #303030',
     color: 'white',
   },
 
@@ -702,17 +707,17 @@ const RegisteredCabinetButton = styled(Button)({
     maxHeight: '1.5vw',
     fontSize: '10px',
     borderRadius: '5px',
-    border: '2px solid lightgray',
+    border: '2px solid #707070',
 
     '&:hover': {
-      backgroundColor: '#757575',
-      border: '2px solid #757575',
+      backgroundColor: '#505050',
+      border: '2px solid #505050',
       color: 'white',
     },
 
     '&:focus': {
-      backgroundColor: '#3d3d3d',
-      border: '2px solid #3d3d3d',
+      backgroundColor: '#303030',
+      border: '2px solid #303030',
       color: 'white',
     },
   },
@@ -784,7 +789,6 @@ const MyCabinetButton = styled(Button)({
   fontFamily: 'Anton',
   border: '3px solid #008000',
   width: '5.5vw',
-  fontWeight: 'bold',
   fontSize: '1vw',
   backgroundColor: '#008000',
   height: '5.5vh',
