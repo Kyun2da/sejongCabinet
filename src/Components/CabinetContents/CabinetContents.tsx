@@ -675,24 +675,27 @@ const AvailableCabinetButton = styled(Button)({
 
 const RegisteredCabinetButton = styled(Button)({
   fontFamily: 'Anton',
-  border: '3px solid lightgray',
+  border: '5px solid #707070',
   width: '5.5vw',
-  color: 'gray',
-  fontWeight: 'bold',
+  color: '#f0f0f0',
   fontSize: '1vw',
-  backgroundColor: 'lightgray',
-  cursor: 'default',
+  backgroundColor: '#707070',
+  cursor: 'pointer',
   height: '5.5vh',
 
+  '&:disabled': {
+    color: '#f0f0f0',
+  },
+
   '&:hover': {
-    backgroundColor: '#757575',
-    border: '3px solid #757575',
+    backgroundColor: '#505050',
+    border: '3px solid #505050',
     color: 'white',
   },
 
   '&:focus': {
-    backgroundColor: '#3d3d3d',
-    border: '3px solid #3d3d3d',
+    backgroundColor: '#303030',
+    border: '3px solid #303030',
     color: 'white',
   },
 
@@ -704,17 +707,17 @@ const RegisteredCabinetButton = styled(Button)({
     maxHeight: '1.5vw',
     fontSize: '10px',
     borderRadius: '5px',
-    border: '2px solid lightgray',
+    border: '2px solid #707070',
 
     '&:hover': {
-      backgroundColor: '#757575',
-      border: '2px solid #757575',
+      backgroundColor: '#505050',
+      border: '2px solid #505050',
       color: 'white',
     },
 
     '&:focus': {
-      backgroundColor: '#3d3d3d',
-      border: '2px solid #3d3d3d',
+      backgroundColor: '#303030',
+      border: '2px solid #303030',
       color: 'white',
     },
   },
@@ -786,7 +789,6 @@ const MyCabinetButton = styled(Button)({
   fontFamily: 'Anton',
   border: '3px solid #008000',
   width: '5.5vw',
-  fontWeight: 'bold',
   fontSize: '1vw',
   backgroundColor: '#008000',
   height: '5.5vh',
