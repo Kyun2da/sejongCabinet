@@ -5,10 +5,13 @@ import { auth, database } from '../../config/firebase.config';
 import { useHistory, useLocation } from 'react-router';
 import useAuthState from '../../hooks/useAuthState';
 import { useObject } from '../../hooks/useObject';
-import { useAppSelector, useUserSelector } from '../../redux/hooks';
+import {
+  useAppSelector,
+  useUserSelector,
+  useAppDispatch,
+} from '../../redux/hooks';
 import { useMediaQuery } from 'react-responsive';
 import media from '../../lib/styles/media';
-import { useAppDispatch } from '../../redux/hooks';
 import { clearUserInfo } from '../../redux/user/userSlice';
 
 type MenuInfoProps = {

@@ -17,6 +17,7 @@ import {
   useCabinetSelector,
   useUserSelector,
   useServerSelector,
+  useDescriptionSelector,
 } from '../../redux/hooks';
 import { setUserInfo } from '../../redux/user/userSlice';
 import media from '../../lib/styles/media';
@@ -31,6 +32,7 @@ import type {
 } from '../../redux/cabinet/cabinetSlice';
 import changeFirebaseCancelCabinetUser from '../../utils/firebase/changeFirebaseCancelCabinetUser';
 import { useMediaQuery } from 'react-responsive';
+import { setDescriptionMode } from '../../redux/description/descriptionSlice';
 
 export type CabinetData = {
   index: number;
@@ -41,8 +43,7 @@ export default function CabinetButtons({
   data: { title, width, height, item },
   index,
 }: CabinetData) {
-  const dispatch = useAppDispatch();
-  const [descriptionMode, setDescriptionMode] = useState('number');
+  const { descriptionMode } = useAppSelector(useDescriptionSelector);
   const [select, setSelect] = useState(-1);
   const [count, setCount] = useState([0, 0, 0]);
   const { cabinet } = useAppSelector(useCabinetSelector);
@@ -51,6 +52,7 @@ export default function CabinetButtons({
     useAppSelector(useUserSelector);
   const cabinetRef = useRef<HTMLDivElement>(null);
   const submitRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
 
   const isMobileAndTablet = useMediaQuery({
     query: '(max-width:1023px)',
@@ -221,10 +223,10 @@ export default function CabinetButtons({
     };
   }, [cabinetRef]);
 
-  const handleDescriptionMode = (
+  const handledescriptionMode = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setDescriptionMode(event.target.value);
+    dispatch(setDescriptionMode(event.target.value));
   };
 
   const showGridRow = () => {
@@ -334,7 +336,7 @@ export default function CabinetButtons({
             >
               <Radio
                 checked={descriptionMode === 'number'}
-                onChange={handleDescriptionMode}
+                onChange={handledescriptionMode}
                 color="default"
                 value="number"
                 name="radio-button-demo"
@@ -348,7 +350,7 @@ export default function CabinetButtons({
             >
               <Radio
                 checked={descriptionMode === 'name'}
-                onChange={handleDescriptionMode}
+                onChange={handledescriptionMode}
                 color="default"
                 value="name"
                 name="radio-button-demo"
@@ -362,7 +364,7 @@ export default function CabinetButtons({
             >
               <Radio
                 checked={descriptionMode === 'studentID'}
-                onChange={handleDescriptionMode}
+                onChange={handledescriptionMode}
                 color="default"
                 value="studentID"
                 name="radio-button-demo"
