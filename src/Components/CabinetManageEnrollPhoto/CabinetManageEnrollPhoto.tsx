@@ -26,7 +26,6 @@ export default function CabinetEnrollPhotoCard({
 }: CabinetEnrollPhotoCardProps) {
   const [url, setUrl] = useState('');
   const handleChange = (e: any) => {
-    console.log(index, photoType);
     const uploadTask = storage
       .ref(`/${index}/${photoType}`)
       .put(e.currentTarget.files[0]);
@@ -41,7 +40,6 @@ export default function CabinetEnrollPhotoCard({
           .ref(`/${index}/${photoType}`)
           .getDownloadURL()
           .then((url) => {
-            console.log(url);
             setUrl(url);
           });
       },
@@ -53,7 +51,6 @@ export default function CabinetEnrollPhotoCard({
       .ref(`/${index}/${photoType}`)
       .getDownloadURL()
       .then((url) => {
-        console.log(url);
         setUrl(url);
       });
   }, []);

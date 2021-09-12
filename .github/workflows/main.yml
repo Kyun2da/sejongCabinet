@@ -2,7 +2,7 @@ name: Deploy Project
 on:
   push:
     branches:
-      - main
+      - v2/main
 jobs:
   update:
     runs-on: ubuntu-latest

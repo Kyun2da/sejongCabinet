@@ -16,7 +16,6 @@ export default function CabinetManageModal({
   handleClose,
 }: CabinetManageModalProps) {
   const { cabinet } = useAppSelector(useCabinetSelector);
-  console.log(cabinet);
   return (
     <ModalContainer
       aria-labelledby="transition-modal-title"

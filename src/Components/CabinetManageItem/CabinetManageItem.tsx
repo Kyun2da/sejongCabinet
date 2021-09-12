@@ -34,7 +34,6 @@ export default function CabinetManageItem({
   const [height, setHeight] = useState(item.height);
   const handleSubmit = () => {
     const isDifferent = width !== item.width || height !== item.height;
-    console.log(isDifferent);
     changeFirebaseCabinetTab(index, title, width, height, isDifferent);
   };
   const handleInitialize = () => {
