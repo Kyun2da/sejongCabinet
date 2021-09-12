@@ -23,7 +23,7 @@ jobs:
         run: yarn
 
       - name: Build
-        run: yarn run build
+        run: CI= yarn run build
         env:
           NODE_ENV: production
           REACT_APP_APIKEY: ${{ secrets.REACT_APP_APIKEY }}
