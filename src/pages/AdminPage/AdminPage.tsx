@@ -22,9 +22,7 @@ import type {
   CabinetItemType,
 } from '../../redux/cabinet/cabinetSlice';
 
-export type AdminPageProps = {};
-
-function AdminPage({}: AdminPageProps) {
+function AdminPage() {
   const { status } = useAppSelector(useServerSelector);
   const { uuid } = useAppSelector(useUserSelector);
   const { cabinet } = useAppSelector(useCabinetSelector);

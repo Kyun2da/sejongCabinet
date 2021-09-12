@@ -45,8 +45,8 @@ export default function PhotoSwiper({
       anchor="top"
       open={open}
       onClick={() => setOpen(false)}
-      onClose={() => {}}
-      onOpen={() => {}}
+      onClose={() => null}
+      onOpen={() => null}
     >
       {isMobile ? (
         <MobileImageContainer>

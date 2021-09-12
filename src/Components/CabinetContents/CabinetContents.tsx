@@ -191,7 +191,7 @@ export default function CabinetButtons({
   };
 
   useEffect(() => {
-    let newCount = [0, 0, 0];
+    const newCount = [0, 0, 0];
     const cabinetSize = width * height;
 
     for (let i = 0; i < cabinetSize; i += 1) {

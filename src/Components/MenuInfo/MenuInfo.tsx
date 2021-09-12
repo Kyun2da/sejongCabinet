@@ -70,7 +70,8 @@ export default function MenuInfo({ openHelpModal }: MenuInfoProps) {
   );
 }
 
-const PageMenuItem = React.forwardRef<any, any>((props, ref) => {
+// eslint-disable-next-line react/display-name
+const PageMenuItem = React.forwardRef<any, any>((props: any, ref: any) => {
   const location = useLocation();
   const [user, authLoading, authError] = useAuthState(auth);
   const history = useHistory();

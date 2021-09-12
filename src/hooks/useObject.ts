@@ -13,8 +13,10 @@ export type ObjectHook = LoadingHook<
 export const useObject = (
   query?: firebase.database.Query | null,
 ): ObjectHook => {
-  const { error, loading, reset, setError, setValue, value } =
-    useLoadingValue<firebase.database.DataSnapshot, firebase.FirebaseError>();
+  const { error, loading, reset, setError, setValue, value } = useLoadingValue<
+    firebase.database.DataSnapshot,
+    firebase.FirebaseError
+  >();
   const ref = useIsEqualRef(query, reset);
 
   useEffect(() => {

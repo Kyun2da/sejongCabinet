@@ -7,7 +7,7 @@ import mobileHelp from '../../images/mobileHelp.png';
 export type HelperModalProps = {
   open: boolean;
   setOpen:
-    | ((event: {}, reason: 'backdropClick' | 'escapeKeyDown') => void)
+    | ((event: any, reason: 'backdropClick' | 'escapeKeyDown') => void)
     | undefined;
 };
 

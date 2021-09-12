@@ -12,14 +12,12 @@ import getFirebaseErrorMessage from '../../utils/error/firebase';
 import { useAppSelector, useUserSelector } from '../../redux/hooks';
 import AppLayout from '../../Components/AppLayout';
 
-export type LoginProps = {};
-
 export type LoginInput = {
   studentID: string;
   password: string;
 };
 
-function Login({}: LoginProps) {
+function Login() {
   const { handleSubmit, control, reset, formState } = useForm<LoginInput>();
   const history = useHistory();
   const { uuid } = useAppSelector(useUserSelector);
