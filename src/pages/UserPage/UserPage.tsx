@@ -15,9 +15,7 @@ import media from '../../lib/styles/media';
 import PasswordChangeForm from '../../Components/PasswordChangeForm';
 import changeFirebaseCancelCabinetUser from '../../utils/firebase/changeFirebaseCancelCabinetUser';
 
-export type UserPageProps = {};
-
-function UserPage({}: UserPageProps) {
+function UserPage() {
   const { uuid, adminType, studentID, name, cabinetIdx, cabinetTitle } =
     useAppSelector(useUserSelector);
   const { cabinet } = useAppSelector(useCabinetSelector);

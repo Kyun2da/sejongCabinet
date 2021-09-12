@@ -1,7 +1,6 @@
 import { database } from '../../config/firebase.config';
 import { serverStatusType } from '../../redux/server/serverSlice';
-
-const { default: Swal } = require('sweetalert2');
+import Swal from 'sweetalert2';
 
 const changeFirebaseCancelCabinetUser = (
   cabinetNum: number,

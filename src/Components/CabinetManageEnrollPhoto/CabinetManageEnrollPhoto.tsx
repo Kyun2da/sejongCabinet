@@ -31,7 +31,7 @@ export default function CabinetEnrollPhotoCard({
       .put(e.currentTarget.files[0]);
     uploadTask.on(
       'state_changed',
-      (snapshot) => {},
+      (snapshot) => null,
       (error) => {
         console.error(error);
       },

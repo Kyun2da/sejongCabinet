@@ -12,9 +12,7 @@ import PhotoShowButton from '../../Components/PhotoShowButton';
 import PhotoSwiper from '../../Components/PhotoSwiper';
 import { useMediaQuery } from 'react-responsive';
 
-export type MainPageProps = {};
-
-function MainPage({}: MainPageProps) {
+function MainPage() {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [openSwiperPhoto, setOpenSwiperPhoto] = useState<boolean>(false);
   const { uuid } = useAppSelector(useUserSelector);

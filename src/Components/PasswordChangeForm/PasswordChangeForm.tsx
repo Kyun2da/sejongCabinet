@@ -14,9 +14,7 @@ type PasswordChangeInputs = {
   confirmPassword: string;
 };
 
-export type PasswordChangeProps = {};
-
-export default function PasswordChangeForm({}: PasswordChangeProps) {
+export default function PasswordChangeForm() {
   const { handleSubmit, control, reset, formState, getValues } =
     useForm<PasswordChangeInputs>();
 

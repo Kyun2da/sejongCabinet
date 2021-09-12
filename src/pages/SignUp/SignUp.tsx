@@ -26,9 +26,7 @@ type SignUpInputs = {
   name: string;
 };
 
-export type SignUpProps = {};
-
-function SignUp({}: SignUpProps) {
+function SignUp() {
   const { handleSubmit, control, reset, formState, getValues } =
     useForm<SignUpInputs>();
 

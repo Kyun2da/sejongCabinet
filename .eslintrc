@@ -1,6 +1,12 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": ["plugin:prettier/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:react/jsx-runtime"
+  ],
   "plugins": ["react", "prettier"],
   "parserOptions": {
     "ecmaVersion": 6,

@@ -23,7 +23,7 @@ export default function Cabinet({ index, setIndex }: CabinetProps) {
     setIndex(value);
   };
 
-  const handleChange = (e: object, newValue: number) => {
+  const handleChange = (e: any, newValue: number) => {
     setIndex(newValue);
   };
 
@@ -35,7 +35,7 @@ export default function Cabinet({ index, setIndex }: CabinetProps) {
             <CabinetContents key={v.title + 'Contents'} data={v} index={i} />
           );
         })
-        .filter((v: object) => v);
+        .filter((v: any) => v);
   };
 
   const showContents = () => {
@@ -56,7 +56,7 @@ export default function Cabinet({ index, setIndex }: CabinetProps) {
         .map((v: CabinetTabType) => {
           return <CabinetTab key={v.title + 'Tab'} label={v.title} wrapped />;
         })
-        .filter((v: object) => v);
+        .filter((v: any) => v);
   };
 
   const showTabs = () => {

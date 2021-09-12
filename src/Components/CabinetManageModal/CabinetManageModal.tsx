@@ -7,7 +7,10 @@ import CabinetManageAddItem from '../CabinetManageAddItem';
 type CabinetManageModalProps = {
   open: boolean;
   handleClose:
-    | ((event: {}, reason: 'backdropClick' | 'escapeKeyDown') => void)
+    | ((
+        event: Record<string, unknown>,
+        reason: 'backdropClick' | 'escapeKeyDown',
+      ) => void)
     | undefined;
 };
 

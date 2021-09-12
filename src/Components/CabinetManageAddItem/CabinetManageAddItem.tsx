@@ -3,15 +3,13 @@ import { useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import addFirebaseCabinetTab from '../../utils/firebase/addFirebaseCabinetTab';
 
-type CabinetManageAddItemProps = {};
-
 export type AddCabinetInput = {
   title: string;
   width: string;
   height: string;
 };
 
-export default function CabinetManageAddItem({}: CabinetManageAddItemProps) {
+export default function CabinetManageAddItem() {
   const { handleSubmit, control, reset, formState } =
     useForm<AddCabinetInput>();
   const onSubmit = useCallback((data: AddCabinetInput) => {

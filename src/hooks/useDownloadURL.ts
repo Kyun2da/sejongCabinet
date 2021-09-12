@@ -9,8 +9,10 @@ export type DownloadURLHook = LoadingHook<string, firebase.FirebaseError>;
 export default (
   storageRef?: firebase.storage.Reference | null,
 ): DownloadURLHook => {
-  const { error, loading, reset, setError, setValue, value } =
-    useLoadingValue<string, firebase.FirebaseError>();
+  const { error, loading, reset, setError, setValue, value } = useLoadingValue<
+    string,
+    firebase.FirebaseError
+  >();
   const ref = useComparatorRef(storageRef, isEqual, reset);
 
   useEffect(() => {
