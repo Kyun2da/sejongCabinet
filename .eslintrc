@@ -19,7 +19,8 @@
       "error",
       { "singleQuote": true, "endOfLine": "auto" }
     ],
-    "react/jsx-uses-vars": "error"
+    "react/jsx-uses-vars": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   },
   "ignorePatterns": ["*.config.js"]
 }
