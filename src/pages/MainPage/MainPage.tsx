@@ -23,9 +23,6 @@ function MainPage({}: MainPageProps) {
     setOpenModal((tmp) => !tmp);
   };
 
-  useEffect(() => {
-    console.log(index);
-  }, [index]);
   const showPhoto = () => {
     setOpenSwiperPhoto((tmp) => !tmp);
   };
