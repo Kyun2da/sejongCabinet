@@ -1,10 +1,5 @@
-import React, { useEffect } from 'react';
-import {
-  Route,
-  Switch,
-  BrowserRouter as Router,
-  useLocation,
-} from 'react-router-dom';
+import { useEffect } from 'react';
+import { Route, Switch, HashRouter as Router } from 'react-router-dom';
 import MainPage from './pages/MainPage';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
@@ -22,20 +17,14 @@ import {
 import { useAppDispatch } from './redux/hooks';
 import { setCabinet } from './redux/cabinet/cabinetSlice';
 
-function App() {
+export default function App() {
   const dispatch = useAppDispatch();
-  const [user, authLoading, authError] = useAuthState(auth);
-  const [userInfo, userInfoLoading, userInfoError] = useObject(
-    database.ref(`users/${user?.uid}`),
-  );
+  const [user] = useAuthState(auth);
+  const [userInfo] = useObject(database.ref(`users/${user?.uid}`));
 
-  const [serverInfo, serverInfoLoading, serverInfoError] = useObject(
-    database.ref('server/status'),
-  );
+  const [serverInfo] = useObject(database.ref('server/status'));
 
-  const [cabinetInfo, cabinetInfoLoading, cabinetInfoError] = useObject(
-    database.ref('cabinet'),
-  );
+  const [cabinetInfo] = useObject(database.ref('cabinet'));
   // 파이어베이스 유저 데이터 리덕스로 옮기기
   useEffect(() => {
     if (user) {
@@ -78,5 +67,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;
