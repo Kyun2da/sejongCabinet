@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import { auth, database } from './config/firebase.config';
 import useAuthState from './hooks/useAuthState';
 import { useObject } from './hooks/useObject';
@@ -56,7 +56,7 @@ export default function App() {
   }, [cabinetInfo]);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/main" element={<MainPage />} />
         <Route path="/" element={<Login />} />
@@ -64,6 +64,6 @@ export default function App() {
         <Route path="/userpage" element={<UserPage />} />
         <Route path="/adminpage" element={<AdminPage />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
