@@ -55,8 +55,9 @@ export default function App() {
     }
   }, [cabinetInfo]);
 
+  /* NOTE: github page 배포 url 참조를 위해 PUBLIC_URL추가 */
   return (
-    <HashRouter>
+    <HashRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/main" element={<MainPage />} />
         <Route path="/" element={<Login />} />
