@@ -71,7 +71,7 @@ const getFirebaseErrorMessage = (code: string) => {
       message = ERROR_MESSAGES.INVALID_HASH_BLOCK_SIZE;
       break;
     case 'auth/invalid-hash-derived-key-length':
-      message = ERROR_MESSAGES.INVALID_HASH_DERIVED_KEY_LEENGTH;
+      message = ERROR_MESSAGES.INVALID_HASH_DERIVED_KEY_LENGTH;
       break;
     case 'auth/invalid-hash-key':
       message = ERROR_MESSAGES.INVALID_HASH_KEY;
