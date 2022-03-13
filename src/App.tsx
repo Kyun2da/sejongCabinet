@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { auth, database } from './config/firebase.config';
 import useAuthState from './hooks/useAuthState';
 import { useObject } from './hooks/useObject';
@@ -55,16 +55,13 @@ export default function App() {
     }
   }, [cabinetInfo]);
 
-  /* NOTE: github page 배포 url 참조를 위해 PUBLIC_URL추가 */
   return (
-    <HashRouter basename={process.env.PUBLIC_URL}>
-      <Routes>
-        <Route path="/main" element={<MainPage />} />
-        <Route path="/" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/userpage" element={<UserPage />} />
-        <Route path="/adminpage" element={<AdminPage />} />
-      </Routes>
-    </HashRouter>
+    <Routes>
+      <Route path="/main" element={<MainPage />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/userpage" element={<UserPage />} />
+      <Route path="/adminpage" element={<AdminPage />} />
+    </Routes>
   );
 }
