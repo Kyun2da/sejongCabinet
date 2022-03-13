@@ -1,24 +1,22 @@
-import React, { useCallback, useEffect } from 'react';
 import {
-  TextField,
   Button,
-  Container,
   CircularProgress,
+  Container,
+  TextField,
 } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
-import { Controller, useForm } from 'react-hook-form';
-import { Redirect, useHistory } from 'react-router-dom';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { useCallback, useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useMediaQuery } from 'react-responsive';
+import { Navigate, useNavigate } from 'react-router-dom';
+import AppLayout from '../../Components/AppLayout';
+import { auth, database } from '../../config/firebase.config';
+import useCreateUserWithEmailAndPassword from '../../hooks/useCreateUserWithEmailAndPassword';
 import Logo from '../../images/softwareLogo_origin.png';
 import media from '../../lib/styles/media';
-import FadeIn from 'react-fade-in';
-import { auth, database } from '../../config/firebase.config';
-import Swal from 'sweetalert2';
 import customSwal from '../../utils/alert';
 import getFirebaseErrorMessage from '../../utils/error/firebase';
-import useCreateUserWithEmailAndPassword from '../../hooks/useCreateUserWithEmailAndPassword';
-import AppLayout from '../../Components/AppLayout';
-import { useMediaQuery } from 'react-responsive';
 
 type SignUpInputs = {
   studentID: string;
@@ -41,7 +39,7 @@ function SignUp() {
     query: '(max-width:1023px)',
   });
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
@@ -81,7 +79,7 @@ function SignUp() {
 
   if (user) {
     writeUserData(user.user?.uid, getValues('studentID'), getValues('name'));
-    return <Redirect to="/" />;
+    return <Navigate to="/" />;
   }
 
   return (
@@ -102,7 +100,7 @@ function SignUp() {
         autoComplete="off"
       >
         <SignUpFormHeader>
-          <BackwardsButton onClick={() => history.push('/')}>
+          <BackwardsButton onClick={() => navigate('/')}>
             <ArrowBackIosIcon
               style={{
                 color: '#C9C9C9',

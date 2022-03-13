@@ -1,17 +1,18 @@
-import { styled, Menu, MenuItem, Button } from '@material-ui/core';
-import React, { useCallback, useState } from 'react';
+import { Button, Menu, MenuItem, styled } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import React, { useCallback, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { useLocation } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { auth, database } from '../../config/firebase.config';
-import { useHistory, useLocation } from 'react-router';
 import useAuthState from '../../hooks/useAuthState';
 import { useObject } from '../../hooks/useObject';
+import media from '../../lib/styles/media';
 import {
+  useAppDispatch,
   useAppSelector,
   useUserSelector,
-  useAppDispatch,
 } from '../../redux/hooks';
-import { useMediaQuery } from 'react-responsive';
-import media from '../../lib/styles/media';
 import { clearUserInfo } from '../../redux/user/userSlice';
 
 type MenuInfoProps = {
@@ -21,7 +22,8 @@ type MenuInfoProps = {
 export default function MenuInfo({ openHelpModal }: MenuInfoProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { name } = useAppSelector(useUserSelector);
-  const history = useHistory();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const dispatch = useAppDispatch();
   const handleClose = useCallback(() => {
@@ -33,7 +35,7 @@ export default function MenuInfo({ openHelpModal }: MenuInfoProps) {
 
   const onClickLogout = useCallback(() => {
     dispatch(clearUserInfo());
-    history.push('/');
+    navigate('/');
     auth.signOut();
   }, []);
 
@@ -60,7 +62,7 @@ export default function MenuInfo({ openHelpModal }: MenuInfoProps) {
         onClose={handleClose}
       >
         <PageMenuItem />
-        {isMobile && history.location.pathname === '/main' ? (
+        {isMobile && pathname === '/main' ? (
           <MenuItem onClick={openHelpModal}>도움말</MenuItem>
         ) : null}
         <MenuItem onClick={onClickBugReport}>버그 신고</MenuItem>
@@ -73,21 +75,19 @@ export default function MenuInfo({ openHelpModal }: MenuInfoProps) {
 // eslint-disable-next-line react/display-name
 const PageMenuItem = React.forwardRef<any, any>((props: any, ref: any) => {
   const location = useLocation();
-  const [user, authLoading, authError] = useAuthState(auth);
-  const history = useHistory();
-  const [userInfo, userInfoLoading, userInfoError] = useObject(
-    database.ref(`users/${user?.uid}`),
-  );
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
+  const [userInfo] = useObject(database.ref(`users/${user?.uid}`));
   const goMyPage = () => {
-    history.push('/userpage');
+    navigate('/userpage');
   };
 
   const goMainPage = () => {
-    history.push('/main');
+    navigate('/main');
   };
 
   const goAdminPage = () => {
-    history.push('/adminpage');
+    navigate('/adminpage');
   };
   switch (location.pathname) {
     case '/main':

@@ -35,7 +35,7 @@ export const INVALID_HASH_ALGORITHM =
   '해시 알고리즘이 지원되는 알고리즘 목록의 문자열 중 하나와 일치해야 합니다.';
 export const INVALID_HASH_BLOCK_SIZE =
   '해시 블록 크기가 올바른 숫자여야 합니다.';
-export const INVALID_HASH_DERIVED_KEY_LEENGTH =
+export const INVALID_HASH_DERIVED_KEY_LENGTH =
   '해시에서 파생된 키 길이가 올바른 숫자여야 합니다.';
 export const INVALID_HASH_KEY = '해시 키가 올바른 바이트 버퍼여야 합니다.';
 export const INVALID_HASH_MEMORY_COST =

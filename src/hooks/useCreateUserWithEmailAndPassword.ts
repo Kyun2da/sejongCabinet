@@ -1,6 +1,5 @@
-import { useState, useMemo } from 'react';
-import firebase from 'firebase/app';
-
+import firebase from 'firebase/compat/app';
+import { useMemo, useState } from 'react';
 import {
   CreateUserOptions,
   EmailAndPasswordActionHook,
@@ -27,8 +26,8 @@ export default (
       }
       setRegisteredUser(user);
       setLoading(false);
-    } catch (error) {
-      setError(error);
+    } catch (e: any) {
+      setError(e);
       setLoading(false);
     }
   };

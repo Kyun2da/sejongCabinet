@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
+import { useMemo, useState } from 'react';
 import { EmailAndPasswordActionHook } from '../types/firebasehooks';
 
 export default (auth: firebase.auth.Auth): EmailAndPasswordActionHook => {
@@ -17,7 +17,7 @@ export default (auth: firebase.auth.Auth): EmailAndPasswordActionHook => {
       const user = await auth.signInWithEmailAndPassword(email, password);
       setLoggedInUser(user);
       setLoading(false);
-    } catch (e) {
+    } catch (e: any) {
       setError(e);
       setLoading(false);
     }

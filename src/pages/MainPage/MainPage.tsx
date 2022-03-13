@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { Navigate } from 'react-router-dom';
+import AppLayout from '../../Components/AppLayout';
+import Cabinet from '../../Components/Cabinet';
 import Header from '../../Components/Header';
 import HelperButton from '../../Components/HelperButton';
 import HelperModal from '../../Components/HelperModal';
 import MenuInfo from '../../Components/MenuInfo';
-import AppLayout from '../../Components/AppLayout';
-import Cabinet from '../../Components/Cabinet';
-import { Redirect } from 'react-router-dom';
-import { useAppSelector, useUserSelector } from '../../redux/hooks';
-import ServerStatusIcon from '../../Components/ServerStatusIcon';
 import PhotoShowButton from '../../Components/PhotoShowButton';
 import PhotoSwiper from '../../Components/PhotoSwiper';
-import { useMediaQuery } from 'react-responsive';
+import ServerStatusIcon from '../../Components/ServerStatusIcon';
+import { useAppSelector, useUserSelector } from '../../redux/hooks';
 
 function MainPage() {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -26,7 +26,7 @@ function MainPage() {
   };
 
   if (!uuid) {
-    return <Redirect to="/login" />;
+    return <Navigate to="/login" />;
   }
 
   const isMobile = useMediaQuery({

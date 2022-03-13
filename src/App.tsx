@@ -1,21 +1,21 @@
 import { useEffect } from 'react';
-import { Route, Switch, HashRouter as Router } from 'react-router-dom';
-import MainPage from './pages/MainPage';
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
-import AdminPage from './pages/AdminPage';
-import UserPage from './pages/UserPage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { auth, database } from './config/firebase.config';
-import { useObject } from './hooks/useObject';
-import { setServerStatus } from './redux/server/serverSlice';
 import useAuthState from './hooks/useAuthState';
+import { useObject } from './hooks/useObject';
+import AdminPage from './pages/AdminPage';
+import Login from './pages/Login';
+import MainPage from './pages/MainPage';
+import SignUp from './pages/SignUp';
+import UserPage from './pages/UserPage';
+import { setCabinet } from './redux/cabinet/cabinetSlice';
+import { useAppDispatch } from './redux/hooks';
+import { setServerStatus } from './redux/server/serverSlice';
 import {
   setUserInfo,
   setUserUID,
   userInitialState,
 } from './redux/user/userSlice';
-import { useAppDispatch } from './redux/hooks';
-import { setCabinet } from './redux/cabinet/cabinetSlice';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -56,14 +56,14 @@ export default function App() {
   }, [cabinetInfo]);
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/main" component={MainPage} exact />
-        <Route path={['/', '/login']} component={Login} exact />
-        <Route path="/signup" component={SignUp} exact />
-        <Route path="/userpage" component={UserPage} exact />
-        <Route path="/adminpage" component={AdminPage} exact />
-      </Switch>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/main" element={<MainPage />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/userpage" element={<UserPage />} />
+        <Route path="/adminpage" element={<AdminPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

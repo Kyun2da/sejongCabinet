@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
-import firebase from 'firebase/app';
-import { EmailAndPasswordActionHook } from '../types/firebasehooks';
+import firebase from 'firebase/compat/app';
+import { useMemo, useState } from 'react';
+
 export default () => {
   const [error, setError] = useState<firebase.FirebaseError>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -25,7 +25,7 @@ export default () => {
       }
       setError(undefined);
       setLoading(false);
-    } catch (e) {
+    } catch (e: any) {
       setError(e);
       setLoading(false);
     }

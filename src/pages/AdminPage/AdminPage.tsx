@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { styled } from '@material-ui/core/styles';
 import { Button, Container } from '@material-ui/core';
+import { styled } from '@material-ui/core/styles';
+import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+import { Navigate } from 'react-router';
+import Swal from 'sweetalert2';
+import BackButton from '../../Components/BackButton';
+import CabinetManageModal from '../../Components/CabinetManageModal';
+import Header from '../../Components/Header';
+import MenuInfo from '../../Components/MenuInfo';
+import PasswordChangeForm from '../../Components/PasswordChangeForm';
+import media from '../../lib/styles/media';
+import type {
+  CabinetItemType,
+  CabinetTabType,
+} from '../../redux/cabinet/cabinetSlice';
 import {
   useAppSelector,
+  useCabinetSelector,
   useServerSelector,
   useUserSelector,
-  useCabinetSelector,
 } from '../../redux/hooks';
-import Header from '../../Components/Header';
-import media from '../../lib/styles/media';
-import PasswordChangeForm from '../../Components/PasswordChangeForm';
 import changeFirebaseServerStatus from '../../utils/firebase/changeFirebaseServerStatus';
-import MenuInfo from '../../Components/MenuInfo';
-import BackButton from '../../Components/BackButton';
-import { Redirect } from 'react-router';
-import CabinetManageModal from '../../Components/CabinetManageModal';
-import Swal from 'sweetalert2';
-import { useMediaQuery } from 'react-responsive';
-import type {
-  CabinetTabType,
-  CabinetItemType,
-} from '../../redux/cabinet/cabinetSlice';
 
 function AdminPage() {
   const { status } = useAppSelector(useServerSelector);
@@ -101,7 +101,7 @@ function AdminPage() {
   };
 
   if (!uuid) {
-    return <Redirect to="/login" />;
+    return <Navigate to="/login" />;
   }
 
   return (
@@ -248,17 +248,6 @@ const AdminPageContents = styled(Container)({
   [`${media.medium}`]: {
     width: '90%',
     margin: '1vh 0 2vh',
-  },
-});
-
-const NoCabinet = styled(Container)({
-  height: '10vh',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-
-  [`${media.medium}`]: {
-    height: '14vh',
   },
 });
 

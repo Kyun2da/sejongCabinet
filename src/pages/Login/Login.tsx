@@ -1,16 +1,16 @@
-import React, { useCallback, useEffect } from 'react';
+import { Button, Container, TextField } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
+import { useCallback, useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { Navigate, useNavigate } from 'react-router-dom';
+import AppLayout from '../../Components/AppLayout';
+import { auth } from '../../config/firebase.config';
+import useSignInWithEmailAndPassword from '../../hooks/useSignInWithEmailAndPassword';
 import Logo from '../../images/softwareLogo_origin.png';
 import media from '../../lib/styles/media';
-import { Button, Container, TextField } from '@material-ui/core';
-import { Redirect, useHistory } from 'react-router-dom';
-import { Controller, useForm } from 'react-hook-form';
-import useSignInWithEmailAndPassword from '../../hooks/useSignInWithEmailAndPassword';
-import { auth } from '../../config/firebase.config';
+import { useAppSelector, useUserSelector } from '../../redux/hooks';
 import customSwal from '../../utils/alert';
 import getFirebaseErrorMessage from '../../utils/error/firebase';
-import { useAppSelector, useUserSelector } from '../../redux/hooks';
-import AppLayout from '../../Components/AppLayout';
 
 export type LoginInput = {
   studentID: string;
@@ -19,7 +19,7 @@ export type LoginInput = {
 
 function Login() {
   const { handleSubmit, control, reset, formState } = useForm<LoginInput>();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { uuid } = useAppSelector(useUserSelector);
   const [signInwithEmailAndPassword, signInAfterUser, loading, error] =
     useSignInWithEmailAndPassword(auth);
@@ -46,7 +46,7 @@ function Login() {
   }, [formState, reset]);
 
   if (uuid) {
-    return <Redirect to="/main" />;
+    return <Navigate to="/main" />;
   }
 
   return (
@@ -96,7 +96,7 @@ function Login() {
       </LoginForm>
       <SignUpDiv>
         <span>계정이 없으신가요? </span>
-        <GoSignUp onClick={() => history.push('/signup')}>가입하기</GoSignUp>
+        <GoSignUp onClick={() => navigate('/signup')}>가입하기</GoSignUp>
       </SignUpDiv>
     </AppLayout>
   );
